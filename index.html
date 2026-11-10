@@ -1091,16 +1091,16 @@ function consigli(o,ral,x){
   if(cliff){
     for(let d=cliff.d; d<=10000; d+=50){ if(C({ral:ral+d}).netto>=c0.netto){ be=d; break; } }
     const why=cause(cliff.c,c0);
-    T.push({k:"warn",t:`Sei vicino a una soglia: un aumento sotto +${eur(be||10000)} lordi l'anno ti farebbe perdere netto`,
-      d:`Con appena +${eur(cliff.d)} perderesti ${why.length?joinIt(why):"alcune agevolazioni"} e il netto annuo scenderebbe di ${eur(c0.netto-cliff.c.netto)}. `+
-        (be?`Per guadagnare davvero serve almeno <span class="k">+${eur(be)}</span> lordi l'anno: sotto quella cifra conviene chiedere l'aumento come welfare o fringe benefit esenti.`:"")});
+    T.push({k:"warn",t:`Attento: un piccolo aumento ti farebbe guadagnare meno`,
+      d:`Con +${eur(cliff.d)} lordi l'anno perderesti ${why.length?joinIt(why):"alcune agevolazioni"} e il netto annuo scenderebbe di ${eur(c0.netto-cliff.c.netto)}. `+
+        (be?`Un aumento conviene solo da <span class="k">+${eur(be)}</span> lordi l'anno in su. Sotto quella cifra meglio chiederlo in welfare o fringe benefit, che sono esentasse.`:"")});
   }
   /* 2. Fondo pensione: adesione, margine deducibile, rientro sotto una soglia */
   const usato=x.fpLav+x.fpDat, margine=Math.max(0,P.fpMax-usato);
   if(pr.fpDat&&!(o.fpLavPct||o.fpLavFix)&&!(o.fpDatPct||o.fpDatFix)){
     const quota=x.baseTfr*pr.fpDat/100;
-    T.push({k:"ok",t:`Aderendo a ${pr.fondo} ricevi ${eur(quota)} l'anno dall'azienda`,
-      d:`Il CCNL prevede ${pct(pr.fpDat)} a carico dell'azienda se versi almeno ${pct(pr.fpLav)} della retribuzione utile TFR. Senza adesione quel contributo si perde.`});
+    T.push({k:"ok",t:`Iscriviti a ${pr.fondo}: l'azienda ti versa ${eur(quota)} l'anno`,
+      d:`Il CCNL prevede che l'azienda versi il ${pct(pr.fpDat)} della retribuzione utile al TFR, ma solo se anche tu versi almeno il ${pct(pr.fpLav)}. Se non ti iscrivi, quei soldi li perdi.`});
   }
   if(margine>=50){
     let rec=null;
@@ -1112,22 +1112,22 @@ function consigli(o,ral,x){
           :`Risultato: metti da parte ${eur(rec.v)} per la pensione, ma il netto annuo cala solo di <span class="k">${eur(costo)}</span>.`)});
     }
     const cm=C({fpVol:(o.fpVol||0)+margine}), costo=c0.netto-cm.netto, risp=margine-costo;
-    const pp=x.baseTfr>0&&$("fpLavU").value==="p"?` o alzando la tua quota di <span class="k">${fmtIt(Math.ceil(margine/x.baseTfr*1000)/10)} punti percentuali</span>`:"";
-    T.push({k:usato?"ok":"info",t:`Puoi dedurre ancora ${eur(margine)} nel fondo pensione`,
-      d:`Con un versamento volontario di ${eur(margine)}${pp} risparmi circa <span class="k">${eur(risp)}</span> di tasse (${Math.round(risp/margine*100)}% del versato): il netto annuo scende di ${eur(costo)}, ma al fondo arrivano ${eur(margine)}.`});
+    const pp=x.baseTfr>0&&$("fpLavU").value==="p"?` (cioè <span class="k">${fmtIt(Math.ceil(margine/x.baseTfr*1000)/10)} punti percentuali</span> in più sulla tua quota)`:"";
+    T.push({k:usato?"ok":"info",t:`Puoi versare ancora ${eur(margine)} al fondo pensione pagando meno tasse`,
+      d:`Fino a 5.164,57 € l'anno i versamenti si sottraggono dal reddito tassato. Versando altri ${eur(margine)}${pp} risparmi circa <span class="k">${eur(risp)}</span> di tasse (il ${Math.round(risp/margine*100)}% di quanto versi): al fondo arrivano ${eur(margine)}, ma dalla tua busta escono solo ${eur(costo)}.`});
   } else if(usato>P.fpMax+0.5){
-    T.push({k:"warn",t:`Versi al fondo ${eur(usato-P.fpMax)} oltre il limite deducibile`,
-      d:"Quella parte è tassata ora e di nuovo, in parte, quando la riceverai: segnalala al fondo come contributo non dedotto, così non la paghi due volte."});
+    T.push({k:"warn",t:`Versi ${eur(usato-P.fpMax)} al fondo oltre il limite deducibile`,
+      d:"Quella parte non riduce le tasse di oggi. Comunicala al fondo come contributo non dedotto entro il 31 dicembre dell'anno successivo: così non verrà tassata di nuovo quando la riceverai."});
   }
   /* 3. Fringe benefit */
   if(x.fringeTax){
     const c00=C({fringe:0}), cs=C({fringe:x.fringeSoglia}), cf=C({});
     const tasse=c00.netto-cf.netto, guad=(cs.netto+x.fringeSoglia)-(cf.netto+x.fringe);
-    T.push({k:"warn",t:`Fringe benefit oltre la soglia: paghi circa ${eur(tasse)} di tasse e contributi`,
-      d:`Superati ${eur(x.fringeSoglia)} diventano imponibili tutti i ${eur(x.fringe)}. `+(guad>0?`Restando sotto la soglia staresti meglio di <span class="k">${eur(guad)}</span> l'anno: chiedi di spostare l'eccedenza su welfare, rimborsi o al prossimo anno.`:"")});
+    T.push({k:"warn",t:`Hai superato la soglia dei fringe benefit: paghi circa ${eur(tasse)} tra tasse e contributi`,
+      d:`Oltre ${eur(x.fringeSoglia)} non si tassa solo la parte in più, ma tutti i ${eur(x.fringe)} ricevuti. `+(guad>0?`Restando entro la soglia avresti <span class="k">${eur(guad)}</span> in più l'anno: chiedi di spostare l'eccedenza in welfare, rimborsi o sull'anno prossimo.`:"")});
   } else if(x.fringe>0){
-    T.push({k:"info",t:`Puoi ricevere ancora ${eur(x.fringeSoglia-x.fringe)} di fringe benefit esentasse`,
-      d:"Buoni carburante, buoni spesa, rimborso di utenze, affitto o interessi del mutuo: entro la soglia non pagano né tasse né contributi."});
+    T.push({k:"info",t:`Puoi ricevere ancora ${eur(x.fringeSoglia-x.fringe)} di fringe benefit senza tasse`,
+      d:"Buoni spesa o carburante, rimborso di bollette, affitto o interessi del mutuo: fino alla soglia non paghi né tasse né contributi."});
   }
   /* 4. Quanto ti resta di un aumento (se non c'è una soglia vicina) */
   if(!cliff||cliff.d>1000){
