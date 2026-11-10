@@ -223,7 +223,23 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .fuori b{font-variant-numeric:tabular-nums}
 .fuori small{display:block;color:var(--muted);margin-top:2px}
 .note{font-size:12.5px;color:var(--muted);margin:12px 0 0;line-height:1.45}
-.actions{display:flex;gap:8px;margin-top:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+/* Riepilogo esportato (immagine / PDF) */
+#snap{position:fixed;left:-10000px;top:0;width:520px;background:#fff;color:var(--ink)}
+#snap .res{position:static;max-height:none;overflow:visible;box-shadow:none;border:0;border-radius:0}
+#snap .res-hero{position:static;border-radius:0}
+#snap .actions,#snap .seg,#snap .sr{display:none!important}
+#snap .snap-h{padding:14px 22px 10px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+#snap .snap-h b{display:block;font-size:16px;color:var(--ink)}
+#snap .snap-f{padding:10px 22px 16px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line)}
+@media print{
+  @page{margin:12mm}
+  body.printing>*:not(#snap){display:none!important}
+  body.printing{background:#fff}
+  body.printing #snap{position:static;left:auto;width:auto;max-width:180mm;margin:0 auto}
+  #snap *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #snap tr,#snap li{break-inside:avoid}
+}
 .btn{font:inherit;font-weight:600;font-size:14px;border:1px solid #d3cfc5;background:#fff;padding:8px 14px;border-radius:9px;cursor:pointer;color:var(--ink)}
 .btn:hover{border-color:var(--brand-2);color:var(--brand)}
 
@@ -578,7 +594,9 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
         </div>
         <div class="fuori" id="fuori" hidden></div>
         <div class="actions">
-          <button class="btn" id="copy" type="button">Copia riepilogo</button>
+          <button class="btn" id="shareImg" type="button">Condividi immagine</button>
+          <button class="btn" id="sharePdf" type="button">Salva PDF</button>
+          <button class="btn" id="copy" type="button">Copia testo</button>
         </div>
         <p class="note">È una stima per un anno intero di lavoro. La busta reale cambia con conguagli, straordinari, premi e voci aziendali.</p>
       </div>
@@ -1327,11 +1345,54 @@ $("u-m").addEventListener("click",()=>setUnit("m"));
 $("f").addEventListener("submit",e=>e.preventDefault());
 $("tab-ln").addEventListener("click",()=>setMode("ln"));
 $("tab-nl").addEventListener("click",()=>setMode("nl"));
+// Condivisione del riepilogo come immagine o PDF
+function buildSnap(){
+  document.getElementById("snap")?.remove();
+  const w=document.createElement("div"); w.id="snap";
+  const cl=$("risultato").cloneNode(true);
+  cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
+  cl.querySelectorAll("details").forEach(d=>d.open=true);
+  const sel=id=>{const e=$(id);return e&&e.selectedIndex>=0?e.options[e.selectedIndex].text:"";};
+  const ctx=[sel("ccnl"),sel("livello"),selCom?selCom.nome:""].filter(Boolean).map(esc).join(" · ");
+  const d=new Date().toLocaleDateString("it-IT");
+  w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
+  w.appendChild(cl);
+  w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con Lordo-Netto · ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
+  document.body.appendChild(w); return w;
+}
+let h2cP=null;
+const loadH2c=()=>h2cP||(h2cP=new Promise((ok,ko)=>{const sc=document.createElement("script");sc.src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";sc.onload=()=>ok(window.html2canvas);sc.onerror=()=>{h2cP=null;ko();};document.head.appendChild(sc);}));
+const flash=(b,t,orig)=>{b.textContent=t;setTimeout(()=>b.textContent=orig,2000);};
+$("shareImg").addEventListener("click",async()=>{
+  const b=$("shareImg"), orig="Condividi immagine"; b.textContent="Preparo…"; b.disabled=true;
+  try{
+    const h2c=await loadH2c(); const w=buildSnap();
+    const cv=await h2c(w,{scale:2,backgroundColor:"#ffffff",logging:false,windowWidth:520});
+    w.remove();
+    const blob=await new Promise(r=>cv.toBlob(r,"image/png"));
+    const file=new File([blob],"stipendio-netto.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],title:"Stima stipendio netto"});}catch(e){}
+      b.textContent=orig;
+    } else {
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=file.name; a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),4000); flash(b,"Immagine scaricata",orig);
+    }
+  }catch(e){ document.getElementById("snap")?.remove(); flash(b,"Non disponibile",orig); }
+  b.disabled=false;
+});
+$("sharePdf").addEventListener("click",()=>{
+  buildSnap(); document.body.classList.add("printing");
+  const t=document.title; document.title="stipendio-netto";
+  const done=()=>{document.body.classList.remove("printing");document.getElementById("snap")?.remove();document.title=t;window.removeEventListener("afterprint",done);};
+  window.addEventListener("afterprint",done);
+  setTimeout(()=>window.print(),50);
+});
 $("copy").addEventListener("click",async()=>{
   if(!last)return; const {x,mens,b}=last;
   const t=`RAL ${eur(x.ral)} → netto busta ordinaria ${eur(b.netM)} (${mens} mensilità), netto annuo ${eur(x.netto)}. INPS ${eur(x.inps)}, IRPEF ${eur(x.netta)}, addizionali ${eur(x.addReg+x.addCom)}.`;
   try{await navigator.clipboard.writeText(t);$("copy").textContent="Copiato";}catch(e){$("copy").textContent="Copia non disponibile";}
-  setTimeout(()=>$("copy").textContent="Copia riepilogo",1800);
+  setTimeout(()=>$("copy").textContent="Copia testo",1800);
 });
 render();
 </script>
