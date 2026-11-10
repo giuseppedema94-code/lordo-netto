@@ -594,6 +594,23 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 
           <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
           <details class="acc">
+            <summary><span class="t">Straordinari</span><span class="v" id="s-str"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label class="sw"><input type="checkbox" id="strOn"><span class="tr" aria-hidden="true"></span><span>Aggiungi straordinari</span></label>
+              </div>
+              <div class="f" data-str hidden>
+                <label for="strOre">Ore al mese</label>
+                <div class="ctl" data-u="ore/mese"><input inputmode="decimal" id="strOre" type="text" value="10"></div>
+              </div>
+              <div class="f" data-str hidden>
+                <label for="strMagg">Maggiorazione</label>
+                <div class="ctl" data-u="%"><input inputmode="decimal" id="strMagg" type="text" value="25"></div>
+              </div>
+              <p class="hint full" id="str-h" data-str hidden></p>
+            </div>
+          </details>
+          <details class="acc">
             <summary><span class="t">Rimborsi, trattenute e benefit</span><span class="v" id="s-altro"></span></summary>
             <div class="fields">
               <div class="f">
@@ -819,7 +836,9 @@ function calcola(o){
   // Rimborsi spese/trasferte: se tassati entrano nel lordo; fringe benefit: oltre la soglia (1.000 / 2.000 € con figli) tassati per intero
   const rimb=Math.max(0,o.rimb||0), rimbTax=!!o.rimbTax;
   const fringe=Math.max(0,o.fringe||0), fringeSoglia=o.fringeFigli?2000:1000, fringeTax=fringe>fringeSoglia;
-  const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0);
+  // Straordinari: paga oraria (minimo/divisore orario) maggiorata; imponibili, non utili al TFR
+  const straord=o.strOre>0&&o.strDiv>0?ralBase/(o.mensN||13)/o.strDiv*(1+(o.strMagg||0)/100)*o.strOre*12:0;
+  const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0)+straord;
   const ral=ralBase+ind+tram+extraTax;         // lordo annuo imponibile (concorso spese tranviarie: 12 mensilità)
   const baseTfr=ralBase+(o.indTfr===false?0:ind); // retribuzione utile TFR
   const inpsBase=ral*o.inps;
@@ -881,7 +900,7 @@ function calcola(o){
   const tratt=Math.max(0,o.tratt||0);
   const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost
              +(rimbTax?0:rimb)-(fringeTax?fringe:0)-tratt;   // il fringe è in natura: tassato ma non pagato in denaro
-  return {fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
+  return {straord,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
 }
 /* Busta di un mese ordinario (senza 13ª/14ª), come il cedolino:
    contributi sul lordo del mese, IRPEF sugli scaglioni mensili (annui/12), detrazioni in dodicesimi,
@@ -889,7 +908,7 @@ function calcola(o){
 function bustaOrdinaria(x,o,mens){
   const sogliaM=Math.round(P.sogliaInps1/12);
   const rimbM=x.rimb/12, fringeM=x.fringeTax?x.fringe/12:0, trattM=x.tratt/12;
-  const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, rml=rmlBase+indM+tramM+(x.rimbTax?rimbM:0)+fringeM;
+  const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, strM=(x.straord||0)/12, rml=rmlBase+indM+tramM+strM+(x.rimbTax?rimbM:0)+fringeM;
   const baseTfrM=rmlBase+(o.indTfr===false?0:indM);
   const inpsM=rml*o.inps, ivsM=Math.max(0,rml-sogliaM)*0.01, fscM=rml*(o.fsc||0), fisM=rml*(o.fis||0), ebtM=rml*(o.ebt||0);
   const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
@@ -902,7 +921,7 @@ function bustaOrdinaria(x,o,mens){
   const aR=x.addReg/11, aS=x.comSaldo/11, aA=x.comAcc/9;
   const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-aR-aS-aA+x.bonus/12+x.ti/12
             +(x.rimbTax?0:rimbM)-fringeM-trattM;
-  return {fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
+  return {strM,fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
 }
 function lordoDaNetto(targetMese,o,mens){
   let lo=0,hi=1e6;
@@ -1105,7 +1124,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1236,6 +1255,10 @@ function summaries(x,o){
   put("s-san",sa?`${eur(x.sanLav)} tu + ${eur(x.sanDat)} azienda l'anno`:"Nessuna",sa);
   const fam=[]; if(o.coniuge)fam.push("Coniuge"); if(o.figli)fam.push(o.figli===1?"1 figlio":`${o.figli} figli`);
   put("s-fam",fam.length?fam.join(" + "):"Nessuno",fam.length);
+  { const on=$("strOn").checked; document.querySelectorAll("[data-str]").forEach(e=>e.hidden=!on);
+    const div=(ORE[$("ccnl").value]||0)*52/12, hr=div?x.ralBase/(+$("mens").value||13)/div:0;
+    $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
+    put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   put("s-rinn",!$("rinnOn").checked?"Disattivato":o.rinnM>0?`${eur(o.rinnM,2)}/mese · ${x.rinnOk?"imposta 5%":"IRPEF ordinaria"}`:"Nessuno",o.rinnM>0);
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
@@ -1299,15 +1322,15 @@ function render(){
   }
   const regLbl=selCom?selCom.reg:`media ${pct(o.addreg)}`, comLbl=selCom?selCom.nome:`media ${pct(o.addcom)}`;
   const v=M?{
-    base:b.rmlBase, ind:b.indM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
+    base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
     inps:b.inpsM, ivs:b.ivsM, fsc:b.fscM, fis:b.fisM, ebt:b.ebtM, fp:b.fpLavM, san:b.sanLavM,
     imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, net:b.netM
   }:{
-    base:x.ralBase, ind:x.ind, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
+    base:x.ralBase, ind:x.ind, str:x.straord||0, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
     inps:x.inpsBase, ivs:x.inpsAgg, fsc:x.fsc, fis:x.fis, ebt:x.ebt, fp:x.fpLav, san:x.sanLav,
     imp:x.redLav, lorda:x.lorda*(x.r?x.redLav/x.r:1), irpef:x.netta, sost:x.sost, aR:x.addReg, aS:x.comSaldo, aA:x.comAcc, bonus:x.bonus, ti:x.ti, tratt:x.tratt, net:x.netto
   };
-  const tLordo=v.base+v.ind+v.tram+v.rimbT+v.fringe;
+  const tLordo=v.base+v.ind+v.str+v.tram+v.rimbT+v.fringe;
   const tContr=v.inps+v.ivs+v.fsc+v.fis+v.ebt+v.fp+v.san;
   const tTax=v.irpef+v.sost+v.aR+v.aS+v.aA-v.bonus-v.ti;
   const tAltro=v.rimbE-v.fringe-v.tratt;
@@ -1319,6 +1342,7 @@ function render(){
     {id:"comp",title:"Retribuzione lorda",total:eur(tLordo,2),always:true,single:true,rows:[
       [M?"Retribuzione mensile (RML)":"Retribuzione annua (RAL)",eur(v.base,2),""],
       pos(`Indennità fisse${o.indTfr===false?", non utili al TFR":""}`,v.ind),
+      pos(`Straordinari (${fmtIt(o.strOre||0)} ore al mese)`,v.str),
       pos(`Concorso spese tranviarie, ${esc(o.tramCity)}`,v.tram),
       pos("Rimborsi spese tassati",v.rimbT),
       pos("Fringe benefit oltre soglia, in natura",v.fringe)]},
@@ -1497,6 +1521,8 @@ function setUnit(u){
   render();
 }
 $("rinnOn").addEventListener("change",render);
+$("strOn").addEventListener("change",render);
+["strOre","strMagg"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
 $("rinn").addEventListener("input",()=>{ if($("rinn").value.trim()==="") delete $("rinn").dataset.touched; else $("rinn").dataset.touched="1"; },true);
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
 document.querySelectorAll('input[inputmode="decimal"]').forEach(el=>{ if(el.value) el.value=fmtIt(parseIt(el.value)); });
