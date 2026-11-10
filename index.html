@@ -363,6 +363,11 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <select id="tram"></select>
               <p class="hint" id="tram-h">Per il concorso spese tranviarie del CCNL ABI: 12 mensilità, solo nei comuni sopra 200.000 abitanti. Ridotto del 20% nel contratto complementare.</p>
             </div>
+            <div class="f full" id="row-ore">
+              <label for="ore">Orario settimanale</label>
+              <div class="ctl" id="ore-box" data-u="ore/sett."><input inputmode="decimal" id="ore" type="text" value="40"></div>
+              <p class="hint" id="ore-h"></p>
+            </div>
           </div>
           <div class="ccnl-info" id="ccnl-info"></div>
         </section>
@@ -1300,9 +1305,24 @@ function applyPreset(){
     put("sanLav","e",pr.sanLav,pr.sanita); put("sanDat","e",pr.sanDat,pr.sanita);
   }
 }
-$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); render();});
+// Orario settimanale a tempo pieno previsto dal CCNL (dirigenti: nessun orario)
+const ORE={commercio:40,tessile:40,alimentare:40,gomma:40,metalmeccanici:40,studi:40,turismo:40,pubblici:40,logistica:39,abi:37.5,abicompl:39.5,altro:40};
+function syncOre(){
+  const full=ORE[$("ccnl").value]; $("row-ore").hidden=!full; if(!full) return;
+  const pt=numv("pt")||100; setv("ore",Math.round(full*pt)/100);
+  $("ore-box").classList.toggle("preset",pt>=100);
+  $("ore-h").textContent=`Tempo pieno da CCNL: ${fmtIt(full)} ore. Se ne fai meno, il part-time si aggiorna da solo.`;
+}
+$("ore").addEventListener("input",e=>{
+  liveFormat($("ore"),e);
+  const full=ORE[$("ccnl").value], v=numv("ore"); if(!full||!(v>0)) return;
+  setv("pt",Math.min(100,Math.round(v/full*10000)/100)); $("ore-box").classList.toggle("preset",v>=full);
+  ralTouched=false; render();
+});
+$("pt").addEventListener("input",syncOre);
+$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
-applyPreset();
+applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
 
 ["rimb","tratt","fringe"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
