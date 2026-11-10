@@ -1107,9 +1107,9 @@ function consigli(o,ral,x){
     for(let v=50; v<=margine; v+=50){ const cv=C({fpVol:(o.fpVol||0)+v}), why=cause(c0,cv); if(why.length){ rec={v,cv,why}; break; } }
     if(rec){
       const costo=c0.netto-rec.cv.netto;
-      T.push({k:"ok",t:`Versando ${eur(rec.v)} al fondo pensione rientri sotto una soglia`,
-        d:`Recuperi ${joinIt(rec.why)}. `+(costo<=0?`Il netto annuo addirittura sale di <span class="k">${eur(-costo)}</span>, e in più accantoni ${eur(rec.v)} per la pensione.`
-          :`Accantoni ${eur(rec.v)} per la pensione e il netto annuo scende solo di <span class="k">${eur(costo)}</span>.`)});
+      T.push({k:"ok",t:`Versa ${eur(rec.v)} in più al fondo pensione: ti costano molto meno`,
+        d:`Il versamento si deduce dal reddito, che così scende sotto una soglia e ti fa recuperare ${joinIt(rec.why)}. `+(costo<=0?`Risultato: metti da parte ${eur(rec.v)} per la pensione e il netto annuo sale pure di <span class="k">${eur(-costo)}</span>.`
+          :`Risultato: metti da parte ${eur(rec.v)} per la pensione, ma il netto annuo cala solo di <span class="k">${eur(costo)}</span>.`)});
     }
     const cm=C({fpVol:(o.fpVol||0)+margine}), costo=c0.netto-cm.netto, risp=margine-costo;
     const pp=x.baseTfr>0&&$("fpLavU").value==="p"?` o alzando la tua quota di <span class="k">${fmtIt(Math.ceil(margine/x.baseTfr*1000)/10)} punti percentuali</span>`:"";
