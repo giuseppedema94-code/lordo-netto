@@ -1393,7 +1393,7 @@ function render(){
     $("mbar-l").textContent="RAL necessaria"; $("mbar-v").textContent=eur(x.ralBase);
   }
   $("out-na").textContent=eur(x.netto);
-  { const show=detMode==="a"; $("out-na-m").hidden=!show; $("out-ral-m").hidden=!(show&&mode==="ln");
+  { const show=true; $("out-na-m").hidden=!show; $("out-ral-m").hidden=!(show&&mode==="ln");
     $("out-na-m").textContent=`${eur(x.netto/12)} al mese, diviso 12`; $("out-ral-m").textContent=`${eur(x.ral/12)} al mese, diviso 12`; }
 
   /* 2. Ripartizione del lordo annuo: netto, contributi, imposte */
