@@ -906,8 +906,8 @@ function terzoFromComune(){
 }
 function syncTerzo(){
   const on=$("ccnl").value==="commercio"; $("row-terzo").hidden=!on; if(!on) return;
-  const v=TERZO[$("terzo").value]||2.07;
-  $("terzo-h").textContent=`Terzo elemento provinciale: ${eur(v,2)} al mese, per ${$("mens").value} mensilità. Nelle altre province è 2,07 €, già compreso nel minimo.`;
+  const v=TERZO[$("terzo").value];
+  $("terzo-h").textContent=v?`Terzo elemento provinciale: ${eur(v,2)} al mese per ${$("mens").value} mensilità (al posto dei 2,07 € del minimo nazionale).`:"Terzo elemento provinciale: 2,07 € al mese, già compreso nel minimo. Più alto a Milano, Bergamo, Palermo, Piacenza, Brescia, Como, Varese e Torino.";
 }
 function syncTram(){
   const on=tramEligible(); $("row-tram").hidden=!on;
