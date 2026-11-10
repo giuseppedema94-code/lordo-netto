@@ -1023,7 +1023,8 @@ let mode="ln", ralTouched=false, unit="a", detMode="m";
 
 function fillCcnl(){
   const s=$("ccnl");
-  for(const [k,c] of Object.entries(CCNL)){const o=document.createElement("option");o.value=k;o.textContent=c.nome;s.appendChild(o);}
+  const ord=Object.keys(CCNL).filter(k=>k!=="dirterz"); ord.splice(ord.indexOf("commercio")+1,0,"dirterz");
+  for(const [k,c] of ord.map(k=>[k,CCNL[k]])){const o=document.createElement("option");o.value=k;o.textContent=c.nome;s.appendChild(o);}
   s.value="commercio";
 }
 function fillLivelli(){
