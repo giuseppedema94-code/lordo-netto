@@ -1136,9 +1136,14 @@ const PROSSIMO={
 };
 /* Importo di uno scatto di anzianità (€/mese) dove è noto per livello */
 const SCATTI={
+  commercio:[25.46,24.84,22.83,21.95,20.66,20.30,19.73,19.47],
+  tessile:[12.91,11.88,10.33,9.81,8.26,7.75,7.75,7.23,7.23,6.71],
   metalmeccanici:[40.96,40.96,36.41,32.43,29.64,26.75,25.05,25.05,21.59],
-  abi:[95.31,95.31,41.55,41.55,41.55,41.55,41.55,41.55,29.07],
-  tessile:[12.91,null,null,null,8.26,null,7.75,7.23,7.23,6.71]
+  studi:[30,26,23,22,22,20,20,20],
+  turismo:[40.80,39.25,37.70,36.15,34.86,33.05,32.54,31.25,30.99,30.47],
+  pubblici:[40.80,39.25,37.70,36.15,34.86,33.05,32.54,31.25,30.99,30.47],
+  logistica:[30.99,29.44,26.86,24.79,24.27,23.24,22.34,22.21,20.66,24.79,24.79,24.79,24.27,24.27,24.27,23.24,23.24],
+  abi:[95.31,95.31,41.55,41.55,41.55,41.55,41.55,41.55,29.07]
 };
 function proxAuto(){ const k=$("ccnl").value, P=PROSSIMO[k], c=CCNL[k]; if(!P) return null; if(P.no) return {no:P.no};
   const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null; return {d:P.d,m:Math.round(P.inc(i,lv[1])*100)/100}; }
