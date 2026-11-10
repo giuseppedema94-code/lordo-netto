@@ -62,7 +62,7 @@
      a gruppi (lordo, contributi, imposte, altre voci) nello stesso ordine dei dettagli di sinistra. */
   --bg:#f4f3ee; --card:#ffffff; --ink:#17211e; --muted:#5d6a65; --line:#e2dfd6; --soft:#f6f5f0;
   --brand:#0f5c4d; --brand-2:#13806a; --brand-soft:#e4f0eb;
-  --c-net:#13806a; --c-contr:#d9a23b; --c-tax:#c4553a; --c-altro:#8a938f; --warn:#b4472e;
+  --c-net:var(--brand-2); --c-contr:#d9a23b; --c-tax:#c4553a; --c-altro:#8a938f; --warn:#b4472e;
   --font:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;
   --radius:14px; --shadow:0 1px 2px rgba(20,30,25,.06),0 6px 24px rgba(20,30,25,.06);
   color-scheme:light;
@@ -82,7 +82,7 @@ header.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;paddi
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;color:#fff;text-decoration:none;white-space:nowrap}
 .logo span.mark{width:30px;height:30px;border-radius:8px;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:800}
 header.top nav{margin-left:auto;display:flex;gap:18px;font-size:14px}
-header.top nav a{color:#d6ece5;text-decoration:none;white-space:nowrap}
+header.top nav a{color:rgba(255,255,255,.82);text-decoration:none;white-space:nowrap}
 header.top nav a:hover{color:#fff}
 .hero{padding:30px 0 8px}
 .hero h1{font-size:clamp(25px,3.6vw,34px);line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;text-wrap:balance}
@@ -123,7 +123,7 @@ header.top nav a:hover{color:#fff}
 .f label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 input,select{width:100%;font:inherit;font-size:15.5px;padding:10px 12px;border:1px solid #d3cfc5;border-radius:9px;background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}
 select{padding-right:28px;text-overflow:ellipsis}
-input:focus,select:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(19,128,106,.15)}
+input:focus,select:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-2) 18%,transparent)}
 input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fill-color:var(--ink)}
 .ctl{position:relative}
 .ctl[data-u]::after{content:attr(data-u);position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none}
@@ -196,10 +196,10 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 /* Risultato */
 .res{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;overscroll-behavior:contain}
 .res-hero{position:sticky;top:0;z-index:2;background:var(--brand);color:#fff;padding:20px 22px 18px}
-.res-hero .lbl{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#bfe0d6}
+.res-hero .lbl{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.72)}
 .res-hero .val{font-size:clamp(40px,5.2vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:4px 0 6px;font-variant-numeric:tabular-nums}
-.res-hero .val small{font-size:17px;font-weight:600;letter-spacing:0;color:#bfe0d6}
-.res-hero .cap{font-size:13.5px;color:#d6ece5}
+.res-hero .val small{font-size:17px;font-weight:600;letter-spacing:0;color:rgba(255,255,255,.72)}
+.res-hero .cap{font-size:13.5px;color:rgba(255,255,255,.82)}
 .kpis{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
 .kpis > div{padding:13px 22px}
 .kpis > div + div{border-left:1px solid var(--line)}
@@ -288,9 +288,9 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
   .res{position:static;max-height:none;overflow:visible}
   .res-hero{position:static;border-radius:var(--radius) var(--radius) 0 0}
   .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px));background:var(--brand);color:#fff;text-decoration:none;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
-  .mbar span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#bfe0d6}
+  .mbar span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.72)}
   .mbar strong{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
-  .mbar em{margin-left:auto;font-style:normal;font-size:13px;font-weight:600;color:#d6ece5}
+  .mbar em{margin-left:auto;font-style:normal;font-size:13px;font-weight:600;color:rgba(255,255,255,.82)}
   .mbar.off{display:none}
   body{padding-bottom:64px}
 }
@@ -1548,7 +1548,15 @@ $("ore").addEventListener("input",e=>{
   ralTouched=false; render();
 });
 $("pt").addEventListener("input",syncOre);
-$("ccnl").addEventListener("change",()=>{delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
+/* Colore principale per CCNL (mai giallo/arancio/rosso: sono di contributi e imposte) */
+const TEMI={commercio:["#3730a3","#4f46e5","#ecebfc"],dirterz:["#312e81","#4338ca","#e9e8fb"],tessile:["#5b2a86","#7a3db8","#f1e9f8"],
+  alimentare:["#0f5c4d","#13806a","#e4f0eb"],gomma:["#2f3e4e","#4a6076","#e9edf1"],metalmeccanici:["#1f4e79","#2f6aa3","#e5eef6"],
+  studi:["#0e5e6f","#12809a","#e2f1f4"],turismo:["#075985","#0284c7","#e3f2fb"],pubblici:["#701a55","#9d2a78","#f6e8f1"],
+  logistica:["#3f5f1f","#5a8a2c","#edf3e4"],abi:["#1b2f5b","#2c4a8a","#e7ecf6"],abicompl:["#1b2f5b","#2c4a8a","#e7ecf6"],dirabi:["#1b2f5b","#2c4a8a","#e7ecf6"]};
+function applyTema(){ const t=TEMI[$("ccnl").value]||["#0f5c4d","#13806a","#e4f0eb"], st=document.documentElement.style;
+  st.setProperty("--brand",t[0]); st.setProperty("--brand-2",t[1]); st.setProperty("--brand-soft",t[2]);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content",t[0]); }
+$("ccnl").addEventListener("change",()=>{applyTema(); delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
 applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
@@ -1616,7 +1624,7 @@ $("livello").addEventListener("change",syncTram);
 $("terzo").innerHTML='<option value="">Altra provincia</option>'+Object.keys(TERZO).sort().map(c=>`<option>${c}</option>`).join("");
 $("terzo").addEventListener("change",()=>{$("terzo").dataset.touched="1";ralTouched=false;syncTerzo();render();});
 $("mens").addEventListener("change",syncTerzo);
-tramFromComune(); terzoFromComune(); syncTerzo(); syncTram(); fisDefault();
+applyTema(); tramFromComune(); terzoFromComune(); syncTerzo(); syncTram(); fisDefault();
 $("r25").addEventListener("input",e=>{liveFormat($("r25"),e);render();});
 
 ["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;if(id==="livello")delete $("sctImp").dataset.touched;render();}));
