@@ -246,6 +246,8 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .sw input:checked+.tr{background:var(--brand-2)}
 .sw input:checked+.tr::after{transform:translateX(17px)}
 .sw input:focus-visible+.tr{outline:2px solid var(--brand-2);outline-offset:2px}
+.fields .sub{border-top:1px solid var(--line);padding-top:12px}
+.fields .sub:first-child{border-top:0;padding-top:0}
 .fr-list{display:grid;gap:10px;margin-bottom:8px}
 .fr-list:empty{display:none}
 .fr{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 12px}
@@ -578,22 +580,38 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             </div>
           </details>
 
+
+          <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
           <details class="acc">
-            <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
+            <summary><span class="t">Rinnovi contrattuali e scatti</span><span class="v" id="s-rinn"></span></summary>
             <div class="fields">
-              <div class="f full">
-                <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Considera l'aumento da rinnovo (imposta al 5%)</span></label>
+              <div class="f full sub">
+                <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Detassazione degli aumenti da rinnovo</span></label>
+                <p class="hint">Cambia solo le tasse, non il lordo: gli aumenti dei rinnovi firmati tra 2024 e 2026 pagati nel 2026 hanno l'imposta al 5% invece di IRPEF e addizionali, se il reddito di lavoro dell'anno precedente (2025) non supera 33.000 € (L. 199/2025, circ. AdE 2/E 2026).</p>
               </div>
               <div class="f full" id="rinn-row" hidden>
                 <label for="rinn">Aumento rispetto al minimo prima del rinnovo</label>
                 <div class="ctl" id="rinn-box" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
                 <p class="hint" id="rinn-h"></p>
-                <p class="hint">Gli aumenti dei rinnovi firmati tra 2024 e 2026 e pagati nel 2026 sono tassati al 5% invece che con IRPEF e addizionali, se il reddito di lavoro 2025 non supera 33.000 € (L. 199/2025, circolare AdE 2/E 2026).</p>
+              </div>
+              <div class="f full sub">
+                <label class="sw"><input type="checkbox" id="proxOn"><span class="tr" aria-hidden="true"></span><span>Prossimo aumento del CCNL</span></label>
+                <p class="hint" id="prox-h"></p>
+              </div>
+              <div class="f full sub">
+                <label class="sw"><input type="checkbox" id="sctOn"><span class="tr" aria-hidden="true"></span><span>Scatti di anzianità</span></label>
+                <p class="hint" id="sct-h"></p>
+              </div>
+              <div class="f" data-sct hidden>
+                <label for="sctN">Scatti maturati</label>
+                <div class="ctl" data-u="n."><input inputmode="numeric" id="sctN" type="text" value="1"></div>
+              </div>
+              <div class="f" data-sct hidden>
+                <label for="sctImp">Importo per scatto</label>
+                <div class="ctl" id="sctImp-box" data-u="€/mese"><input inputmode="decimal" id="sctImp" type="text" value="0"></div>
               </div>
             </div>
           </details>
-
-          <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
           <details class="acc">
             <summary><span class="t">Straordinari</span><span class="v" id="s-str"></span></summary>
             <div class="fields">
@@ -833,7 +851,7 @@ function parseCom(c){ // [nome,pr,esente,"up:rate;...",anno,spec,(esente2025,sca
 function addComunale(r,c){ if(r<=c.es) return 0; return progressivo(r,c.br); }
 
 function calcola(o){
-  const ralBase=Math.max(0,o.ral), ind=Math.max(0,o.ind||0), tram=Math.max(0,o.tram||0)*12;
+  const ralBase=Math.max(0,o.ral+(o.extraBase||0)), ind=Math.max(0,o.ind||0), tram=Math.max(0,o.tram||0)*12;
   // Rimborsi spese/trasferte: se tassati entrano nel lordo; fringe benefit: oltre la soglia (1.000 / 2.000 € con figli) tassati per intero
   const rimb=Math.max(0,o.rimb||0), rimbTax=!!o.rimbTax;
   const fringe=Math.max(0,o.fringe||0), fringeSoglia=o.fringeFigli?2000:1000, fringeTax=fringe>fringeSoglia;
@@ -1101,6 +1119,46 @@ const RINNOVI={
   abi:{no:"Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."},
   abicompl:{no:"Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."}
 };
+/* Prossima tranche già fissata dal CCNL: data e aumento mensile per livello */
+const PROSSIMO={
+  commercio:{d:"1/2/2027",inc:i=>RINNOVI.commercio.r[i]*40},
+  tessile:{d:"1/1/2027",inc:(i,m)=>RINNOVI.tessile.r(m,i)*48},
+  alimentare:{d:"1/1/2027",inc:i=>RINNOVI.alimentare.r[i]*39},
+  gomma:{d:"1/4/2027",inc:i=>[2571.98,2421.67,2284.61,2254.60,2226.26,2136.43,2081.12,1939.36,1849.43,1662.66][i]-CCNL.gomma.livelli[i][1]},
+  metalmeccanici:{d:"1/6/2027",inc:i=>[78.32,76.49,68.51,63.86,59.58,55.64,54.47,53.33,48.08][i]},
+  studi:{d:"1/12/2026",inc:(i,m)=>m/1706.37*20},
+  turismo:{d:"1/4/2027",inc:i=>RINNOVI.turismo.r[i]*35},
+  pubblici:{d:"1/6/2027",inc:i=>RINNOVI.pubblici.r[i]*30},
+  logistica:{d:"1/1/2027",inc:i=>i<9?RINNOVI.logistica.r[i]*30:RINNOVI.logistica.r[i]/1.0625*40},
+  dirterz:{d:"1/1/2027",inc:()=>260},
+  abi:{no:"Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."},
+  abicompl:{no:"Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."}
+};
+/* Importo di uno scatto di anzianità (€/mese) dove è noto per livello */
+const SCATTI={
+  metalmeccanici:[40.96,40.96,36.41,32.43,29.64,26.75,25.05,25.05,21.59],
+  abi:[95.31,95.31,41.55,41.55,41.55,41.55,41.55,41.55,29.07],
+  tessile:[12.91,null,null,null,8.26,null,7.75,7.23,7.23,6.71]
+};
+function proxAuto(){ const k=$("ccnl").value, P=PROSSIMO[k], c=CCNL[k]; if(!P) return null; if(P.no) return {no:P.no};
+  const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null; return {d:P.d,m:Math.round(P.inc(i,lv[1])*100)/100}; }
+function sctAuto(){ const k=$("ccnl").value, i=+$("livello").value||0, a=SCATTI[k]; return a&&a[i]!=null?a[i]:null; }
+function syncExtra(){
+  const pt=(numv("pt")||100)/100, pa=proxAuto(), on=$("proxOn").checked;
+  $("prox-h").textContent=!pa?"Per questo contratto non c'è un prossimo aumento già fissato.":pa.no?pa.no
+    :`Dal ${pa.d}: +${eur(pa.m*pt,2)} al mese al tuo livello. ${on?"Il calcolo mostra la busta con l'aumento già in vigore.":"Attivalo per vedere la busta con l'aumento."}`;
+  const so=$("sctOn").checked; document.querySelectorAll("[data-sct]").forEach(e=>e.hidden=!so);
+  const sa=sctAuto(), el=$("sctImp");
+  if(!el.dataset.touched){ setv("sctImp",sa??0); $("sctImp-box").classList.toggle("preset",sa!=null); }
+  $("sct-h").textContent=ralTouched?"Se hai inserito la tua RAL, gli scatti sono già compresi: qui vengono ignorati."
+    :`Si aggiungono al minimo del CCNL, per tutte le mensilità, e contano per il TFR.${sa!=null&&!el.dataset.touched?" Importo per scatto dal CCNL, modificabile.":" Trovi l'importo per scatto in busta paga."}`;
+}
+function extraBase(){ // aumento futuro e scatti, annui
+  const pt=(numv("pt")||100)/100, mens=+$("mens").value||12; let a=0;
+  const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) a+=pa.m*pt*mens;
+  if($("sctOn").checked&&!ralTouched) a+=(Math.max(0,Math.floor(numv("sctN")))||0)*(numv("sctImp")||0)*pt*mens;
+  return a;
+}
 function rinnovoAuto(){ // {m: media mensile, a: totale annuo 2026, d: rinnovo} per CCNL e livello scelti, a tempo pieno
   const k=$("ccnl").value, R=RINNOVI[k], c=CCNL[k]; if(!R) return null; if(R.no) return {m:0,a:0,no:R.no};
   const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null;
@@ -1125,7 +1183,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    extraBase:extraBase(),strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1260,7 +1318,10 @@ function summaries(x,o){
     const div=(ORE[$("ccnl").value]||0)*52/12, hr=div?x.ralBase/(+$("mens").value||13)/div:0;
     $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
     put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
-  put("s-rinn",!$("rinnOn").checked?"Disattivato":o.rinnM>0?`${eur(o.rinnM,2)}/mese · ${x.rinnOk?"imposta 5%":"IRPEF ordinaria"}`:"Nessuno",o.rinnM>0);
+  { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
+    const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
+    if($("sctOn").checked&&!ralTouched&&numv("sctN")>0) parts.push(`${fmtIt(Math.floor(numv("sctN")))} scatti`);
+    put("s-rinn",parts.join(" · ")||"Nessuno",parts.length>0); }
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
   put("s-altro",al.length?al.join(" · "):"Nessuna voce",al.length);
@@ -1274,7 +1335,7 @@ function ccnlInfo(o){
   $("ccnl-info").innerHTML=`${esc(c.fonte)}.`+(chips.length?`<div class="chips"><span style="align-self:center">Già applicati:</span>${chips.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>`:"");
 }
 function render(){
-  syncRinn();
+  syncRinn(); syncExtra();
   const o=opts(), mens=+$("mens").value||12;
   let ral;
   if(mode==="ln"){
@@ -1454,7 +1515,7 @@ $("ore").addEventListener("input",e=>{
   ralTouched=false; render();
 });
 $("pt").addEventListener("input",syncOre);
-$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
+$("ccnl").addEventListener("change",()=>{delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
 applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
@@ -1506,7 +1567,7 @@ $("mens").addEventListener("change",syncTerzo);
 tramFromComune(); terzoFromComune(); syncTerzo(); syncTram(); fisDefault();
 $("r25").addEventListener("input",e=>{liveFormat($("r25"),e);render();});
 
-["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;render();}));
+["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;if(id==="livello")delete $("sctImp").dataset.touched;render();}));
 $("ral").addEventListener("input",()=>{ralTouched=true;render();});
 function setUnit(u){
   if(u===unit) return;
@@ -1523,6 +1584,9 @@ function setUnit(u){
 }
 $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
+["proxOn","sctOn"].forEach(id=>$(id).addEventListener("change",render));
+$("sctImp").addEventListener("input",()=>{ if($("sctImp").value.trim()==="") delete $("sctImp").dataset.touched; else $("sctImp").dataset.touched="1"; },true);
+["sctN","sctImp"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
 ["strOre","strMagg"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
 $("rinn").addEventListener("input",()=>{ if($("rinn").value.trim()==="") delete $("rinn").dataset.touched; else $("rinn").dataset.touched="1"; },true);
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
