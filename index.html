@@ -434,9 +434,10 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
             <div class="fields">
               <div class="f full">
-                <label for="rinn">Aumento rispetto al minimo dell'anno precedente</label>
-                <div class="ctl" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
-                <p class="hint">Differenza tra il minimo tabellare 2026 e quello 2025, per mensilità. Se il reddito 2025 non supera 33.000 € è tassata al 5% invece che con l'IRPEF (L. 199/2025).</p>
+                <label for="rinn">Aumento rispetto al minimo prima del rinnovo</label>
+                <div class="ctl" id="rinn-box" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
+                <p class="hint" id="rinn-h"></p>
+                <p class="hint">Gli aumenti dei rinnovi firmati tra 2024 e 2026 e pagati nel 2026 sono tassati al 5% invece che con IRPEF e addizionali, se il reddito di lavoro 2025 non supera 33.000 € (L. 199/2025, circolare AdE 2/E 2026).</p>
               </div>
             </div>
           </details>
@@ -734,7 +735,7 @@ const CCNL = {
     livelli:[["Quadro",2574.98],["1",2411.46],["2",2218.22],["3 Super",2000.37],["3",1946.84],["4",1850.23],["4 Junior",1802.92],["5",1761.64],["6",1648.74],["Viaggiante C3",2021.61],["Viaggiante B3",2010.37],["Viaggiante A3",2002.47],["Viaggiante F2",1948.09],["Viaggiante E2",1946.91],["Viaggiante D2",1945.68],["Viaggiante H1",1885.20],["Viaggiante G1",1876.08]], def:5},
   abi:{nome:"Credito – Bancari ABI",mens:13,fonte:"Stipendi dal 1° marzo 2026 (CCNL 23/11/2023, in proroga)",
     livelli:[["Quadro direttivo 4° liv.",5160.06],["Quadro direttivo 3° liv.",4396.88],["Quadro direttivo 2° liv.",3965.48],["Quadro direttivo 1° liv.",3743.21],["3ª area 4° liv.",3341.90],["3ª area 3° liv.",3059.49],["3ª area 2° liv.",2890.41],["3ª area 1° liv.",2742.34],["Area unificata (ex 1ª e 2ª)",2479.45]], def:7},
-  abicompl:{nome:"Credito – Contratto complementare ABI",mens:13,fonte:"Tabelle ABI dal 1° marzo 2026 ridotte del 20% (assunti dopo il 19/1/2012, 40 ore settimanali)",
+  abicompl:{nome:"Credito – Contratto complementare ABI",mens:13,fonte:"Tabelle ABI dal 1° marzo 2026 ridotte del 20% (assunti dopo il 19/1/2012)",
     livelli:[["Quadro direttivo 4° liv.",4128.05],["Quadro direttivo 3° liv.",3517.50],["Quadro direttivo 2° liv.",3172.38],["Quadro direttivo 1° liv.",2994.57],["3ª area 4° liv.",2673.52],["3ª area 3° liv.",2447.59],["3ª area 2° liv.",2312.33],["3ª area 1° liv.",2193.87],["Area unificata (ex 1ª e 2ª)",1983.56]], def:8},
   dirabi:{nome:"Credito – Dirigenti ABI",mens:13,fonte:"Stipendio minimo dal 1° gennaio 2026 (rinnovo 15/7/2025)",
     livelli:[["Dirigente",6538.46]], def:0},
@@ -1038,13 +1039,47 @@ function setManual(on){
     if(!on && !el.disabled){ el.dataset.man=el.value; el.disabled=true; }
   }
 }
+/* Aumenti da rinnovo CCNL detassabili nel 2026 (L. 199/2025, circ. AdE 2/E 2026):
+   tutte le tranche dei rinnovi firmati 2024-2026 ancora pagate nel 2026, rispetto al minimo prima del rinnovo.
+   steps: [mese da cui vale, aumento cumulato al livello di riferimento]; r: coefficiente per livello (o funzione del minimo) */
+const RINNOVI={
+  commercio:{firma:"22/3/2024",steps:[[1,135],[11,170]],r:[60.76,54.74,47.35,40.47,35,31.62,28.39,24.31].map(v=>v/35)},
+  tessile:{firma:"11/11/2024",steps:[[1,152]],r:(m,i)=>(m-(i===0?51.65:0))/1938.95},
+  alimentare:{firma:"1/3/2024",steps:[[1,230]],r:[1.679,1.4599,1.2044,1.0579,0.9463,0.8719,0.7975,0.7231]},
+  gomma:{firma:"10/12/2025",steps:[[1,60]],r:m=>m/2021.12},
+  metalmeccanici:{firma:"22/11/2025",steps:[[6,1]],r:[69.89,68.25,61.14,56.99,53.17,49.64,48.61,47.59,42.91]},
+  studi:{firma:"16/2/2024",steps:[[1,195],[12,215]],r:m=>m/1706.37},
+  turismo:{firma:"5/7/2024",steps:[[1,110],[5,145]],r:[1.425,1.3194,1.2294,1.1237,1.06,1,0.938,0.9017,0.8889,0.8329]},
+  pubblici:{firma:"5/6/2024",steps:[[1,90],[6,130]],r:[1.644,1.4806,1.3453,1.1858,1.0897,1,0.9058,0.8514,0.8316,0.7465]},
+  logistica:{firma:"6/12/2024",steps:[[1,160]],r:[1.2803,1.2045,1.106,1,0.9698,0.9243,0.9015,0.8788,0.8258,1.0665,1.0625,1.0586,1.0296,1.0285,1.0285,0.9966,0.9914]},
+  dirabi:{firma:"15/7/2025",steps:[[1,1]],r:[1538.46]},
+  dirterz:{firma:"5/11/2025",steps:[[1,1]],r:[320]},
+  abi:{no:"Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."},
+  abicompl:{no:"Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."}
+};
+function rinnovoAuto(){ // {m: media mensile, a: totale annuo 2026, d: rinnovo} per CCNL e livello scelti, a tempo pieno
+  const k=$("ccnl").value, R=RINNOVI[k], c=CCNL[k]; if(!R) return null; if(R.no) return {m:0,a:0,no:R.no};
+  const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null;
+  const r=typeof R.r==="function"?R.r(lv[1],i):(R.r[i]??1);
+  const mese=t=>{let v=0; for(const [da,x] of R.steps) if(t>=da) v=x; return v*r;};
+  let a=0; for(let t=1;t<=12;t++) a+=mese(t);
+  const mens=+$("mens").value||12; for(let e=0;e<mens-12;e++) a+=mese(e%2?7:12); // 13ª a dicembre, 14ª a luglio
+  return {m:a/mens,a,d:R.firma};
+}
+function syncRinn(){
+  const el=$("rinn"), au=rinnovoAuto(), pt=(numv("pt")||100)/100;
+  if(!el.dataset.touched){ setv("rinn",au&&!au.no?Math.round(au.m*pt*100)/100:0); $("rinn-box").classList.toggle("preset",!!(au&&au.m)); }
+  $("rinn-h").textContent=!au?"Per questo contratto inserisci tu l'aumento, se c'è.":au.no?au.no
+    :(el.dataset.touched?`Valore tuo. Dal CCNL sarebbero circa ${eur(au.m*pt,2)} al mese (rinnovo del ${au.d}): svuota il campo per tornare al calcolo automatico.`
+    :`Calcolato dal CCNL (rinnovo del ${au.d}): media 2026 per mensilità, ${eur(au.a*pt)} nell'anno. Modificabile.`);
+}
 function opts(){
   const sl=numv("sanLav")||0, sd=numv("sanDat")||0, slp=$("sanLavU").value==="p", sdp=$("sanDatU").value==="p";
   const tramOn=tramEligible(), tramCity=$("tram").value;
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    rinnM:numv("rinn")||0,rinn:(numv("rinn")||0)*(+$("mens").value||12),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    rinnM:numv("rinn")||0,rinn:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1189,6 +1224,7 @@ function ccnlInfo(o){
   $("ccnl-info").innerHTML=`${esc(c.fonte)}.`+(chips.length?`<div class="chips"><span style="align-self:center">Già applicati:</span>${chips.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>`:"");
 }
 function render(){
+  syncRinn();
   const o=opts(), mens=+$("mens").value||12;
   let ral;
   if(mode==="ln"){
@@ -1398,6 +1434,7 @@ function setUnit(u){
   $("ind-hint").textContent=u==="m"?"Al mese, pagate 12 mesi, fuori dalla RML":"Totale annuo, pagato in 12 mesi, fuori dalla RAL";
   render();
 }
+$("rinn").addEventListener("input",()=>{ if($("rinn").value.trim()==="") delete $("rinn").dataset.touched; else $("rinn").dataset.touched="1"; },true);
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
 document.querySelectorAll('input[inputmode="decimal"]').forEach(el=>{ if(el.value) el.value=fmtIt(parseIt(el.value)); });
 for(const id of ["fpLav","fpDat","sanLav","sanDat"]){
