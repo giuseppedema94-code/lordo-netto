@@ -388,8 +388,8 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             </div>
             <div class="f">
               <label for="ind">Indennità fisse</label>
-              <div class="ctl" data-u="€/mese"><input id="ind" type="text" inputmode="decimal" value="0"></div>
-              <p class="hint">Pagate 12 mesi, fuori dalla RAL</p>
+              <div class="ctl" id="ind-ctl" data-u="€/anno"><input id="ind" type="text" inputmode="decimal" value="0"></div>
+              <p class="hint" id="ind-hint">Totale annuo, pagato in 12 mesi, fuori dalla RAL</p>
             </div>
             <div class="f">
               <label for="indTfr">Indennità utili al TFR</label>
@@ -481,14 +481,14 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <div class="f">
                 <label for="sanLav">Tua trattenuta</label>
                 <div class="ctl-u"><div class="ctl" id="sanLav-box"><input inputmode="decimal" id="sanLav" type="text" value="0"></div>
-                  <select id="sanLavU" aria-label="Unità della tua trattenuta"><option value="e">€/anno</option><option value="p">%</option></select></div>
-                <p class="hint" id="sanLav-h">Importo fisso annuo</p>
+                  <select id="sanLavU" aria-label="Unità della tua trattenuta"><option value="p">%</option><option value="e">€/anno</option></select></div>
+                <p class="hint" id="sanLav-h">% della retribuzione lorda</p>
               </div>
               <div class="f">
                 <label for="sanDat">Contributo dell'azienda</label>
                 <div class="ctl-u"><div class="ctl" id="sanDat-box"><input inputmode="decimal" id="sanDat" type="text" value="0"></div>
-                  <select id="sanDatU" aria-label="Unità del contributo dell'azienda"><option value="e">€/anno</option><option value="p">%</option></select></div>
-                <p class="hint" id="sanDat-h">Importo fisso annuo</p>
+                  <select id="sanDatU" aria-label="Unità del contributo dell'azienda"><option value="p">%</option><option value="e">€/anno</option></select></div>
+                <p class="hint" id="sanDat-h">% della retribuzione lorda</p>
               </div>
               <div class="meter" id="san-meter"><div class="fm-bar"><i></i></div><div class="fm-txt"></div></div>
               <p class="hint">Esclusi dal reddito fino a 3.615,20 € l'anno tra te e l'azienda, se il fondo è iscritto all'Anagrafe dei fondi sanitari.</p>
@@ -992,7 +992,7 @@ function opts(){
   const tramOn=tramEligible(), tramCity=$("tram").value;
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
-  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*12,indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
+  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
     rinnM:numv("rinn")||0,rinn:(numv("rinn")||0)*(+$("mens").value||12),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
@@ -1291,7 +1291,7 @@ function applyPreset(){
   const pr=CCNL[$("ccnl").value].preset;
   const set=(id,unit,v)=>{ $(id+"U").value=unit; setv(id,v); markPreset(id,false); };
   if(presetApplied){ // rimuovo il preset precedente se l'utente non l'ha cambiato
-    for(const [id,[u,v]] of Object.entries(presetApplied)) if($(id+"U").value===u && numv(id)===v) set(id,id.startsWith("fp")?"p":"e",0);
+    for(const [id,[u,v]] of Object.entries(presetApplied)) if($(id+"U").value===u && numv(id)===v) set(id,"p",0);
     presetApplied=null;
   }
   if(pr){ presetApplied={};
@@ -1323,6 +1323,9 @@ function setUnit(u){
   $("u-a").setAttribute("aria-checked",u==="a"); $("u-m").setAttribute("aria-checked",u==="m");
   $("lbl-ral").textContent=u==="m"?"Retribuzione mensile lorda (RML)":"Retribuzione annua lorda (RAL)";
   $("ral-ctl").dataset.u=u==="m"?"€/mese":"€/anno";
+  const iv=numv("ind")||0; setv("ind",u==="m"?Math.round(iv/12*100)/100:Math.round(iv*12*100)/100);
+  $("ind-ctl").dataset.u=u==="m"?"€/mese":"€/anno";
+  $("ind-hint").textContent=u==="m"?"Al mese, pagate 12 mesi, fuori dalla RML":"Totale annuo, pagato in 12 mesi, fuori dalla RAL";
   render();
 }
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
