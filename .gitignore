@@ -1,0 +1,15 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Archivi e file temporanei
+*.zip
+*.tmp
+*.log
+node_modules/
