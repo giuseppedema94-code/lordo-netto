@@ -1161,13 +1161,12 @@ function syncExtra(){
   const so=$("sctOn").checked; document.querySelectorAll("[data-sct]").forEach(e=>e.hidden=!so);
   const sa=sctAuto(), el=$("sctImp");
   if(!el.dataset.touched){ setv("sctImp",sa??0); $("sctImp-box").classList.toggle("preset",sa!=null); }
-  $("sct-h").textContent=ralTouched?"Se hai inserito la tua RAL, gli scatti sono già compresi: qui vengono ignorati."
-    :`Si aggiungono al minimo del CCNL, per tutte le mensilità, e contano per il TFR.${sa!=null&&!el.dataset.touched?" Importo per scatto dal CCNL, modificabile.":" Trovi l'importo per scatto in busta paga."}`;
+  $("sct-h").textContent=(ralTouched?"Si aggiungono alla RAL che hai inserito: attivali solo se non li comprende già. ":"")+`Si aggiungono alla retribuzione, per tutte le mensilità, e contano per il TFR.${sa!=null&&!el.dataset.touched?" Importo per scatto dal CCNL, modificabile.":" Trovi l'importo per scatto in busta paga."}`;
 }
 function extraBase(){ // aumento futuro e scatti, annui
   const pt=(numv("pt")||100)/100, mens=+$("mens").value||12; let a=0;
   const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) a+=pa.m*pt*mens;
-  if($("sctOn").checked&&!ralTouched) a+=(Math.max(0,Math.floor(numv("sctN")))||0)*(numv("sctImp")||0)*pt*mens;
+  if($("sctOn").checked) a+=(Math.max(0,Math.floor(numv("sctN")))||0)*(numv("sctImp")||0)*pt*mens;
   return a;
 }
 function rinnovoAuto(){ // {m: media mensile, a: totale annuo 2026, d: rinnovo} per CCNL e livello scelti, a tempo pieno
@@ -1331,7 +1330,7 @@ function summaries(x,o){
     put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
-    if($("sctOn").checked&&!ralTouched&&numv("sctN")>0) parts.push(`${fmtIt(Math.floor(numv("sctN")))} scatti`);
+    if($("sctOn").checked&&numv("sctN")>0) parts.push(`${fmtIt(Math.floor(numv("sctN")))} scatti`);
     put("s-rinn",parts.join(" · ")||"Nessuno",parts.length>0); }
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
