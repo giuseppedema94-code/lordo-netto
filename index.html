@@ -406,12 +406,17 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
               <p class="hint">Contano per TFR e fondo pensione</p>
             </div>
-            <div class="f full">
-              <label for="rinn">Aumento da rinnovo CCNL rispetto all'anno precedente</label>
-              <div class="ctl" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
-              <p class="hint">Differenza tra il minimo tabellare 2026 e quello 2025, per mensilità. Se il reddito 2025 non supera 33.000 € è tassata al 5% invece che con l'IRPEF (L. 199/2025).</p>
-            </div>
           </div>
+          <details class="acc">
+            <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label for="rinn">Aumento rispetto al minimo dell'anno precedente</label>
+                <div class="ctl" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
+                <p class="hint">Differenza tra il minimo tabellare 2026 e quello 2025, per mensilità. Se il reddito 2025 non supera 33.000 € è tassata al 5% invece che con l'IRPEF (L. 199/2025).</p>
+              </div>
+            </div>
+          </details>
         </section>
 
         <!-- 3. Residenza -->
@@ -1147,6 +1152,7 @@ function summaries(x,o){
   put("s-san",sa?`${eur(x.sanLav)} tu + ${eur(x.sanDat)} azienda l'anno`:"Nessuna",sa);
   const fam=[]; if(o.coniuge)fam.push("Coniuge"); if(o.figli)fam.push(o.figli===1?"1 figlio":`${o.figli} figli`);
   put("s-fam",fam.length?fam.join(" + "):"Nessuno",fam.length);
+  put("s-rinn",o.rinnM>0?`${eur(o.rinnM,2)}/mese · ${x.rinnOk?"imposta 5%":"IRPEF ordinaria"}`:"Nessuno",o.rinnM>0);
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
   put("s-altro",al.length?al.join(" · "):"Nessuna voce",al.length);
