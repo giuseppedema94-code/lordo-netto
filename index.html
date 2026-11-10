@@ -175,10 +175,17 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .meter.full .fm-txt{color:var(--brand);font-weight:600}
 /* Consigli */
 .tips{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.tip{border-radius:10px;padding:11px 14px 11px 13px;background:var(--soft);border-left:3px solid var(--c-altro);font-size:13.5px;line-height:1.45;color:#3a4642}
-.tip b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:2px}
-.tip.ok{border-left-color:var(--c-net);background:#eef6f2}
-.tip.warn{border-left-color:var(--warn);background:#fbf0ec}
+.tip{--tc:#0f5c4d;--tb:#eef6f2;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border-radius:12px;padding:12px 14px;background:var(--tb);border:1px solid color-mix(in srgb,var(--tc) 18%,transparent);font-size:13.5px;line-height:1.45;color:#3a4642}
+.tip .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08),inset 0 0 0 1px color-mix(in srgb,var(--tc) 22%,transparent)}
+.tip b{display:block;font-size:14.5px;color:var(--tc);margin-bottom:3px;line-height:1.3}
+.tip.t-soglia{--tc:#b45309;--tb:#fff6e8}
+.tip.t-adesione{--tc:#0f766e;--tb:#e8f6f3}
+.tip.t-rientro{--tc:#15803d;--tb:#ebf7ee}
+.tip.t-fondo{--tc:#1d4ed8;--tb:#eef3ff}
+.tip.t-limite{--tc:#b91c1c;--tb:#fdefef}
+.tip.t-fringeko{--tc:#be185d;--tb:#fdf0f6}
+.tip.t-fringe{--tc:#7e22ce;--tb:#f6effd}
+.tip.t-aumento{--tc:#4338ca;--tb:#f0f0fd}
 .tip .k{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
 .fm-bar{height:8px;border-radius:99px;background:#ece9e2;overflow:hidden}
 .fm-bar i{display:block;height:100%;background:var(--brand-2);border-radius:99px;transition:width .2s}
@@ -1091,7 +1098,7 @@ function consigli(o,ral,x){
   if(cliff){
     for(let d=cliff.d; d<=10000; d+=50){ if(C({ral:ral+d}).netto>=c0.netto){ be=d; break; } }
     const why=cause(cliff.c,c0);
-    T.push({k:"warn",t:`Attento: un piccolo aumento ti farebbe guadagnare meno`,
+    T.push({k:"warn",c:"soglia",i:"⚠️",t:`Attento: un piccolo aumento ti farebbe guadagnare meno`,
       d:`Con +${eur(cliff.d)} lordi l'anno perderesti ${why.length?joinIt(why):"alcune agevolazioni"} e il netto annuo scenderebbe di ${eur(c0.netto-cliff.c.netto)}. `+
         (be?`Un aumento conviene solo da <span class="k">+${eur(be)}</span> lordi l'anno in su. Sotto quella cifra meglio chiederlo in welfare o fringe benefit, che sono esentasse.`:"")});
   }
@@ -1099,7 +1106,7 @@ function consigli(o,ral,x){
   const usato=x.fpLav+x.fpDat, margine=Math.max(0,P.fpMax-usato);
   if(pr.fpDat&&!(o.fpLavPct||o.fpLavFix)&&!(o.fpDatPct||o.fpDatFix)){
     const quota=x.baseTfr*pr.fpDat/100;
-    T.push({k:"ok",t:`Iscriviti a ${pr.fondo}: l'azienda ti versa ${eur(quota)} l'anno`,
+    T.push({k:"ok",c:"adesione",i:"🤝",t:`Iscriviti a ${pr.fondo}: l'azienda ti versa ${eur(quota)} l'anno`,
       d:`Il CCNL prevede che l'azienda versi il ${pct(pr.fpDat)} della retribuzione utile al TFR, ma solo se anche tu versi almeno il ${pct(pr.fpLav)}. Se non ti iscrivi, quei soldi li perdi.`});
   }
   if(margine>=50){
@@ -1107,32 +1114,32 @@ function consigli(o,ral,x){
     for(let v=50; v<=margine; v+=50){ const cv=C({fpVol:(o.fpVol||0)+v}), why=cause(c0,cv); if(why.length){ rec={v,cv,why}; break; } }
     if(rec){
       const costo=c0.netto-rec.cv.netto;
-      T.push({k:"ok",t:`Versa ${eur(rec.v)} in più al fondo pensione: ti costano molto meno`,
+      T.push({k:"ok",c:"rientro",i:"🎯",t:`Versa ${eur(rec.v)} in più al fondo pensione: ti costano molto meno`,
         d:`Il versamento si deduce dal reddito, che così scende sotto una soglia e ti fa recuperare ${joinIt(rec.why)}. `+(costo<=0?`Risultato: metti da parte ${eur(rec.v)} per la pensione e il netto annuo sale pure di <span class="k">${eur(-costo)}</span>.`
           :`Risultato: metti da parte ${eur(rec.v)} per la pensione, ma il netto annuo cala solo di <span class="k">${eur(costo)}</span>.`)});
     }
     const cm=C({fpVol:(o.fpVol||0)+margine}), costo=c0.netto-cm.netto, risp=margine-costo;
     const pp=x.baseTfr>0&&$("fpLavU").value==="p"?` (cioè <span class="k">${fmtIt(Math.ceil(margine/x.baseTfr*1000)/10)} punti percentuali</span> in più sulla tua quota)`:"";
-    T.push({k:usato?"ok":"info",t:`Puoi versare ancora ${eur(margine)} al fondo pensione pagando meno tasse`,
+    T.push({k:usato?"ok":"info",c:"fondo",i:"🏦",t:`Puoi versare ancora ${eur(margine)} al fondo pensione pagando meno tasse`,
       d:`Fino a 5.164,57 € l'anno i versamenti si sottraggono dal reddito tassato. Versando altri ${eur(margine)}${pp} risparmi circa <span class="k">${eur(risp)}</span> di tasse (il ${Math.round(risp/margine*100)}% di quanto versi): al fondo arrivano ${eur(margine)}, ma dalla tua busta escono solo ${eur(costo)}.`});
   } else if(usato>P.fpMax+0.5){
-    T.push({k:"warn",t:`Versi ${eur(usato-P.fpMax)} al fondo oltre il limite deducibile`,
+    T.push({k:"warn",c:"limite",i:"🚫",t:`Versi ${eur(usato-P.fpMax)} al fondo oltre il limite deducibile`,
       d:"Quella parte non riduce le tasse di oggi. Comunicala al fondo come contributo non dedotto entro il 31 dicembre dell'anno successivo: così non verrà tassata di nuovo quando la riceverai."});
   }
   /* 3. Fringe benefit */
   if(x.fringeTax){
     const c00=C({fringe:0}), cs=C({fringe:x.fringeSoglia}), cf=C({});
     const tasse=c00.netto-cf.netto, guad=(cs.netto+x.fringeSoglia)-(cf.netto+x.fringe);
-    T.push({k:"warn",t:`Hai superato la soglia dei fringe benefit: paghi circa ${eur(tasse)} tra tasse e contributi`,
+    T.push({k:"warn",c:"fringeko",i:"🎁",t:`Hai superato la soglia dei fringe benefit: paghi circa ${eur(tasse)} tra tasse e contributi`,
       d:`Oltre ${eur(x.fringeSoglia)} non si tassa solo la parte in più, ma tutti i ${eur(x.fringe)} ricevuti. `+(guad>0?`Restando entro la soglia avresti <span class="k">${eur(guad)}</span> in più l'anno: chiedi di spostare l'eccedenza in welfare, rimborsi o sull'anno prossimo.`:"")});
   } else if(x.fringe>0){
-    T.push({k:"info",t:`Puoi ricevere ancora ${eur(x.fringeSoglia-x.fringe)} di fringe benefit senza tasse`,
+    T.push({k:"info",c:"fringe",i:"🎁",t:`Puoi ricevere ancora ${eur(x.fringeSoglia-x.fringe)} di fringe benefit senza tasse`,
       d:"Buoni spesa o carburante, rimborso di bollette, affitto o interessi del mutuo: fino alla soglia non paghi né tasse né contributi."});
   }
   /* 4. Quanto ti resta di un aumento (se non c'è una soglia vicina) */
   if(!cliff||cliff.d>1000){
     const keep=C({ral:ral+1000}).netto-c0.netto;
-    T.push({k:keep<550?"warn":"info",t:`Su 1.000 € lordi in più l'anno te ne restano circa ${eur(keep)}`,
+    T.push({k:keep<550?"warn":"info",c:"aumento",i:"📈",t:`Su 1.000 € lordi in più l'anno te ne restano circa ${eur(keep)}`,
       d:`Tra IRPEF, addizionali e contributi, su ogni euro in più perdi circa il <span class="k">${Math.round(100-keep/10)}%</span>. Se l'azienda ti dà un premio di risultato, convertirlo in welfare (buoni, rimborsi, previdenza) ti evita queste trattenute: lo ricevi per intero.`});
   }
   return T;
@@ -1142,7 +1149,7 @@ function renderTips(o,ral,x){
   try{ T=consigli(o,ral,x); }catch(e){ T=[]; }
   const ord={warn:0,ok:1,info:2}; T.sort((a,b)=>ord[a.k]-ord[b.k]);
   $("tips-box").hidden=!T.length;
-  $("tips").innerHTML=T.map(t=>`<li class="tip ${t.k}"><b>${t.t}</b>${t.d}</li>`).join("");
+  $("tips").innerHTML=T.map(t=>`<li class="tip ${t.k} t-${t.c||"aumento"}"><span class="ic" aria-hidden="true">${t.i||"💡"}</span><div><b>${t.t}</b>${t.d}</div></li>`).join("");
   const fu=x.fpLav+x.fpDat, su=x.sanLav+x.sanDat;
   meter("fp-meter",fu,P.fpMax,
     fu?`Dedotti ${eur(fu)} su ${eur(P.fpMax,2)}: puoi dedurre ancora ${eur(Math.max(0,P.fpMax-fu))}.`:`Nessun versamento: puoi dedurre fino a ${eur(P.fpMax,2)} l'anno.`,
