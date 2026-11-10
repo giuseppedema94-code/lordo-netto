@@ -239,9 +239,9 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .fuori b{font-variant-numeric:tabular-nums}
 .fuori small{display:block;color:var(--muted);margin-top:2px}
 .note{font-size:12.5px;color:var(--muted);margin:12px 0 0;line-height:1.45}
-.sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:14.5px;color:var(--ink)}
+.f label.sw,.sw{display:flex;align-items:center;margin:0;gap:10px;cursor:pointer;font-weight:600;font-size:14.5px;color:var(--ink)}
 .sw input{position:absolute;opacity:0;width:1px;height:1px}
-.sw .tr{flex:none;width:40px;height:23px;border-radius:99px;background:#d3cfc5;position:relative;transition:background .15s}
+.sw .tr{display:block;flex:none;width:40px;height:23px;border-radius:99px;background:#d3cfc5;position:relative;transition:background .15s}
 .sw .tr::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
 .sw input:checked+.tr{background:var(--brand-2)}
 .sw input:checked+.tr::after{transform:translateX(17px)}
