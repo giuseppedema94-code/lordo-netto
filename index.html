@@ -1526,7 +1526,7 @@ function buildSnap(){
   cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
   cl.querySelectorAll("details").forEach(d=>d.open=true);
   const sel=id=>{const e=$(id);return e&&e.selectedIndex>=0?e.options[e.selectedIndex].text:"";};
-  const ctx=[sel("ccnl"),sel("livello"),selCom?selCom.nome:""].filter(Boolean).map(esc).join(" · ");
+  const lv=sel("livello").split(" – ")[0], ctx=[sel("ccnl"),lv?"Livello "+lv:"",selCom?selCom.nome:""].filter(Boolean).map(esc).join(" · ");
   const d=new Date().toLocaleDateString("it-IT");
   w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
   w.appendChild(cl);
