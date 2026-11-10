@@ -703,7 +703,6 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
         </div>
         <div class="fuori" id="fuori" hidden></div>
         <div class="actions">
-          <button class="btn" id="shareImg" type="button">Condividi immagine</button>
           <button class="btn" id="sharePdf" type="button">Salva PDF</button>
           <button class="btn" id="copy" type="button">Copia testo</button>
         </div>
@@ -1686,27 +1685,6 @@ function buildSnap(){
   w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con Lordo-Netto · ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
   document.body.appendChild(w); return w;
 }
-let h2cP=null;
-const loadH2c=()=>h2cP||(h2cP=new Promise((ok,ko)=>{const sc=document.createElement("script");sc.src="js/html2canvas.min.js";sc.onload=()=>ok(window.html2canvas);sc.onerror=()=>{h2cP=null;ko();};document.head.appendChild(sc);}));
-const flash=(b,t,orig)=>{b.textContent=t;setTimeout(()=>b.textContent=orig,2000);};
-$("shareImg").addEventListener("click",async()=>{
-  const b=$("shareImg"), orig="Condividi immagine"; b.textContent="Preparo…"; b.disabled=true;
-  try{
-    const h2c=await loadH2c(); const w=buildSnap();
-    const cv=await h2c(w,{scale:2,backgroundColor:"#ffffff",logging:false,windowWidth:520});
-    w.remove();
-    const blob=await new Promise(r=>cv.toBlob(r,"image/png"));
-    const file=new File([blob],"stipendio-netto.png",{type:"image/png"});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],title:"Stima stipendio netto"});}catch(e){}
-      b.textContent=orig;
-    } else {
-      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=file.name; a.click();
-      setTimeout(()=>URL.revokeObjectURL(a.href),4000); flash(b,"Immagine scaricata",orig);
-    }
-  }catch(e){ document.getElementById("snap")?.remove(); flash(b,"Non disponibile",orig); }
-  b.disabled=false;
-});
 $("sharePdf").addEventListener("click",()=>{
   buildSnap(); document.body.classList.add("printing");
   const t=document.title; document.title="stipendio-netto";
