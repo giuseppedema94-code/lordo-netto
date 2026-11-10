@@ -1133,7 +1133,7 @@ function consigli(o,ral,x){
   if(!cliff||cliff.d>1000){
     const keep=C({ral:ral+1000}).netto-c0.netto;
     T.push({k:keep<550?"warn":"info",t:`Su 1.000 € lordi in più l'anno te ne restano circa ${eur(keep)}`,
-      d:`La tua aliquota marginale effettiva, tra IRPEF, addizionali e contributi, è di circa il <span class="k">${Math.round(100-keep/10)}%</span>. Un premio di risultato convertito in welfare aziendale non la paga.`});
+      d:`Tra IRPEF, addizionali e contributi, su ogni euro in più perdi circa il <span class="k">${Math.round(100-keep/10)}%</span>. Se l'azienda ti dà un premio di risultato, convertirlo in welfare (buoni, rimborsi, previdenza) ti evita queste trattenute: lo ricevi per intero.`});
   }
   return T;
 }
