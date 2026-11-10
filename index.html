@@ -82,6 +82,10 @@ header.top nav a:hover{color:#fff}
 .hero{padding:30px 0 8px}
 .hero h1{font-size:clamp(25px,3.6vw,34px);line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;text-wrap:balance}
 .hero p{margin:0;color:var(--muted);max-width:68ch}
+.hero .lead{font-size:18px;font-weight:600;color:var(--ink)}
+.perks{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.perks li{font-size:13.5px;font-weight:600;color:var(--brand);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 10px}
+.perks li::before{content:"✓";margin-right:6px;color:var(--brand-2)}
 .badge{display:inline-block;background:var(--brand-soft);color:var(--brand);font-weight:600;font-size:12.5px;padding:3px 10px;border-radius:99px;margin-bottom:10px}
 
 /* Griglia principale */
@@ -313,7 +317,14 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
   <section class="hero">
     <span class="badge">Aggiornato alle regole fiscali 2026</span>
     <h1>Calcolo stipendio netto 2026 dal lordo, con il tuo CCNL</h1>
-    <p>Scopri quanto ti resta davvero in busta: scegli il tuo CCNL o inserisci la RAL e vedi il netto mese per mese, voce per voce. Anche da netto a lordo, con consigli per pagare meno tasse.</p>
+    <p class="lead">Quanto ti resta davvero in busta? Scoprilo in 10 secondi.</p>
+    <ul class="perks">
+      <li>Netto mese per mese, voce per voce</li>
+      <li>13 CCNL e addizionali di ogni comune</li>
+      <li>Da netto a lordo</li>
+      <li>Consigli per pagare meno tasse</li>
+      <li>Condividi in immagine o PDF</li>
+    </ul>
   </section>
 
   <div class="grid">
