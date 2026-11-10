@@ -363,6 +363,11 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <select id="tram"></select>
               <p class="hint" id="tram-h">Per il concorso spese tranviarie del CCNL ABI: 12 mensilità, solo nei comuni sopra 200.000 abitanti. Ridotto del 20% nel contratto complementare.</p>
             </div>
+            <div class="f full" id="row-terzo" hidden>
+              <label for="terzo">Provincia della sede di lavoro</label>
+              <select id="terzo"></select>
+              <p class="hint" id="terzo-h"></p>
+            </div>
             <div class="f full" id="row-ore">
               <label for="ore">Orario settimanale</label>
               <div class="ctl" id="ore-box" data-u="ore/sett."><input inputmode="decimal" id="ore" type="text" value="40"></div>
@@ -891,6 +896,19 @@ function tramFromComune(){ // finché l'utente non sceglie la sede, la deduco da
   const t=$("tram"); if(!t||t.dataset.touched||!t.options.length) return;
   t.value=selCom&&TRAM[selCom.nome]?selCom.nome:"";
 }
+/* CCNL Terziario Confcommercio – Terzo elemento provinciale, € al mese (2,07 € nelle altre province, già nei minimi) */
+const TERZO={"Milano":11.36,"Bergamo":10.33,"Palermo":10.33,"Piacenza":9.03,"Brescia":8.78,"Como":7.75,"Varese":7.75,"Torino":6.71};
+const TERZO_PR={MI:"Milano",BG:"Bergamo",PA:"Palermo",PC:"Piacenza",BS:"Brescia",CO:"Como",VA:"Varese",TO:"Torino"};
+const terzoDelta=()=>$("ccnl").value==="commercio"&&TERZO[$("terzo").value]?TERZO[$("terzo").value]-2.07:0;
+function terzoFromComune(){
+  const t=$("terzo"); if(t.dataset.touched) return;
+  t.value=selCom&&TERZO_PR[selCom.pr]?TERZO_PR[selCom.pr]:"";
+}
+function syncTerzo(){
+  const on=$("ccnl").value==="commercio"; $("row-terzo").hidden=!on; if(!on) return;
+  const v=TERZO[$("terzo").value]||2.07;
+  $("terzo-h").textContent=`Terzo elemento provinciale: ${eur(v,2)} al mese, per ${$("mens").value} mensilità. Nelle altre province è 2,07 €, già compreso nel minimo.`;
+}
 function syncTram(){
   const on=tramEligible(); $("row-tram").hidden=!on;
 }
@@ -913,7 +931,7 @@ function fillLivelli(){
 function ralDaCcnl(){
   const c=CCNL[$("ccnl").value];
   if(!c.livelli.length)return null;
-  const min=c.livelli[+$("livello").value][1];
+  const min=c.livelli[+$("livello").value][1]+terzoDelta();
   const pt=(numv("pt")||100)/100;
   return Math.round(min*(+$("mens").value)*pt*100)/100;
 }
@@ -970,7 +988,7 @@ function pickComune(){
   let c=COMIDX.get(v);
   if(!c && v){ const m=[...COMIDX.entries()].filter(([k])=>k.startsWith(v+" (")); if(m.length===1) c=m[0][1]; }
   selCom=c?parseCom(c):null;
-  tramFromComune();
+  tramFromComune(); terzoFromComune(); syncTerzo();
   if(selCom){
     const reg=ADD.p2r[selCom.pr], R=ADD.reg[reg];
     selCom.reg=reg;
@@ -1320,7 +1338,7 @@ $("ore").addEventListener("input",e=>{
   ralTouched=false; render();
 });
 $("pt").addEventListener("input",syncOre);
-$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); render();});
+$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
 applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
@@ -1330,7 +1348,10 @@ $("fis").addEventListener("change",render);
 $("tram").innerHTML='<option value="">Altro comune (non spetta)</option>'+Object.keys(TRAM).sort().map(c=>`<option>${c}</option>`).join("");
 $("tram").addEventListener("change",()=>{$("tram").dataset.touched="1";render();});
 $("livello").addEventListener("change",syncTram);
-tramFromComune(); syncTram(); fisDefault();
+$("terzo").innerHTML='<option value="">Altra provincia</option>'+Object.keys(TERZO).sort().map(c=>`<option>${c}</option>`).join("");
+$("terzo").addEventListener("change",()=>{$("terzo").dataset.touched="1";ralTouched=false;syncTerzo();render();});
+$("mens").addEventListener("change",syncTerzo);
+tramFromComune(); terzoFromComune(); syncTerzo(); syncTram(); fisDefault();
 $("r25").addEventListener("input",e=>{liveFormat($("r25"),e);render();});
 
 ["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;render();}));
