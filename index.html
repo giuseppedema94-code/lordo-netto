@@ -959,7 +959,7 @@ function bustaOrdinaria(x,o,mens){
 }
 function lordoDaNetto(targetMese,o,mens){
   let lo=0,hi=1e6;
-  for(let i=0;i<80;i++){const m=(lo+hi)/2;const n=bustaOrdinaria(calcola({...o,ral:m}),o,mens).netM;if(n<targetMese)lo=m;else hi=m;}
+  for(let i=0;i<80;i++){const m=(lo+hi)/2;const n=bustaOrdinaria(calcola({...o,ral:m,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}),o,mens).netM;if(n<targetMese)lo=m;else hi=m;}
   return hi;
 }
 /* @engine-end */
