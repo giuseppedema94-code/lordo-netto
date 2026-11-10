@@ -239,6 +239,13 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .fuori b{font-variant-numeric:tabular-nums}
 .fuori small{display:block;color:var(--muted);margin-top:2px}
 .note{font-size:12.5px;color:var(--muted);margin:12px 0 0;line-height:1.45}
+.sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:14.5px;color:var(--ink)}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .tr{flex:none;width:40px;height:23px;border-radius:99px;background:#d3cfc5;position:relative;transition:background .15s}
+.sw .tr::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .15s}
+.sw input:checked+.tr{background:var(--brand-2)}
+.sw input:checked+.tr::after{transform:translateX(17px)}
+.sw input:focus-visible+.tr{outline:2px solid var(--brand-2);outline-offset:2px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 /* Riepilogo esportato (immagine / PDF) */
 #snap{position:fixed;left:-10000px;top:0;width:520px;background:#fff;color:var(--ink)}
@@ -434,6 +441,9 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
             <div class="fields">
               <div class="f full">
+                <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Considera l'aumento da rinnovo (imposta al 5%)</span></label>
+              </div>
+              <div class="f full" id="rinn-row" hidden>
                 <label for="rinn">Aumento rispetto al minimo prima del rinnovo</label>
                 <div class="ctl" id="rinn-box" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
                 <p class="hint" id="rinn-h"></p>
@@ -1067,6 +1077,8 @@ function rinnovoAuto(){ // {m: media mensile, a: totale annuo 2026, d: rinnovo} 
   return {m:a/mens,a,d:R.firma};
 }
 function syncRinn(){
+  const on=$("rinnOn").checked; $("rinn-row").hidden=!on;
+  if(!on){ $("rinn").value="0"; delete $("rinn").dataset.touched; return; }
   const el=$("rinn"), au=rinnovoAuto(), pt=(numv("pt")||100)/100;
   if(!el.dataset.touched){ setv("rinn",au&&!au.no?Math.round(au.m*pt*100)/100:0); $("rinn-box").classList.toggle("preset",!!(au&&au.m)); }
   $("rinn-h").textContent=!au?"Per questo contratto inserisci tu l'aumento, se c'è.":au.no?au.no
@@ -1079,7 +1091,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    rinnM:numv("rinn")||0,rinn:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1210,7 +1222,7 @@ function summaries(x,o){
   put("s-san",sa?`${eur(x.sanLav)} tu + ${eur(x.sanDat)} azienda l'anno`:"Nessuna",sa);
   const fam=[]; if(o.coniuge)fam.push("Coniuge"); if(o.figli)fam.push(o.figli===1?"1 figlio":`${o.figli} figli`);
   put("s-fam",fam.length?fam.join(" + "):"Nessuno",fam.length);
-  put("s-rinn",o.rinnM>0?`${eur(o.rinnM,2)}/mese · ${x.rinnOk?"imposta 5%":"IRPEF ordinaria"}`:"Nessuno",o.rinnM>0);
+  put("s-rinn",!$("rinnOn").checked?"Disattivato":o.rinnM>0?`${eur(o.rinnM,2)}/mese · ${x.rinnOk?"imposta 5%":"IRPEF ordinaria"}`:"Nessuno",o.rinnM>0);
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
   put("s-altro",al.length?al.join(" · "):"Nessuna voce",al.length);
@@ -1434,6 +1446,7 @@ function setUnit(u){
   $("ind-hint").textContent=u==="m"?"Al mese, pagate 12 mesi, fuori dalla RML":"Totale annuo, pagato in 12 mesi, fuori dalla RAL";
   render();
 }
+$("rinnOn").addEventListener("change",render);
 $("rinn").addEventListener("input",()=>{ if($("rinn").value.trim()==="") delete $("rinn").dataset.touched; else $("rinn").dataset.touched="1"; },true);
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
 document.querySelectorAll('input[inputmode="decimal"]').forEach(el=>{ if(el.value) el.value=fmtIt(parseIt(el.value)); });
