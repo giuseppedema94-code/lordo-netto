@@ -449,20 +449,6 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <p class="hint">Contano per TFR e fondo pensione</p>
             </div>
           </div>
-          <details class="acc">
-            <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
-            <div class="fields">
-              <div class="f full">
-                <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Considera l'aumento da rinnovo (imposta al 5%)</span></label>
-              </div>
-              <div class="f full" id="rinn-row" hidden>
-                <label for="rinn">Aumento rispetto al minimo prima del rinnovo</label>
-                <div class="ctl" id="rinn-box" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
-                <p class="hint" id="rinn-h"></p>
-                <p class="hint">Gli aumenti dei rinnovi firmati tra 2024 e 2026 e pagati nel 2026 sono tassati al 5% invece che con IRPEF e addizionali, se il reddito di lavoro 2025 non supera 33.000 € (L. 199/2025, circolare AdE 2/E 2026).</p>
-              </div>
-            </div>
-          </details>
         </section>
 
         <!-- 3. Residenza -->
@@ -588,6 +574,21 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
                 <label for="r25">Imponibile IRPEF 2025, se diverso da quest'anno</label>
                 <div class="ctl" data-u="€/anno"><input inputmode="decimal" id="r25" type="text" value="" placeholder="Uguale al 2026"></div>
                 <p class="hint">Dalla CU 2026. Nel 2026 si trattengono le addizionali calcolate sul reddito 2025.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary><span class="t">Aumento da rinnovo CCNL</span><span class="v" id="s-rinn"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Considera l'aumento da rinnovo (imposta al 5%)</span></label>
+              </div>
+              <div class="f full" id="rinn-row" hidden>
+                <label for="rinn">Aumento rispetto al minimo prima del rinnovo</label>
+                <div class="ctl" id="rinn-box" data-u="€/mese"><input id="rinn" type="text" inputmode="decimal" value="0"></div>
+                <p class="hint" id="rinn-h"></p>
+                <p class="hint">Gli aumenti dei rinnovi firmati tra 2024 e 2026 e pagati nel 2026 sono tassati al 5% invece che con IRPEF e addizionali, se il reddito di lavoro 2025 non supera 33.000 € (L. 199/2025, circolare AdE 2/E 2026).</p>
               </div>
             </div>
           </details>
