@@ -246,6 +246,18 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .sw input:checked+.tr{background:var(--brand-2)}
 .sw input:checked+.tr::after{transform:translateX(17px)}
 .sw input:focus-visible+.tr{outline:2px solid var(--brand-2);outline-offset:2px}
+.fr-list{display:grid;gap:10px;margin-bottom:8px}
+.fr-list:empty{display:none}
+.fr{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 12px}
+.fr .full{grid-column:1/-1}
+.fr-h{display:flex;gap:8px;align-items:center}
+.fr-h select{flex:1}
+.fr-x{flex:none;width:34px;height:34px;border-radius:9px;border:1px solid #d3cfc5;background:#fff;cursor:pointer;font-size:18px;line-height:1;color:var(--muted)}
+.fr-x:hover{color:var(--warn);border-color:var(--warn)}
+.fr small{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
+.fr-val{grid-column:1/-1;font-size:13px;color:var(--muted)}
+.fr-val b{color:var(--ink);font-variant-numeric:tabular-nums}
+.fr-add{width:100%;border-style:dashed}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 /* Riepilogo esportato (immagine / PDF) */
 #snap{position:fixed;left:-10000px;top:0;width:520px;background:#fff;color:var(--ink)}
@@ -597,11 +609,13 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
                 <div class="ctl" data-u="€/mese"><input inputmode="decimal" id="tratt" type="text" value="0"></div>
                 <p class="hint">Quota sindacale, rata di un prestito, cessione del quinto.</p>
               </div>
-              <div class="f">
-                <label for="fringe">Fringe benefit</label>
-                <div class="ctl" data-u="€/anno"><input inputmode="decimal" id="fringe" type="text" value="0"></div>
+              <div class="f full">
+                <label>Fringe benefit</label>
+                <input type="hidden" id="fringe" value="0">
+                <div id="fr-list" class="fr-list"></div>
+                <button type="button" class="btn fr-add" id="fr-add">+ Aggiungi fringe benefit</button>
               </div>
-              <div class="f">
+              <div class="f full">
                 <label for="fringeFigli">Soglia di esenzione</label>
                 <select id="fringeFigli"><option value="0">1.000 € – senza figli a carico</option><option value="1">2.000 € – con figli a carico</option></select>
               </div>
@@ -1420,7 +1434,43 @@ $("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault()
 applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
 
-["rimb","tratt","fringe"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
+["rimb","tratt"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
+/* ==== Fringe benefit: più voci, con auto aziendale da tabelle ACI ==== */
+const FR_TIPI={buoni:"Buoni spesa o carburante",utenze:"Rimborso bollette, affitto o interessi del mutuo",auto:"Auto aziendale a uso promiscuo",altro:"Altri beni e servizi"};
+const FR_AUTO={e10:["Elettrica, assegnata dal 2025",10],p20:["Ibrida plug-in, assegnata dal 2025",20],a50:["Altre alimentazioni, assegnata dal 2025",50],
+  c25:["Assegnata prima del 2025, CO₂ fino a 60 g/km",25],c30:["Assegnata prima del 2025, CO₂ 61-160 g/km",30],c50:["Assegnata prima del 2025, CO₂ 161-190 g/km",50],c60:["Assegnata prima del 2025, CO₂ oltre 190 g/km",60]};
+function frRow(tipo="buoni"){
+  const d=document.createElement("div"); d.className="fr";
+  d.innerHTML=`<div class="fr-h full"><select class="fr-t" aria-label="Tipo di fringe benefit">${Object.entries(FR_TIPI).map(([k,v])=>`<option value="${k}"${k===tipo?" selected":""}>${v}</option>`).join("")}</select><button type="button" class="fr-x" aria-label="Rimuovi">×</button></div>
+  <div class="full fr-imp"><small>Importo</small><div class="ctl" data-u="€/anno"><input class="fr-v" inputmode="decimal" type="text" value="0"></div></div>
+  <div class="full fr-auto" hidden><small>Alimentazione e data di assegnazione</small><select class="fr-r">${Object.entries(FR_AUTO).map(([k,[t,p]])=>`<option value="${k}"${k==="a50"?" selected":""}>${t} (${p}%)</option>`).join("")}</select></div>
+  <div class="fr-auto" hidden><small>Costo km ACI</small><div class="ctl" data-u="€/km"><input class="fr-km" inputmode="decimal" type="text" value="0,5"></div></div>
+  <div class="fr-auto" hidden><small>Mesi di utilizzo</small><div class="ctl" data-u="mesi"><input class="fr-m" inputmode="numeric" type="text" value="12"></div></div>
+  <div class="full fr-auto" hidden><small>Trattenuta a tuo carico per l'auto</small><div class="ctl" data-u="€/anno"><input class="fr-tr" inputmode="decimal" type="text" value="0"></div></div>
+  <div class="fr-val" hidden></div>`;
+  return d;
+}
+function frSync(){
+  let tot=0;
+  for(const r of document.querySelectorAll("#fr-list .fr")){
+    const auto=r.querySelector(".fr-t").value==="auto";
+    r.querySelectorAll(".fr-auto").forEach(e=>e.hidden=!auto); r.querySelector(".fr-imp").hidden=auto;
+    let v; const val=r.querySelector(".fr-val");
+    if(auto){
+      const km=parseIt(r.querySelector(".fr-km").value)||0, pc=FR_AUTO[r.querySelector(".fr-r").value][1];
+      const mesi=Math.min(12,Math.max(0,parseIt(r.querySelector(".fr-m").value)||0)), tr=parseIt(r.querySelector(".fr-tr").value)||0;
+      const lordo=km*15000*pc/100*mesi/12; v=Math.max(0,lordo-tr);
+      val.hidden=false; val.innerHTML=`Valore del benefit: <b>${eur(v)}</b> l'anno (15.000 km × ${eur(km,4)} × ${pc}%${mesi<12?` × ${mesi}/12`:""}${tr?` − ${eur(tr)}`:""})`;
+    } else { v=parseIt(r.querySelector(".fr-v").value)||0; val.hidden=true; }
+    tot+=v;
+  }
+  $("fringe").value=String(Math.round(tot*100)/100).replace(".",",");
+}
+$("fr-add").addEventListener("click",()=>{ $("fr-list").appendChild(frRow(document.querySelector("#fr-list .fr")?"altro":"buoni")); frSync(); render(); });
+$("fr-list").addEventListener("click",e=>{ if(e.target.closest(".fr-x")){ e.target.closest(".fr").remove(); frSync(); render(); } });
+$("fr-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text]")) liveFormat(e.target,e); frSync(); render(); });
+$("fr-list").addEventListener("change",()=>{ frSync(); render(); });
+
 ["rimbTax","fringeFigli"].forEach(id=>$(id).addEventListener("change",render));
 $("tram").innerHTML='<option value="">Altro comune (non spetta)</option>'+Object.keys(TRAM).sort().map(c=>`<option>${c}</option>`).join("");
 $("tram").addEventListener("change",()=>{$("tram").dataset.touched="1";render();});
