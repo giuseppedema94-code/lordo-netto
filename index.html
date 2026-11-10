@@ -604,7 +604,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               </div>
               <div class="f" data-sct hidden>
                 <label for="sctN">Scatti maturati</label>
-                <div class="ctl" data-u="n."><input inputmode="numeric" id="sctN" type="text" value="1"></div>
+                <select id="sctN"><option value="1">1</option></select>
               </div>
               <div class="f" data-sct hidden>
                 <label for="sctImp">Importo per scatto</label>
@@ -1145,11 +1145,16 @@ const SCATTI={
   logistica:[30.99,29.44,26.86,24.79,24.27,23.24,22.34,22.21,20.66,24.79,24.79,24.79,24.27,24.27,24.27,23.24,23.24],
   abi:[95.31,95.31,41.55,41.55,41.55,41.55,41.55,41.55,29.07]
 };
+const SCATTI_MAX={commercio:10,tessile:4,alimentare:5,gomma:5,metalmeccanici:5,studi:8,turismo:6,pubblici:6,logistica:5,abi:8,abicompl:8};
 SCATTI.abicompl=SCATTI.abi.map(v=>Math.round(v*0.8*100)/100); // complementare: −20% come le tabelle
 function proxAuto(){ const k=$("ccnl").value, P=PROSSIMO[k], c=CCNL[k]; if(!P) return null; if(P.no) return {no:P.no};
   const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null; return {d:P.d,m:Math.round(P.inc(i,lv[1])*100)/100}; }
+function fillSctN(){ const el=$("sctN"), mx=SCATTI_MAX[$("ccnl").value]||10, cur=Math.min(+el.value||1,mx);
+  if(el.options.length===mx) { el.value=cur; return; }
+  el.innerHTML=Array.from({length:mx},(_,i)=>`<option value="${i+1}">${i+1}${i===mx-1?" (massimo)":""}</option>`).join(""); el.value=cur; }
 function sctAuto(){ const k=$("ccnl").value, i=+$("livello").value||0, a=SCATTI[k]; return a&&a[i]!=null?a[i]:null; }
 function syncExtra(){
+  fillSctN();
   const pt=(numv("pt")||100)/100, pa=proxAuto(), on=$("proxOn").checked;
   $("prox-h").textContent=!pa?"Per questo contratto non c'è un prossimo aumento già fissato.":pa.no?pa.no
     :`Dal ${pa.d}: +${eur(pa.m*pt,2)} al mese al tuo livello. ${on?"Il calcolo mostra la busta con l'aumento già in vigore.":"Attivalo per vedere la busta con l'aumento."}`;
@@ -1592,7 +1597,8 @@ $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
 ["proxOn","sctOn"].forEach(id=>$(id).addEventListener("change",render));
 $("sctImp").addEventListener("input",()=>{ if($("sctImp").value.trim()==="") delete $("sctImp").dataset.touched; else $("sctImp").dataset.touched="1"; },true);
-["sctN","sctImp"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
+$("sctN").addEventListener("change",render);
+$("sctImp").addEventListener("input",e=>{liveFormat($("sctImp"),e);render();});
 ["strOre","strMagg"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
 $("rinn").addEventListener("input",()=>{ if($("rinn").value.trim()==="") delete $("rinn").dataset.touched; else $("rinn").dataset.touched="1"; },true);
 ["ral","nettoTarget","ind","rinn","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
