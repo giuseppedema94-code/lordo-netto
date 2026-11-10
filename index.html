@@ -1375,7 +1375,7 @@ function render(){
     ral=lordoDaNetto(numv("nettoTarget")||0,o,mens);
   }
   const x=calcola({...o,ral});
-  const b=bustaOrdinaria(x,o,mens); last={x,mens,b};
+  const b=(x.mbo||x.pdr)?bustaOrdinaria(calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}),o,mens):bustaOrdinaria(x,o,mens); last={x,mens,b}; // la busta ordinaria non contiene i bonus una tantum
 
   /* 1. Il numero che conta */
   if(mode==="ln"){
