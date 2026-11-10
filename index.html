@@ -204,6 +204,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .kpis > div{padding:13px 22px}
 .kpis > div + div{border-left:1px solid var(--line)}
 .kpis span{display:block;font-size:12.5px;color:var(--muted)}
+.kpi-m{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
 .kpis strong{font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .res-body{padding:18px 22px 20px}
 .split-h{font-size:13px;color:var(--muted);margin:0 0 7px}
@@ -681,8 +682,8 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
         <div class="cap" id="out-mens"></div>
       </div>
       <div class="kpis">
-        <div><span id="sub1-lbl">Netto annuo</span><strong id="out-na">–</strong></div>
-        <div><span id="sub2-lbl">Lordo annuo</span><strong id="out-ral">–</strong></div>
+        <div><span id="sub1-lbl">Netto annuo</span><strong id="out-na">–</strong><em class="kpi-m" id="out-na-m" hidden></em></div>
+        <div><span id="sub2-lbl">Lordo annuo</span><strong id="out-ral">–</strong><em class="kpi-m" id="out-ral-m" hidden></em></div>
       </div>
       <div class="res-body">
         <p class="split-h">Dove va il lordo di un anno</p>
@@ -1392,6 +1393,8 @@ function render(){
     $("mbar-l").textContent="RAL necessaria"; $("mbar-v").textContent=eur(x.ralBase);
   }
   $("out-na").textContent=eur(x.netto);
+  { const show=detMode==="a"; $("out-na-m").hidden=!show; $("out-ral-m").hidden=!(show&&mode==="ln");
+    $("out-na-m").textContent=`${eur(x.netto/12)} al mese, diviso 12`; $("out-ral-m").textContent=`${eur(x.ral/12)} al mese, diviso 12`; }
 
   /* 2. Ripartizione del lordo annuo: netto, contributi, imposte */
   const L=x.ral||1, sContr=x.inps+x.fpLav+x.sanLav, sTax=Math.max(0,x.netta+x.addReg+x.addCom+x.sost-x.bonus-x.ti), sNet=Math.max(0,L-sContr-sTax);
