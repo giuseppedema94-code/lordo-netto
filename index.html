@@ -1637,18 +1637,37 @@ $("bn-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text]
 $("bn-list").addEventListener("change",render);
 /* ==== Fringe benefit: più voci, con auto aziendale da tabelle ACI ==== */
 const FR_TIPI={buoni:"Buoni spesa o carburante",utenze:"Rimborso bollette, affitto o interessi del mutuo",auto:"Auto aziendale a uso promiscuo",altro:"Altri beni e servizi"};
-const FR_AUTO={e10:["Elettrica, assegnata dal 2025",10],p20:["Ibrida plug-in, assegnata dal 2025",20],a50:["Altre alimentazioni, assegnata dal 2025",50],
-  c25:["Assegnata prima del 2025, CO₂ fino a 60 g/km",25],c30:["Assegnata prima del 2025, CO₂ 61-160 g/km",30],c50:["Assegnata prima del 2025, CO₂ 161-190 g/km",50],c60:["Assegnata prima del 2025, CO₂ oltre 190 g/km",60]};
+const ALIM={e:"Elettrica",p:"Ibrida plug-in",a:"Benzina, diesel, GPL, metano o ibrida"};
+const REG={n:"Dal 1° luglio 2025 (o dal 2025 se ordinata nel 2025)",v:"Dal 1° luglio 2020 al 30 giugno 2025",o:"Prima del 1° luglio 2020"};
+const CO2={25:"Fino a 60 g/km (25%)",30:"Da 61 a 160 g/km (30%)",50:"Da 161 a 190 g/km (50%)",60:"Oltre 190 g/km (60%)"};
+let ACI=null, aciP=null;
+const km4=v=>v.toFixed(4).replace(".",",");
+const setvEl=(el,v)=>{el.value=km4(v);};
+const loadAci=()=>aciP||(aciP=fetch("data/aci-2026.json").then(r=>r.json()).then(d=>ACI=d).catch(()=>{aciP=null;}));
+const opt=(o,sel)=>Object.entries(o).map(([k,v])=>`<option value="${k}"${String(k)===String(sel)?" selected":""}>${v}</option>`).join("");
 function frRow(tipo="buoni"){
   const d=document.createElement("div"); d.className="fr";
   d.innerHTML=`<div class="fr-h full"><select class="fr-t" aria-label="Tipo di fringe benefit">${Object.entries(FR_TIPI).map(([k,v])=>`<option value="${k}"${k===tipo?" selected":""}>${v}</option>`).join("")}</select><button type="button" class="fr-x" aria-label="Rimuovi">×</button></div>
   <div class="full fr-imp"><small>Importo</small><div class="ctl" data-u="€/anno"><input class="fr-v" inputmode="decimal" type="text" value="0"></div></div>
-  <div class="full fr-auto" hidden><small>Alimentazione e data di assegnazione</small><select class="fr-r">${Object.entries(FR_AUTO).map(([k,[t,p]])=>`<option value="${k}"${k==="a50"?" selected":""}>${t} (${p}%)</option>`).join("")}</select></div>
+  <div class="full fr-auto ac" hidden><small>Marca e modello (tabelle ACI 2026)</small><input class="fr-q" type="text" placeholder="Es. Tonale 1.5 oppure Golf TDI" autocomplete="off"><ul class="ac-list fr-ac" role="listbox" hidden></ul></div>
+  <div class="full fr-auto" hidden><small>Alimentazione</small><select class="fr-al">${opt(ALIM,"a")}</select></div>
+  <div class="full fr-auto" hidden><small>Data di assegnazione</small><select class="fr-rg">${opt(REG,"n")}</select></div>
+  <div class="full fr-auto fr-co2w" hidden><small>Emissioni CO₂ (dal libretto, campo V.7)</small><select class="fr-co2">${opt(CO2,30)}</select></div>
   <div class="fr-auto" hidden><small>Costo km ACI</small><div class="ctl" data-u="€/km"><input class="fr-km" inputmode="decimal" type="text" value="0,5"></div></div>
   <div class="fr-auto" hidden><small>Mesi di utilizzo</small><div class="ctl" data-u="mesi"><input class="fr-m" inputmode="numeric" type="text" value="12"></div></div>
   <div class="full fr-auto" hidden><small>Trattenuta a tuo carico per l'auto</small><div class="ctl" data-u="€/anno"><input class="fr-tr" inputmode="decimal" type="text" value="0"></div></div>
   <div class="fr-val" hidden></div>`;
   return d;
+}
+function frPct(r){ const rg=r.querySelector(".fr-rg").value, al=r.querySelector(".fr-al").value;
+  if(rg==="o") return 30; if(rg==="v") return +r.querySelector(".fr-co2").value; return al==="e"?10:al==="p"?20:50; }
+function frSearch(r){
+  const q=r.querySelector(".fr-q").value.trim().toUpperCase(), ul=r.querySelector(".fr-ac");
+  if(q.length<2||!ACI){ ul.hidden=true; return; }
+  const w=q.split(/\s+/), res=[];
+  for(let i=0;i<ACI.length&&res.length<8;i++){ const t=ACI[i][0]+" "+ACI[i][1]; if(w.every(x=>t.includes(x))) res.push(i); }
+  ul.innerHTML=res.length?res.map(i=>`<li data-i="${i}"><span>${esc(ACI[i][0]+" "+ACI[i][1])}</span><small>${km4(ACI[i][2])} €/km</small></li>`).join(""):'<li class="empty">Nessun modello: inserisci il costo km a mano</li>';
+  ul.hidden=false;
 }
 function frSync(){
   let tot=0;
@@ -1657,7 +1676,8 @@ function frSync(){
     r.querySelectorAll(".fr-auto").forEach(e=>e.hidden=!auto); r.querySelector(".fr-imp").hidden=auto;
     let v; const val=r.querySelector(".fr-val");
     if(auto){
-      const km=parseIt(r.querySelector(".fr-km").value)||0, pc=FR_AUTO[r.querySelector(".fr-r").value][1];
+      r.querySelector(".fr-co2w").hidden=r.querySelector(".fr-rg").value!=="v";
+      const km=parseIt(r.querySelector(".fr-km").value)||0, pc=frPct(r);
       const mesi=Math.min(12,Math.max(0,parseIt(r.querySelector(".fr-m").value)||0)), tr=parseIt(r.querySelector(".fr-tr").value)||0;
       const lordo=km*15000*pc/100*mesi/12; v=Math.max(0,lordo-tr);
       val.hidden=false; val.innerHTML=`Valore del benefit: <b>${eur(v)}</b> l'anno (15.000 km × ${eur(km,4)} × ${pc}%${mesi<12?` × ${mesi}/12`:""}${tr?` − ${eur(tr)}`:""})`;
@@ -1668,7 +1688,16 @@ function frSync(){
 }
 $("fr-add").addEventListener("click",()=>{ $("fr-list").appendChild(frRow(document.querySelector("#fr-list .fr")?"altro":"buoni")); frSync(); render(); });
 $("fr-list").addEventListener("click",e=>{ if(e.target.closest(".fr-x")){ e.target.closest(".fr").remove(); frSync(); render(); } });
-$("fr-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text]")) liveFormat(e.target,e); frSync(); render(); });
+$("fr-list").addEventListener("input",e=>{ const r=e.target.closest(".fr");
+  if(e.target.matches(".fr-q")){ loadAci().then(()=>frSearch(r)); return; }
+  if(e.target.matches("input[type=text]")) liveFormat(e.target,e); frSync(); render(); });
+$("fr-list").addEventListener("mousedown",e=>{ const li=e.target.closest(".fr-ac li[data-i]"); if(!li) return; e.preventDefault();
+  const r=li.closest(".fr"), m=ACI[+li.dataset.i];
+  r.querySelector(".fr-q").value=m[0]+" "+m[1]; setvEl(r.querySelector(".fr-km"),m[2]); r.querySelector(".fr-al").value=m[3];
+  if(m[3]==="e"||m[3]==="p") r.querySelector(".fr-co2").value="25";
+  r.querySelector(".fr-ac").hidden=true; frSync(); render(); });
+$("fr-list").addEventListener("focusout",e=>{ if(e.target.matches(".fr-q")) setTimeout(()=>{const u=e.target.closest(".fr")?.querySelector(".fr-ac"); if(u) u.hidden=true;},150); });
+$("fr-list").addEventListener("focusin",e=>{ if(e.target.matches(".fr-q")) loadAci(); });
 $("fr-list").addEventListener("change",()=>{ frSync(); render(); });
 
 ["rimbTax","fringeFigli"].forEach(id=>$(id).addEventListener("change",render));
