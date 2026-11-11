@@ -1366,7 +1366,7 @@ function summaries(x,o){
     const div=(ORE[$("ccnl").value]||0)*52/12, hr=div?x.ralBase/(+$("mens").value||13)/div:0;
     $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
     { const t=x.mbo+x.pdr+x.welf; put("s-bn",t?`${eur(t)}/anno`+(x.welf?` · welfare ${eur(x.welf)}`:""):"Nessuno",t>0); }
-  { const e=$("imp"); put("s-imp",e.value==="1"?"No":`${Math.round((1-(+e.value))*100)}% esente`,e.value!=="1"); }
+  { const e=$("imp"); put("s-imp",e.value==="1"?"Nessuno":`${Math.round((1-(+e.value))*100)}% esente`,e.value!=="1"); }
   put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
@@ -1374,7 +1374,7 @@ function summaries(x,o){
     put("s-rinn",parts.join(" · ")||"Nessuno",parts.length>0); }
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
-  put("s-altro",al.length?al.join(" · "):"Nessuna voce",al.length);
+  put("s-altro",al.length?al.join(" · "):"Nessuno",al.length);
 }
 function ccnlInfo(o){
   const c=CCNL[$("ccnl").value];
