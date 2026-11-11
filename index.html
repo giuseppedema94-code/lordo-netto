@@ -158,6 +158,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:3px;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:#c9c5b9}
+.lnk{background:none;border:0;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--brand-2);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .acc{border-bottom:1px solid var(--line)}
 .sec > .acc{border-bottom:0;margin-top:10px}
 .acc:last-child{border-bottom:0}
@@ -367,52 +368,15 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
     <!-- INPUT -->
     <section class="card form" aria-labelledby="h-dati">
       <h2 id="h-dati" class="sr">Dati per il calcolo</h2>
-      <div class="tabs" role="tablist">
+      <div class="tabs" role="tablist" hidden>
         <button role="tab" id="tab-ln" aria-selected="true">Da lordo a netto</button>
         <button role="tab" id="tab-nl" aria-selected="false">Da netto a lordo</button>
       </div>
 
       <form id="f" autocomplete="off">
-        <!-- 1. Retribuzione -->
-        <section class="sec first" aria-labelledby="h-s2">
-          <div class="sec-h"><span class="n" aria-hidden="true">1</span><h3 id="h-s2">Retribuzione</h3>
-            <div class="seg" id="seg-unit" role="radiogroup" aria-label="Tipo di importo">
-              <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
-              <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
-            </div>
-          </div>
-          <div class="fields">
-            <div class="f full" id="box-ral">
-              <label for="ral" id="lbl-ral">Retribuzione annua lorda (RAL)</label>
-              <div class="ctl big" id="ral-ctl" data-u="€/anno"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
-              <p class="hint" id="ral-hint">Scrivi la tua RAL, superminimo e scatti inclusi. Se non la conosci, parte dal minimo del CCNL che scegli sotto.</p>
-            </div>
-            <div class="f full" id="box-netto" hidden>
-              <label for="nettoTarget">Netto in busta desiderato</label>
-              <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
-              <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
-            </div>
-          </div>
-          <details class="acc">
-            <summary><span class="t">Indennità fisse</span><span class="v" id="s-ind"></span></summary>
-            <div class="fields">
-            <div class="f">
-              <label for="ind">Importo</label>
-              <div class="ctl" id="ind-ctl" data-u="€/anno"><input id="ind" type="text" inputmode="decimal" value="0"></div>
-              <p class="hint" id="ind-hint">Totale annuo, pagato in 12 mesi, fuori dalla RAL</p>
-            </div>
-            <div class="f">
-              <label for="indTfr">Indennità utili al TFR</label>
-              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
-              <p class="hint">Contano per TFR e fondo pensione</p>
-            </div>
-            </div>
-          </details>
-        </section>
-
-        <!-- 2. Contratto -->
-        <section class="sec" aria-labelledby="h-s1">
-          <div class="sec-h"><span class="n" aria-hidden="true">2</span><h3 id="h-s1">Contratto</h3></div>
+        <!-- 1. Contratto -->
+        <section class="sec first" aria-labelledby="h-s1">
+          <div class="sec-h"><span class="n" aria-hidden="true">1</span><h3 id="h-s1">Contratto</h3></div>
           <div class="fields">
             <div class="f full">
               <label for="ccnl">CCNL applicato</label>
@@ -431,6 +395,20 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
                 <option value="15">15</option>
               </select>
             </div>
+            <div class="f full" id="row-tram" hidden>
+              <label for="tram">Sede di lavoro</label>
+              <select id="tram"></select>
+              <p class="hint" id="tram-h">Per il concorso spese tranviarie del CCNL ABI: 12 mensilità, solo nei comuni sopra 200.000 abitanti. Ridotto del 20% nel contratto complementare.</p>
+            </div>
+            <div class="f full" id="row-terzo" hidden>
+              <label for="terzo">Provincia della sede di lavoro</label>
+              <select id="terzo"></select>
+              <p class="hint" id="terzo-h"></p>
+            </div>
+          </div>
+          <details class="acc">
+            <summary><span class="t">Part-time e tipo di contratto</span><span class="v" id="s-pt"></span></summary>
+            <div class="fields">
             <div class="f w4">
               <label for="tipo">Tipo di contratto</label>
               <select id="tipo">
@@ -442,23 +420,69 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <label for="pt">Part-time</label>
               <div class="ctl" data-u="%"><input inputmode="decimal" id="pt" type="text" value="100"></div>
             </div>
-            <div class="f full" id="row-tram" hidden>
-              <label for="tram">Sede di lavoro</label>
-              <select id="tram"></select>
-              <p class="hint" id="tram-h">Per il concorso spese tranviarie del CCNL ABI: 12 mensilità, solo nei comuni sopra 200.000 abitanti. Ridotto del 20% nel contratto complementare.</p>
-            </div>
-            <div class="f full" id="row-terzo" hidden>
-              <label for="terzo">Provincia della sede di lavoro</label>
-              <select id="terzo"></select>
-              <p class="hint" id="terzo-h"></p>
-            </div>
             <div class="f full" id="row-ore">
               <label for="ore">Orario settimanale</label>
               <div class="ctl" id="ore-box" data-u="ore/sett."><input inputmode="decimal" id="ore" type="text" value="40"></div>
               <p class="hint" id="ore-h"></p>
             </div>
-          </div>
+            </div>
+          </details>
           <div class="ccnl-info" id="ccnl-info"></div>
+        </section>
+
+        <!-- 2. Retribuzione -->
+        <section class="sec" aria-labelledby="h-s2">
+          <div class="sec-h"><span class="n" aria-hidden="true">2</span><h3 id="h-s2">Retribuzione</h3>
+            <div class="seg" id="seg-unit" role="radiogroup" aria-label="Tipo di importo">
+              <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
+              <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="f full" id="box-ral">
+              <label for="ral" id="lbl-ral">Retribuzione annua lorda (RAL)</label>
+              <div class="ctl big" id="ral-ctl" data-u="€/anno"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
+              <p class="hint" id="ral-hint">Parte dal minimo del CCNL: sostituiscilo con il tuo importo, superminimo incluso.</p>
+            </div>
+            <div class="f full" id="box-netto" hidden>
+              <label for="nettoTarget">Netto in busta desiderato</label>
+              <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
+              <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
+            </div>
+            <div class="f full"><button type="button" class="lnk" id="mode-lnk">Conosci già il netto che vuoi? Parti dal netto →</button></div>
+          </div>
+          <details class="acc">
+            <summary><span class="t">Indennità fisse</span><span class="v" id="s-ind"></span></summary>
+            <div class="fields">
+            <div class="f">
+              <label for="ind">Importo</label>
+              <div class="ctl" id="ind-ctl" data-u="€/anno"><input id="ind" type="text" inputmode="decimal" value="0"></div>
+              <p class="hint" id="ind-hint">Totale annuo, pagato in 12 mesi, fuori dalla RAL</p>
+            </div>
+            <div class="f">
+              <label for="indTfr">Indennità utili al TFR</label>
+              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
+              <p class="hint">Contano per TFR e fondo pensione</p>
+            </div>
+            </div>
+          </details>
+          <details class="acc">
+            <summary><span class="t">Scatti di anzianità</span><span class="v" id="s-sct"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label class="sw"><input type="checkbox" id="sctOn"><span class="tr" aria-hidden="true"></span><span>Scatti di anzianità</span></label>
+                <p class="hint" id="sct-h"></p>
+              </div>
+              <div class="f" data-sct hidden>
+                <label for="sctN">Scatti maturati</label>
+                <select id="sctN"><option value="1">1</option></select>
+              </div>
+              <div class="f" data-sct hidden>
+                <label for="sctImp">Importo per scatto</label>
+                <div class="ctl" id="sctImp-box" data-u="€/mese"><input inputmode="decimal" id="sctImp" type="text" value="0"></div>
+              </div>
+            </div>
+          </details>
         </section>
 
         <!-- 3. Residenza -->
@@ -479,9 +503,9 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
         <!-- Dettagli facoltativi, nello stesso ordine del cedolino -->
         <div class="opt">
           <p class="opt-h">Dettagli facoltativi</p>
-          <p class="opt-sub">Seguono l'ordine del cedolino. I valori previsti dal CCNL sono già compilati.</p>
+          <p class="opt-sub">Tre gruppi: fondi, tasse ed extra. I valori previsti dal CCNL sono già compilati.</p>
 
-          <p class="eyebrow"><i class="dot contr"></i>Contributi e fondi</p>
+          <p class="eyebrow"><i class="dot contr"></i>Fondi e contributi</p>
           <details class="acc">
             <summary><span class="t">Contributi INPS</span><span class="v" id="s-contr"></span></summary>
             <div class="fields">
@@ -552,7 +576,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             </div>
           </details>
 
-          <p class="eyebrow"><i class="dot tax"></i>Imposte</p>
+          <p class="eyebrow"><i class="dot tax"></i>Tasse e agevolazioni</p>
           <details class="acc">
             <summary><span class="t">Familiari a carico</span><span class="v" id="s-fam"></span></summary>
             <div class="fields">
@@ -589,7 +613,6 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
           </details>
 
 
-          <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
           <details class="acc">
             <summary><span class="t">Rientro dei cervelli</span><span class="v" id="s-imp"></span></summary>
             <div class="fields">
@@ -609,7 +632,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             </div>
           </details>
           <details class="acc">
-            <summary><span class="t">Rinnovi contrattuali e scatti</span><span class="v" id="s-rinn"></span></summary>
+            <summary><span class="t">Rinnovo del CCNL</span><span class="v" id="s-rinn"></span></summary>
             <div class="fields">
               <div class="f full sub">
                 <label class="sw"><input type="checkbox" id="rinnOn"><span class="tr" aria-hidden="true"></span><span>Detassazione degli aumenti da rinnovo</span></label>
@@ -624,20 +647,10 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
                 <label class="sw"><input type="checkbox" id="proxOn"><span class="tr" aria-hidden="true"></span><span>Prossimo aumento del CCNL</span></label>
                 <p class="hint" id="prox-h"></p>
               </div>
-              <div class="f full sub">
-                <label class="sw"><input type="checkbox" id="sctOn"><span class="tr" aria-hidden="true"></span><span>Scatti di anzianità</span></label>
-                <p class="hint" id="sct-h"></p>
-              </div>
-              <div class="f" data-sct hidden>
-                <label for="sctN">Scatti maturati</label>
-                <select id="sctN"><option value="1">1</option></select>
-              </div>
-              <div class="f" data-sct hidden>
-                <label for="sctImp">Importo per scatto</label>
-                <div class="ctl" id="sctImp-box" data-u="€/mese"><input inputmode="decimal" id="sctImp" type="text" value="0"></div>
-              </div>
             </div>
           </details>
+
+          <p class="eyebrow"><i class="dot"></i>Extra in busta</p>
           <details class="acc">
             <summary><span class="t">Bonus, premi e welfare</span><span class="v" id="s-bn"></span></summary>
             <div class="fields">
@@ -784,7 +797,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
       <details><summary>Come si calcola lo stipendio netto nel 2026?</summary><p>Dalla RAL si tolgono i contributi INPS a carico del dipendente (di norma 9,19%). Sul resto si calcola l'IRPEF con le aliquote 23%, 33% e 43%, si sottraggono le detrazioni e si aggiungono le addizionali. Infine si sommano il bonus cuneo fiscale e l'eventuale trattamento integrativo.</p></details>
       <details><summary>Quali sono le aliquote IRPEF 2026?</summary><p>23% fino a 28.000 €, 33% tra 28.000 e 50.000 €, 43% oltre 50.000 €. Il secondo scaglione è sceso dal 35% al 33% con la Legge di Bilancio 2026 (L. 199/2025).</p></details>
       <details><summary>Perché il netto mensile cambia tra 13 e 14 mensilità?</summary><p>La RAL è divisa per il numero di mensilità. Con 14 mensilità la busta paga ordinaria è più bassa, ma ricevi anche la quattordicesima a giugno o luglio. Il netto annuo resta lo stesso.</p></details>
-      <details><summary>Come si fa il calcolo da netto a lordo?</summary><p>Scegli la scheda "Da netto a lordo" e inserisci il netto mensile che vuoi ricevere: il calcolatore trova la RAL che lo produce con le stesse regole fiscali e contributive.</p></details>
+      <details><summary>Come si fa il calcolo da netto a lordo?</summary><p>Clicca "Parti dal netto" sotto la RAL e inserisci il netto mensile che vuoi ricevere: il calcolatore trova la RAL che lo produce con le stesse regole fiscali e contributive.</p></details>
       <details><summary>Da dove vengono le aliquote delle addizionali?</summary><p>Dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), che raccolgono le delibere di regioni e comuni. Le detrazioni regionali per figli o disabilità non sono incluse: se ti spettano, l'addizionale reale è più bassa.</p></details>
       <details><summary>Il risultato vale come busta paga ufficiale?</summary><p>No. È una stima annua. La busta paga reale dipende da conguagli, addizionali trattenute in rate, scatti, straordinari, fondi integrativi e altre voci aziendali. Per un calcolo certificato rivolgiti al tuo ufficio del personale o a un consulente del lavoro.</p></details>
     </div>
@@ -1377,7 +1390,8 @@ function summaries(x,o){
   put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
-    if($("sctOn").checked&&numv("sctN")>0) parts.push(`${fmtIt(Math.floor(numv("sctN")))} scatti`);
+    { const n=$("sctOn").checked?Math.floor(numv("sctN"))||0:0; put("s-sct",n?`${n} ${n===1?"scatto":"scatti"} · ${eur(n*(numv("sctImp")||0),2)}/mese`:"Nessuno",n>0); }
+    { const ptv=numv("pt")||100; put("s-pt",(ptv<100?`Part-time ${fmtIt(ptv)}%`:"Tempo pieno")+($("tipo").value==="det"?" · determinato":""),ptv<100||$("tipo").value==="det"); }
     put("s-rinn",parts.join(" · ")||"Nessuno",parts.length>0); }
   put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
@@ -1401,7 +1415,7 @@ function render(){
     const daCcnl=CCNL[$("ccnl").value].livelli.length&&!ralTouched;
     $("ral-hint").textContent=unit==="m"
       ?`× ${mens} mensilità = RAL ${eur(ral)}. Superminimo e scatti inclusi.`
-      :(daCcnl?"È il minimo del CCNL scelto sotto: sostituiscilo con la tua RAL, superminimo e scatti inclusi.":`Pari a ${eur(ral/mens,2)} lordi per ${mens} mensilità.`);
+      :(daCcnl?"È il minimo del CCNL: sostituiscilo con la tua RAL, superminimo incluso.":`Pari a ${eur(ral/mens,2)} lordi per ${mens} mensilità.`);
   } else {
     ral=lordoDaNetto(numv("nettoTarget")||0,o,mens);
   }
@@ -1524,6 +1538,7 @@ function setMode(m){
   $("tab-nl").setAttribute("aria-selected",m==="nl");
   $("box-ral").hidden=(m==="nl"); $("seg-unit").hidden=(m==="nl");
   $("box-netto").hidden=(m!=="nl");
+  $("mode-lnk").textContent=m==="nl"?"← Torna al calcolo dal lordo":"Conosci già il netto che vuoi? Parti dal netto →";
   render();
 }
 function buildTables(){
@@ -1702,6 +1717,7 @@ $("u-a").addEventListener("click",()=>setUnit("a"));
 $("u-m").addEventListener("click",()=>setUnit("m"));
 ["inps","tipo","addreg","addcom","coniuge","figli","nettoTarget","sanLav","sanDat","ind","rinn","indTfr","fpLav","fpDat","fpVol","fpTfr"].forEach(id=>$(id).addEventListener("input",render));
 $("f").addEventListener("submit",e=>e.preventDefault());
+$("mode-lnk").addEventListener("click",()=>setMode(mode==="ln"?"nl":"ln"));
 $("tab-ln").addEventListener("click",()=>setMode("ln"));
 $("tab-nl").addEventListener("click",()=>setMode("nl"));
 // Condivisione del riepilogo come immagine o PDF
