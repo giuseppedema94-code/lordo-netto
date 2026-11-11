@@ -1590,7 +1590,7 @@ function buildTables(){
 fillCcnl(); fillLivelli();
 { const q=new URLSearchParams(location.search), k=q.get("ccnl");   // link dalle pagine per CCNL e livello
   if(k&&CCNL[k]){ $("ccnl").value=k; fillLivelli(); const l=q.get("livello"); if(l!==null&&$("livello").options[+l]) $("livello").value=l; } }
-setMagg(); buildTables(); loadAddiz();
+buildTables(); loadAddiz();
 try{const s=localStorage.getItem("ln-comune"); if(s) $("comune").value=s;}catch(e){}
 pickComune(); acInit();
 function fisDefault(){ const k=$("ccnl").value, on=FIS_CCNL.includes(k);
@@ -1617,10 +1617,10 @@ function applyPreset(){
 }
 // Orario settimanale a tempo pieno previsto dal CCNL (dirigenti: nessun orario)
 /* Divisore orario e maggiorazioni straordinario [diurno, notturno, festivo] dal CCNL */
-const DIV={commercio:168,tessile:173,alimentare:173,gomma:173,metalmeccanici:173,studi:170,turismo:172,pubblici:172,logistica:168};
-const MAGG={commercio:[15,50,30],tessile:[35,56,61],alimentare:[45,50,60],gomma:[18,30,50],metalmeccanici:[25,50,55],studi:[15,30,30],
+var DIV={commercio:168,tessile:173,alimentare:173,gomma:173,metalmeccanici:173,studi:170,turismo:172,pubblici:172,logistica:168};
+var MAGG={commercio:[15,50,30],tessile:[35,56,61],alimentare:[45,50,60],gomma:[18,30,50],metalmeccanici:[25,50,55],studi:[15,30,30],
   turismo:[30,60,30],pubblici:[30,60,30],logistica:[30,50,50],abi:[25,50,50],abicompl:[25,50,50],altro:[25,50,50]};
-let strMaggTouched=false;
+var strMaggTouched=false;
 function strDivisore(){ const k=$("ccnl").value; return DIV[k]||(ORE[k]||0)*52/12; }
 function setMagg(){ if(strMaggTouched) return; const m=MAGG[$("ccnl").value]||MAGG.altro, i={d:0,n:1,f:2}[$("strTipo").value]; $("strMagg").value=fmtIt(m[i]); }
 const ORE={commercio:40,tessile:40,alimentare:40,gomma:40,metalmeccanici:40,studi:40,turismo:40,pubblici:40,logistica:39,abi:37.5,abicompl:39.5,altro:40};
@@ -1778,6 +1778,7 @@ $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
 $("strTipo").addEventListener("change",()=>{setMagg();render();});
 $("strMagg").addEventListener("input",()=>{strMaggTouched=true;});
+setMagg();
 $("imp").addEventListener("change",render);
 ["proxOn","sctOn"].forEach(id=>$(id).addEventListener("change",render));
 $("sctImp").addEventListener("input",()=>{ if($("sctImp").value.trim()==="") delete $("sctImp").dataset.touched; else $("sctImp").dataset.touched="1"; },true);
