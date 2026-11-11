@@ -680,6 +680,10 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
                 <div class="ctl" data-u="ore/mese"><input inputmode="decimal" id="strOre" type="text" value="10"></div>
               </div>
               <div class="f" data-str hidden>
+                <label for="strTipo">Tipo</label>
+                <div class="ctl"><select id="strTipo"><option value="d">Diurno feriale</option><option value="n">Notturno</option><option value="f">Festivo</option></select></div>
+              </div>
+              <div class="f" data-str hidden>
                 <label for="strMagg">Maggiorazione</label>
                 <div class="ctl" data-u="%"><input inputmode="decimal" id="strMagg" type="text" value="25"></div>
               </div>
@@ -920,7 +924,8 @@ function calcola(o){
   const rimb=Math.max(0,o.rimb||0), rimbTax=!!o.rimbTax;
   const fringe=Math.max(0,o.fringe||0), fringeSoglia=o.fringeFigli?2000:1000, fringeTax=fringe>fringeSoglia;
   // Straordinari: paga oraria (minimo/divisore orario) maggiorata; imponibili, non utili al TFR
-  const straord=o.strOre>0&&o.strDiv>0?ralBase/(o.mensN||13)/o.strDiv*(1+(o.strMagg||0)/100)*o.strOre*12:0;
+  // paga oraria = (retribuzione mensile + indennità fisse) / divisore orario del CCNL
+  const straord=o.strOre>0&&o.strDiv>0?(ralBase/(o.mensN||13)+ind/12)/o.strDiv*(1+(o.strMagg||0)/100)*o.strOre*12:0;
   // Bonus/MBO (tassati normalmente) e premio di risultato in denaro (contributi sì, IRPEF sostituita dall'1% fino a 5.000 €)
   const mbo=Math.max(0,o.mbo||0), pdr=Math.max(0,o.pdr||0), welf=Math.max(0,o.welf||0);
   const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0)+straord+mbo+pdr;
@@ -949,8 +954,14 @@ function calcola(o){
   // L. 199/2025 c. 8-9: premi di risultato 2026-2027 → imposta sostitutiva 1% fino a 5.000 €, se reddito di lavoro dell'anno prima ≤ 80.000 €
   const pdrOk=pdr>0&&(o.r25>0?o.r25:redPre)<=80000;
   const pdrDet=pdrOk?Math.min(pdr,5000)*(1-o.inps):0, pdrSost=pdrDet*0.01;
+  // L. 199/2025 c. 10-11: straordinario notturno o festivo → imposta sostitutiva 15% sull'intero compenso, fino a 1.500 €,
+  // se il reddito di lavoro 2025 non supera 40.000 € (circ. AdE 3/E 2026). Turismo e pubblici esercizi esclusi: per loro
+  // c. 18-21, trattamento integrativo speciale esente pari al 15% del lordo, per le prestazioni da gennaio a settembre 2026.
+  const strNF=straord>0&&(o.strTipo==="n"||o.strTipo==="f"), str40=(o.r25>0?o.r25:redPre)<=40000;
+  const strDet=strNF&&str40&&!o.strTur?Math.min(straord,1500)*(1-o.inps):0, strSost=strDet*0.15;
+  const tis=strNF&&str40&&o.strTur?straord*0.15*9/12:0;
   // Rientro dei cervelli (impatriati): IRPEF e addizionali solo sulla quota imponibile; i contributi restano pieni
-  const redLav=Math.max(0,redPre-(rinnOk?rinn:0)-pdrDet)*(o.impQ??1);
+  const redLav=Math.max(0,redPre-(rinnOk?rinn:0)-pdrDet-strDet)*(o.impQ??1);
   const r=redLav+(o.altri||0);
   // per il taglio del cuneo le soglie contano anche la quota esente degli impatriati (L. 207/2024 c. 9, circ. AdE 4/E 2025)
   const rRif=r+(o.impQ!=null&&o.impQ<1?redLav/o.impQ*(1-o.impQ):0);
@@ -989,9 +1000,9 @@ function calcola(o){
   const quota=r>0?redLav/r:1;
   const irpefLav=netta*quota, addRegL=addReg*quota, addComL=addCom*quota;
   const tratt=Math.max(0,o.tratt||0);
-  const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost-pdrSost
+  const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost-pdrSost-strSost+tis
              +(rimbTax?0:rimb)-(fringeTax?fringe:0)-tratt;   // il fringe è in natura: tassato ma non pagato in denaro
-  return {mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
+  return {mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,strNF,str40,strDet,strSost,tis,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
 }
 /* Busta di un mese ordinario (senza 13ª/14ª), come il cedolino:
    contributi sul lordo del mese, IRPEF sugli scaglioni mensili (annui/12), detrazioni in dodicesimi,
@@ -1005,12 +1016,12 @@ function bustaOrdinaria(x,o,mens){
   const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
   const fpLavM=baseTfrM*(o.fpLavPct||0)/100+((o.fpLavFix||0)+(o.fpVol||0))/12;
   const sanLavM=(o.sanLav||0)/12+rml*(o.sanLavPct||0)/100;
-  const impM=Math.max(0,rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-rinnM)*(o.impQ??1); // impatriati: solo la quota imponibile
+  const impM=Math.max(0,rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-rinnM-x.strDet/12)*(o.impQ??1); // impatriati: solo la quota imponibile
   const lordaM=irpefLorda(impM*12)/12;
   const detrM=(x.dLav+x.dCun+x.dCon+x.dFig)/12;
   const nettaM=Math.max(0,lordaM-detrM);
   const aR=x.addReg/11, aS=x.comSaldo/11, aA=x.comAcc/9;
-  const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-aR-aS-aA+x.bonus/12+x.ti/12
+  const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-x.strSost/12+x.tis/12-aR-aS-aA+x.bonus/12+x.ti/12
             +(x.rimbTax?0:rimbM)-fringeM-trattM;
   return {strM,fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
 }
@@ -1266,7 +1277,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:strDivisore(),strTipo:$("strTipo").value,strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1398,8 +1409,8 @@ function summaries(x,o){
   const fam=[]; if(o.coniuge)fam.push("Coniuge"); if(o.figli)fam.push(o.figli===1?"1 figlio":`${o.figli} figli`);
   put("s-fam",fam.length?fam.join(" + "):"Nessuno",fam.length);
   { const on=$("strOn").checked; document.querySelectorAll("[data-str]").forEach(e=>e.hidden=!on);
-    const div=(ORE[$("ccnl").value]||0)*52/12, hr=div?x.ralBase/(+$("mens").value||13)/div:0;
-    $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
+    const div=strDivisore(), hr=div?(x.ralBase/(+$("mens").value||13)+x.ind/12)/div:0, k=$("ccnl").value;
+    $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)}: retribuzione mensile${x.ind>0?" e indennità fisse":""} ÷ ${fmtIt(Math.round(div*100)/100)} ore${DIV[k]?" (divisore del CCNL)":""}. Con la maggiorazione ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese.${MAGG[k]&&!strMaggTouched?" Maggiorazione del CCNL per questo tipo: se nel tuo caso è diversa, modificala.":""} Non utili al TFR.`+(x.strNF?(o.strTur?(x.tis>0?` Turismo e pubblici esercizi: +15% del lordo esentasse per le ore fatte da gennaio a settembre 2026.`:" Trattamento integrativo turismo: non spetta, reddito 2025 oltre 40.000 €."):(x.strDet>0?" Notturno o festivo: imposta al 15% sull'intero compenso, fino a 1.500 € nel 2026.":" Imposta al 15% su notturno e festivo: non spetta, reddito 2025 oltre 40.000 €.")):"");
     { const t=x.mbo+x.pdr+x.welf; put("s-bn",t?`${eur(t)}/anno`+(x.welf?` · welfare ${eur(x.welf)}`:""):"Nessuno",t>0); }
   { const e=$("imp"); put("s-imp",e.value==="1"?"Nessuno":`${Math.round((1-(+e.value))*100)}% esente`,e.value!=="1"); }
   put("s-ind",x.ind>0?`${eur(x.ind)}/anno${o.indTfr===false?" · non utili al TFR":""}`:"Nessuna",x.ind>0);
@@ -1475,15 +1486,15 @@ function render(){
   const v=M?{
     base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
     inps:b.inpsM, ivs:b.ivsM, fsc:b.fscM, fis:b.fisM, ebt:b.ebtM, fp:b.fpLavM, san:b.sanLavM,
-    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, net:b.netM
+    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, net:b.netM
   }:{
     base:x.ralBase, ind:x.ind, str:x.straord||0, mbo:x.mbo, pdr:x.pdr, pdrSost:x.pdrSost, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
     inps:x.inpsBase, ivs:x.inpsAgg, fsc:x.fsc, fis:x.fis, ebt:x.ebt, fp:x.fpLav, san:x.sanLav,
-    imp:x.redLav, lorda:x.lorda*(x.r?x.redLav/x.r:1), irpef:x.netta, sost:x.sost, aR:x.addReg, aS:x.comSaldo, aA:x.comAcc, bonus:x.bonus, ti:x.ti, tratt:x.tratt, net:x.netto
+    imp:x.redLav, lorda:x.lorda*(x.r?x.redLav/x.r:1), irpef:x.netta, sost:x.sost, aR:x.addReg, aS:x.comSaldo, aA:x.comAcc, bonus:x.bonus, ti:x.ti, tratt:x.tratt, strSost:x.strSost, tis:x.tis, net:x.netto
   };
   const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe;
   const tContr=v.inps+v.ivs+v.fsc+v.fis+v.ebt+v.fp+v.san;
-  const tTax=v.irpef+v.sost+(v.pdrSost||0)+v.aR+v.aS+v.aA-v.bonus-v.ti;
+  const tTax=v.irpef+v.sost+(v.pdrSost||0)+v.strSost+v.aR+v.aS+v.aA-v.bonus-v.ti-v.tis;
   const tAltro=v.rimbE-v.fringe-v.tratt;
   const pos=(l,val)=>val>0.004?[l,eur(val,2),""]:null;
   const detr=M?[b.detrM?infP("Detrazioni del mese",b.detrM):null]
@@ -1516,13 +1527,17 @@ function render(){
       ["IRPEF netta",mns(v.irpef),""],
       ded("Imposta sostitutiva 5% sugli aumenti da rinnovo",v.sost),
       ded(`Imposta sostitutiva 1% sul premio di risultato`,v.pdrSost||0),
+      ded("Imposta sostitutiva 15% sullo straordinario notturno/festivo",v.strSost),
+      x.strNF&&!x.str40?["Straordinario notturno/festivo tassato normalmente: reddito 2025 oltre 40.000 €.","","warn"]:null,
+      !M&&x.strDet>0&&x.straord>1500?[`Straordinario oltre 1.500 €: la parte in più (${eur(x.straord-1500)}) è tassata normalmente.`,"","warn"]:null,
       !M&&x.pdr>0&&!x.pdrOk?["Premio di risultato tassato normalmente: reddito dell'anno prima oltre 80.000 €.","","warn"]:null,
       !M&&x.pdr>5000&&x.pdrOk?[`Premio oltre 5.000 €: la parte in più (${eur(x.pdr-5000)}) è tassata normalmente.`,"","warn"]:null,
       ded(`Addizionale regionale 2025, ${esc(regLbl)}${M?" · rata 1 di 11":""}`,v.aR),
       ded(`Addizionale comunale 2025 a saldo, ${esc(comLbl)}${M?" · rata 1 di 11":""}`,v.aS),
       ded(`Addizionale comunale 2026 in acconto${M?" · rata 1 di 9":""}`,v.aA),
       cre("Bonus cuneo fiscale",v.bonus),
-      cre("Trattamento integrativo",v.ti)]},
+      cre("Trattamento integrativo",v.ti),
+      cre(`Trattamento integrativo speciale turismo 15%, gen–set 2026${M?", media mensile":""}`,v.tis)]},
     {id:"altro",title:"Altre voci",total:tAltro>=0?pls(tAltro):mns(tAltro),rows:[
       cre("Rimborsi spese esenti",v.rimbE),
       ded("Fringe benefit in natura, non pagati in denaro",v.fringe),
@@ -1575,7 +1590,7 @@ function buildTables(){
 fillCcnl(); fillLivelli();
 { const q=new URLSearchParams(location.search), k=q.get("ccnl");   // link dalle pagine per CCNL e livello
   if(k&&CCNL[k]){ $("ccnl").value=k; fillLivelli(); const l=q.get("livello"); if(l!==null&&$("livello").options[+l]) $("livello").value=l; } }
-buildTables(); loadAddiz();
+setMagg(); buildTables(); loadAddiz();
 try{const s=localStorage.getItem("ln-comune"); if(s) $("comune").value=s;}catch(e){}
 pickComune(); acInit();
 function fisDefault(){ const k=$("ccnl").value, on=FIS_CCNL.includes(k);
@@ -1601,6 +1616,13 @@ function applyPreset(){
   }
 }
 // Orario settimanale a tempo pieno previsto dal CCNL (dirigenti: nessun orario)
+/* Divisore orario e maggiorazioni straordinario [diurno, notturno, festivo] dal CCNL */
+const DIV={commercio:168,tessile:173,alimentare:173,gomma:173,metalmeccanici:173,studi:170,turismo:172,pubblici:172,logistica:168};
+const MAGG={commercio:[15,50,30],tessile:[35,56,61],alimentare:[45,50,60],gomma:[18,30,50],metalmeccanici:[25,50,55],studi:[15,30,30],
+  turismo:[30,60,30],pubblici:[30,60,30],logistica:[30,50,50],abi:[25,50,50],abicompl:[25,50,50],altro:[25,50,50]};
+let strMaggTouched=false;
+function strDivisore(){ const k=$("ccnl").value; return DIV[k]||(ORE[k]||0)*52/12; }
+function setMagg(){ if(strMaggTouched) return; const m=MAGG[$("ccnl").value]||MAGG.altro, i={d:0,n:1,f:2}[$("strTipo").value]; $("strMagg").value=fmtIt(m[i]); }
 const ORE={commercio:40,tessile:40,alimentare:40,gomma:40,metalmeccanici:40,studi:40,turismo:40,pubblici:40,logistica:39,abi:37.5,abicompl:39.5,altro:40};
 function syncOre(){
   const full=ORE[$("ccnl").value]; $("row-ore").hidden=!full; if(!full) return;
@@ -1623,7 +1645,7 @@ const TEMI={commercio:["#3730a3","#4f46e5","#ecebfc"],dirterz:["#312e81","#4338c
 function applyTema(){ const t=TEMI[$("ccnl").value]||["#0f5c4d","#13806a","#e4f0eb"], st=document.documentElement.style;
   st.setProperty("--brand",t[0]); st.setProperty("--brand-2",t[1]); st.setProperty("--brand-soft",t[2]);
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content",t[0]); }
-$("ccnl").addEventListener("change",()=>{applyTema(); delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); render();});
+$("ccnl").addEventListener("change",()=>{applyTema(); delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); strMaggTouched=false; setMagg(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
 applyPreset(); syncOre();
 $("fis").addEventListener("change",render);
@@ -1754,6 +1776,8 @@ function setUnit(u){
 }
 $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
+$("strTipo").addEventListener("change",()=>{setMagg();render();});
+$("strMagg").addEventListener("input",()=>{strMaggTouched=true;});
 $("imp").addEventListener("change",render);
 ["proxOn","sctOn"].forEach(id=>$(id).addEventListener("change",render));
 $("sctImp").addEventListener("input",()=>{ if($("sctImp").value.trim()==="") delete $("sctImp").dataset.touched; else $("sctImp").dataset.touched="1"; },true);
