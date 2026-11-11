@@ -795,6 +795,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
     <p>Si pagano sullo stesso reddito dell'IRPEF, con aliquote decise da regione e comune. In busta arrivano in ritardo: nel 2026 si paga il saldo del 2025 in 11 rate e l'acconto del 2026 in 9. Il calcolatore usa le aliquote ufficiali del Dipartimento delle Finanze per tutte le regioni e gli oltre 7.800 comuni.</p>
 
     <h2 id="ccnl">Minimi dei CCNL</h2>
+    <p><a href="stipendio-netto/">Netto in busta per ogni CCNL e livello →</a></p>
     <p>Sono i minimi in vigore nel 2026, quelli con cui il calcolatore precompila la RAL. Non comprendono superminimo, scatti e indennità.</p>
     <div id="ccnl-tables"></div>
 
@@ -1562,7 +1563,10 @@ function buildTables(){
   $("ccnl-tables").innerHTML=h;
 }
 
-fillCcnl(); fillLivelli(); buildTables(); loadAddiz();
+fillCcnl(); fillLivelli();
+{ const q=new URLSearchParams(location.search), k=q.get("ccnl");   // link dalle pagine per CCNL e livello
+  if(k&&CCNL[k]){ $("ccnl").value=k; fillLivelli(); const l=q.get("livello"); if(l!==null&&$("livello").options[+l]) $("livello").value=l; } }
+buildTables(); loadAddiz();
 try{const s=localStorage.getItem("ln-comune"); if(s) $("comune").value=s;}catch(e){}
 pickComune(); acInit();
 function fisDefault(){ const k=$("ccnl").value, on=FIS_CCNL.includes(k);
