@@ -585,6 +585,24 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 
           <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
           <details class="acc">
+            <summary><span class="t">Rientro dei cervelli</span><span class="v" id="s-imp"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label for="imp">Regime impatriati</label>
+                <select id="imp">
+                  <option value="1">Non applicato</option>
+                  <option value="0.5">Rientro dal 2024: 50% del reddito esente</option>
+                  <option value="0.4">Rientro dal 2024 con figlio minorenne: 60% esente</option>
+                  <option value="0.3">Rientro fino al 2023: 70% esente</option>
+                  <option value="0.1">Rientro fino al 2023 al Sud: 90% esente</option>
+                  <option value="0.5">Rientro fino al 2023, anni di proroga: 50% esente</option>
+                  <option value="0.1">Rientro fino al 2023, proroga con 3 figli minori: 90% esente</option>
+                </select>
+                <p class="hint">IRPEF e addizionali si pagano solo sulla parte imponibile; i contributi INPS restano sull'intero stipendio. Dal 2024 (D.Lgs. 209/2023) l'esenzione vale fino a 600.000 € di reddito, per 5 anni; per chi è rientrato fino al 2023 restano le regole dell'art. 16 D.Lgs. 147/2015.</p>
+              </div>
+            </div>
+          </details>
+          <details class="acc">
             <summary><span class="t">Rinnovi contrattuali e scatti</span><span class="v" id="s-rinn"></span></summary>
             <div class="fields">
               <div class="f full sub">
@@ -896,7 +914,8 @@ function calcola(o){
   // L. 199/2025 c. 8-9: premi di risultato 2026-2027 → imposta sostitutiva 1% fino a 5.000 €, se reddito di lavoro dell'anno prima ≤ 80.000 €
   const pdrOk=pdr>0&&(o.r25>0?o.r25:redPre)<=80000;
   const pdrDet=pdrOk?Math.min(pdr,5000)*(1-o.inps):0, pdrSost=pdrDet*0.01;
-  const redLav=Math.max(0,redPre-(rinnOk?rinn:0)-pdrDet);
+  // Rientro dei cervelli (impatriati): IRPEF e addizionali solo sulla quota imponibile; i contributi restano pieni
+  const redLav=Math.max(0,redPre-(rinnOk?rinn:0)-pdrDet)*(o.impQ??1);
   const r=redLav+(o.altri||0);
   const lorda=irpefLorda(r);
   const dLav=redLav>0?detrLavoro(r,o.tipo):0;
@@ -949,7 +968,7 @@ function bustaOrdinaria(x,o,mens){
   const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
   const fpLavM=baseTfrM*(o.fpLavPct||0)/100+((o.fpLavFix||0)+(o.fpVol||0))/12;
   const sanLavM=(o.sanLav||0)/12+rml*(o.sanLavPct||0)/100;
-  const impM=Math.max(0,rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-rinnM);
+  const impM=Math.max(0,rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-rinnM)*(o.impQ??1); // impatriati: solo la quota imponibile
   const lordaM=irpefLorda(impM*12)/12;
   const detrM=(x.dLav+x.dCun+x.dCon+x.dFig)/12;
   const nettaM=Math.max(0,lordaM-detrM);
@@ -1210,7 +1229,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    ...bnRead(),extraBase:extraBase(),strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strOre:$("strOn").checked?numv("strOre")||0:0,strMagg:numv("strMagg")||0,strDiv:(ORE[$("ccnl").value]||0)*52/12,mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1345,6 +1364,7 @@ function summaries(x,o){
     const div=(ORE[$("ccnl").value]||0)*52/12, hr=div?x.ralBase/(+$("mens").value||13)/div:0;
     $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
     { const t=x.mbo+x.pdr+x.welf; put("s-bn",t?`${eur(t)}/anno`+(x.welf?` · welfare ${eur(x.welf)}`:""):"Nessuno",t>0); }
+  { const e=$("imp"); put("s-imp",e.value==="1"?"No":`${Math.round((1-(+e.value))*100)}% esente`,e.value!=="1"); }
   put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
@@ -1648,6 +1668,7 @@ function setUnit(u){
 }
 $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
+$("imp").addEventListener("change",render);
 ["proxOn","sctOn"].forEach(id=>$(id).addEventListener("change",render));
 $("sctImp").addEventListener("input",()=>{ if($("sctImp").value.trim()==="") delete $("sctImp").dataset.touched; else $("sctImp").dataset.touched="1"; },true);
 $("sctN").addEventListener("change",render);
