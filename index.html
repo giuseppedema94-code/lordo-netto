@@ -159,6 +159,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:3px;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:#c9c5b9}
 .acc{border-bottom:1px solid var(--line)}
+.sec > .acc{border-bottom:0;margin-top:10px}
 .acc:last-child{border-bottom:0}
 .acc summary{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer;list-style:none}
 .acc summary::-webkit-details-marker{display:none}
@@ -372,9 +373,46 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
       </div>
 
       <form id="f" autocomplete="off">
-        <!-- 1. Contratto -->
-        <section class="sec first" aria-labelledby="h-s1">
-          <div class="sec-h"><span class="n" aria-hidden="true">1</span><h3 id="h-s1">Contratto</h3></div>
+        <!-- 1. Retribuzione -->
+        <section class="sec first" aria-labelledby="h-s2">
+          <div class="sec-h"><span class="n" aria-hidden="true">1</span><h3 id="h-s2">Retribuzione</h3>
+            <div class="seg" id="seg-unit" role="radiogroup" aria-label="Tipo di importo">
+              <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
+              <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="f full" id="box-ral">
+              <label for="ral" id="lbl-ral">Retribuzione annua lorda (RAL)</label>
+              <div class="ctl big" id="ral-ctl" data-u="€/anno"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
+              <p class="hint" id="ral-hint">Scrivi la tua RAL, superminimo e scatti inclusi. Se non la conosci, parte dal minimo del CCNL che scegli sotto.</p>
+            </div>
+            <div class="f full" id="box-netto" hidden>
+              <label for="nettoTarget">Netto in busta desiderato</label>
+              <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
+              <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
+            </div>
+          </div>
+          <details class="acc">
+            <summary><span class="t">Indennità fisse</span><span class="v" id="s-ind"></span></summary>
+            <div class="fields">
+            <div class="f">
+              <label for="ind">Importo</label>
+              <div class="ctl" id="ind-ctl" data-u="€/anno"><input id="ind" type="text" inputmode="decimal" value="0"></div>
+              <p class="hint" id="ind-hint">Totale annuo, pagato in 12 mesi, fuori dalla RAL</p>
+            </div>
+            <div class="f">
+              <label for="indTfr">Indennità utili al TFR</label>
+              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
+              <p class="hint">Contano per TFR e fondo pensione</p>
+            </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- 2. Contratto -->
+        <section class="sec" aria-labelledby="h-s1">
+          <div class="sec-h"><span class="n" aria-hidden="true">2</span><h3 id="h-s1">Contratto</h3></div>
           <div class="fields">
             <div class="f full">
               <label for="ccnl">CCNL applicato</label>
@@ -421,38 +459,6 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
             </div>
           </div>
           <div class="ccnl-info" id="ccnl-info"></div>
-        </section>
-
-        <!-- 2. Retribuzione -->
-        <section class="sec" aria-labelledby="h-s2">
-          <div class="sec-h"><span class="n" aria-hidden="true">2</span><h3 id="h-s2">Retribuzione</h3>
-            <div class="seg" id="seg-unit" role="radiogroup" aria-label="Tipo di importo">
-              <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
-              <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
-            </div>
-          </div>
-          <div class="fields">
-            <div class="f full" id="box-ral">
-              <label for="ral" id="lbl-ral">Retribuzione annua lorda (RAL)</label>
-              <div class="ctl big" id="ral-ctl" data-u="€/anno"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
-              <p class="hint" id="ral-hint">Parte dal minimo del CCNL: sostituiscilo con il tuo importo, superminimo e scatti inclusi.</p>
-            </div>
-            <div class="f full" id="box-netto" hidden>
-              <label for="nettoTarget">Netto in busta desiderato</label>
-              <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
-              <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
-            </div>
-            <div class="f">
-              <label for="ind">Indennità fisse</label>
-              <div class="ctl" id="ind-ctl" data-u="€/anno"><input id="ind" type="text" inputmode="decimal" value="0"></div>
-              <p class="hint" id="ind-hint">Totale annuo, pagato in 12 mesi, fuori dalla RAL</p>
-            </div>
-            <div class="f">
-              <label for="indTfr">Indennità utili al TFR</label>
-              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
-              <p class="hint">Contano per TFR e fondo pensione</p>
-            </div>
-          </div>
         </section>
 
         <!-- 3. Residenza -->
@@ -1367,6 +1373,7 @@ function summaries(x,o){
     $("str-h").textContent=!div?"Per i dirigenti l'orario non è fissato dal CCNL: gli straordinari di norma non spettano.":`Paga oraria ${eur(hr,2)} (minimo ÷ ${fmtIt(Math.round(div*100)/100)} ore). Con la maggiorazione: ${eur(hr*(1+(o.strMagg||0)/100),2)} l'ora, ${eur((x.straord||0)/12)} lordi al mese. Pagati in 12 mesi, tassati e non utili al TFR. La maggiorazione varia per CCNL e fascia oraria.`;
     { const t=x.mbo+x.pdr+x.welf; put("s-bn",t?`${eur(t)}/anno`+(x.welf?` · welfare ${eur(x.welf)}`:""):"Nessuno",t>0); }
   { const e=$("imp"); put("s-imp",e.value==="1"?"Nessuno":`${Math.round((1-(+e.value))*100)}% esente`,e.value!=="1"); }
+  put("s-ind",x.ind>0?`${eur(x.ind)}/anno${o.indTfr===false?" · non utili al TFR":""}`:"Nessuna",x.ind>0);
   put("s-str",on&&x.straord?`${fmtIt(o.strOre)} h · ${eur(x.straord/12)}/mese`:"Nessuno",on&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
@@ -1394,7 +1401,7 @@ function render(){
     const daCcnl=CCNL[$("ccnl").value].livelli.length&&!ralTouched;
     $("ral-hint").textContent=unit==="m"
       ?`× ${mens} mensilità = RAL ${eur(ral)}. Superminimo e scatti inclusi.`
-      :(daCcnl?"È il minimo del CCNL: sostituiscilo con la tua RAL, superminimo e scatti inclusi.":`Pari a ${eur(ral/mens,2)} lordi per ${mens} mensilità.`);
+      :(daCcnl?"È il minimo del CCNL scelto sotto: sostituiscilo con la tua RAL, superminimo e scatti inclusi.":`Pari a ${eur(ral/mens,2)} lordi per ${mens} mensilità.`);
   } else {
     ral=lordoDaNetto(numv("nettoTarget")||0,o,mens);
   }
