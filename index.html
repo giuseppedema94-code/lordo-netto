@@ -1536,7 +1536,7 @@ function render(){
   const fm=$("fringe-meter"), fv=x.fringe, fs=x.fringeSoglia;
   fm.hidden=!fv; fm.classList.toggle("over",x.fringeTax);
   $("fm-fill").style.width=Math.min(100,fv/fs*100)+"%";
-  $("fm-txt").textContent=x.fringeTax?`Soglia di ${eur(fs)} superata: sono tassati tutti i ${eur(fv)}, non solo la parte in più.`:`Usati ${eur(fv)} su ${eur(fs)}: esenti, restano ${eur(fs-fv)}.`;
+  $("fm-txt").textContent=x.fringeTax?`Hai superato il limite di ${eur(fs)}: paghi le tasse sull'intero importo di ${eur(fv)}.`:`Esentasse fino a ${eur(fs)}: ne hai usati ${eur(fv)}, puoi riceverne ancora ${eur(fs-fv)}.`;
 }
 function setMode(m){
   mode=m;
