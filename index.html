@@ -318,6 +318,7 @@ article.content h3{font-size:17px;margin:22px 0 6px}
 article.content p,article.content li{color:#2f3a36;max-width:72ch}
 .tbl{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px}
 .tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+.tbl td[rowspan]{vertical-align:middle;border-right:1px solid var(--line);font-weight:600}
 .tbl th{background:var(--soft);font-weight:700}
 .tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
 .tbl-ccnl{table-layout:fixed}
@@ -776,18 +777,19 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
     <p>Riducono l'IRPEF: quella per lavoro dipendente (fino a 1.955 €, si azzera a 50.000 € di reddito) e quelle per coniuge e figli a carico.</p>
 
     <h3 id="taglio-cuneo">4. Taglio del cuneo fiscale</h3>
-    <p>Cambia forma secondo il reddito: fino a 20.000 € è una somma in più in busta, senza tasse; tra 20.000 e 40.000 € è un'ulteriore detrazione dall'IRPEF.</p>
+    <p>Spetta ai lavoratori dipendenti, non ai pensionati (L. 207/2024, art. 1 c. 4-6). La fascia si sceglie in base al reddito complessivo.</p>
     <div class="tblwrap"><table class="tbl">
-      <thead><tr><th>Reddito</th><th>Cosa ricevi</th></tr></thead>
+      <thead><tr><th>Reddito complessivo</th><th>Beneficio</th><th>Importo</th></tr></thead>
       <tbody>
-        <tr><td>Fino a 8.500 €</td><td>7,1% del reddito da lavoro, in busta</td></tr>
-        <tr><td>Da 8.500 a 15.000 €</td><td>5,3% del reddito da lavoro, in busta</td></tr>
-        <tr><td>Da 15.000 a 20.000 €</td><td>4,8% del reddito da lavoro, in busta</td></tr>
-        <tr><td>Da 20.000 a 32.000 €</td><td>1.000 € di IRPEF in meno</td></tr>
-        <tr><td>Da 32.000 a 40.000 €</td><td>Da 1.000 € a zero, in proporzione</td></tr>
+        <tr><td>Fino a 8.500 €</td><td rowspan="3">Somma esentasse in busta</td><td>7,1% del reddito di lavoro</td></tr>
+        <tr><td>8.500 – 15.000 €</td><td>5,3% del reddito di lavoro</td></tr>
+        <tr><td>15.000 – 20.000 €</td><td>4,8% del reddito di lavoro</td></tr>
+        <tr><td>20.000 – 32.000 €</td><td rowspan="2">Detrazione IRPEF</td><td>1.000 €</td></tr>
+        <tr><td>32.000 – 40.000 €</td><td>1.000 € × (40.000 − reddito) ÷ 8.000</td></tr>
+        <tr><td>Oltre 40.000 €</td><td colspan="2">Nessun beneficio</td></tr>
       </tbody>
     </table></div>
-    <p>Con redditi bassi può spettare anche il trattamento integrativo, fino a 1.200 € l'anno.</p>
+    <p class="hint">Esempio: con 36.000 € di reddito la detrazione è 500 €. Fino a 15.000 € può spettare anche il trattamento integrativo, fino a 1.200 € l'anno.</p>
 
     <h3>5. Addizionali regionale e comunale</h3>
     <p>Si pagano sullo stesso reddito dell'IRPEF, con aliquote decise da regione e comune. In busta arrivano in ritardo: nel 2026 si paga il saldo del 2025 in 11 rate e l'acconto del 2026 in 9. Il calcolatore usa le aliquote ufficiali del Dipartimento delle Finanze per tutte le regioni e gli oltre 7.800 comuni.</p>
