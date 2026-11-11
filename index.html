@@ -917,11 +917,13 @@ function calcola(o){
   // Rientro dei cervelli (impatriati): IRPEF e addizionali solo sulla quota imponibile; i contributi restano pieni
   const redLav=Math.max(0,redPre-(rinnOk?rinn:0)-pdrDet)*(o.impQ??1);
   const r=redLav+(o.altri||0);
+  // per il taglio del cuneo le soglie contano anche la quota esente degli impatriati (L. 207/2024 c. 9, circ. AdE 4/E 2025)
+  const rRif=r+(o.impQ!=null&&o.impQ<1?redLav/o.impQ*(1-o.impQ):0);
   const lorda=irpefLorda(r);
   const dLav=redLav>0?detrLavoro(r,o.tipo):0;
   const dCon=o.coniuge?detrConiuge(r):0;
   const dFig=detrFigli(r,o.figli||0);
-  const dCun=redLav>0?ulterioreCuneo(r):0;
+  const dCun=redLav>0?ulterioreCuneo(rRif):0;
   let detr=dLav+dCon+dFig+dCun;
   if(r>200000)detr=Math.max(0,detr-440);
   const netta=Math.max(0,lorda-detr);
@@ -942,7 +944,7 @@ function calcola(o){
       else { addReg=r*o.addreg/100; addCom=r*o.addcom/100; }
     }
   }
-  const bonus=redLav>0?bonusCuneo(r,redLav):0;
+  const bonus=redLav>0?bonusCuneo(rRif,redLav):0;
   let ti=0;
   if(redLav>0){
     if(r<=15000){ if(lorda>dLav-75) ti=1200; }
