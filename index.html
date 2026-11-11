@@ -778,13 +778,13 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 
     <h2 id="taglio-cuneo">Taglio del cuneo fiscale 2026</h2>
     <div class="tblwrap"><table class="tbl">
-      <thead><tr><th>Reddito complessivo</th><th>Beneficio</th></tr></thead>
+      <thead><tr><th>Reddito complessivo</th><th>Somma esentasse in busta</th><th>Detrazione IRPEF in più</th></tr></thead>
       <tbody>
-        <tr><td>Fino a 8.500 €</td><td>Somma esentasse pari al 7,1% del reddito da lavoro</td></tr>
-        <tr><td>8.500 – 15.000 €</td><td>Somma esentasse pari al 5,3%</td></tr>
-        <tr><td>15.000 – 20.000 €</td><td>Somma esentasse pari al 4,8%</td></tr>
-        <tr><td>20.000 – 32.000 €</td><td>Detrazione aggiuntiva di 1.000 €</td></tr>
-        <tr><td>32.000 – 40.000 €</td><td>Detrazione decrescente: 1.000 × (40.000 − reddito) / 8.000</td></tr>
+        <tr><td>Fino a 8.500 €</td><td>7,1% del reddito da lavoro</td><td>–</td></tr>
+        <tr><td>8.500 – 15.000 €</td><td>5,3%</td><td>–</td></tr>
+        <tr><td>15.000 – 20.000 €</td><td>4,8%</td><td>–</td></tr>
+        <tr><td>20.000 – 32.000 €</td><td>–</td><td>1.000 €</td></tr>
+        <tr><td>32.000 – 40.000 €</td><td>–</td><td>Da 1.000 € a 0, in proporzione</td></tr>
       </tbody>
     </table></div>
 
@@ -1547,7 +1547,7 @@ function buildTables(){
     h+=`<details class="ccnl-tbl"${first?" open":""}><summary><span>${c.nome}</span><small>${c.mens} mensilità</small></summary>
       <p class="hint">${c.fonte}</p>
       <div class="tblwrap"><table class="tbl tbl-ccnl"><colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
-      <thead><tr><th>Livello</th><th class="n">Minimo mensile</th><th class="n">RAL minima</th><th class="n">Netto busta*</th></tr></thead><tbody>`;
+      <thead><tr><th>Livello</th><th class="n">Lordo mensile</th><th class="n">Lordo annuo</th><th class="n">Netto mensile*</th></tr></thead><tbody>`;
     for(const [n,v] of c.livelli){const ral=v*c.mens;const oT={ral,inps:.0919,tipo:"ind",addreg:1.73,addcom:.8,coniuge:false,figli:0,addMode:"cassa"};const x=calcola(oT);const bT=bustaOrdinaria(x,oT,c.mens);
       h+=`<tr><td>${n}</td><td class="n">${eur(v,2)}</td><td class="n">${eur(ral)}</td><td class="n">${eur(bT.netM)}</td></tr>`;}
     h+=`</tbody></table></div></details>`; first=false;
