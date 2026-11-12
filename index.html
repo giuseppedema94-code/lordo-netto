@@ -691,7 +691,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               </div>
               <div class="f full">
                 <label class="sw"><input type="checkbox" id="bnMens"><span class="tr" aria-hidden="true"></span><span>Includi i bonus anche nella busta mensile</span></label>
-                <p class="hint">Spento: i bonus contano solo nel totale annuo. Acceso: il loro netto è spalmato su 12 mesi e sommato alla busta.</p>
+                <p class="hint">Spento: i bonus contano solo nel totale annuo. Acceso: la busta mostra il mese in cui ti pagano il bonus, con il suo netto intero.</p>
               </div>
             </div>
           </details>
@@ -1477,14 +1477,14 @@ function render(){
   const x=calcola({...o,ral});
   const x0=(x.mbo||x.pdr)?calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}):x;
   const b=bustaOrdinaria(x0,o,mens); // la busta ordinaria non contiene i bonus una tantum
-  const bonM=$("bnMens").checked&&x0!==x?(x.netto-x0.netto)/12:0; // netto dei bonus spalmato su 12 mesi, se richiesto
+  const bonM=$("bnMens").checked&&x0!==x?x.netto-x0.netto:0; // netto intero dei bonus, nella busta del mese in cui sono pagati
   const netMv=b.netM+bonM; last={x,mens,b};
 
   /* 1. Il numero che conta */
   if(mode==="ln"){
     $("out-lbl").textContent="Netto in busta";
     $("out-main").innerHTML=eur(netMv)+" <small>al mese</small>";
-    $("out-mens").textContent=bonM?`Busta ordinaria + bonus in media · ${mens} mensilità`:`Busta ordinaria · ${mens} mensilità`;
+    $("out-mens").textContent=bonM?`Busta del mese con il bonus · ${mens} mensilità`:`Busta ordinaria · ${mens} mensilità`;
     $("sub2-lbl").textContent="Lordo annuo"; $("out-ral").textContent=eur(x.ral);
     $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(netMv);
   } else {
@@ -1570,7 +1570,7 @@ function render(){
       cre("Trattamento integrativo",v.ti),
       cre(`Trattamento integrativo speciale turismo 15%, gen–set 2026${M?", media mensile":""}`,v.tis)]},
     {id:"altro",title:"Altre voci",total:tAltro>=0?pls(tAltro):mns(tAltro),rows:[
-      cre("Bonus e premi, netto in media mensile",v.bonM||0),
+      cre("Bonus e premi, netto",v.bonM||0),
       cre("Rimborsi spese esenti",v.rimbE),
       ded("Fringe benefit in natura, non pagati in denaro",v.fringe),
       ded("Altre trattenute",v.tratt)]}
