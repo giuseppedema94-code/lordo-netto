@@ -412,11 +412,11 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <label for="ccnl">CCNL applicato</label>
               <select id="ccnl"></select>
             </div>
-            <div class="f w4">
+            <div class="f w4" id="livello-box">
               <label for="livello">Livello</label>
               <select id="livello"></select>
             </div>
-            <div class="f w2">
+            <div class="f w2" id="mens-box">
               <label for="mens">Mensilità</label>
               <select id="mens">
                 <option value="12">12</option>
@@ -616,7 +616,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               </div>
               <div class="f">
                 <label for="figli">Figli a carico tra 21 e 30 anni</label>
-                <input inputmode="numeric" id="figli" type="text" value="0">
+                <select id="figli"><option value="0">Nessuno</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
               </div>
               <p class="hint">Sotto i 21 anni non c'è detrazione in busta: c'è l'Assegno Unico, pagato dall'INPS.</p>
             </div>
@@ -687,7 +687,11 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <div class="f full">
                 <div id="bn-list" class="fr-list"></div>
                 <button type="button" class="btn fr-add" id="bn-add">+ Aggiungi bonus o premio</button>
-                <p class="hint">Importi lordi annui. Sono pagati una tantum: cambiano il netto annuo, non la busta di un mese ordinario.</p>
+                <p class="hint">Importi lordi annui, pagati una tantum.</p>
+              </div>
+              <div class="f full">
+                <label class="sw"><input type="checkbox" id="bnMens"><span class="tr" aria-hidden="true"></span><span>Includi i bonus anche nella busta mensile</span></label>
+                <p class="hint">Spento: i bonus contano solo nel totale annuo. Acceso: il loro netto è spalmato su 12 mesi e sommato alla busta.</p>
               </div>
             </div>
           </details>
@@ -859,6 +863,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 const CCNL = {
   commercio:{nome:"Commercio – Terziario Confcommercio",mens:14,fonte:"Minimi dal 1° novembre 2026 (paga base + contingenza + terzo elemento)",
     preset:{fpLav:0.55,fpDat:1.55,sanLav:24,sanDat:156,fondo:"Fon.Te",sanita:"Fondo Est"},
+    presetQ:{sanLav:56,sanDat:390,sanita:"QuAS"},
     note:"Fon.Te 0,55% tuo + 1,55% azienda (se aderisci), Fondo Est 2 €/mese tuo + 13 €/mese azienda: precompilati in grigio.",
     livelli:[["Quadro",3047.05],["I",2560.87],["II",2283.00],["III",2024.38],["IV",1818.75],["V",1691.70],["VI",1570.16],["VII",1422.27]], def:3},
   tessile:{nome:"Tessile Abbigliamento Moda – Industria (SMI)",mens:13,fonte:"Minimi dal 1° gennaio 2026 (livello 8 con indennità di funzione 51,65 €)",
@@ -1122,6 +1127,7 @@ function fillLivelli(){
   s.innerHTML="";
   c.livelli.forEach(([n,v],i)=>{const o=document.createElement("option");o.value=i;o.textContent=`${n} – ${eur(v,2)}/mese`;s.appendChild(o);});
   s.value=c.def; $("mens").value=c.mens;
+  { const fix=c.livelli.length>0; $("mens-box").hidden=fix; $("livello-box").classList.toggle("w4",!fix); $("livello-box").classList.toggle("full",fix); }
   $("livello").disabled=!c.livelli.length;
   ralTouched=false;
 }
@@ -1449,10 +1455,10 @@ function summaries(x,o){
 function ccnlInfo(o){
   const c=CCNL[$("ccnl").value];
   if(!c.livelli.length){ $("ccnl-info").textContent="Senza tabella del contratto: scrivi la tua retribuzione e scegli le mensilità."; return; }
-  const pr=c.preset||{}, chips=[];
+  const pr=curPreset()||{}, chips=[];
   if(pr.fondo)chips.push(pr.fondo); if(pr.sanita)chips.push(pr.sanita);
   if(o.fis)chips.push(`FIS ${pct(o.fis*100)}`); if(o.ebt)chips.push("Ente bilaterale 0,05%"); if(o.fsc)chips.push("Fondo di solidarietà 0,067%");
-  $("ccnl-info").innerHTML=`${esc(c.fonte)}.`+(chips.length?`<div class="chips"><span style="align-self:center">Già applicati:</span>${chips.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>`:"");
+  $("ccnl-info").innerHTML=`<b>${c.mens} mensilità</b>, come prevede il contratto. ${esc(c.fonte)}.`+(chips.length?`<div class="chips"><span style="align-self:center">Già applicati:</span>${chips.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>`:"");
 }
 function render(){
   syncRinn(); syncExtra();
@@ -1469,15 +1475,18 @@ function render(){
     ral=lordoDaNetto(numv("nettoTarget")||0,o,mens);
   }
   const x=calcola({...o,ral});
-  const b=(x.mbo||x.pdr)?bustaOrdinaria(calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}),o,mens):bustaOrdinaria(x,o,mens); last={x,mens,b}; // la busta ordinaria non contiene i bonus una tantum
+  const x0=(x.mbo||x.pdr)?calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}):x;
+  const b=bustaOrdinaria(x0,o,mens); // la busta ordinaria non contiene i bonus una tantum
+  const bonM=$("bnMens").checked&&x0!==x?(x.netto-x0.netto)/12:0; // netto dei bonus spalmato su 12 mesi, se richiesto
+  const netMv=b.netM+bonM; last={x,mens,b};
 
   /* 1. Il numero che conta */
   if(mode==="ln"){
     $("out-lbl").textContent="Netto in busta";
-    $("out-main").innerHTML=eur(b.netM)+" <small>al mese</small>";
-    $("out-mens").textContent=`Busta ordinaria · ${mens} mensilità`;
+    $("out-main").innerHTML=eur(netMv)+" <small>al mese</small>";
+    $("out-mens").textContent=bonM?`Busta ordinaria + bonus in media · ${mens} mensilità`:`Busta ordinaria · ${mens} mensilità`;
     $("sub2-lbl").textContent="Lordo annuo"; $("out-ral").textContent=eur(x.ral);
-    $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(b.netM);
+    $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(netMv);
   } else {
     $("out-lbl").textContent="RAL necessaria";
     $("out-main").innerHTML=eur(x.ralBase)+" <small>l'anno</small>";
@@ -1508,7 +1517,7 @@ function render(){
   const v=M?{
     base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
     inps:b.inpsM, ivs:b.ivsM, fsc:b.fscM, fis:b.fisM, ebt:b.ebtM, fp:b.fpLavM, san:b.sanLavM,
-    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, net:b.netM
+    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, bonM, net:netMv
   }:{
     base:x.ralBase, ind:x.ind, str:x.straord||0, mbo:x.mbo, pdr:x.pdr, pdrSost:x.pdrSost, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
     inps:x.inpsBase, ivs:x.inpsAgg, fsc:x.fsc, fis:x.fis, ebt:x.ebt, fp:x.fpLav, san:x.sanLav,
@@ -1517,7 +1526,7 @@ function render(){
   const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe;
   const tContr=v.inps+v.ivs+v.fsc+v.fis+v.ebt+v.fp+v.san;
   const tTax=v.irpef+v.sost+(v.pdrSost||0)+v.strSost+v.aR+v.aS+v.aA-v.bonus-v.ti-v.tis;
-  const tAltro=v.rimbE-v.fringe-v.tratt;
+  const tAltro=v.rimbE-v.fringe-v.tratt+(v.bonM||0);
   const pos=(l,val)=>val>0.004?[l,eur(val,2),""]:null;
   const detr=M?[b.detrM?infP("Detrazioni del mese",b.detrM):null]
               :[x.dLav?infP("Detrazione lavoro dipendente",x.dLav):null,x.dCun?infP("Detrazione aggiuntiva cuneo fiscale",x.dCun):null,
@@ -1561,6 +1570,7 @@ function render(){
       cre("Trattamento integrativo",v.ti),
       cre(`Trattamento integrativo speciale turismo 15%, gen–set 2026${M?", media mensile":""}`,v.tis)]},
     {id:"altro",title:"Altre voci",total:tAltro>=0?pls(tAltro):mns(tAltro),rows:[
+      cre("Bonus e premi, netto in media mensile",v.bonM||0),
       cre("Rimborsi spese esenti",v.rimbE),
       ded("Fringe benefit in natura, non pagati in denaro",v.fringe),
       ded("Altre trattenute",v.tratt)]}
@@ -1624,8 +1634,10 @@ function markPreset(id,on,label){
   $(id+"-box").classList.toggle("preset",on);
   $(id+"-h").textContent=on?`Dal CCNL (${label}), modificabile`:unitHint(id,$(id+"U").value);
 }
+function curPreset(){ const c=CCNL[$("ccnl").value], l=c.livelli[+$("livello").value];
+  return c.preset&&c.presetQ&&l&&/^quadr/i.test(l[0])?{...c.preset,...c.presetQ}:c.preset; }
 function applyPreset(){
-  const pr=CCNL[$("ccnl").value].preset;
+  const pr=curPreset();
   const set=(id,unit,v)=>{ $(id+"U").value=unit; setv(id,v); markPreset(id,false); };
   if(presetApplied){ // rimuovo il preset precedente se l'utente non l'ha cambiato
     for(const [id,[u,v]] of Object.entries(presetApplied)) if($(id+"U").value===u && numv(id)===v) set(id,"p",0);
@@ -1781,7 +1793,7 @@ $("mens").addEventListener("change",syncTerzo);
 applyTema(); tramFromComune(); terzoFromComune(); syncTerzo(); syncTram(); fisDefault();
 $("r25").addEventListener("input",e=>{liveFormat($("r25"),e);render();});
 
-["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;if(id==="livello")delete $("sctImp").dataset.touched;render();}));
+["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;if(id==="livello"){delete $("sctImp").dataset.touched;applyPreset();}render();}));
 $("ral").addEventListener("input",()=>{ralTouched=true;render();});
 function setUnit(u){
   if(u===unit) return;
@@ -1798,6 +1810,7 @@ function setUnit(u){
 }
 $("rinnOn").addEventListener("change",render);
 $("strOn").addEventListener("change",render);
+$("bnMens").addEventListener("change",render);
 $("strTipo").addEventListener("change",()=>{setMagg();render();});
 $("strMagg").addEventListener("input",()=>{strMaggTouched=true;});
 setMagg();
