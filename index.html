@@ -145,7 +145,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .opt{border-top:1px solid var(--line);padding:18px 0 6px}
 .opt-h{margin:0 0 4px;font-size:16.5px;font-weight:700}
 .opt-sub{margin:0 0 10px;font-size:13px;color:var(--muted)}
-.eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:13px;font-weight:600;color:var(--muted)}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:var(--bd)}
 .lnk{background:none;border:0;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
@@ -166,18 +166,11 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .meter.over .fm-txt{color:var(--warn);font-weight:600}
 .meter.full .fm-txt{color:var(--brand-t);font-weight:600}
 /* Consigli */
-.tips{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.tip{--tc:#667080;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border-radius:var(--ri);padding:12px 14px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--tc);font-size:13.5px;line-height:1.45;color:var(--ink2)}
-.tip .ic{width:34px;display:grid;place-items:center;font-size:17px}
-.tip b{display:block;font-size:14.5px;color:var(--tc);margin-bottom:3px;line-height:1.3}
-.tip.t-soglia{--tc:#b45309}
-.tip.t-adesione{--tc:#0f766e}
-.tip.t-rientro{--tc:#15803d}
-.tip.t-fondo{--tc:#1d4ed8}
-.tip.t-limite{--tc:#b91c1c}
-.tip.t-fringeko{--tc:#be185d}
-.tip.t-fringe{--tc:#7e22ce}
-.tip.t-aumento{--tc:#4338ca}
+.tips{list-style:none;margin:0;padding:0}
+.tip{display:block;padding:12px 0;border-top:1px solid var(--line);font-size:13.5px;line-height:1.5;color:var(--ink2)}
+.tip:first-child{border-top:0;padding-top:4px}
+.tip b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:3px;line-height:1.3}
+.tip.warn b{color:#b4472e}
 .tip .k{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
 .fm-bar{height:8px;border-radius:var(--rc);background:var(--track);overflow:hidden}
 .fm-bar i{display:block;height:100%;background:var(--ink);border-radius:var(--rc);transition:width .2s}
@@ -188,7 +181,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 /* Risultato */
 .res{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;overscroll-behavior:contain}
 .res-hero{position:sticky;top:0;z-index:2;background:var(--card);color:var(--ink);padding:18px 20px;border-bottom:1px solid var(--line)}
-.res-hero .lbl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.res-hero .lbl{font-size:13.5px;font-weight:600;color:var(--muted)}
 .res-hero .val{font-size:42px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
 .res-hero .val small{font-size:15px;font-weight:500;letter-spacing:0;color:var(--muted)}
 .res-hero .cap{font-size:13px;color:var(--muted)}
@@ -281,7 +274,7 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
   .res{position:static;max-height:none;overflow:visible}
   .res-hero{position:static;border-radius:var(--radius) var(--radius) 0 0}
   .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--card);text-decoration:none}
-  .mbar span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;opacity:.72}
+  .mbar span{font-size:13px;font-weight:600;opacity:.72}
   .mbar strong{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
   .mbar em{margin-left:auto;font-style:normal;font-size:13px;font-weight:600;opacity:.82}
   .mbar.off{display:none}
@@ -301,7 +294,7 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* Spazio pubblicitario e contenuti */
-.ad{margin:0 0 34px;border:1px dashed var(--bd);border-radius:var(--ri);min-height:110px;display:grid;place-items:center;color:var(--muted);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--soft)}
+.ad{margin:0 0 34px;border:1px dashed var(--bd);border-radius:var(--ri);min-height:110px;display:grid;place-items:center;color:var(--muted);font-size:12.5px;background:var(--soft)}
 article.content{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px clamp(20px,4vw,40px);margin-bottom:34px}
 article.content h2{font-size:23px;margin:30px 0 10px;letter-spacing:-.01em;text-wrap:balance}
 article.content h2:first-child{margin-top:0}
@@ -351,6 +344,8 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 :root[data-theme="dark"] .tip b{color:color-mix(in srgb,var(--tc) 45%,#fff)}
 }
 .theme-btn{flex:none;background:transparent;border:1px solid var(--bd);color:var(--ink2);border-radius:var(--ri);padding:5px 10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}.theme-btn:hover{border-color:var(--ink);color:var(--ink)}
+footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
+.ccnl-tag{margin-right:12px;color:var(--ink2);font-weight:600}
 </style>
 </head>
 <body>
@@ -370,7 +365,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 <main class="wrap" id="top">
   <section class="hero">
     <h1>Calcolo stipendio netto 2026</h1>
-    <p class="lead">Dal lordo al netto con il tuo CCNL · 13 contratti · minimi al 1/11/2026</p>
+    <p class="lead">Dal lordo al netto con il tuo CCNL. Copre 13 contratti nazionali, con i minimi aggiornati al 1° novembre 2026.</p>
   </section>
 
   <div class="grid">
@@ -458,7 +453,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
               <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
               <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
             </div>
-            <div class="f full"><button type="button" class="lnk" id="mode-lnk">Conosci già il netto che vuoi? Parti dal netto →</button></div>
+            <div class="f full"><button type="button" class="lnk" id="mode-lnk">Conosci già il netto che vuoi? Parti dal netto</button></div>
           </div>
           <details class="acc">
             <summary><span class="t">Indennità fisse</span><span class="v" id="s-ind"></span></summary>
@@ -757,7 +752,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
       </div>
     </section>
   </div>
-  <a class="mbar" id="mbar" href="#risultato"><span id="mbar-l">Netto in busta</span><strong id="mbar-v">–</strong><em>Cedolino ↓</em></a>
+  <a class="mbar" id="mbar" href="#risultato"><span id="mbar-l">Netto in busta</span><strong id="mbar-v">–</strong><em>Vedi il cedolino</em></a>
 
   <!-- Unico spazio pubblicitario: sostituire con il codice AdSense -->
   <aside class="ad" aria-label="Pubblicità">Spazio pubblicitario</aside>
@@ -803,7 +798,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 
     <h2 id="ccnl">Minimi dei CCNL</h2>
     <h3 id="netto-ccnl">Netto in busta per contratto e livello</h3>
-    <p>Una pagina per ogni livello, con minimo, RAL e netto. <a href="stipendio-netto/">Vedi tutti i contratti →</a></p>
+    <p>Una pagina per ogni livello, con minimo, RAL e netto. <a href="stipendio-netto/">Vedi tutti i contratti</a></p>
     <div class="trees"><details class="tree"><summary><a href="stipendio-netto/commercio-terziario/">Commercio</a><small>8 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/commercio-terziario/quadro/">Quadro</a></li><li><a href="stipendio-netto/commercio-terziario/i-livello/">I</a></li><li><a href="stipendio-netto/commercio-terziario/ii-livello/">II</a></li><li><a href="stipendio-netto/commercio-terziario/iii-livello/">III</a></li><li><a href="stipendio-netto/commercio-terziario/iv-livello/">IV</a></li><li><a href="stipendio-netto/commercio-terziario/v-livello/">V</a></li><li><a href="stipendio-netto/commercio-terziario/vi-livello/">VI</a></li><li><a href="stipendio-netto/commercio-terziario/vii-livello/">VII</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/tessile-abbigliamento/">Tessile</a><small>10 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/tessile-abbigliamento/8-quadro/">8 (quadro)</a></li><li><a href="stipendio-netto/tessile-abbigliamento/7-livello/">7</a></li><li><a href="stipendio-netto/tessile-abbigliamento/6-livello/">6</a></li><li><a href="stipendio-netto/tessile-abbigliamento/5-livello/">5</a></li><li><a href="stipendio-netto/tessile-abbigliamento/4-livello/">4</a></li><li><a href="stipendio-netto/tessile-abbigliamento/3s-livello/">3S</a></li><li><a href="stipendio-netto/tessile-abbigliamento/3-livello/">3</a></li><li><a href="stipendio-netto/tessile-abbigliamento/2s-livello/">2S</a></li><li><a href="stipendio-netto/tessile-abbigliamento/2-livello/">2</a></li><li><a href="stipendio-netto/tessile-abbigliamento/1-livello/">1</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/industria-alimentare/">Alimentare</a><small>8 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/industria-alimentare/1s-quadro/">1S (quadro)</a></li><li><a href="stipendio-netto/industria-alimentare/1-livello/">1</a></li><li><a href="stipendio-netto/industria-alimentare/2-livello/">2</a></li><li><a href="stipendio-netto/industria-alimentare/3a-livello/">3A</a></li><li><a href="stipendio-netto/industria-alimentare/3-livello/">3</a></li><li><a href="stipendio-netto/industria-alimentare/4-livello/">4</a></li><li><a href="stipendio-netto/industria-alimentare/5-livello/">5</a></li><li><a href="stipendio-netto/industria-alimentare/6-livello/">6</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/gomma-plastica/">Gomma plastica</a><small>10 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/gomma-plastica/q-livello/">Q</a></li><li><a href="stipendio-netto/gomma-plastica/a-livello/">A</a></li><li><a href="stipendio-netto/gomma-plastica/b-livello/">B</a></li><li><a href="stipendio-netto/gomma-plastica/c-livello/">C</a></li><li><a href="stipendio-netto/gomma-plastica/d-livello/">D</a></li><li><a href="stipendio-netto/gomma-plastica/e-livello/">E</a></li><li><a href="stipendio-netto/gomma-plastica/f-livello/">F</a></li><li><a href="stipendio-netto/gomma-plastica/g-livello/">G</a></li><li><a href="stipendio-netto/gomma-plastica/h-livello/">H</a></li><li><a href="stipendio-netto/gomma-plastica/i-livello/">I</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/metalmeccanici/">Metalmeccanici</a><small>9 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/metalmeccanici/a1-livello/">A1</a></li><li><a href="stipendio-netto/metalmeccanici/b3-livello/">B3</a></li><li><a href="stipendio-netto/metalmeccanici/b2-livello/">B2</a></li><li><a href="stipendio-netto/metalmeccanici/b1-livello/">B1</a></li><li><a href="stipendio-netto/metalmeccanici/c3-livello/">C3</a></li><li><a href="stipendio-netto/metalmeccanici/c2-livello/">C2</a></li><li><a href="stipendio-netto/metalmeccanici/c1-livello/">C1</a></li><li><a href="stipendio-netto/metalmeccanici/d2-livello/">D2</a></li><li><a href="stipendio-netto/metalmeccanici/d1-livello/">D1</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/studi-professionali/">Studi professionali</a><small>8 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/studi-professionali/quadro/">Quadro</a></li><li><a href="stipendio-netto/studi-professionali/1-livello/">1</a></li><li><a href="stipendio-netto/studi-professionali/2-livello/">2</a></li><li><a href="stipendio-netto/studi-professionali/3-super-livello/">3 Super</a></li><li><a href="stipendio-netto/studi-professionali/3-livello/">3</a></li><li><a href="stipendio-netto/studi-professionali/4-super-livello/">4 Super</a></li><li><a href="stipendio-netto/studi-professionali/4-livello/">4</a></li><li><a href="stipendio-netto/studi-professionali/5-livello/">5</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/turismo-alberghi/">Turismo</a><small>10 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/turismo-alberghi/quadro-a/">Quadro A</a></li><li><a href="stipendio-netto/turismo-alberghi/quadro-b/">Quadro B</a></li><li><a href="stipendio-netto/turismo-alberghi/1-livello/">1</a></li><li><a href="stipendio-netto/turismo-alberghi/2-livello/">2</a></li><li><a href="stipendio-netto/turismo-alberghi/3-livello/">3</a></li><li><a href="stipendio-netto/turismo-alberghi/4-livello/">4</a></li><li><a href="stipendio-netto/turismo-alberghi/5-livello/">5</a></li><li><a href="stipendio-netto/turismo-alberghi/6-super-livello/">6 Super</a></li><li><a href="stipendio-netto/turismo-alberghi/6-livello/">6</a></li><li><a href="stipendio-netto/turismo-alberghi/7-livello/">7</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/pubblici-esercizi/">Pubblici esercizi</a><small>10 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/pubblici-esercizi/quadro-a/">Quadro A</a></li><li><a href="stipendio-netto/pubblici-esercizi/quadro-b/">Quadro B</a></li><li><a href="stipendio-netto/pubblici-esercizi/1-livello/">1</a></li><li><a href="stipendio-netto/pubblici-esercizi/2-livello/">2</a></li><li><a href="stipendio-netto/pubblici-esercizi/3-livello/">3</a></li><li><a href="stipendio-netto/pubblici-esercizi/4-livello/">4</a></li><li><a href="stipendio-netto/pubblici-esercizi/5-livello/">5</a></li><li><a href="stipendio-netto/pubblici-esercizi/6-super-livello/">6 Super</a></li><li><a href="stipendio-netto/pubblici-esercizi/6-livello/">6</a></li><li><a href="stipendio-netto/pubblici-esercizi/7-livello/">7</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/logistica-trasporto-merci/">Logistica</a><small>17 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/logistica-trasporto-merci/quadro/">Quadro</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/1-livello/">1</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/2-livello/">2</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/3-super-livello/">3 Super</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/3-livello/">3</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/4-livello/">4</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/4-junior-livello/">4 Junior</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/5-livello/">5</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/6-livello/">6</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-c3/">Viaggiante C3</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-b3/">Viaggiante B3</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-a3/">Viaggiante A3</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-f2/">Viaggiante F2</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-e2/">Viaggiante E2</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-d2/">Viaggiante D2</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-h1/">Viaggiante H1</a></li><li><a href="stipendio-netto/logistica-trasporto-merci/viaggiante-g1/">Viaggiante G1</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/credito-abi/">Credito ABI</a><small>9 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/credito-abi/quadro-direttivo-4-liv/">Quadro direttivo 4° liv.</a></li><li><a href="stipendio-netto/credito-abi/quadro-direttivo-3-liv/">Quadro direttivo 3° liv.</a></li><li><a href="stipendio-netto/credito-abi/quadro-direttivo-2-liv/">Quadro direttivo 2° liv.</a></li><li><a href="stipendio-netto/credito-abi/quadro-direttivo-1-liv/">Quadro direttivo 1° liv.</a></li><li><a href="stipendio-netto/credito-abi/3a-area-4-liv/">3ª area 4° liv.</a></li><li><a href="stipendio-netto/credito-abi/3a-area-3-liv/">3ª area 3° liv.</a></li><li><a href="stipendio-netto/credito-abi/3a-area-2-liv/">3ª area 2° liv.</a></li><li><a href="stipendio-netto/credito-abi/3a-area-1-liv/">3ª area 1° liv.</a></li><li><a href="stipendio-netto/credito-abi/area-unificata-ex-1a-e-2a/">Area unificata (ex 1ª e 2ª)</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/credito-abi-complementare/">Credito ABI complementare</a><small>9 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/credito-abi-complementare/quadro-direttivo-4-liv/">Quadro direttivo 4° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/quadro-direttivo-3-liv/">Quadro direttivo 3° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/quadro-direttivo-2-liv/">Quadro direttivo 2° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/quadro-direttivo-1-liv/">Quadro direttivo 1° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/3a-area-4-liv/">3ª area 4° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/3a-area-3-liv/">3ª area 3° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/3a-area-2-liv/">3ª area 2° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/3a-area-1-liv/">3ª area 1° liv.</a></li><li><a href="stipendio-netto/credito-abi-complementare/area-unificata-ex-1a-e-2a/">Area unificata (ex 1ª e 2ª)</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/dirigenti-abi/">Dirigenti ABI</a><small>1 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/dirigenti-abi/dirigente/">Dirigente</a></li></ul></details><details class="tree"><summary><a href="stipendio-netto/dirigenti-terziario/">Dirigenti terziario</a><small>1 livelli</small></summary><ul class="lv"><li><a href="stipendio-netto/dirigenti-terziario/dirigente/">Dirigente</a></li></ul></details></div>
     <p>Sono i minimi in vigore nel 2026, quelli con cui il calcolatore precompila la RAL. Non comprendono superminimo, scatti e indennità.</p>
     <div id="ccnl-tables"></div>
@@ -848,7 +843,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 <footer>
   <div class="wrap">
     <p>Lordo-Netto è uno strumento gratuito a scopo informativo. Fonti: Legge 199/2025 (Bilancio 2026), Legge 207/2024, TUIR artt. 11-13, circolare INPS 6/2026, tabelle retributive dei CCNL, CCNL Credito ABI (art. 3, contratti complementari), aliquote addizionali regionali e comunali IRPEF dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), scaricati il 10/11/2026. Ultimo aggiornamento: novembre 2026.</p>
-    <p><a href="#top">Torna al calcolatore</a> · <a href="#fonti">Fonti e aggiornamenti</a> · Privacy · Cookie</p>
+    <p class="flinks"><a href="#top">Torna al calcolatore</a><a href="#fonti">Fonti e aggiornamenti</a><span>Privacy</span><span>Cookie</span></p>
   </div>
 </footer>
 
@@ -1357,7 +1352,7 @@ function consigli(o,ral,x){
   if(cliff){
     for(let d=cliff.d; d<=10000; d+=50){ if(C({ral:ral+d}).netto>=c0.netto){ be=d; break; } }
     const why=cause(cliff.c,c0);
-    T.push({k:"warn",c:"soglia",i:"⚠️",t:`Attento: un piccolo aumento ti farebbe guadagnare meno`,
+    T.push({k:"warn",c:"soglia",t:`Attento: un piccolo aumento ti farebbe guadagnare meno`,
       d:`Con +${eur(cliff.d)} lordi l'anno perderesti ${why.length?joinIt(why):"alcune agevolazioni"} e il netto annuo scenderebbe di ${eur(c0.netto-cliff.c.netto)}. `+
         (be?`Un aumento conviene solo da <span class="k">+${eur(be)}</span> lordi l'anno in su. Sotto quella cifra meglio chiederlo in welfare o fringe benefit, che sono esentasse.`:"")});
   }
@@ -1373,13 +1368,13 @@ function consigli(o,ral,x){
     for(let v=50; v<=margine; v+=50){ const cv=C({fpVol:(o.fpVol||0)+v}), why=cause(c0,cv); if(why.length){ rec={v,cv,why}; break; } }
     if(rec){
       const costo=c0.netto-rec.cv.netto;
-      T.push({k:"ok",c:"rientro",i:"🎯",t:`Versa ${eur(rec.v)} in più al fondo pensione: ti costano molto meno`,
+      T.push({k:"ok",c:"rientro",t:`Versa ${eur(rec.v)} in più al fondo pensione: ti costano molto meno`,
         d:`Il versamento si deduce dal reddito, che così scende sotto una soglia e ti fa recuperare ${joinIt(rec.why)}. `+(costo<=0?`Risultato: metti da parte ${eur(rec.v)} per la pensione e il netto annuo sale pure di <span class="k">${eur(-costo)}</span>.`
           :`Risultato: metti da parte ${eur(rec.v)} per la pensione, ma il netto annuo cala solo di <span class="k">${eur(costo)}</span>.`)});
     }
     const cm=C({fpVol:(o.fpVol||0)+margine}), costo=c0.netto-cm.netto, risp=margine-costo;
     const pp=x.baseTfr>0&&$("fpLavU").value==="p"?` (cioè <span class="k">${fmtIt(Math.ceil(margine/x.baseTfr*1000)/10)} punti percentuali</span> in più sulla tua quota)`:"";
-    T.push({k:usato?"ok":"info",c:"fondo",i:"🏦",t:`Puoi versare ancora ${eur(margine)} al fondo pensione pagando meno tasse`,
+    T.push({k:usato?"ok":"info",c:"fondo",t:`Puoi versare ancora ${eur(margine)} al fondo pensione pagando meno tasse`,
       d:`Fino a 5.164,57 € l'anno i versamenti si sottraggono dal reddito tassato. Versando altri ${eur(margine)}${pp} risparmi circa <span class="k">${eur(risp)}</span> di tasse (il ${Math.round(risp/margine*100)}% di quanto versi): al fondo arrivano ${eur(margine)}, ma dalla tua busta escono solo ${eur(costo)}.`});
   } else if(usato>P.fpMax+0.5){
     T.push({k:"warn",c:"limite",i:"🚫",t:`Versi ${eur(usato-P.fpMax)} al fondo oltre il limite deducibile`,
@@ -1398,7 +1393,7 @@ function consigli(o,ral,x){
   /* 4. Quanto ti resta di un aumento (se non c'è una soglia vicina) */
   if(!cliff||cliff.d>1000){
     const keep=C({ral:ral+1000}).netto-c0.netto;
-    T.push({k:keep<550?"warn":"info",c:"aumento",i:"📈",t:`Su 1.000 € lordi in più l'anno te ne restano circa ${eur(keep)}`,
+    T.push({k:keep<550?"warn":"info",c:"aumento",t:`Su 1.000 € lordi in più l'anno te ne restano circa ${eur(keep)}`,
       d:`Tra IRPEF, addizionali e contributi, su ogni euro in più perdi circa il <span class="k">${Math.round(100-keep/10)}%</span>. Se l'azienda ti dà un premio di risultato, convertirlo in welfare (buoni, rimborsi, previdenza) ti evita queste trattenute: lo ricevi per intero.`});
   }
   return T;
@@ -1408,7 +1403,7 @@ function renderTips(o,ral,x){
   try{ T=consigli(o,ral,x); }catch(e){ T=[]; }
   const ord={warn:0,ok:1,info:2}; T.sort((a,b)=>ord[a.k]-ord[b.k]);
   $("tips-box").hidden=!T.length;
-  $("tips").innerHTML=T.map(t=>`<li class="tip ${t.k} t-${t.c||"aumento"}"><span class="ic" aria-hidden="true">${t.i||"💡"}</span><div><b>${t.t}</b>${t.d}</div></li>`).join("");
+  $("tips").innerHTML=T.map(t=>`<li class="tip ${t.k} t-${t.c||"aumento"}"><div><b>${t.t}</b>${t.d}</div></li>`).join("");
   const fu=x.fpLav+x.fpDat, su=x.sanLav+x.sanDat;
   meter("fp-meter",fu,P.fpMax,
     fu?`Dedotti ${eur(fu)} su ${eur(P.fpMax,2)}: puoi dedurre ancora ${eur(Math.max(0,P.fpMax-fu))}.`:`Nessun versamento: puoi dedurre fino a ${eur(P.fpMax,2)} l'anno.`,
@@ -1422,7 +1417,7 @@ function summaries(x,o){
   const put=(id,t,on)=>{const el=$(id); el.textContent=t; el.classList.toggle("on",!!on);};
   const k=$("ccnl").value;
   const c=[`INPS ${pct(o.inps*100)}`]; if(o.fis)c.push(`FIS ${pct(o.fis*100)}`); if(o.fsc)c.push("Fondo solidarietà"); if(o.ebt)c.push("Ente bilaterale");
-  put("s-contr",c.join(" · "),c.length>1||o.inps!==0.0919);
+  put("s-contr",c.join(", "),c.length>1||o.inps!==0.0919);
   const auto=[];
   if(o.fsc)auto.push("Fondo di solidarietà del credito 0,067%"); if(o.ebt)auto.push("Ente bilaterale 0,05%");
   let at=auto.length?`Questo CCNL aggiunge in automatico: ${auto.join(", ")}.`:"";
@@ -1440,15 +1435,15 @@ function summaries(x,o){
       +(!x.strNF?"":o.strTur?(x.tis>0?" Turismo e pubblici esercizi: +15% esentasse su notturno e straordinario festivo da gennaio a settembre 2026.":" Trattamento integrativo turismo: non spetta, reddito 2025 oltre 40.000 €.")
         :(x.strDet>0?" Notturno e festivo: imposta al 15% fino a 1.500 € nel 2026 (straordinario: tutto il compenso; maggiorazione: la percentuale).":" Imposta al 15% su notturno e festivo: non spetta, reddito 2025 oltre 40.000 €."));
     for(const r of document.querySelectorAll("#str-list .fr")){ const q=r._q; r.querySelector(".st-h").textContent=q?`${eur(x.strHr*q.ore*((q.s?1:0)+q.p/100))} lordi al mese`:""; }
-    put("s-str",n&&x.straord?`${n} ${n===1?"voce":"voci"} · ${eur(x.straord/12)}/mese`:"Nessuno",n>0&&x.straord>0); }
+    put("s-str",n&&x.straord?`${n} ${n===1?"voce":"voci"}, ${eur(x.straord/12)} al mese`:"Nessuno",n>0&&x.straord>0); }
   { const parts=[]; if($("rinnOn").checked&&o.rinnM>0) parts.push(x.rinnOk?"Detassazione 5%":"Detassazione: non spetta");
     const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) parts.push(`+${eur(pa.m,0)} dal ${pa.d}`);
-    { const n=$("sctOn").checked?Math.floor(numv("sctN"))||0:0; put("s-sct",n?`${n} ${n===1?"scatto":"scatti"} · ${eur(n*(numv("sctImp")||0),2)}/mese`:"Nessuno",n>0); }
-    { const ptv=numv("pt")||100; put("s-pt",(ptv<100?`Part-time ${fmtIt(ptv)}%`:"Tempo pieno")+($("tipo").value==="det"?" · determinato":""),ptv<100||$("tipo").value==="det"); }
-    put("s-rinn",parts.join(" · ")||"Nessuno",parts.length>0); }
-  put("s-add",selCom?`${selCom.reg} · ${selCom.nome}`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
+    { const n=$("sctOn").checked?Math.floor(numv("sctN"))||0:0; put("s-sct",n?`${n} ${n===1?"scatto":"scatti"}, ${eur(n*(numv("sctImp")||0),2)} al mese`:"Nessuno",n>0); }
+    { const ptv=numv("pt")||100; put("s-pt",(ptv<100?`Part-time ${fmtIt(ptv)}%`:"Tempo pieno")+($("tipo").value==="det"?", determinato":""),ptv<100||$("tipo").value==="det"); }
+    put("s-rinn",parts.join(", ")||"Nessuno",parts.length>0); }
+  put("s-add",selCom?`${selCom.nome} (${selCom.reg})`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
-  put("s-altro",al.length?al.join(" · "):"Nessuno",al.length);
+  put("s-altro",al.length?al.join(", "):"Nessuno",al.length);
 }
 function ccnlInfo(o){
   const c=CCNL[$("ccnl").value];
@@ -1482,13 +1477,13 @@ function render(){
   if(mode==="ln"){
     $("out-lbl").textContent="Netto in busta";
     $("out-main").innerHTML=eur(netMv)+" <small>al mese</small>";
-    $("out-mens").innerHTML=ccnlTag()+(bonM?`Busta del mese con il bonus · ${mens} mensilità`:`Busta ordinaria · ${mens} mensilità`);
+    $("out-mens").innerHTML=ccnlTag()+(bonM?`Busta del mese con il bonus, ${mens} mensilità`:`Busta ordinaria, ${mens} mensilità`);
     $("sub2-lbl").textContent="Lordo annuo"; $("out-ral").textContent=eur(x.ral);
     $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(netMv);
   } else {
     $("out-lbl").textContent="RAL necessaria";
     $("out-main").innerHTML=eur(x.ralBase)+" <small>l'anno</small>";
-    $("out-mens").innerHTML=ccnlTag()+`Per ${eur(b.netM)} netti in busta · ${mens} mensilità`;
+    $("out-mens").innerHTML=ccnlTag()+`Per ${eur(b.netM)} netti in busta, ${mens} mensilità`;
     $("sub2-lbl").textContent="Lordo mensile (RML)"; $("out-ral").textContent=eur(x.ralBase/mens,2);
     $("mbar-l").textContent="RAL necessaria"; $("mbar-v").textContent=eur(x.ralBase);
   }
@@ -1561,9 +1556,9 @@ function render(){
       !M&&x.strDet>0&&x.strNFamt>1500?[`Notturno e festivo oltre 1.500 €: la parte in più (${eur(x.strNFamt-1500)}) è tassata normalmente.`,"","warn"]:null,
       !M&&x.pdr>0&&!x.pdrOk?["Premio di risultato tassato normalmente: reddito dell'anno prima oltre 80.000 €.","","warn"]:null,
       !M&&x.pdr>5000&&x.pdrOk?[`Premio oltre 5.000 €: la parte in più (${eur(x.pdr-5000)}) è tassata normalmente.`,"","warn"]:null,
-      ded(`Addizionale regionale 2025, ${esc(regLbl)}${M?" · rata 1 di 11":""}`,v.aR),
-      ded(`Addizionale comunale 2025 a saldo, ${esc(comLbl)}${M?" · rata 1 di 11":""}`,v.aS),
-      ded(`Addizionale comunale 2026 in acconto${M?" · rata 1 di 9":""}`,v.aA),
+      ded(`Addizionale regionale 2025, ${esc(regLbl)}${M?" (rata 1 di 11)":""}`,v.aR),
+      ded(`Addizionale comunale 2025 a saldo, ${esc(comLbl)}${M?" (rata 1 di 11)":""}`,v.aS),
+      ded(`Addizionale comunale 2026 in acconto${M?" (rata 1 di 9)":""}`,v.aA),
       cre("Bonus cuneo fiscale",v.bonus),
       cre("Trattamento integrativo",v.ti),
       cre(`Trattamento integrativo speciale turismo 15%, gen–set 2026${M?", media mensile":""}`,v.tis)]},
@@ -1581,7 +1576,7 @@ function render(){
   fu.hidden=!(fpTot>0||x.welf>0);
   if(!(fpTot>0)) fu.innerHTML="";
   if(fpTot>0){
-    const parts=[x.fpLav&&`tu ${eur(x.fpLav)}`,x.fpDat&&`azienda ${eur(x.fpDat)}`,x.fpTfr&&`TFR ${eur(x.fpTfr)}`].filter(Boolean).join(" · ");
+    const parts=[x.fpLav&&`tu ${eur(x.fpLav)}`,x.fpDat&&`azienda ${eur(x.fpDat)}`,x.fpTfr&&`TFR ${eur(x.fpTfr)}`].filter(Boolean).join(", ");
     fu.innerHTML=`Fuori busta, al fondo pensione: <b>${eur(fpTot)}</b> l'anno<small>${parts}</small>`;
   }
   if(x.welf>0) fu.innerHTML+=`<div style="margin-top:8px">Welfare aziendale, fuori busta ed esente da tasse e contributi: <b>${eur(x.welf)}</b> l'anno</div>`;
@@ -1599,7 +1594,7 @@ function setMode(m){
   $("tab-nl").setAttribute("aria-selected",m==="nl");
   $("box-ral").hidden=(m==="nl"); $("seg-unit").hidden=(m==="nl");
   $("box-netto").hidden=(m!=="nl");
-  $("mode-lnk").textContent=m==="nl"?"← Torna al calcolo dal lordo":"Conosci già il netto che vuoi? Parti dal netto →";
+  $("mode-lnk").textContent=m==="nl"?"Torna al calcolo dal lordo":"Conosci già il netto che vuoi? Parti dal netto";
   render();
 }
 function buildTables(){
@@ -1707,7 +1702,7 @@ const TEMI={commercio:["#3730a3","#4f46e5","#ecebfc"],dirterz:["#312e81","#4338c
   logistica:["#3f5f1f","#5a8a2c","#edf3e4"],abi:["#1b2f5b","#2c4a8a","#e7ecf6"],abicompl:["#1b2f5b","#2c4a8a","#e7ecf6"],dirabi:["#1b2f5b","#2c4a8a","#e7ecf6"]};
 function applyTema(){ const t=TEMI[$("ccnl").value]||[], st=document.documentElement.style;
   st.setProperty("--ccnl",t[0]||"#667080"); }
-const ccnlTag=()=>{ const n=(CCNL[$("ccnl").value]||{}).nome||"", s=n.split(/ – | \(/)[0]; return s?`<i class="ccnl-dot"></i>${esc(s)} · `:""; };
+const ccnlTag=()=>{ const n=(CCNL[$("ccnl").value]||{}).nome||"", s=n.split(/ – | \(/)[0]; return s?`<span class="ccnl-tag"><i class="ccnl-dot"></i>${esc(s)}</span>`:""; };
 $("ccnl").addEventListener("change",()=>{applyTema(); delete $("sctImp").dataset.touched; fillLivelli(); syncTram(); fisDefault(); applyPreset(); syncOre(); syncTerzo(); strReset(); render();});
 ["fpLav","fpDat","sanLav","sanDat"].forEach(id=>$(id).addEventListener("input",()=>markPreset(id,false)));
 applyPreset(); syncOre();
@@ -1888,11 +1883,11 @@ function buildSnap(){
   cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
   cl.querySelectorAll("details").forEach(d=>d.open=true);
   const sel=id=>{const e=$(id);return e&&e.selectedIndex>=0?e.options[e.selectedIndex].text:"";};
-  const lv=sel("livello").split(" – ")[0], ctx=[sel("ccnl"),lv?"Livello "+lv:"",selCom?selCom.nome:""].filter(Boolean).map(esc).join(" · ");
+  const lv=sel("livello").split(" – ")[0], ctx=[sel("ccnl"),lv?"Livello "+lv:"",selCom?selCom.nome:""].filter(Boolean).map(esc).join(", ");
   const d=new Date().toLocaleDateString("it-IT");
   w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
   w.appendChild(cl);
-  w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con Lordo-Netto · ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
+  w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con Lordo-Netto, ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
   document.body.appendChild(w); return w;
 }
 $("sharePdf").addEventListener("click",()=>{
@@ -1904,7 +1899,7 @@ $("sharePdf").addEventListener("click",()=>{
 });
 $("copy").addEventListener("click",async()=>{
   if(!last)return; const {x,mens,b}=last;
-  const t=`RAL ${eur(x.ral)} → netto busta ordinaria ${eur(b.netM)} (${mens} mensilità), netto annuo ${eur(x.netto)}. INPS ${eur(x.inps)}, IRPEF ${eur(x.netta)}, addizionali ${eur(x.addReg+x.addCom)}.`;
+  const t=`RAL ${eur(x.ral)}, netto busta ordinaria ${eur(b.netM)} (${mens} mensilità), netto annuo ${eur(x.netto)}. INPS ${eur(x.inps)}, IRPEF ${eur(x.netta)}, addizionali ${eur(x.addReg+x.addCom)}.`;
   try{await navigator.clipboard.writeText(t);$("copy").textContent="Copiato";}catch(e){$("copy").textContent="Copia non disponibile";}
   setTimeout(()=>$("copy").textContent="Copia il riepilogo",1800);
 });
