@@ -148,6 +148,8 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:13px;font-weight:600;color:var(--muted)}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:var(--bd)}
+.save-row{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.save-row .lnk{font-size:12.5px;margin-left:4px}
 .lnk{background:none;border:0;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .acc{border-bottom:1px solid var(--line)}
 .sec > .acc{border-bottom:0;margin-top:10px}
@@ -720,6 +722,10 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
               <div class="fringe-meter" id="fringe-meter" hidden><div class="fm-bar"><i id="fm-fill"></i></div><div class="fm-txt" id="fm-txt"></div></div>
             </div>
           </details>
+        </div>
+        <div class="save-row">
+          <label class="sw"><input type="checkbox" id="saveOn"><span class="tr" aria-hidden="true"></span><span>Ricorda i miei dati su questo dispositivo</span></label>
+          <p class="hint">Contratto, retribuzione, fondi, familiari e le altre scelte restano salvati in questo browser e li ritrovi alla prossima visita. Non vengono inviati a nessuno. <button type="button" class="lnk" id="saveClear" hidden>Cancella i dati salvati</button></p>
         </div>
       </form>
     </section>
@@ -1937,6 +1943,47 @@ $("copy").addEventListener("click",async()=>{
   setTimeout(()=>$("copy").textContent="Copia il riepilogo",1800);
 });
 render();
+
+/* ==== Dati salvati nel browser (localStorage), solo se l'utente lo chiede ==== */
+const SAVE_KEY="ln-dati", LISTS={"bn-list":"bn-add","str-list":"str-add","fr-list":"fr-add"};
+let restoring=false;
+function saveState(){
+  if(restoring||!$("saveOn").checked) return;
+  const st={v:1,mode,unit,ralTouched,f:{},t:{},lists:{}};
+  for(const el of $("f").querySelectorAll("input[id],select[id]")){
+    if(el.id==="saveOn"||el.id==="comune"||el.closest(".fr")) continue;
+    st.f[el.id]=el.type==="checkbox"?el.checked:el.value; if(el.dataset.touched) st.t[el.id]=1;
+  }
+  for(const L in LISTS) st.lists[L]=[...$(L).querySelectorAll(".fr")].map(r=>({t:r.dataset.touched||"",v:[...r.querySelectorAll("input,select")].map(e=>e.type==="checkbox"?e.checked:e.value)}));
+  try{ localStorage.setItem(SAVE_KEY,JSON.stringify(st)); }catch(e){}
+}
+function loadState(){
+  let st=null; try{ st=JSON.parse(localStorage.getItem(SAVE_KEY)||"null"); }catch(e){}
+  if(!st||st.v!==1) return;
+  restoring=true; $("saveOn").checked=true; $("saveClear").hidden=false;
+  const f=st.f, fire=(el,ev)=>el.dispatchEvent(new Event(ev,{bubbles:true}));
+  const put1=(el,val)=>{ if(el.type==="checkbox") el.checked=!!val; else el.value=val; fire(el,el.tagName==="SELECT"||el.type==="checkbox"?"change":"input"); };
+  try{
+    for(const id of ["ccnl","livello","mens"]) if(id in f&&$(id)) put1($(id),f[id]);
+    for(const id in f){ const el=$(id); if(!el||["ccnl","livello","mens","ral","nettoTarget"].includes(id)) continue; put1(el,f[id]); if(st.t[id]) el.dataset.touched=1; }
+    for(const L in st.lists||{}) for(const row of st.lists[L]){
+      $(LISTS[L]).click();
+      for(let i=0;i<row.v.length;i++){ const r=$(L).querySelector(".fr:last-child"), els=r?[...r.querySelectorAll("input,select")]:[]; if(!els[i]) break; put1(els[i],row.v[i]); }
+      const r=$(L).querySelector(".fr:last-child"); if(r&&row.t) r.dataset.touched=row.t;
+    }
+    if(st.unit&&st.unit!==unit) setUnit(st.unit);
+    if(st.ralTouched&&"ral" in f){ $("ral").value=f.ral; ralTouched=true; }
+    if("nettoTarget" in f) $("nettoTarget").value=f.nettoTarget;
+    if(st.mode==="nl") setMode("nl");
+  }catch(e){}
+  restoring=false; render();
+}
+["input","change","click"].forEach(t=>document.addEventListener(t,()=>setTimeout(saveState,0)));
+$("saveOn").addEventListener("change",()=>{ const on=$("saveOn").checked; $("saveClear").hidden=!on;
+  if(on) saveState(); else try{ localStorage.removeItem(SAVE_KEY); }catch(e){} });
+$("saveClear").addEventListener("click",()=>{ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} location.reload(); });
+loadState();
+
 </script>
 </body>
 </html>
