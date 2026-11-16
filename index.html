@@ -656,6 +656,16 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 
           <p class="eyebrow"><i class="dot"></i>Extra in busta</p>
           <details class="acc">
+            <summary><span class="t">Tredicesima e quattordicesima</span><span class="v" id="s-agg"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label for="mensAgg">Busta da mostrare</label>
+                <div class="ctl"><select id="mensAgg"><option value="0">Mese ordinario</option><option value="13">Dicembre, con la tredicesima</option><option value="14">Luglio, con la quattordicesima</option></select></div>
+                <p class="hint" id="agg-h">La mensilità in più si somma alla busta del mese. Il totale annuo non cambia.</p>
+              </div>
+            </div>
+          </details>
+          <details class="acc">
             <summary><span class="t">Bonus, premi e welfare</span><span class="v" id="s-bn"></span></summary>
             <div class="fields">
               <div class="f full">
@@ -829,7 +839,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
       <div>
         <h3>Ultime modifiche</h3>
         <ol class="log">
-          <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria.</li>
+          <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria. Busta di dicembre con la tredicesima e di luglio con la quattordicesima.</li>
           <li><time datetime="2026-11-15">15/11/2026</time> Straordinari e maggiorazioni separati; tabella dell'art. 7 metalmeccanici, anche a turni.</li>
           <li><time datetime="2026-11-12">12/11/2026</time> Cassa QuAS per i quadri del Commercio; bonus nella busta del mese in cui sono pagati.</li>
           <li><time datetime="2026-11-11">11/11/2026</time> Tutte le tranche dei rinnovi nelle pagine dei CCNL; divisori orari e imposta al 15% su notturno e festivo.</li>
@@ -1044,6 +1054,17 @@ function bustaOrdinaria(x,o,mens){
   const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-x.strSost/12+x.tis/12-aR-aS-aA+x.bonus/12+x.ti/12
             +(x.rimbTax?0:rimbM)-fringeM-trattM;
   return {strM,fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
+}
+/* Mensilità aggiuntiva (13ª a dicembre, 14ª a luglio) pagata insieme alla busta del mese.
+   Contributi come una mensilità in più; IRPEF a tassazione separata nel mese: scaglioni mensili, senza detrazioni
+   (le detrazioni sono già ripartite sui 12 mesi ordinari). Il conguaglio di fine anno riallinea il totale. */
+function mensAgg(x,o,mens,b){
+  const ext=x.ralBase/mens, sogliaM=Math.round(P.sogliaInps1/12), rmlOrd=o.inps?b.inpsM/o.inps:0;
+  const inps=ext*o.inps, ivs=Math.max(0,rmlOrd+ext-sogliaM)*0.01-Math.max(0,rmlOrd-sogliaM)*0.01;
+  const fsc=ext*(o.fsc||0), fis=ext*(o.fis||0), ebt=ext*(o.ebt||0), fp=ext*(o.fpLavPct||0)/100, san=ext*(o.sanLavPct||0)/100;
+  const contr=inps+ivs+fsc+fis+ebt+fp+san, imp=Math.max(0,ext-contr)*(o.impQ??1);
+  const irpef=irpefLorda(imp*12)/12;
+  return {ext,inps,ivs,fsc,fis,ebt,fp,san,contr,imp,irpef,net:ext-contr-irpef};
 }
 function lordoDaNetto(targetMese,o,mens){
   let lo=0,hi=1e6;
@@ -1443,6 +1464,9 @@ function summaries(x,o){
     put("s-rinn",parts.join(", ")||"Nessuno",parts.length>0); }
   put("s-add",selCom?`${selCom.nome} (${selCom.reg})`:`Valori medi ${pct(o.addreg)} + ${pct(o.addcom)}`,selCom||o.r25);
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
+  { const mens=+$("mens").value||12, o14=$("mensAgg").options[2]; o14.hidden=o14.disabled=mens<14; if(mens<14&&$("mensAgg").value==="14") $("mensAgg").value="0";
+    if(mens<13&&$("mensAgg").value==="13") $("mensAgg").value="0"; $("mensAgg").options[1].disabled=mens<13;
+    const a=$("mensAgg").value; put("s-agg",a==="13"?"Dicembre":a==="14"?"Luglio":"Mese ordinario",a!=="0"); }
   put("s-altro",al.length?al.join(", "):"Nessuno",al.length);
 }
 function ccnlInfo(o){
@@ -1471,13 +1495,14 @@ function render(){
   const x0=(x.mbo||x.pdr)?calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}):x;
   const b=bustaOrdinaria(x0,o,mens); // la busta ordinaria non contiene i bonus una tantum
   const bonM=$("bnMens").checked&&x0!==x?x.netto-x0.netto:0; // netto intero dei bonus, nella busta del mese in cui sono pagati
-  const netMv=b.netM+bonM; last={x,mens,b};
+  const aggSel=+$("mensAgg").value, ag=aggSel&&mens>=aggSel?mensAgg(x0,o,mens,b):null; // 13ª o 14ª nella busta del mese
+  const netMv=b.netM+bonM+(ag?ag.net:0); last={x,mens,b};
 
   /* 1. Il numero che conta */
   if(mode==="ln"){
     $("out-lbl").textContent="Netto in busta";
-    $("out-main").innerHTML=eur(netMv)+" <small>al mese</small>";
-    $("out-mens").innerHTML=ccnlTag()+(bonM?`Busta del mese con il bonus, ${mens} mensilità`:`Busta ordinaria, ${mens} mensilità`);
+    $("out-main").innerHTML=eur(netMv)+` <small>${ag?(aggSel===13?"a dicembre":"a luglio"):"al mese"}</small>`;
+    $("out-mens").innerHTML=ccnlTag()+(ag?(aggSel===13?"Busta di dicembre, con la tredicesima":"Busta di luglio, con la quattordicesima")+(bonM?" e il bonus":""):bonM?`Busta del mese con il bonus, ${mens} mensilità`:`Busta ordinaria, ${mens} mensilità`);
     $("sub2-lbl").textContent="Lordo annuo"; $("out-ral").textContent=eur(x.ral);
     $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(netMv);
   } else {
@@ -1510,15 +1535,17 @@ function render(){
   const v=M?{
     base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
     inps:b.inpsM, ivs:b.ivsM, fsc:b.fscM, fis:b.fisM, ebt:b.ebtM, fp:b.fpLavM, san:b.sanLavM,
-    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, bonM, net:netMv
+    imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, bonM, net:netMv,
+    agg:ag?ag.ext:0, irpAgg:ag?ag.irpef:0
   }:{
     base:x.ralBase, ind:x.ind, str:x.straord||0, mbo:x.mbo, pdr:x.pdr, pdrSost:x.pdrSost, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
     inps:x.inpsBase, ivs:x.inpsAgg, fsc:x.fsc, fis:x.fis, ebt:x.ebt, fp:x.fpLav, san:x.sanLav,
     imp:x.redLav, lorda:x.lorda*(x.r?x.redLav/x.r:1), irpef:x.netta, sost:x.sost, aR:x.addReg, aS:x.comSaldo, aA:x.comAcc, bonus:x.bonus, ti:x.ti, tratt:x.tratt, strSost:x.strSost, tis:x.tis, net:x.netto
   };
-  const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe;
+  if(M&&ag){ v.inps+=ag.inps; v.ivs+=ag.ivs; v.fsc+=ag.fsc; v.fis+=ag.fis; v.ebt+=ag.ebt; v.fp+=ag.fp; v.san+=ag.san; }
+  const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe+(v.agg||0);
   const tContr=v.inps+v.ivs+v.fsc+v.fis+v.ebt+v.fp+v.san;
-  const tTax=v.irpef+v.sost+(v.pdrSost||0)+v.strSost+v.aR+v.aS+v.aA-v.bonus-v.ti-v.tis;
+  const tTax=v.irpef+(v.irpAgg||0)+v.sost+(v.pdrSost||0)+v.strSost+v.aR+v.aS+v.aA-v.bonus-v.ti-v.tis;
   const tAltro=v.rimbE-v.fringe-v.tratt+(v.bonM||0);
   const pos=(l,val)=>val>0.004?[l,eur(val,2),""]:null;
   const detr=M?[b.detrM?infP("Detrazioni del mese",b.detrM):null]
@@ -1527,6 +1554,7 @@ function render(){
   const groups=[
     {id:"comp",title:"Retribuzione lorda",total:eur(tLordo,2),always:true,single:true,rows:[
       [M?"Retribuzione mensile (RML)":"Retribuzione annua (RAL)",eur(v.base,2),""],
+      pos(aggSel===13?"Tredicesima":"Quattordicesima",v.agg||0),
       pos(`Indennità fisse${o.indTfr===false?", non utili al TFR":""}`,v.ind),
       pos("Straordinari e maggiorazioni",v.str),
       pos("Bonus / MBO",v.mbo||0),
@@ -1549,6 +1577,7 @@ function render(){
       infM(M?"IRPEF lorda, scaglioni mensili":"IRPEF lorda",v.lorda),
       ...detr,
       ["IRPEF netta",mns(v.irpef),""],
+      ded(`IRPEF sulla ${aggSel===13?"tredicesima":"quattordicesima"}, senza detrazioni`,v.irpAgg||0),
       ded("Imposta sostitutiva 5% sugli aumenti da rinnovo",v.sost),
       ded(`Imposta sostitutiva 1% sul premio di risultato`,v.pdrSost||0),
       ded("Imposta sostitutiva 15% su notturno e festivo",v.strSost),
@@ -1839,6 +1868,7 @@ $("str-list").addEventListener("click",e=>{ if(e.target.closest(".fr-x")){ e.tar
 $("str-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text]")){ liveFormat(e.target,e); if(e.target.matches(".st-p")) e.target.closest(".fr").dataset.touched=1; } render(); });
 $("str-list").addEventListener("change",e=>{ if(e.target.matches(".st-t")){ const r=e.target.closest(".fr"); r.querySelector(".st-p").value=fmtIt(strPct(e.target.value)); delete r.dataset.touched; } render(); });
 $("bnMens").addEventListener("change",render);
+$("mensAgg").addEventListener("change",render);
 /* Tema: auto (dispositivo) → chiaro → scuro, ricordato nel browser */
 (function(){ const modes=["auto","light","dark"], nomi={auto:"auto",light:"chiaro",dark:"scuro"}, b=$("theme-toggle"), r=document.documentElement;
   let m=Math.max(0,modes.indexOf(r.getAttribute("data-theme")||"auto"));
