@@ -660,8 +660,8 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
             <div class="fields">
               <div class="f full">
                 <label for="mensAgg">Busta da mostrare</label>
-                <div class="ctl"><select id="mensAgg"><option value="0">Mese ordinario</option><option value="13">Dicembre, con la tredicesima</option><option value="14">Luglio, con la quattordicesima</option></select></div>
-                <p class="hint" id="agg-h">La mensilità in più si somma alla busta del mese. Il totale annuo non cambia.</p>
+                <div class="ctl"><select id="mensAgg"><option value="0">Mese ordinario</option><option value="13">Dicembre, con la tredicesima</option><option value="14">Luglio, con la quattordicesima</option><option value="r">Ogni mese, a ratei (spalmate su 12 mesi)</option></select></div>
+                <p class="hint" id="agg-h">Dicembre o luglio: la mensilità in più si somma alla busta di quel mese. A ratei: come fanno molte PMI, ogni busta contiene 1/12 di tredicesima e quattordicesima. Il totale annuo non cambia.</p>
               </div>
             </div>
           </details>
@@ -1466,7 +1466,8 @@ function summaries(x,o){
   const al=[]; if(x.rimb)al.push(`Rimborsi ${eur(x.rimb/12)}`); if(x.tratt)al.push(`Trattenute ${eur(x.tratt/12)}`); if(x.fringe)al.push(`Benefit ${eur(x.fringe)}`);
   { const mens=+$("mens").value||12, o14=$("mensAgg").options[2]; o14.hidden=o14.disabled=mens<14; if(mens<14&&$("mensAgg").value==="14") $("mensAgg").value="0";
     if(mens<13&&$("mensAgg").value==="13") $("mensAgg").value="0"; $("mensAgg").options[1].disabled=mens<13;
-    const a=$("mensAgg").value; put("s-agg",a==="13"?"Dicembre":a==="14"?"Luglio":"Mese ordinario",a!=="0"); }
+    const a=$("mensAgg").value; $("mensAgg").options[3].disabled=mens<13; if(mens<13&&a==="r") $("mensAgg").value="0";
+    put("s-agg",a==="13"?"Dicembre":a==="14"?"Luglio":a==="r"?"A ratei ogni mese":"Mese ordinario",a!=="0"); }
   put("s-altro",al.length?al.join(", "):"Nessuno",al.length);
 }
 function ccnlInfo(o){
@@ -1493,7 +1494,8 @@ function render(){
   }
   const x=calcola({...o,ral});
   const x0=(x.mbo||x.pdr)?calcola({...o,ral,mbo:0,pdr:0,mboTfrAmt:0,pdrTfrAmt:0}):x;
-  const b=bustaOrdinaria(x0,o,mens); // la busta ordinaria non contiene i bonus una tantum
+  const ratei=$("mensAgg").value==="r"&&mens>12; // 13ª e 14ª pagate a ratei ogni mese: busta su 12 mensilità
+  const b=bustaOrdinaria(x0,o,ratei?12:mens); // la busta ordinaria non contiene i bonus una tantum
   const bonM=$("bnMens").checked&&x0!==x?x.netto-x0.netto:0; // netto intero dei bonus, nella busta del mese in cui sono pagati
   const aggSel=+$("mensAgg").value, ag=aggSel&&mens>=aggSel?mensAgg(x0,o,mens,b):null; // 13ª o 14ª nella busta del mese
   const netMv=b.netM+bonM+(ag?ag.net:0); last={x,mens,b};
@@ -1502,7 +1504,7 @@ function render(){
   if(mode==="ln"){
     $("out-lbl").textContent="Netto in busta";
     $("out-main").innerHTML=eur(netMv)+` <small>${ag?(aggSel===13?"a dicembre":"a luglio"):"al mese"}</small>`;
-    $("out-mens").innerHTML=ccnlTag()+(ag?(aggSel===13?"Busta di dicembre, con la tredicesima":"Busta di luglio, con la quattordicesima")+(bonM?" e il bonus":""):bonM?`Busta del mese con il bonus, ${mens} mensilità`:`Busta ordinaria, ${mens} mensilità`);
+    $("out-mens").innerHTML=ccnlTag()+(ratei?`Busta mensile con i ratei di ${mens>13?"13ª e 14ª":"13ª"}`+(bonM?" e il bonus":""):ag?(aggSel===13?"Busta di dicembre, con la tredicesima":"Busta di luglio, con la quattordicesima")+(bonM?" e il bonus":""):bonM?`Busta del mese con il bonus, ${mens} mensilità`:`Busta ordinaria, ${mens} mensilità`);
     $("sub2-lbl").textContent="Lordo annuo"; $("out-ral").textContent=eur(x.ral);
     $("mbar-l").textContent="Netto in busta"; $("mbar-v").textContent=eur(netMv);
   } else {
@@ -1553,7 +1555,8 @@ function render(){
                 x.dCon?infP("Detrazione coniuge a carico",x.dCon):null,x.dFig?infP("Detrazione figli a carico",x.dFig):null];
   const groups=[
     {id:"comp",title:"Retribuzione lorda",total:eur(tLordo,2),always:true,single:true,rows:[
-      [M?"Retribuzione mensile (RML)":"Retribuzione annua (RAL)",eur(v.base,2),""],
+      [M?(ratei?"Retribuzione mensile con i ratei":"Retribuzione mensile (RML)"):"Retribuzione annua (RAL)",eur(v.base,2),""],
+      M&&ratei?inf(`di cui ratei di ${mens>13?"13ª e 14ª":"13ª"}`,v.base-x.ralBase/mens):null,
       pos(aggSel===13?"Tredicesima":"Quattordicesima",v.agg||0),
       pos(`Indennità fisse${o.indTfr===false?", non utili al TFR":""}`,v.ind),
       pos("Straordinari e maggiorazioni",v.str),
