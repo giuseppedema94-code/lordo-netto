@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calcolo stipendio netto 2026 da lordo (RAL) con CCNL | Lordo-Netto</title>
+<title>Calcolo stipendio netto 2026 da lordo (RAL) con CCNL | stipendioccnl</title>
 <meta name="description" content="Calcola gratis lo stipendio netto 2026 partendo dalla RAL o dal tuo CCNL e livello: IRPEF 23-33-43%, contributi INPS, addizionali, taglio del cuneo fiscale, detrazioni. Anche da netto a lordo.">
 <meta name="robots" content="noindex, nofollow">
 <!-- Sostituire con il dominio definitivo -->
@@ -22,7 +22,7 @@
     {
       "@type": "WebApplication",
       "name": "Calcolatore stipendio netto 2026",
-      "url": "https://www.tuodominio.it/",
+      "url": "https://stipendioccnl.it/",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web",
       "inLanguage": "it-IT",
@@ -73,6 +73,7 @@ a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 /* Testata */
 header.top{background:var(--card);color:var(--ink);border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;gap:12px;height:52px;padding-top:0;padding-bottom:0}
+.logo-c{font-weight:500;color:var(--muted)}
 .logo{display:flex;align-items:center;font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
 header.top nav{margin-left:auto;display:flex;gap:18px;font-size:14px}
 header.top nav a{color:var(--muted);text-decoration:none;white-space:nowrap}
@@ -355,7 +356,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top">€ Lordo-Netto</a>
+    <a class="logo" href="#top" aria-label="stipendioccnl"><span>stipendio</span><span class="logo-c">ccnl</span></a>
     <nav aria-label="Sezioni">
       <a href="#come-funziona">Come funziona</a>
       <a href="stipendio-netto/">Stipendi per CCNL</a>
@@ -890,7 +891,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 
 <footer>
   <div class="wrap">
-    <p>Lordo-Netto è uno strumento gratuito a scopo informativo. Fonti: Legge 199/2025 (Bilancio 2026), Legge 207/2024, TUIR artt. 11-13, circolare INPS 6/2026, tabelle retributive dei CCNL, CCNL Credito ABI (art. 3, contratti complementari), aliquote addizionali regionali e comunali IRPEF dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), scaricati il 10/11/2026. Ultimo aggiornamento: novembre 2026.</p>
+    <p>stipendioccnl è uno strumento gratuito a scopo informativo. Fonti: Legge 199/2025 (Bilancio 2026), Legge 207/2024, TUIR artt. 11-13, circolare INPS 6/2026, tabelle retributive dei CCNL, CCNL Credito ABI (art. 3, contratti complementari), aliquote addizionali regionali e comunali IRPEF dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), scaricati il 10/11/2026. Ultimo aggiornamento: novembre 2026.</p>
     <p class="flinks"><a href="#top">Torna al calcolatore</a><a href="#fonti">Fonti e aggiornamenti</a><span>Privacy</span><span>Cookie</span></p>
   </div>
 </footer>
@@ -1977,7 +1978,7 @@ function buildSnap(){
   const d=new Date().toLocaleDateString("it-IT");
   w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
   w.appendChild(cl);
-  w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con Lordo-Netto, ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
+  w.insertAdjacentHTML("beforeend",`<div class="snap-f">Calcolato il ${d} con stipendioccnl, ${esc(location.host+location.pathname)}<br>Stima indicativa: la busta reale può differire per conguagli e voci aziendali.</div>`);
   document.body.appendChild(w); return w;
 }
 $("sharePdf").addEventListener("click",()=>{
