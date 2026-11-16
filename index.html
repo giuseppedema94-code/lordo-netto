@@ -148,6 +148,7 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:13px;font-weight:600;color:var(--muted)}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:var(--bd)}
+.ca-tot{font-weight:700;font-size:16px}
 .save-row{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 .save-row .lnk{font-size:12.5px;margin-left:4px}
 .lnk{background:none;border:0;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
@@ -656,6 +657,32 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
             </div>
           </details>
 
+          <p class="eyebrow"><i class="dot"></i>Costo per l'azienda</p>
+          <details class="acc">
+            <summary><span class="t">Contributi e buoni pasto</span><span class="v" id="s-ca"></span></summary>
+            <div class="fields">
+              <div class="f">
+                <label for="caInps">Contributi INPS a carico azienda</label>
+                <div class="ctl" data-u="%"><input id="caInps" inputmode="decimal" type="text" value="29,5"></div>
+                <p class="hint" id="caInps-h">Aliquota complessiva indicativa per il settore. Cambia con dimensione aziendale, qualifica e agevolazioni: se conosci la tua, scrivila.</p>
+              </div>
+              <div class="f">
+                <label for="caInail">INAIL</label>
+                <div class="ctl" data-u="%"><input id="caInail" inputmode="decimal" type="text" value="0,4"></div>
+                <p class="hint">Uffici e impiegati: circa 0,4%. Reparti produttivi: di più.</p>
+              </div>
+              <div class="f">
+                <label for="caBp">Buono pasto</label>
+                <div class="ctl" data-u="€/giorno"><input id="caBp" inputmode="decimal" type="text" value="0"></div>
+                <p class="hint">Elettronico esente fino a 10 € al giorno, cartaceo fino a 4 €. La parte in più va inserita nei fringe benefit.</p>
+              </div>
+              <div class="f">
+                <label for="caBpG">Giorni con buono</label>
+                <div class="ctl" data-u="al mese"><input id="caBpG" inputmode="decimal" type="text" value="20"></div>
+              </div>
+            </div>
+          </details>
+
           <p class="eyebrow"><i class="dot"></i>Extra in busta</p>
           <details class="acc">
             <summary><span class="t">Tredicesima e quattordicesima</span><span class="v" id="s-agg"></span></summary>
@@ -755,6 +782,11 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
         </div>
         <table class="ced" id="det"></table>
         <p class="note" id="det-note"></p>
+        <div id="costo-box">
+          <div class="det-head"><h3>Costo per l'azienda</h3><span class="ca-tot" id="ca-tot"></span></div>
+          <table class="ced" id="ca-tab"></table>
+          <p class="note" id="ca-note"></p>
+        </div>
         <div id="tips-box" hidden>
           <div class="det-head"><h3>Consigli</h3></div>
           <ul class="tips" id="tips"></ul>
@@ -845,7 +877,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
       <div>
         <h3>Ultime modifiche</h3>
         <ol class="log">
-          <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria. Busta di dicembre con la tredicesima e di luglio con la quattordicesima.</li>
+          <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria. Costo per l'azienda; tredicesima e quattordicesima nel mese o a ratei; dati salvabili nel browser.</li>
           <li><time datetime="2026-11-15">15/11/2026</time> Straordinari e maggiorazioni separati; tabella dell'art. 7 metalmeccanici, anche a turni.</li>
           <li><time datetime="2026-11-12">12/11/2026</time> Cassa QuAS per i quadri del Commercio; bonus nella busta del mese in cui sono pagati.</li>
           <li><time datetime="2026-11-11">11/11/2026</time> Tutte le tranche dei rinnovi nelle pagine dei CCNL; divisori orari e imposta al 15% su notturno e festivo.</li>
@@ -1071,6 +1103,14 @@ function mensAgg(x,o,mens,b){
   const contr=inps+ivs+fsc+fis+ebt+fp+san, imp=Math.max(0,ext-contr)*(o.impQ??1);
   const irpef=irpefLorda(imp*12)/12;
   return {ext,inps,ivs,fsc,fis,ebt,fp,san,contr,imp,irpef,net:ext-contr-irpef};
+}
+/* Costo annuo per l'azienda: retribuzione + contributi datore (aliquota complessiva indicativa) + INAIL + TFR
+   + fondo pensione e cassa sanitaria a carico azienda con contributo di solidarietà 10% + buoni pasto */
+function costoAzienda(x,o){
+  const ral=x.ral, inps=ral*(o.caInps||0)/100, inail=ral*(o.caInail||0)/100, tfr=x.baseTfr/13.5;
+  const fp=x.fpDat, san=x.sanDat, sol=(fp+san)*0.10, bp=(o.caBp||0)*(o.caBpG||0)*12;
+  const tot=ral+(x.welf||0)+(x.rimb||0)+inps+inail+tfr+fp+san+sol+bp;
+  return {ral,welf:x.welf||0,rimb:x.rimb||0,inps,inail,tfr,fp,san,sol,bp,tot};
 }
 function lordoDaNetto(targetMese,o,mens){
   let lo=0,hi=1e6;
@@ -1325,7 +1365,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),caInps:numv("caInps")||0,caInail:numv("caInail")||0,caBp:numv("caBp")||0,caBpG:numv("caBpG")||0,strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1474,6 +1514,7 @@ function summaries(x,o){
     if(mens<13&&$("mensAgg").value==="13") $("mensAgg").value="0"; $("mensAgg").options[1].disabled=mens<13;
     const a=$("mensAgg").value; $("mensAgg").options[3].disabled=mens<13; if(mens<13&&a==="r") $("mensAgg").value="0";
     put("s-agg",a==="13"?"Dicembre":a==="14"?"Luglio":a==="r"?"A ratei ogni mese":"Mese ordinario",a!=="0"); }
+  put("s-ca",`INPS ${pct(o.caInps)}`,!!$("caInps").dataset.touched||o.caBp>0);
   put("s-altro",al.length?al.join(", "):"Nessuno",al.length);
 }
 function ccnlInfo(o){
@@ -1505,6 +1546,10 @@ function render(){
   const bonM=$("bnMens").checked&&x0!==x?x.netto-x0.netto:0; // netto intero dei bonus, nella busta del mese in cui sono pagati
   const aggSel=+$("mensAgg").value, ag=aggSel&&mens>=aggSel?mensAgg(x0,o,mens,b):null; // 13ª o 14ª nella busta del mese
   const netMv=b.netM+bonM+(ag?ag.net:0); last={x,mens,b};
+  { const c=costoAzienda(x,o), r=(l,v)=>v>0.004?`<tr><td>${l}</td><td>${eur(v,2)}</td></tr>`:"";
+    $("ca-tot").textContent=`${eur(c.tot)} l'anno`;
+    $("ca-tab").innerHTML=`<tbody>${r("Retribuzione lorda (imponibile INPS)",c.ral)}${r("Contributi INPS azienda, "+pct(o.caInps),c.inps)}${r("INAIL, "+pct(o.caInail),c.inail)}${r("TFR maturato (1/13,5 della retribuzione utile)",c.tfr)}${r("Fondo pensione, quota azienda",c.fp)}${r("Cassa sanitaria, quota azienda",c.san)}${r("Contributo di solidarietà 10% su fondo pensione e cassa sanitaria",c.sol)}${r(`Buoni pasto, ${eur(o.caBp,2)} × ${fmtIt(o.caBpG)} giorni × 12`,c.bp)}${r("Welfare aziendale",c.welf)}${r("Rimborsi spese",c.rimb)}</tbody><tfoot><tr><th>Costo totale</th><td>${eur(c.tot,2)}</td></tr></tfoot>`;
+    $("ca-note").textContent=`${eur(c.tot/12)} al mese su 12 mesi. Per ogni euro netto che ricevi, l'azienda spende ${fmtIt(Math.round(c.tot/Math.max(1,x.netto)*100)/100)} €. Stima: l'aliquota INPS e l'INAIL sono valori indicativi, modificabili nei dettagli facoltativi.`; }
 
   /* 1. Il numero che conta */
   if(mode==="ln"){
@@ -1878,6 +1923,12 @@ $("str-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text
 $("str-list").addEventListener("change",e=>{ if(e.target.matches(".st-t")){ const r=e.target.closest(".fr"); r.querySelector(".st-p").value=fmtIt(strPct(e.target.value)); delete r.dataset.touched; } render(); });
 $("bnMens").addEventListener("change",render);
 $("mensAgg").addEventListener("change",render);
+["caInps","caInail","caBp","caBpG"].forEach(id=>$(id).addEventListener("input",e=>{ if(id==="caInps") $(id).dataset.touched=1; liveFormat($(id),e); render(); }));
+/* aliquota contributiva azienda indicativa per settore (fonti: tabelle di sintesi 2026; da verificare sul proprio caso) */
+const CA_INPS={metalmeccanici:29,alimentare:29,tessile:29,gomma:29,commercio:29.5,logistica:29.5,turismo:29.5,pubblici:29.5,studi:29,abi:29.5,abicompl:29.5,dirabi:29.5,dirterz:29.5};
+function syncCa(){ if($("caInps").dataset.touched) return; $("caInps").value=fmtIt(CA_INPS[$("ccnl").value]||29.5); }
+$("ccnl").addEventListener("change",()=>{ syncCa(); render(); });
+syncCa();
 /* Tema: auto (dispositivo) → chiaro → scuro, ricordato nel browser */
 (function(){ const modes=["auto","light","dark"], nomi={auto:"auto",light:"chiaro",dark:"scuro"}, b=$("theme-toggle"), r=document.documentElement;
   let m=Math.max(0,modes.indexOf(r.getAttribute("data-theme")||"auto"));
