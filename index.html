@@ -297,6 +297,7 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 .oc-n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .oc-n input{font:inherit;font-size:13px;font-weight:700;color:var(--ink);border:0;border-bottom:1px dashed transparent;background:transparent;padding:0;width:100%;min-width:0}
 .oc-n input:hover,.oc-n input:focus{border-bottom-color:var(--muted);outline:none}
+.oc-n b{font-size:13px}#snap .oc{cursor:default}
 .oc-tag{flex:none;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--line);color:var(--muted)}
 .oc.on .oc-tag{background:#2f8a5f;color:#fff}
 .oc-l{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2104,6 +2105,14 @@ function buildSnap(){
   cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
   cl.querySelectorAll("details").forEach(d=>d.open=true);
   cl.querySelectorAll(".res-disc").forEach(n=>n.remove());
+  // confronto in versione "vetrina": niente pulsanti, etichette di modifica, suggerimenti né campi
+  cl.querySelectorAll(".cmp-bar,.cmp-x,.oc-tag,.cmp-sub").forEach(n=>n.remove());
+  cl.querySelectorAll(".oc-n input").forEach(i=>{ const b=document.createElement("b"); b.textContent=i.value; i.replaceWith(b); });
+  // niente comandi nell'output: pulsanti di azione, interruttori e frecce
+  cl.querySelectorAll("button").forEach(bt=>{ const t=bt.textContent.trim();
+    if(/^(Scarica il PDF|Copia il riepilogo|Busta mensile|Totale annuo)$/.test(t)){ const p=bt.parentElement; bt.remove(); if(p&&!p.querySelector("button,a,input")&&!p.textContent.trim()) p.remove(); }
+    else { bt.querySelectorAll("svg").forEach(v=>v.remove()); bt.setAttribute("tabindex","-1"); bt.style.cursor="default"; } });
+  cl.querySelectorAll(".oc,.cmp-t td").forEach(n=>{ n.classList.remove("on"); n.removeAttribute("role"); n.removeAttribute("tabindex"); n.removeAttribute("aria-pressed"); });
   const sel=id=>{const e=$(id);return e&&e.selectedIndex>=0?e.options[e.selectedIndex].text:"";};
   const lv=sel("livello").split(" – ")[0], ctx=[sel("ccnl"),lv?"Livello "+lv:"",selCom?selCom.nome:""].filter(Boolean).map(esc).join(", ");
   w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
