@@ -2152,9 +2152,9 @@ function renderCmp(){
       <div class="oc-l">${esc(o.sum.lab)}</div><div class="oc-v">${eur(o.sum.netM)} <small>netti al mese</small></div><div class="oc-a">${eur(o.sum.netA)} netti l'anno</div></div>`;};
   $("cmp-cards").innerHTML=card("A")+card("B");
   const dA=B.netA-A.netA, dM=B.netM-A.netM, w=$("cmp-win");
-  if(Math.abs(dA)<1){ w.className="cmp-win"; w.innerHTML=`<b>Pari</b><span>Le due offerte danno lo stesso netto annuo.</span>`; }
+  if(Math.abs(dA)<1){ w.className="cmp-win"; w.innerHTML=`<b>Pari</b>`; }
   else { const best=dA>0?nB:nA; w.className="cmp-win "+(dA>0?"up":"dn");
-    w.innerHTML=`<b>${dA>0?"+":"−"}${eur(Math.abs(dA))} l'anno</b><span>${esc(nB)} rispetto a ${esc(nA)}: ${dM>=0?"+":"−"}${eur(Math.abs(dM))} al mese in busta. Conviene <strong>${esc(best)}</strong> come netto.</span>`; }
+    w.innerHTML=`<b>${dA>0?"+":"−"}${eur(Math.abs(dA))} l'anno</b>`; }
   $("cmp-sub").textContent=`Clicca su una scheda per modificarla con il modulo. ${A.mens!==B.mens?"Le due offerte hanno mensilità diverse: guarda il netto annuo.":""}`;
   $("cmp-ha").textContent=nA; $("cmp-hb").textContent=nB;
   const d=(a,b,p)=>{const v=b-a; if(Math.abs(v)<0.5) return '<span class="eq">=</span>';
