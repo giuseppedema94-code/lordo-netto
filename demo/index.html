@@ -363,18 +363,20 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 </style>
 <style>
 .nt{background:var(--card);border-bottom:1px solid var(--line)}
-.nt-row{max-width:1240px;margin:0 auto;padding:14px 24px 0;display:flex;align-items:flex-end;gap:28px}
+.nt-row{max-width:1240px;margin:0 auto;padding:14px 24px 0;display:flex;align-items:flex-end;gap:28px;position:relative}
 .nt-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding-bottom:12px;flex:none}
 .nt-brand svg{flex:none}
 .nt-brand b{display:block;font-size:26px;letter-spacing:-.02em;line-height:1}.nt-brand b i{font-style:normal;font-weight:500;color:var(--muted)}
 .nt-brand small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;font-weight:500}
-.nt-tabs{display:flex;gap:4px;flex:1;min-width:0}
-.nt-tab{display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:8px 8px 0 0;background:#16191d;color:#fff;text-decoration:none;font-weight:600;font-size:14.5px;white-space:nowrap}
+.nt-tabs{display:flex;gap:4px;flex:1;min-width:0;margin-right:52px}
+.nt-tab{display:flex;align-items:center;gap:8px;padding:12px 15px;border-radius:8px 8px 0 0;background:#16191d;color:#fff;text-decoration:none;font-weight:600;font-size:14.5px;white-space:nowrap}
 :root[data-theme="dark"] .nt-tab{background:#2a2f36}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nt-tab{background:#2a2f36}}
 .nt-tab:hover{background:#2f353d}.nt-tab.on{background:#2f8a5f}.nt-tab.off{opacity:.55;cursor:default}
 .nt-tab em{font-style:normal;font-size:11px;font-weight:600;background:rgba(255,255,255,.18);padding:1px 6px;border-radius:4px}
-.nt .theme-btn{margin-left:auto;margin-bottom:14px}
+.nt .theme-btn{position:absolute;right:24px;top:14px;width:36px;height:36px;padding:0;font-size:0;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.nt .theme-btn::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+@media (max-width:1180px){.nt-tab{padding:11px 12px;font-size:14px}.nt-brand small{display:none}.nt-tabs{overflow-x:auto;scrollbar-width:none}.nt-tabs::-webkit-scrollbar{display:none}}
 .nt-band{background:#2f8a5f}.nt-in{max-width:1240px;margin:0 auto;padding:12px 24px}
 .nt-search{position:relative;display:flex;align-items:center;gap:10px;background:#fff;color:#16191d;border-radius:999px;padding:0 18px;height:46px}
 .nt-search input{flex:1;min-width:0;border:0;font:inherit;font-size:15.5px;outline:none;background:transparent;color:#16191d}
@@ -392,6 +394,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
  .nt-row{flex-direction:column;align-items:stretch;gap:12px;padding:12px 16px 0;position:relative}
  .nt-brand{padding-bottom:0}.nt-brand small{display:none}.nt-brand b{font-size:22px}
  .nt .theme-btn{position:absolute;right:16px;top:20px;margin:0}
+ .nt-tabs{margin-right:-16px}
  .nt-tabs{overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}.nt-tabs::-webkit-scrollbar{display:none}.nt-tab{padding:10px 13px;font-size:14px}
  .nt-in{padding:10px 16px}.nt-search{height:44px}.nt-search input{font-size:15px}
  .nt-chips .nt-in{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding:6px 10px;scrollbar-width:none}.nt-chips a{white-space:nowrap}
@@ -424,7 +427,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 <main class="wrap" id="top">
   <section class="hero">
     <h1>Calcolo stipendio netto 2026</h1>
-    <p class="lead">Dal lordo al netto con il tuo CCNL. Copre 13 contratti nazionali, con i minimi aggiornati al 1° novembre 2026.</p>
+    <p class="lead">Dal lordo al netto con il tuo CCNL. Copre 15 contratti nazionali, con i minimi aggiornati al 1° novembre 2026.</p>
   </section>
 
   <div class="grid">
@@ -2121,7 +2124,7 @@ loadState();
  const R={i:1,ii:2,iii:3,iv:4,v:5,vi:6,vii:7,viii:8,ix:9};
  const toks=t=>N(t).split(/\s+/).filter(Boolean);
  const D=IDX.map(([l,u,c])=>({l,u,c,t:N(l)+" "+N(l).replace(/\b(i|ii|iii|iv|v|vi|vii|viii|ix)\b/g,m=>R[m])}));
- let sel=0,cur=[];
+ let sel=0,cur=[]; if(innerWidth<700) q.placeholder="Cerca contratto o livello";
  const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
  function show(){const w=toks(q.value); if(!w.length){ul.hidden=true;return;}
   cur=D.filter(d=>{const ws=d.t.split(/\s+/); return w.every(x=>ws.some(y=>y.startsWith(x)));}).sort((a,b)=>b.c-a.c).slice(0,8); sel=0;
