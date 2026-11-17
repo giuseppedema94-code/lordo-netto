@@ -888,7 +888,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
       <div>
         <h3>Ultime modifiche</h3>
         <ol class="log">
-          <li><time datetime="2026-11-17">17/11/2026</time> Nuovi contratti: Cooperative sociali (con la 14ª a mezza mensilità) e Scuola statale, docenti e ATA, con i contributi dei dipendenti statali e gli aumenti di gennaio 2027.</li>
+          <li><time datetime="2026-11-17">17/11/2026</time> Nuovi contratti: Cooperative sociali (con la 14ª a mezza mensilità) e Scuola statale, docenti e ATA, con RPD e CIA su 12 mensilità, i contributi dei dipendenti statali e gli aumenti di gennaio 2027.</li>
           <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria. Costo per l'azienda; tredicesima e quattordicesima nel mese o a ratei; dati salvabili nel browser.</li>
           <li><time datetime="2026-11-15">15/11/2026</time> Straordinari e maggiorazioni separati; tabella dell'art. 7 metalmeccanici, anche a turni.</li>
           <li><time datetime="2026-11-12">12/11/2026</time> Cassa QuAS per i quadri del Commercio; bonus nella busta del mese in cui sono pagati.</li>
@@ -941,8 +941,8 @@ const CCNL = {
   coopsoc:{nome:"Cooperative sociali",mens:13.5,fonte:"Minimi dal 1° ottobre 2025 (CCNL 2023-2025, in trattativa per il rinnovo). 14ª pari a mezza mensilità",
     livelli:[["A1",1359.85],["A2",1372.53],["B1",1436.79],["C1",1545.21],["C2",1591.06],["C3",1637.57],["D1",1637.57],["D2",1727.83],["D3",1839.15],["E1",1839.15],["E2",1985.42],["F1",2192.54],["F2",2504.09]], def:3,
     note:"Dal 2025 la quattordicesima vale mezza mensilità ed è pagata a giugno. Fondo pensione Cooperlavoro e cassa sanitaria Cooperazione Salute: inserisci le quote dalla tua busta. Per i livelli E2, F1 e F2 può esserci un'indennità di funzione: aggiungila nelle indennità fisse."},
-  scuola:{nome:"Scuola statale – Istruzione e Ricerca",mens:13,fonte:"Stipendi dal 1° gennaio 2026 (CCNL 2025-2027, firmato il 1/7/2026). Per i docenti include la RPD, per gli ATA il CIA, pagati su 12 mesi e qui distribuiti su 13",
-    livelli:[["Docente infanzia e primaria, 0-8 anni", 2134.58], ["Docente infanzia e primaria, 9-14 anni", 2340.43], ["Docente infanzia e primaria, 15-20 anni", 2564.37], ["Docente infanzia e primaria, 21-27 anni", 2740.79], ["Docente infanzia e primaria, 28-34 anni", 2978.76], ["Docente infanzia e primaria, 35+ anni", 3111.07], ["Docente secondaria I grado, 0-8 anni", 2294.91], ["Docente secondaria I grado, 9-14 anni", 2534.6], ["Docente secondaria I grado, 15-20 anni", 2787.35], ["Docente secondaria I grado, 21-27 anni", 2993.84], ["Docente secondaria I grado, 28-34 anni", 3262.49], ["Docente secondaria I grado, 35+ anni", 3415.37], ["Docente secondaria II grado, 0-8 anni", 2294.91], ["Docente secondaria II grado, 9-14 anni", 2594.88], ["Docente secondaria II grado, 15-20 anni", 2865.2], ["Docente secondaria II grado, 21-27 anni", 3158.7], ["Docente secondaria II grado, 28-34 anni", 3415.37], ["Docente secondaria II grado, 35+ anni", 3569.16], ["Collaboratore scolastico, 0-8 anni", 1602.36], ["Collaboratore scolastico, 9-14 anni", 1732.69], ["Collaboratore scolastico, 15-20 anni", 1827.65], ["Collaboratore scolastico, 21-27 anni", 1923.18], ["Collaboratore scolastico, 28-34 anni", 1993.66], ["Collaboratore scolastico, 35+ anni", 2045.09], ["Assistente amministrativo o tecnico, 0-8 anni", 1785.01], ["Assistente amministrativo o tecnico, 9-14 anni", 1950.27], ["Assistente amministrativo o tecnico, 15-20 anni", 2075.29], ["Assistente amministrativo o tecnico, 21-27 anni", 2198.77], ["Assistente amministrativo o tecnico, 28-34 anni", 2288.25], ["Assistente amministrativo o tecnico, 35+ anni", 2356.9], ["Funzionario (ex DSGA), 0-8 anni", 2328.94], ["Funzionario (ex DSGA), 9-14 anni", 2583.51], ["Funzionario (ex DSGA), 15-20 anni", 2810.45], ["Funzionario (ex DSGA), 21-27 anni", 3053.33], ["Funzionario (ex DSGA), 28-34 anni", 3306.56], ["Funzionario (ex DSGA), 35+ anni", 3553.34]], def:1,
+  scuola:{nome:"Scuola statale – Istruzione e Ricerca",mens:13,fonte:"Stipendi dal 1° gennaio 2026 (CCNL 2025-2027, firmato il 1/7/2026). Stipendio tabellare per 13 mensilità; RPD dei docenti e CIA degli ATA per 12 mensilità, fuori dalla tredicesima",
+    livelli:[["Docente infanzia e primaria, 0-8 anni", 1945.26, 205.1, "RPD"], ["Docente infanzia e primaria, 9-14 anni", 2151.11, 205.1, "RPD"], ["Docente infanzia e primaria, 15-20 anni", 2331.66, 252.1, "RPD"], ["Docente infanzia e primaria, 21-27 anni", 2508.08, 252.1, "RPD"], ["Docente infanzia e primaria, 28-34 anni", 2683.1, 320.3, "RPD"], ["Docente infanzia e primaria, 35+ anni", 2815.41, 320.3, "RPD"], ["Docente secondaria I grado, 0-8 anni", 2105.59, 205.1, "RPD"], ["Docente secondaria I grado, 9-14 anni", 2345.28, 205.1, "RPD"], ["Docente secondaria I grado, 15-20 anni", 2554.64, 252.1, "RPD"], ["Docente secondaria I grado, 21-27 anni", 2761.13, 252.1, "RPD"], ["Docente secondaria I grado, 28-34 anni", 2966.83, 320.3, "RPD"], ["Docente secondaria I grado, 35+ anni", 3119.71, 320.3, "RPD"], ["Docente secondaria II grado, 0-8 anni", 2105.59, 205.1, "RPD"], ["Docente secondaria II grado, 9-14 anni", 2405.56, 205.1, "RPD"], ["Docente secondaria II grado, 15-20 anni", 2632.49, 252.1, "RPD"], ["Docente secondaria II grado, 21-27 anni", 2925.99, 252.1, "RPD"], ["Docente secondaria II grado, 28-34 anni", 3119.71, 320.3, "RPD"], ["Docente secondaria II grado, 35+ anni", 3273.5, 320.3, "RPD"], ["Collaboratore scolastico, 0-8 anni", 1520.39, 88.8, "CIA"], ["Collaboratore scolastico, 9-14 anni", 1650.73, 88.8, "CIA"], ["Collaboratore scolastico, 15-20 anni", 1745.68, 88.8, "CIA"], ["Collaboratore scolastico, 21-27 anni", 1841.21, 88.8, "CIA"], ["Collaboratore scolastico, 28-34 anni", 1911.69, 88.8, "CIA"], ["Collaboratore scolastico, 35+ anni", 1963.12, 88.8, "CIA"], ["Assistente amministrativo o tecnico, 0-8 anni", 1694.73, 97.8, "CIA"], ["Assistente amministrativo o tecnico, 9-14 anni", 1860.0, 97.8, "CIA"], ["Assistente amministrativo o tecnico, 15-20 anni", 1985.01, 97.8, "CIA"], ["Assistente amministrativo o tecnico, 21-27 anni", 2108.49, 97.8, "CIA"], ["Assistente amministrativo o tecnico, 28-34 anni", 2197.97, 97.8, "CIA"], ["Assistente amministrativo o tecnico, 35+ anni", 2266.62, 97.8, "CIA"], ["Funzionario (ex DSGA), 0-8 anni", 2227.86, 109.5, "CIA"], ["Funzionario (ex DSGA), 9-14 anni", 2482.44, 109.5, "CIA"], ["Funzionario (ex DSGA), 15-20 anni", 2709.38, 109.5, "CIA"], ["Funzionario (ex DSGA), 21-27 anni", 2952.25, 109.5, "CIA"], ["Funzionario (ex DSGA), 28-34 anni", 3205.48, 109.5, "CIA"], ["Funzionario (ex DSGA), 35+ anni", 3452.26, 109.5, "CIA"]], def:1,
     note:"Contributi dei dipendenti statali: 8,80% pensione + 0,35% fondo credito. Se sei stato assunto prima del 2001 (regime TFS) c'è anche il 2,5% sull'80% della retribuzione. Fondo pensione Espero: 1% tuo + 1% dello Stato, se aderisci."},
   abi:{nome:"Credito – Bancari ABI",mens:13,fonte:"Stipendi dal 1° marzo 2026 (CCNL 23/11/2023, in proroga)",
     livelli:[["Quadro direttivo 4° liv.",5160.06],["Quadro direttivo 3° liv.",4396.88],["Quadro direttivo 2° liv.",3965.48],["Quadro direttivo 1° liv.",3743.21],["3ª area 4° liv.",3341.90],["3ª area 3° liv.",3059.49],["3ª area 2° liv.",2890.41],["3ª area 1° liv.",2742.34],["Area unificata (ex 1ª e 2ª)",2479.45]], def:7},
@@ -1203,7 +1203,7 @@ function fillCcnl(){
 function fillLivelli(){
   const c=CCNL[$("ccnl").value], s=$("livello");
   s.innerHTML="";
-  c.livelli.forEach(([n,v],i)=>{const o=document.createElement("option");o.value=i;o.textContent=`${n} – ${eur(v,2)}/mese`;s.appendChild(o);});
+  c.livelli.forEach(([n,v,a,al],i)=>{const o=document.createElement("option");o.value=i;o.textContent=`${n} – ${eur(v,2)}/mese`+(a?` + ${al} ${eur(a,2)}`:"");s.appendChild(o);});
   s.value=c.def; $("mens").value=c.mens;
   { const fix=c.livelli.length>0; $("mens-box").hidden=fix; $("livello-box").classList.toggle("w4",!fix); $("livello-box").classList.toggle("full",fix); }
   $("livello").disabled=!c.livelli.length;
@@ -1324,7 +1324,7 @@ const PROSSIMO={
   logistica:{d:"1/1/2027",inc:i=>i<9?RINNOVI.logistica.r[i]*30:RINNOVI.logistica.r[i]/1.0625*40},
   dirterz:{d:"1/1/2027",inc:()=>260},
   coopsoc:{no:"Il CCNL delle cooperative sociali è scaduto il 31/12/2025 ed è in trattativa: non ci sono aumenti già fissati."},
-  scuola:{d:"1/1/2027",inc:i=>[43.46, 46.98, 52.56, 55.58, 61.84, 64.11, 46.2, 50.3, 56.38, 59.91, 66.7, 69.31, 46.2, 51.33, 57.71, 62.73, 69.31, 71.94, 31.25, 33.48, 35.1, 36.73, 37.94, 38.82, 34.78, 37.6, 39.74, 41.85, 43.39, 44.57, 44.37, 48.72, 52.6, 56.75, 61.08, 65.31][i]},
+  scuola:{d:"1/1/2027",inc:i=>[38.57, 42.09, 46.47, 49.49, 54.18, 56.45, 41.31, 45.41, 50.29, 53.82, 59.04, 61.65, 41.31, 46.44, 51.62, 56.64, 61.65, 64.28, 25.9, 28.12, 29.75, 31.38, 32.59, 33.47, 28.87, 31.69, 33.83, 35.95, 37.48, 38.66, 37.82, 42.16, 46.04, 50.2, 54.53, 58.76][i],acc:i=>[5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.8, 5.8, 5.8, 5.8, 5.8, 5.8, 6.4, 6.4, 6.4, 6.4, 6.4, 6.4, 7.1, 7.1, 7.1, 7.1, 7.1, 7.1][i]},
   abi:{no:"Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."},
   abicompl:{no:"Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."}
 };
@@ -1343,7 +1343,7 @@ const SCATTI={
 const SCATTI_MAX={commercio:10,tessile:4,alimentare:5,gomma:5,metalmeccanici:5,studi:8,turismo:6,pubblici:6,logistica:5,coopsoc:5,abi:8,abicompl:8};
 SCATTI.abicompl=SCATTI.abi.map(v=>Math.round(v*0.8*100)/100); // complementare: −20% come le tabelle
 function proxAuto(){ const k=$("ccnl").value, P=PROSSIMO[k], c=CCNL[k]; if(!P) return null; if(P.no) return {no:P.no};
-  const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null; return {d:P.d,m:Math.round(P.inc(i,lv[1])*100)/100}; }
+  const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null; return {d:P.d,m:Math.round(P.inc(i,lv[1])*100)/100,a:P.acc?P.acc(i):0}; }
 function fillSctN(){ const el=$("sctN"), mx=SCATTI_MAX[$("ccnl").value]||10, cur=Math.min(+el.value||1,mx);
   if(el.options.length===mx) { el.value=cur; return; }
   el.innerHTML=Array.from({length:mx},(_,i)=>`<option value="${i+1}">${i+1}${i===mx-1?" (massimo)":""}</option>`).join(""); el.value=cur; }
@@ -1361,6 +1361,13 @@ function syncExtra(){
 function extraBase(){ // aumento futuro e scatti, annui
   const pt=(numv("pt")||100)/100, mens=+$("mens").value||12; let a=0;
   const pa=proxAuto(); if($("proxOn").checked&&pa&&pa.m) a+=pa.m*pt*mens;
+  return _extraRest(a,pt,mens);
+}
+function acc12(){ // voci del livello pagate su 12 mesi (RPD, CIA), più l'eventuale aumento futuro
+  const c=CCNL[$("ccnl").value], lv=c&&c.livelli[+$("livello").value]; if(!lv||!lv[2]) return 0;
+  const pt=(numv("pt")||100)/100, pa=proxAuto(); return (lv[2]+($("proxOn").checked&&pa&&pa.a?pa.a:0))*pt*12;
+}
+function _extraRest(a,pt,mens){
   if($("sctOn").checked) a+=(Math.max(0,Math.floor(numv("sctN")))||0)*(numv("sctImp")||0)*pt*mens;
   return a;
 }
@@ -1387,7 +1394,7 @@ function opts(){
   const tramOn=tramEligible(), tramCity=$("tram").value;
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
-  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
+  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1)+acc12(),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
     ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),caInps:numv("caInps")||0,caInail:numv("caInail")||0,caBp:numv("caBp")||0,caBpG:numv("caBpG")||0,strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
@@ -1632,7 +1639,8 @@ function render(){
       [M?(ratei?"Retribuzione mensile con i ratei":"Retribuzione mensile (RML)"):"Retribuzione annua (RAL)",eur(v.base,2),""],
       M&&ratei?inf(`di cui ratei di ${mens>13?"13ª e 14ª":"13ª"}`,v.base-x.ralBase/mens):null,
       pos(aggSel===13?"Tredicesima":"Quattordicesima",v.agg||0),
-      pos(`Indennità fisse${o.indTfr===false?", non utili al TFR":""}`,v.ind),
+      ...(()=>{ const c=CCNL[$("ccnl").value], lv=c&&c.livelli[+$("livello").value], a=lv&&lv[2]?acc12()/(M?12:1):0, r=v.ind-a;
+        return [a>0.005?pos(lv[3]==="RPD"?"Retribuzione professionale docenti (RPD), 12 mensilità":"Compenso individuale accessorio (CIA), 12 mensilità",a):null, pos(`Indennità fisse${o.indTfr===false?", non utili al TFR":""}`,r)]; })(),
       pos("Straordinari e maggiorazioni",v.str),
       pos("Bonus / MBO",v.mbo||0),
       pos("Premio di risultato in denaro",v.pdr||0),
