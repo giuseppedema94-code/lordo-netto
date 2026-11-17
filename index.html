@@ -883,7 +883,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
           </div>
         </div>
         <table class="ced" id="det"></table>
-        <p class="note" id="det-note"></p>
+        <p class="note det-note" id="det-note"></p>
         <div id="costo-box">
           <div class="det-head"><h3>Costo per l'azienda</h3><span class="ca-tot" id="ca-tot"></span></div>
           <table class="ced" id="ca-tab"></table>
@@ -2106,7 +2106,7 @@ function buildSnap(){
   cl.querySelectorAll("details").forEach(d=>d.open=true);
   cl.querySelectorAll(".res-disc").forEach(n=>n.remove());
   // confronto in versione "vetrina": niente pulsanti, etichette di modifica, suggerimenti né campi
-  cl.querySelectorAll(".cmp-bar,.cmp-x,.oc-tag,.cmp-sub,.split-h,#bar,#legend,#det-note").forEach(n=>n.remove());
+  cl.querySelectorAll(".cmp-bar,.cmp-x,.oc-tag,.cmp-sub,.split-h,.res-body>.bar,.res-body>.legend,.det-note").forEach(n=>n.remove());
   cl.querySelectorAll(".oc-n input").forEach(i=>{ const b=document.createElement("b"); b.textContent=i.value; i.replaceWith(b); });
   // niente comandi nell'output: pulsanti di azione, interruttori e frecce
   cl.querySelectorAll("button").forEach(bt=>{ const t=bt.textContent.trim();
