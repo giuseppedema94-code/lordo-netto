@@ -597,6 +597,10 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
                   <option value="0.0584">5,84% – apprendista</option>
                 </select>
               </div>
+              <div class="f full">
+                <label class="sw"><input type="checkbox" id="mass"><span class="tr" aria-hidden="true"></span><span>Primo contributo versato dal 1996: massimale di 122.295 €</span></label>
+                <p class="hint">Sopra questa cifra l'INPS non trattiene più i contributi pensionistici (circolare INPS 6/2026). Vale solo per chi non ha contributi prima del 1996 e cambia il risultato solo con un lordo più alto.</p>
+              </div>
               <div class="f full" id="row-fis">
                 <label for="fis">Fondo integrazione salariale (FIS)</label>
                 <select id="fis">
@@ -956,6 +960,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
       <div>
         <h3>Ultime modifiche</h3>
         <ol class="log">
+          <li><time datetime="2026-11-17">17/11/2026</time> Confronto tra due offerte. Correzioni dopo una verifica delle fonti: scuola sulle tabelle ARAN, logistica (straordinario festivo 65% e aumenti di gennaio 2027), ABI 37 ore, detassazione degli aumenti 2026 per metalmeccanici e dirigenti del credito, massimale contributivo opzionale.</li>
           <li><time datetime="2026-11-17">17/11/2026</time> Nuovo contratto Gas-Acqua 2025-2027, con le tranche di luglio 2026, luglio 2027 e ottobre 2027.</li>
           <li><time datetime="2026-11-17">17/11/2026</time> Nuovi contratti: Cooperative sociali (con la 14ª a mezza mensilità) e Scuola statale, docenti e ATA, con RPD e CIA su 12 mensilità, i contributi dei dipendenti statali e gli aumenti di gennaio 2027.</li>
           <li><time datetime="2026-11-16">16/11/2026</time> Nuova grafica, più sobria. Costo per l'azienda; tredicesima e quattordicesima nel mese o a ratei; dati salvabili nel browser.</li>
@@ -1029,7 +1034,7 @@ const CCNL = {
 
 /* ==== MOTORE DI CALCOLO 2026 ==== */
 /* @engine-start */
-const P = {scaglioni:[[28000,.23],[50000,.33],[Infinity,.43]], sogliaInps1:56224, fpMax:5164.57, sanMax:3615.20};
+const P = {scaglioni:[[28000,.23],[50000,.33],[Infinity,.43]], sogliaInps1:56224, massimale:122295, fpMax:5164.57, sanMax:3615.20};
 function irpefLorda(r){let t=0,prev=0;for(const [lim,a] of P.scaglioni){if(r>prev){t+=(Math.min(r,lim)-prev)*a;}prev=lim;}return t;}
 function detrLavoro(r,tipo){
   let d;
@@ -1089,8 +1094,9 @@ function calcola(o){
   const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0)+straord+mbo+pdr;
   const ral=ralBase+ind+tram+extraTax;         // lordo annuo imponibile (concorso spese tranviarie: 12 mensilità)
   const baseTfr=ralBase+(o.indTfr===false?0:ind)+Math.min(mbo,o.mboTfrAmt||0)+Math.min(pdr,o.pdrTfrAmt||0); // retribuzione utile TFR
-  const inpsBase=ral*o.inps;
-  const inpsAgg=Math.max(0,ral-P.sogliaInps1)*0.01;
+  const capB=o.mass?Math.min(ral,P.massimale):ral, massK=ral>0?capB/ral:1; // massimale contributivo per chi ha il primo contributo dal 1996
+  const inpsBase=capB*o.inps;
+  const inpsAgg=Math.max(0,capB-P.sogliaInps1)*0.01;
   const fsc=ral*(o.fsc||0);                    // Fondo di solidarietà del credito (quota lavoratore 0,067%)
   const fis=ral*(o.fis||0);                    // Fondo integrazione salariale (1/3 a carico del lavoratore)
   const ebt=ral*(o.ebt||0);                    // Ente bilaterale (es. commercio 0,05%)
@@ -1160,7 +1166,7 @@ function calcola(o){
   const tratt=Math.max(0,o.tratt||0);
   const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost-pdrSost-strSost+tis
              +(rimbTax?0:rimb)-(fringeTax?fringe:0)-tratt;   // il fringe è in natura: tassato ma non pagato in denaro
-  return {mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,strHr,strNFamt,strNF,str40,strDet,strSost,tis,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
+  return {massK,mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,strHr,strNFamt,strNF,str40,strDet,strSost,tis,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
 }
 /* Busta di un mese ordinario (senza 13ª/14ª), come il cedolino:
    contributi sul lordo del mese, IRPEF sugli scaglioni mensili (annui/12), detrazioni in dodicesimi,
@@ -1170,7 +1176,7 @@ function bustaOrdinaria(x,o,mens){
   const rimbM=x.rimb/12, fringeM=x.fringeTax?x.fringe/12:0, trattM=x.tratt/12;
   const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, strM=(x.straord||0)/12, rml=rmlBase+indM+tramM+strM+(x.rimbTax?rimbM:0)+fringeM;
   const baseTfrM=rmlBase+(o.indTfr===false?0:indM);
-  const inpsM=rml*o.inps, ivsM=Math.max(0,rml-sogliaM)*0.01, fscM=rml*(o.fsc||0), fisM=rml*(o.fis||0), ebtM=rml*(o.ebt||0);
+  const inpsM=rml*o.inps*(x.massK??1), ivsM=Math.max(0,rml*(x.massK??1)-sogliaM)*0.01, fscM=rml*(o.fsc||0), fisM=rml*(o.fis||0), ebtM=rml*(o.ebt||0);
   const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
   const fpLavM=baseTfrM*(o.fpLavPct||0)/100+((o.fpLavFix||0)+(o.fpVol||0))/12;
   const sanLavM=(o.sanLav||0)/12+rml*(o.sanLavPct||0)/100;
@@ -1188,7 +1194,7 @@ function bustaOrdinaria(x,o,mens){
    (le detrazioni sono già ripartite sui 12 mesi ordinari). Il conguaglio di fine anno riallinea il totale. */
 function mensAgg(x,o,mens,b,f){
   const ext=x.ralBase/mens*(f??1), sogliaM=Math.round(P.sogliaInps1/12), rmlOrd=o.inps?b.inpsM/o.inps:0;
-  const inps=ext*o.inps, ivs=Math.max(0,rmlOrd+ext-sogliaM)*0.01-Math.max(0,rmlOrd-sogliaM)*0.01;
+  const k=x.massK??1, inps=ext*o.inps*k, ivs=Math.max(0,(rmlOrd+ext)*k-sogliaM)*0.01-Math.max(0,rmlOrd*k-sogliaM)*0.01;
   const fsc=ext*(o.fsc||0), fis=ext*(o.fis||0), ebt=ext*(o.ebt||0), fp=ext*(o.fpLavPct||0)/100, san=ext*(o.sanLavPct||0)/100;
   const contr=inps+ivs+fsc+fis+ebt+fp+san, imp=Math.max(0,ext-contr)*(o.impQ??1);
   const irpef=irpefLorda(imp*12)/12;
@@ -1394,7 +1400,7 @@ const PROSSIMO={
   studi:{d:"1/12/2026",inc:(i,m)=>m/1706.37*20},
   turismo:{d:"1/4/2027",inc:i=>RINNOVI.turismo.r[i]*35},
   pubblici:{d:"1/6/2027",inc:i=>RINNOVI.pubblici.r[i]*30},
-  logistica:{d:"1/1/2027",inc:i=>i<9?RINNOVI.logistica.r[i]*30:RINNOVI.logistica.r[i]/1.0625*40},
+  logistica:{d:"1/1/2027",inc:i=>[46.67,36.67,36.67,30,30,26.67,26.67,23.33,23.33,50,40,33.33,30,30,30,28.33,26.67][i]}, // elemento perequativo da gennaio 2027, testo unico CCNL
   dirterz:{d:"1/1/2027",inc:()=>260},
   gasacqua:{d:"1/7/2027",inc:i=>[83.91, 75.78, 70.01, 64.24, 58.5, 54.93, 51.39, 46.46, 41.8][i]},
   coopsoc:{no:"Il CCNL delle cooperative sociali è scaduto il 31/12/2025 ed è in trattativa: non ci sono aumenti già fissati."},
@@ -1468,7 +1474,7 @@ function opts(){
   const tramOn=tramEligible(), tramCity=$("tram").value;
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
-  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1)+acc12(),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
+  const o={mass:$("mass").checked,fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1)+acc12(),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
     ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),caInps:numv("caInps")||0,caInail:numv("caInail")||0,caBp:numv("caBp")||0,caBpG:numv("caBpG")||0,strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
@@ -2022,6 +2028,7 @@ function setUnit(u){
   render();
 }
 $("rinnOn").addEventListener("change",render);
+$("mass").addEventListener("change",render);
 $("str-add").addEventListener("click",()=>{ $("str-list").appendChild(strRow()); render(); });
 $("strTurni").addEventListener("change",()=>{ strReset(); render(); });
 $("str-list").addEventListener("click",e=>{ if(e.target.closest(".fr-x")){ e.target.closest(".fr").remove(); render(); } });
