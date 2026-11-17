@@ -122,4 +122,30 @@ a{color:var(--ink)}
  }));
  if(document.getElementById("f")&&(location.hash==="#costo"||location.hash==="#netto-lordo"||location.hash==="#confronta")) setTimeout(()=>document.querySelector(`[data-go="${({"#costo":"costo","#netto-lordo":"nl","#confronta":"cmp"})[location.hash]}"]`)?.click(),300);
 })();
+</script><script>
+(()=>{let IDX=null,D=[]; const q=document.getElementById("nt-q"), ul=document.getElementById("nt-res");
+ const N=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ");
+ const R={i:1,ii:2,iii:3,iv:4,v:5,vi:6,vii:7,viii:8,ix:9};
+ const toks=t=>N(t).split(/\s+/).filter(Boolean);
+ const load=()=>IDX?Promise.resolve():fetch("/search-index.json").then(r=>r.json()).then(j=>{IDX=j;D=IDX.map(([l,u,c])=>({l,u,c,t:N(l)+" "+N(l).replace(/\b(i|ii|iii|iv|v|vi|vii|viii|ix)\b/g,m=>R[m])}));}).catch(()=>{IDX=[];});
+ let sel=0,cur=[]; if(innerWidth<700) q.placeholder="Cerca contratto o livello";
+ const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+ function show(){const w=toks(q.value); if(!w.length){ul.hidden=true;return;}
+  cur=D.filter(d=>{const ws=d.t.split(/\s+/); return w.every(x=>ws.some(y=>y.startsWith(x)));}).sort((a,b)=>b.c-a.c).slice(0,8); sel=0;
+  ul.innerHTML=cur.length?cur.map((d,i)=>`<li><a href="${d.u}" class="${i?"":"sel"}">${esc(d.l)}${d.c?"<small>tutti i livelli</small>":""}</a></li>`).join(""):'<li class="none">Nessun contratto trovato. Prova con il nome del settore.</li>';
+  ul.hidden=false;}
+ q.addEventListener("focus",load,{once:true}); q.addEventListener("input",()=>load().then(show));
+ q.addEventListener("keydown",e=>{ if(ul.hidden) return; const a=[...ul.querySelectorAll("a")];
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault(); if(!a.length)return; sel=(sel+(e.key==="ArrowDown"?1:a.length-1))%a.length; a.forEach((x,i)=>x.classList.toggle("sel",i===sel)); a[sel].scrollIntoView({block:"nearest"});}
+  else if(e.key==="Enter"&&a[sel]){e.preventDefault(); location.href=a[sel].href;}
+  else if(e.key==="Escape"){ul.hidden=true;} });
+ document.addEventListener("click",e=>{ if(!e.target.closest(".nt-search")) ul.hidden=true; });
+ document.querySelectorAll("[data-go]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();
+  if(!document.getElementById("f")){ location.href=a.getAttribute("href"); return; }
+  if(a.dataset.go==="cmp"){ if(typeof setMode==="function") setMode("ln"); if(!window.cmpOn) document.getElementById("cmpPin")?.click(); setTimeout(()=>document.getElementById("cmp")?.scrollIntoView({behavior:"smooth",block:"center"}),100); return; }
+  if(a.dataset.go==="nl"){ if(typeof setMode==="function") setMode("nl"); document.getElementById("f")?.scrollIntoView({behavior:"smooth"}); }
+  else { const g=[...document.querySelectorAll(".eyebrow")].find(p=>/Costo per l'azienda/.test(p.textContent)); const d=g&&g.nextElementSibling; if(d&&d.tagName==="DETAILS") d.open=true; (g||document.getElementById("costo-box"))?.scrollIntoView({behavior:"smooth",block:"start"}); }
+ }));
+ if(document.getElementById("f")&&(location.hash==="#costo"||location.hash==="#netto-lordo"||location.hash==="#confronta")) setTimeout(()=>document.querySelector(`[data-go="${({"#costo":"costo","#netto-lordo":"nl","#confronta":"cmp"})[location.hash]}"]`)?.click(),300);
+})();
 </script></body></html>

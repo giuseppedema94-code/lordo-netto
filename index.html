@@ -284,21 +284,37 @@ table.ced{width:100%;border-collapse:collapse;font-size:14px}
 
 /* Barra del netto su schermi stretti */
 .cmp-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 20px;border-bottom:1px solid var(--line)}
-.cmp-btn,.cmp-act button{font:inherit;font-size:14px;font-weight:600;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-.cmp-btn:hover,.cmp-act button:hover{border-color:var(--ink)}
+.cmp-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.cmp-btn:hover{border-color:#2f8a5f;color:#2f8a5f}
 .cmp-hint{font-size:13px;color:var(--muted)}
-.cmp{padding:16px 20px;border-bottom:1px solid var(--line)}
-.cmp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.cmp-head h3{margin:0;font-size:16px}
-.cmp-act{display:flex;gap:6px;flex-wrap:wrap}.cmp-act button{font-size:13px;padding:6px 10px}
-.cmp-sub{margin:6px 0 10px;font-size:13px;color:var(--muted)}
-.cmp-t{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-.cmp-t th{font-size:12px;font-weight:600;color:var(--muted);text-align:right;padding:4px 0 6px 8px}.cmp-t th:first-child{text-align:left;padding-left:0}
-.cmp-t td{padding:7px 0 7px 8px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}.cmp-t td:first-child{text-align:left;padding-left:0;white-space:normal;color:var(--ink)}
-.cmp-t tr.k td{font-weight:700}.cmp-t td small{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+.cmp{padding:16px 20px 18px;border-bottom:1px solid var(--line);background:var(--soft)}
+.cmp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.cmp-head h3{margin:0;font-size:16px}
+.cmp-x{font:inherit;font-size:13px;font-weight:600;color:var(--muted);background:none;border:0;cursor:pointer;padding:4px 6px;border-radius:6px}.cmp-x:hover{color:var(--ink)}
+.cmp-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.oc{position:relative;text-align:left;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;min-width:0}
+.oc:hover{border-color:var(--muted)}
+.oc.on{border-color:#2f8a5f;box-shadow:0 0 0 3px rgba(47,138,95,.14);cursor:default}
+.oc-n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.oc-n input{font:inherit;font-size:13px;font-weight:700;color:var(--ink);border:0;border-bottom:1px dashed transparent;background:transparent;padding:0;width:100%;min-width:0}
+.oc-n input:hover,.oc-n input:focus{border-bottom-color:var(--muted);outline:none}
+.oc-tag{flex:none;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--line);color:var(--muted)}
+.oc.on .oc-tag{background:#2f8a5f;color:#fff}
+.oc-l{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oc-v{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:4px;font-variant-numeric:tabular-nums;line-height:1.15}.oc-v small{display:block;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0}
+.oc-a{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cmp-win{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:12px 0 4px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.cmp-win b{font-size:22px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.cmp-win span{font-size:13.5px;color:var(--muted)}
+.cmp-win.up b{color:#2f8a5f}.cmp-win.dn b{color:#b4472e}
+.cmp-sub{margin:10px 0 6px;font-size:12.5px;color:var(--muted)}
+.cmp-t{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.cmp-t th{font-size:11.5px;font-weight:700;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}.cmp-t th:first-child{text-align:left}
+.cmp-t td{padding:8px 10px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}.cmp-t tr:first-child td{border-top:0}
+.cmp-t td:first-child{text-align:left;white-space:normal}.cmp-t tr.k td{font-weight:700}.cmp-t td small{display:block;font-size:11px;color:var(--muted);font-weight:400}
 .cmp-t .up{color:#2f8a5f;font-weight:700}.cmp-t .dn{color:#b4472e;font-weight:700}.cmp-t .eq{color:var(--muted)}
-.cmp-t tr.lab td{font-size:12.5px;color:var(--muted);border-top:0;padding-top:0}
-.mbar b.d{font-size:12px;font-weight:700;margin-left:6px;opacity:.9}
-@media print{.cmp-bar{display:none}}
+.cmp-t td.on{background:rgba(47,138,95,.07)}
+@media (max-width:480px){.oc{padding:10px 11px}.oc-v{font-size:20px}.oc-n{flex-wrap:wrap;gap:4px}.oc-tag{font-size:10.5px;padding:1px 6px}.oc-a{font-size:12px}.cmp-t{font-size:12.5px}.cmp-t td,.cmp-t th{padding:7px 6px}}
+.mbar b.d{font-size:12px;font-weight:700;margin-left:6px;opacity:.9;white-space:nowrap}
+@media print{.cmp-bar,.cmp-x{display:none}}
 .mbar{display:none}
 
 @media (max-width:860px){
@@ -846,11 +862,13 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
         <div><span id="sub1-lbl">Netto annuo</span><strong id="out-na">–</strong><em class="kpi-m" id="out-na-m" hidden></em></div>
         <div><span id="sub2-lbl">Lordo annuo</span><strong id="out-ral">–</strong><em class="kpi-m" id="out-ral-m" hidden></em></div>
       </div>
-      <div class="cmp-bar"><button type="button" class="cmp-btn" id="cmpPin">Confronta con un'altra offerta</button><span class="cmp-hint" id="cmpHint"></span></div>
-      <section class="cmp" id="cmp" hidden aria-live="polite" aria-labelledby="cmp-h">
-        <div class="cmp-head"><h3 id="cmp-h">Confronto offerte</h3><div class="cmp-act"><button type="button" id="cmpSwap">Scambia A e B</button><button type="button" id="cmpClose">Chiudi</button></div></div>
-        <p class="cmp-sub">L'offerta A è salvata. Cambia i dati a sinistra: l'offerta B è quella che vedi ora.</p>
-        <table class="cmp-t"><thead><tr><th></th><th>Offerta A</th><th>Offerta B</th><th>Differenza</th></tr></thead><tbody id="cmp-b"></tbody></table>
+      <div class="cmp-bar"><button type="button" class="cmp-btn" id="cmpPin"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/></svg><span>Confronta con un'altra offerta</span></button><span class="cmp-hint" id="cmpHint"></span></div>
+      <section class="cmp" id="cmp" hidden aria-labelledby="cmp-h">
+        <div class="cmp-head"><h3 id="cmp-h">Confronto offerte</h3><button type="button" class="cmp-x" id="cmpClose">Chiudi confronto</button></div>
+        <div class="cmp-cards" id="cmp-cards"></div>
+        <div class="cmp-win" id="cmp-win" aria-live="polite"></div>
+        <p class="cmp-sub" id="cmp-sub"></p>
+        <table class="cmp-t"><thead><tr><th></th><th id="cmp-ha">A</th><th id="cmp-hb">B</th><th>B − A</th></tr></thead><tbody id="cmp-b"></tbody></table>
       </section>
       <div class="res-body">
         <p class="split-h">Dove va il lordo di un anno</p>
@@ -2111,8 +2129,8 @@ render();
 /* ==== Dati salvati nel browser (localStorage), solo se l'utente lo chiede ==== */
 const SAVE_KEY="ln-dati", LISTS={"bn-list":"bn-add","str-list":"str-add","fr-list":"fr-add"};
 let restoring=false;
-/* Confronto tra due offerte: A è un'istantanea salvata, B sono i dati attuali */
-var offA, curSum; // niente assegnazione qui: render() può già averli valorizzati
+/* Confronto tra due offerte: due schede A e B, il modulo modifica quella attiva */
+var offA, curSum, cmpOn, cmpAct, OFF; // niente assegnazione qui: render() può già averli valorizzati
 function offSum(x,b,o,mens){
   const c=costoAzienda(x,o), sel=$("livello"), cc=CCNL[$("ccnl").value];
   const lv=cc&&cc.livelli.length&&sel.selectedOptions[0]?sel.selectedOptions[0].textContent.split(" – ")[0]:"";
@@ -2121,18 +2139,31 @@ function offSum(x,b,o,mens){
 }
 function renderCmp(){
   const box=$("cmp"); if(!box) return;
-  $("cmpPin").textContent=offA?"Salva questa come nuova offerta A":"Confronta con un'altra offerta";
-  $("cmpHint").textContent=offA?"":"Salva i dati attuali come offerta A, poi cambia CCNL, livello, RAL o bonus per confrontarle.";
-  box.hidden=!offA;
+  offA=cmpOn?OFF.A:null; // compatibilità con la testata
+  if(cmpOn&&curSum){ OFF[cmpAct].sum=curSum; }
+  $("cmpPin").querySelector("span").textContent=cmpOn?"Ricomincia il confronto da questi dati":"Confronta con un'altra offerta";
+  $("cmpHint").textContent=cmpOn?"":"Crea due offerte e modificale a piacere: vedi subito la differenza.";
+  box.hidden=!cmpOn;
   const mv=$("mbar-v"); mv.querySelector("b.d")?.remove();
-  if(!offA||!curSum) return;
-  const A=offA.sum, B=curSum;
+  if(!cmpOn) return;
+  const A=OFF.A.sum, B=OFF.B.sum, nA=OFF.A.name||"Offerta A", nB=OFF.B.name||"Offerta B";
+  const card=k=>{const o=OFF[k], on=k===cmpAct;
+    return `<div class="oc${on?" on":""}" data-k="${k}" role="button" tabindex="${on?-1:0}" aria-pressed="${on}"><div class="oc-n"><input value="${esc(o.name||"Offerta "+k).replace(/"/g,"&quot;")}" aria-label="Nome dell'offerta ${k}" data-k="${k}" maxlength="28"><span class="oc-tag">${on?"In modifica":"Modifica"}</span></div>
+      <div class="oc-l">${esc(o.sum.lab)}</div><div class="oc-v">${eur(o.sum.netM)} <small>netti al mese</small></div><div class="oc-a">${eur(o.sum.netA)} netti l'anno</div></div>`;};
+  $("cmp-cards").innerHTML=card("A")+card("B");
+  const dA=B.netA-A.netA, dM=B.netM-A.netM, w=$("cmp-win");
+  if(Math.abs(dA)<1){ w.className="cmp-win"; w.innerHTML=`<b>Pari</b><span>Le due offerte danno lo stesso netto annuo.</span>`; }
+  else { const best=dA>0?nB:nA; w.className="cmp-win "+(dA>0?"up":"dn");
+    w.innerHTML=`<b>${dA>0?"+":"−"}${eur(Math.abs(dA))} l'anno</b><span>${esc(nB)} rispetto a ${esc(nA)}: ${dM>=0?"+":"−"}${eur(Math.abs(dM))} al mese in busta. Conviene <strong>${esc(best)}</strong> come netto.</span>`; }
+  $("cmp-sub").textContent=`Clicca su una scheda per modificarla con il modulo. ${A.mens!==B.mens?"Le due offerte hanno mensilità diverse: guarda il netto annuo.":""}`;
+  $("cmp-ha").textContent=nA; $("cmp-hb").textContent=nB;
   const d=(a,b,p)=>{const v=b-a; if(Math.abs(v)<0.5) return '<span class="eq">=</span>';
     return `<span class="${v>0?"up":"dn"}">${v>0?"+":"−"}${eur(Math.abs(v))}${p&&a>0?`<small>${v>0?"+":"−"}${fmtIt(Math.round(Math.abs(v)/a*1000)/10)}%</small>`:""}</span>`;};
-  const row=(l,a,b,k,p,show)=>(show===false?"":`<tr${k?' class="k"':""}><td>${l}</td><td>${eur(a)}</td><td>${eur(b)}</td><td>${d(a,b,p)}</td></tr>`);
+  const ca=cmpAct==="A"?' class="on"':"", cb=cmpAct==="B"?' class="on"':"";
+  const row=(l,a,b,k,p,show)=>(show===false?"":`<tr${k?' class="k"':""}><td>${l}</td><td${ca}>${eur(a)}</td><td${cb}>${eur(b)}</td><td>${d(a,b,p)}</td></tr>`);
   const any=f=>A[f]>0.5||B[f]>0.5;
-  $("cmp-b").innerHTML=`<tr class="lab"><td></td><td>${esc(A.lab)}</td><td>${esc(B.lab)}</td><td></td></tr>`+
-    row("Netto in busta al mese<small>busta ordinaria</small>",A.netM,B.netM,1,1)+
+  $("cmp-b").innerHTML=
+    row(`Netto in busta al mese<small>busta ordinaria, ${A.mens===B.mens?A.mens+" mensilità":"mensilità diverse"}</small>`,A.netM,B.netM,1,1)+
     row("Netto annuo",A.netA,B.netA,1,1)+
     row("Lordo annuo",A.ral,B.ral,0,1)+
     row("Bonus e premi lordi",A.bonus,B.bonus,0,0,any("bonus"))+
@@ -2141,11 +2172,18 @@ function renderCmp(){
     row("Fondo pensione pagato dall'azienda",A.fp,B.fp,0,0,any("fp"))+
     row("Valore totale per te<small>netto, welfare, buoni pasto e fondo</small>",A.tot,B.tot,1,1)+
     row("Costo per l'azienda",A.costo,B.costo,0,0);
-  const v=B.netM-A.netM; if(Math.abs(v)>=0.5){ const e=document.createElement("b"); e.className="d"; e.textContent=`${v>0?"+":"−"}${eur(Math.abs(v))} vs A`; mv.appendChild(e); }
+  const v=B.netM-A.netM; if(Math.abs(v)>=0.5){ const e=document.createElement("b"); e.className="d"; e.textContent=`${cmpAct==="B"?"":"B "}${v>0?"+":"−"}${eur(Math.abs(v))} vs A`; mv.appendChild(e); }
 }
-$("cmpPin").addEventListener("click",()=>{ if(!curSum) return; offA={sum:curSum,st:getState()}; renderCmp(); $("cmp").scrollIntoView({behavior:"smooth",block:"nearest"}); });
-$("cmpSwap").addEventListener("click",()=>{ if(!offA) return; const st=getState(), sm=curSum; applyState(offA.st,true); offA={sum:sm,st}; render(); });
-$("cmpClose").addEventListener("click",()=>{ offA=null; renderCmp(); });
+function cmpStart(){ if(!curSum) return; const st=getState();
+  OFF={A:{st,sum:curSum,name:OFF&&OFF.A&&OFF.A.name||"Offerta A"},B:{st:JSON.parse(JSON.stringify(st)),sum:curSum,name:OFF&&OFF.B&&OFF.B.name||"Offerta B"}};
+  cmpOn=true; cmpAct="B"; renderCmp(); }
+function cmpGo(k){ if(!cmpOn||k===cmpAct) return; OFF[cmpAct].st=getState(); OFF[cmpAct].sum=curSum; cmpAct=k; applyState(OFF[k].st,true); if(innerWidth<900) $("f").scrollIntoView({behavior:"smooth",block:"start"}); }
+$("cmpPin").addEventListener("click",()=>{ cmpStart(); $("cmp").scrollIntoView({behavior:"smooth",block:"nearest"}); });
+$("cmp-cards").addEventListener("click",e=>{ if(e.target.matches("input")) return; const c=e.target.closest(".oc"); if(c) cmpGo(c.dataset.k); });
+$("cmp-cards").addEventListener("keydown",e=>{ const c=e.target.closest(".oc"); if(c&&!e.target.matches("input")&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); cmpGo(c.dataset.k); } });
+$("cmp-cards").addEventListener("input",e=>{ if(e.target.matches("input[data-k]")){ OFF[e.target.dataset.k].name=e.target.value; const k=e.target.dataset.k; $("cmp-h"+k.toLowerCase()).textContent=e.target.value||"Offerta "+k; } });
+$("cmp-cards").addEventListener("focusout",()=>setTimeout(()=>{ if(!document.activeElement||!document.activeElement.matches("#cmp-cards input")) renderCmp(); },0));
+$("cmpClose").addEventListener("click",()=>{ cmpOn=false; renderCmp(); });
 
 function saveState(){
   if(restoring||!$("saveOn").checked) return;
@@ -2214,7 +2252,7 @@ loadState();
  document.addEventListener("click",e=>{ if(!e.target.closest(".nt-search")) ul.hidden=true; });
  document.querySelectorAll("[data-go]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();
   if(!document.getElementById("f")){ location.href=a.getAttribute("href"); return; }
-  if(a.dataset.go==="cmp"){ if(typeof setMode==="function") setMode("ln"); if(!window.offA) document.getElementById("cmpPin")?.click(); setTimeout(()=>document.getElementById("cmp")?.scrollIntoView({behavior:"smooth",block:"center"}),100); return; }
+  if(a.dataset.go==="cmp"){ if(typeof setMode==="function") setMode("ln"); if(!window.cmpOn) document.getElementById("cmpPin")?.click(); setTimeout(()=>document.getElementById("cmp")?.scrollIntoView({behavior:"smooth",block:"center"}),100); return; }
   if(a.dataset.go==="nl"){ if(typeof setMode==="function") setMode("nl"); document.getElementById("f")?.scrollIntoView({behavior:"smooth"}); }
   else { const g=[...document.querySelectorAll(".eyebrow")].find(p=>/Costo per l'azienda/.test(p.textContent)); const d=g&&g.nextElementSibling; if(d&&d.tagName==="DETAILS") d.open=true; (g||document.getElementById("costo-box"))?.scrollIntoView({behavior:"smooth",block:"start"}); }
  }));
