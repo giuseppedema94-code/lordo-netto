@@ -1,0 +1,31 @@
+# stipendioccnl.it
+
+> Calcolatore gratuito dello stipendio netto 2026 in Italia, da lordo a netto e da netto a lordo, con i minimi dei principali CCNL. Regole 2026: IRPEF 23-33-43%, contributi INPS del dipendente 9,19% (statali 9,15%), addizionali regionali e comunali, taglio del cuneo fiscale, trattamento integrativo. I calcoli girano nel browser e nessun dato viene inviato.
+
+## Strumenti
+- [Calcolatore lordo-netto](https://stipendioccnl.it/): netto mensile e annuo da RAL o da CCNL e livello, con comune, familiari, straordinari, scatti, fondi.
+- [Costo azienda](https://stipendioccnl.it/#costo): costo del lavoro per il datore.
+- [Netto a lordo](https://stipendioccnl.it/#netto-lordo): RAL necessaria per un netto desiderato.
+- [Confronto offerte](https://stipendioccnl.it/#confronta): due offerte di lavoro a confronto sul netto.
+
+## Stipendi per CCNL e livello
+- [Indice dei CCNL](https://stipendioccnl.it/stipendio-netto/)
+- [Stipendio netto Commercio 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/commercio-terziario/): Netto in busta 2026 con il CCNL Commercio: da 1.259 € a 2.091 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Tessile 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/tessile-abbigliamento/): Netto in busta 2026 con il CCNL Tessile: da 1.297 € a 1.921 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Alimentare 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/industria-alimentare/): Netto in busta 2026 con il CCNL Alimentare: da 1.447 € a 2.214 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Gomma plastica 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/gomma-plastica/): Netto in busta 2026 con il CCNL Gomma plastica: da 1.388 € a 1.914 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Metalmeccanici 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/metalmeccanici/): Netto in busta 2026 con il CCNL Metalmeccanici: da 1.494 € a 2.099 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Studi professionali 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/studi-professionali/): Netto in busta 2026 con il CCNL Studi professionali: da 1.298 € a 1.841 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Turismo 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/turismo-alberghi/): Netto in busta 2026 con il CCNL Turismo: da 1.253 € a 1.889 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Pubblici esercizi 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/pubblici-esercizi/): Netto in busta 2026 con il CCNL Pubblici esercizi: da 1.239 € a 1.873 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Logistica 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/logistica-trasporto-merci/): Netto in busta 2026 con il CCNL Logistica: da 1.400 € a 1.929 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Cooperative sociali 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/cooperative-sociali/): Netto in busta 2026 con il CCNL Cooperative sociali: da 1.224 € a 1.907 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Scuola statale 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/scuola-statale/): Netto in busta 2026 con il CCNL Scuola statale: da 1.382 € a 2.480 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Gas-Acqua 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/gas-acqua/): Netto in busta 2026 con il CCNL Gas-Acqua: da 1.482 € a 2.367 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Credito ABI 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/credito-abi/): Netto in busta 2026 con il CCNL Credito ABI: da 1.904 € a 3.175 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Credito ABI complementare 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/credito-abi-complementare/): Netto in busta 2026 con il CCNL Credito ABI complementare: da 1.609 € a 2.640 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Dirigenti ABI 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/dirigenti-abi/): Netto in busta 2026 con il CCNL Dirigenti ABI: da 3.843 € a 3.843 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto Dirigenti terziario 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/dirigenti-terziario/): Netto in busta 2026 con il CCNL Dirigenti terziario: da 2.923 € a 2.923 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+
+## Note
+Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il 2026-11-17. Contatto: info@stipendioccnl.it
