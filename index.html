@@ -807,7 +807,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
           <button class="btn" id="sharePdf" type="button">Scarica il PDF</button>
           <button class="btn" id="copy" type="button">Copia il riepilogo</button>
         </div>
-        <p class="note">È una stima per un anno intero di lavoro. La busta reale cambia con conguagli, straordinari, premi e voci aziendali.</p>
+        <p class="note res-disc">È una stima per un anno intero di lavoro. La busta reale cambia con conguagli, straordinari, premi e voci aziendali.</p>
       </div>
     </section>
   </div>
@@ -2003,6 +2003,7 @@ function buildSnap(){
   const cl=$("risultato").cloneNode(true);
   cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
   cl.querySelectorAll("details").forEach(d=>d.open=true);
+  cl.querySelectorAll(".res-disc").forEach(n=>n.remove());
   const sel=id=>{const e=$(id);return e&&e.selectedIndex>=0?e.options[e.selectedIndex].text:"";};
   const lv=sel("livello").split(" – ")[0], ctx=[sel("ccnl"),lv?"Livello "+lv:"",selCom?selCom.nome:""].filter(Boolean).map(esc).join(", ");
   w.innerHTML=`<div class="snap-h"><b>Stima stipendio netto 2026</b>${ctx}</div>`;
