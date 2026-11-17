@@ -1,0 +1,1505 @@
+{
+ "CCNL": {
+  "commercio": {
+   "nome": "Commercio – Terziario Confcommercio",
+   "mens": 14,
+   "fonte": "Minimi dal 1° novembre 2026 (paga base + contingenza + terzo elemento)",
+   "preset": {
+    "fpLav": 0.55,
+    "fpDat": 1.55,
+    "sanLav": 24,
+    "sanDat": 156,
+    "fondo": "Fon.Te",
+    "sanita": "Fondo Est"
+   },
+   "presetQ": {
+    "sanLav": 56,
+    "sanDat": 390,
+    "sanita": "QuAS"
+   },
+   "note": "Fon.Te 0,55% tuo + 1,55% azienda (se aderisci), Fondo Est 2 €/mese tuo + 13 €/mese azienda: precompilati in grigio.",
+   "livelli": [
+    [
+     "Quadro",
+     3047.05
+    ],
+    [
+     "I",
+     2560.87
+    ],
+    [
+     "II",
+     2283
+    ],
+    [
+     "III",
+     2024.38
+    ],
+    [
+     "IV",
+     1818.75
+    ],
+    [
+     "V",
+     1691.7
+    ],
+    [
+     "VI",
+     1570.16
+    ],
+    [
+     "VII",
+     1422.27
+    ]
+   ],
+   "def": 3
+  },
+  "tessile": {
+   "nome": "Tessile Abbigliamento Moda – Industria (SMI)",
+   "mens": 13,
+   "fonte": "Minimi dal 1° gennaio 2026 (livello 8 con indennità di funzione 51,65 €)",
+   "livelli": [
+    [
+     "8 (quadro)",
+     2509.37
+    ],
+    [
+     "7",
+     2318.5
+    ],
+    [
+     "6",
+     2175.37
+    ],
+    [
+     "5",
+     2037.96
+    ],
+    [
+     "4",
+     1938.95
+    ],
+    [
+     "3S",
+     1894.94
+    ],
+    [
+     "3",
+     1853.17
+    ],
+    [
+     "2S",
+     1799.17
+    ],
+    [
+     "2",
+     1760.02
+    ],
+    [
+     "1",
+     1469.68
+    ]
+   ],
+   "def": 4,
+   "preset": {
+    "fpLav": 1.5,
+    "fpDat": 2.3,
+    "sanDat": 240,
+    "fondo": "Previmoda",
+    "sanita": "Sanimoda"
+   },
+   "note": "Previmoda 1,50% tuo + 2,30% azienda (dal 1/7/2026), Sanimoda 18 €/mese + LTC 2 €/mese a carico azienda: già impostati nei campi. Industria: niente FIS (c'è la cassa integrazione); con più di 15 dipendenti scegli INPS 9,49%."
+  },
+  "alimentare": {
+   "nome": "Industria Alimentare (Federalimentare)",
+   "mens": 14,
+   "fonte": "Minimi dal 1° gennaio 2026 (paga base + contingenza + EDR)",
+   "livelli": [
+    [
+     "1S (quadro)",
+     3326.9
+    ],
+    [
+     "1",
+     2958.43
+    ],
+    [
+     "2",
+     2528.64
+    ],
+    [
+     "3A",
+     2283
+    ],
+    [
+     "3",
+     2098.81
+    ],
+    [
+     "4",
+     1975.97
+    ],
+    [
+     "5",
+     1853.19
+    ],
+    [
+     "6",
+     1730.38
+    ]
+   ],
+   "def": 3,
+   "preset": {
+    "fpLav": 1,
+    "fpDat": 1.5,
+    "sanDat": 192,
+    "fondo": "Alifond",
+    "sanita": "FASA"
+   },
+   "note": "Alifond 1% tuo + 1,5% azienda, FASA 16 €/mese a carico azienda: già impostati nei campi. Industria: niente FIS (c'è la cassa integrazione); con più di 15 dipendenti scegli INPS 9,49%."
+  },
+  "gomma": {
+   "nome": "Gomma Plastica – Industria",
+   "mens": 13,
+   "fonte": "Minimi (TEM) dal 1° gennaio 2026",
+   "livelli": [
+    [
+     "Q",
+     2497.83
+    ],
+    [
+     "A",
+     2351.85
+    ],
+    [
+     "B",
+     2218.74
+    ],
+    [
+     "C",
+     2189.6
+    ],
+    [
+     "D",
+     2162.08
+    ],
+    [
+     "E",
+     2074.83
+    ],
+    [
+     "F",
+     2021.12
+    ],
+    [
+     "G",
+     1883.45
+    ],
+    [
+     "H",
+     1796.11
+    ],
+    [
+     "I",
+     1614.73
+    ]
+   ],
+   "def": 6,
+   "preset": {
+    "fpLav": 1.56,
+    "fpDat": 1.56,
+    "sanDat": 168,
+    "fondo": "Fondo Gomma Plastica",
+    "sanita": "FasG&P"
+   },
+   "note": "Fondo Gomma Plastica 1,56% tuo + 1,56% azienda (1,78% dal 2027), FasG&P 14 €/mese a carico azienda (+7 € facoltativi a tuo carico): già impostati nei campi. Industria: niente FIS; con più di 15 dipendenti scegli INPS 9,49%."
+  },
+  "metalmeccanici": {
+   "nome": "Metalmeccanici Industria – Federmeccanica",
+   "mens": 13,
+   "fonte": "Minimi dal 1° giugno 2026",
+   "livelli": [
+    [
+     "A1",
+     2907.01
+    ],
+    [
+     "B3",
+     2838.99
+    ],
+    [
+     "B2",
+     2542.98
+    ],
+    [
+     "B1",
+     2370.33
+    ],
+    [
+     "C3",
+     2211.43
+    ],
+    [
+     "C2",
+     2064.88
+    ],
+    [
+     "C1",
+     2022.12
+    ],
+    [
+     "D2",
+     1979.37
+    ],
+    [
+     "D1",
+     1784.94
+    ]
+   ],
+   "def": 4
+  },
+  "studi": {
+   "nome": "Studi professionali – Confprofessioni",
+   "mens": 14,
+   "fonte": "Minimi dal 1° ottobre 2025 (aumento a dicembre 2026)",
+   "livelli": [
+    [
+     "Quadro",
+     2408.53
+    ],
+    [
+     "1",
+     2131.39
+    ],
+    [
+     "2",
+     1856.5
+    ],
+    [
+     "3 Super",
+     1722.01
+    ],
+    [
+     "3",
+     1706.37
+    ],
+    [
+     "4 Super",
+     1654.7
+    ],
+    [
+     "4",
+     1595.42
+    ],
+    [
+     "5",
+     1484.78
+    ]
+   ],
+   "def": 4
+  },
+  "turismo": {
+   "nome": "Turismo – Alberghi (Federalberghi)",
+   "mens": 14,
+   "fonte": "Minimi da maggio 2026",
+   "livelli": [
+    [
+     "Quadro A",
+     2491.82
+    ],
+    [
+     "Quadro B",
+     2307.53
+    ],
+    [
+     "1",
+     2084.71
+    ],
+    [
+     "2",
+     1905.4
+    ],
+    [
+     "3",
+     1797.04
+    ],
+    [
+     "4",
+     1695.69
+    ],
+    [
+     "5",
+     1590.27
+    ],
+    [
+     "6 Super",
+     1529.13
+    ],
+    [
+     "6",
+     1507.45
+    ],
+    [
+     "7",
+     1412.6
+    ]
+   ],
+   "def": 5
+  },
+  "pubblici": {
+   "nome": "Pubblici esercizi e ristorazione – FIPE",
+   "mens": 14,
+   "fonte": "Minimi dal 1° giugno 2026",
+   "livelli": [
+    [
+     "Quadro A",
+     2462.96
+    ],
+    [
+     "Quadro B",
+     2271.62
+    ],
+    [
+     "1",
+     2107.66
+    ],
+    [
+     "2",
+     1916.32
+    ],
+    [
+     "3",
+     1800.74
+    ],
+    [
+     "4",
+     1692.69
+    ],
+    [
+     "5",
+     1580.08
+    ],
+    [
+     "6 Super",
+     1514.82
+    ],
+    [
+     "6",
+     1491.58
+    ],
+    [
+     "7",
+     1390.2
+    ]
+   ],
+   "def": 5
+  },
+  "logistica": {
+   "nome": "Logistica, trasporto merci e spedizione",
+   "mens": 14,
+   "fonte": "Minimi dal 1° gennaio 2026 (tabellare + EPA)",
+   "livelli": [
+    [
+     "Quadro",
+     2574.98
+    ],
+    [
+     "1",
+     2411.46
+    ],
+    [
+     "2",
+     2218.22
+    ],
+    [
+     "3 Super",
+     2000.37
+    ],
+    [
+     "3",
+     1946.84
+    ],
+    [
+     "4",
+     1850.23
+    ],
+    [
+     "4 Junior",
+     1802.92
+    ],
+    [
+     "5",
+     1761.64
+    ],
+    [
+     "6",
+     1648.74
+    ],
+    [
+     "Viaggiante C3",
+     2021.61
+    ],
+    [
+     "Viaggiante B3",
+     2010.37
+    ],
+    [
+     "Viaggiante A3",
+     2002.47
+    ],
+    [
+     "Viaggiante F2",
+     1948.09
+    ],
+    [
+     "Viaggiante E2",
+     1946.91
+    ],
+    [
+     "Viaggiante D2",
+     1945.68
+    ],
+    [
+     "Viaggiante H1",
+     1885.2
+    ],
+    [
+     "Viaggiante G1",
+     1876.08
+    ]
+   ],
+   "def": 5
+  },
+  "coopsoc": {
+   "nome": "Cooperative sociali",
+   "mens": 13.5,
+   "fonte": "Minimi dal 1° ottobre 2025 (CCNL 2023-2025, in trattativa per il rinnovo). 14ª pari a mezza mensilità",
+   "livelli": [
+    [
+     "A1",
+     1359.85
+    ],
+    [
+     "A2",
+     1372.53
+    ],
+    [
+     "B1",
+     1436.79
+    ],
+    [
+     "C1",
+     1545.21
+    ],
+    [
+     "C2",
+     1591.06
+    ],
+    [
+     "C3",
+     1637.57
+    ],
+    [
+     "D1",
+     1637.57
+    ],
+    [
+     "D2",
+     1727.83
+    ],
+    [
+     "D3",
+     1839.15
+    ],
+    [
+     "E1",
+     1839.15
+    ],
+    [
+     "E2",
+     1985.42
+    ],
+    [
+     "F1",
+     2192.54
+    ],
+    [
+     "F2",
+     2504.09
+    ]
+   ],
+   "def": 3,
+   "note": "Dal 2025 la quattordicesima vale mezza mensilità ed è pagata a giugno. Fondo pensione Cooperlavoro e cassa sanitaria Cooperazione Salute: inserisci le quote dalla tua busta. Per i livelli E2, F1 e F2 può esserci un'indennità di funzione: aggiungila nelle indennità fisse."
+  },
+  "scuola": {
+   "nome": "Scuola statale – Istruzione e Ricerca",
+   "mens": 13,
+   "fonte": "Stipendi dal 1° gennaio 2026 (CCNL 2025-2027, firmato il 1/7/2026). Stipendio tabellare per 13 mensilità; RPD dei docenti e CIA degli ATA per 12 mensilità, fuori dalla tredicesima",
+   "livelli": [
+    [
+     "Docente infanzia e primaria, 0-8 anni",
+     1945.26,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente infanzia e primaria, 9-14 anni",
+     2151.11,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente infanzia e primaria, 15-20 anni",
+     2331.66,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente infanzia e primaria, 21-27 anni",
+     2508.08,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente infanzia e primaria, 28-34 anni",
+     2683.1,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Docente infanzia e primaria, 35+ anni",
+     2815.41,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 0-8 anni",
+     2105.59,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 9-14 anni",
+     2345.28,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 15-20 anni",
+     2554.64,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 21-27 anni",
+     2761.13,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 28-34 anni",
+     2966.83,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Docente secondaria I grado, 35+ anni",
+     3119.71,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 0-8 anni",
+     2105.59,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 9-14 anni",
+     2405.56,
+     205.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 15-20 anni",
+     2632.49,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 21-27 anni",
+     2925.99,
+     252.1,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 28-34 anni",
+     3119.71,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Docente secondaria II grado, 35+ anni",
+     3273.5,
+     320.3,
+     "RPD"
+    ],
+    [
+     "Collaboratore scolastico, 0-8 anni",
+     1520.39,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Collaboratore scolastico, 9-14 anni",
+     1650.73,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Collaboratore scolastico, 15-20 anni",
+     1745.68,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Collaboratore scolastico, 21-27 anni",
+     1841.21,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Collaboratore scolastico, 28-34 anni",
+     1911.69,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Collaboratore scolastico, 35+ anni",
+     1963.12,
+     88.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 0-8 anni",
+     1694.73,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 9-14 anni",
+     1860,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 15-20 anni",
+     1985.01,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 21-27 anni",
+     2108.49,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 28-34 anni",
+     2197.97,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Assistente amministrativo o tecnico, 35+ anni",
+     2266.62,
+     97.8,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 0-8 anni",
+     2227.86,
+     109.5,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 9-14 anni",
+     2482.44,
+     109.5,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 15-20 anni",
+     2709.38,
+     109.5,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 21-27 anni",
+     2952.25,
+     109.5,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 28-34 anni",
+     3205.48,
+     109.5,
+     "CIA"
+    ],
+    [
+     "Funzionario (ex DSGA), 35+ anni",
+     3452.26,
+     109.5,
+     "CIA"
+    ]
+   ],
+   "def": 1,
+   "note": "Contributi dei dipendenti statali: 8,80% pensione + 0,35% fondo credito. Se sei stato assunto prima del 2001 (regime TFS) c'è anche il 2,5% sull'80% della retribuzione. Fondo pensione Espero: 1% tuo + 1% dello Stato, se aderisci."
+  },
+  "gasacqua": {
+   "nome": "Gas-Acqua (Utilitalia, Anfida, Assogas)",
+   "mens": 14,
+   "fonte": "Minimi dal 1° luglio 2026 (CCNL 2025-2027), compreso l'EDR di 10,33 €",
+   "livelli": [
+    [
+     "Quadro",
+     3587.83,
+     51.65,
+     "indennità di funzione"
+    ],
+    [
+     "8",
+     3241.08
+    ],
+    [
+     "7",
+     2995.35
+    ],
+    [
+     "6",
+     2749.32
+    ],
+    [
+     "5",
+     2504.52
+    ],
+    [
+     "4",
+     2352.34
+    ],
+    [
+     "3",
+     2201.42
+    ],
+    [
+     "2",
+     1991.09
+    ],
+    [
+     "1",
+     1792.47
+    ]
+   ],
+   "def": 5,
+   "note": "Fondo pensione Fondenergia (o Pegaso per le ex Federutility) e assistenza sanitaria Fasie: inserisci le quote dalla tua busta. Per il Quadro l'indennità di funzione è pagata su 12 mensilità."
+  },
+  "abi": {
+   "nome": "Credito – Bancari ABI",
+   "mens": 13,
+   "fonte": "Stipendi dal 1° marzo 2026 (CCNL 23/11/2023, in proroga)",
+   "livelli": [
+    [
+     "Quadro direttivo 4° liv.",
+     5160.06
+    ],
+    [
+     "Quadro direttivo 3° liv.",
+     4396.88
+    ],
+    [
+     "Quadro direttivo 2° liv.",
+     3965.48
+    ],
+    [
+     "Quadro direttivo 1° liv.",
+     3743.21
+    ],
+    [
+     "3ª area 4° liv.",
+     3341.9
+    ],
+    [
+     "3ª area 3° liv.",
+     3059.49
+    ],
+    [
+     "3ª area 2° liv.",
+     2890.41
+    ],
+    [
+     "3ª area 1° liv.",
+     2742.34
+    ],
+    [
+     "Area unificata (ex 1ª e 2ª)",
+     2479.45
+    ]
+   ],
+   "def": 7
+  },
+  "abicompl": {
+   "nome": "Credito – Contratto complementare ABI",
+   "mens": 13,
+   "fonte": "Tabelle ABI dal 1° marzo 2026 ridotte del 20% (assunti dopo il 19/1/2012)",
+   "livelli": [
+    [
+     "Quadro direttivo 4° liv.",
+     4128.05
+    ],
+    [
+     "Quadro direttivo 3° liv.",
+     3517.5
+    ],
+    [
+     "Quadro direttivo 2° liv.",
+     3172.38
+    ],
+    [
+     "Quadro direttivo 1° liv.",
+     2994.57
+    ],
+    [
+     "3ª area 4° liv.",
+     2673.52
+    ],
+    [
+     "3ª area 3° liv.",
+     2447.59
+    ],
+    [
+     "3ª area 2° liv.",
+     2312.33
+    ],
+    [
+     "3ª area 1° liv.",
+     2193.87
+    ],
+    [
+     "Area unificata (ex 1ª e 2ª)",
+     1983.56
+    ]
+   ],
+   "def": 8
+  },
+  "dirabi": {
+   "nome": "Credito – Dirigenti ABI",
+   "mens": 13,
+   "fonte": "Stipendio minimo dal 1° gennaio 2026 (rinnovo 15/7/2025)",
+   "livelli": [
+    [
+     "Dirigente",
+     6538.46
+    ]
+   ],
+   "def": 0
+  },
+  "dirterz": {
+   "nome": "Commercio/Terziario – Dirigenti (Manageritalia)",
+   "mens": 14,
+   "fonte": "Minimo contrattuale dal 1° gennaio 2026 (rinnovo 5/11/2025)",
+   "livelli": [
+    [
+     "Dirigente",
+     4660
+    ]
+   ],
+   "def": 0
+  },
+  "altro": {
+   "nome": "Altro / inserisco la RAL",
+   "mens": 13,
+   "fonte": "",
+   "livelli": [],
+   "def": 0
+  }
+ },
+ "RINNOVI": {
+  "commercio": {
+   "firma": "22/3/2024",
+   "steps": [
+    [
+     1,
+     135
+    ],
+    [
+     11,
+     170
+    ]
+   ],
+   "r": [
+    1.736,
+    1.564,
+    1.352857142857143,
+    1.1562857142857144,
+    1,
+    0.9034285714285715,
+    0.8111428571428572,
+    0.6945714285714285
+   ]
+  },
+  "tessile": {
+   "firma": "11/11/2024",
+   "steps": [
+    [
+     1,
+     152
+    ]
+   ],
+   "r": "(m,i)=>(m-(i===0?51.65:0))/1938.95"
+  },
+  "alimentare": {
+   "firma": "1/3/2024",
+   "steps": [
+    [
+     1,
+     230
+    ]
+   ],
+   "r": [
+    1.679,
+    1.4599,
+    1.2044,
+    1.0579,
+    0.9463,
+    0.8719,
+    0.7975,
+    0.7231
+   ]
+  },
+  "gomma": {
+   "firma": "10/12/2025",
+   "steps": [
+    [
+     1,
+     60
+    ]
+   ],
+   "r": "m=>m/2021.12"
+  },
+  "metalmeccanici": {
+   "firma": "22/11/2025",
+   "steps": [
+    [
+     6,
+     1
+    ]
+   ],
+   "r": [
+    69.89,
+    68.25,
+    61.14,
+    56.99,
+    53.17,
+    49.64,
+    48.61,
+    47.59,
+    42.91
+   ]
+  },
+  "studi": {
+   "firma": "16/2/2024",
+   "steps": [
+    [
+     1,
+     195
+    ],
+    [
+     12,
+     215
+    ]
+   ],
+   "r": "m=>m/1706.37"
+  },
+  "turismo": {
+   "firma": "5/7/2024",
+   "steps": [
+    [
+     1,
+     110
+    ],
+    [
+     5,
+     145
+    ]
+   ],
+   "r": [
+    1.425,
+    1.3194,
+    1.2294,
+    1.1237,
+    1.06,
+    1,
+    0.938,
+    0.9017,
+    0.8889,
+    0.8329
+   ]
+  },
+  "pubblici": {
+   "firma": "5/6/2024",
+   "steps": [
+    [
+     1,
+     90
+    ],
+    [
+     6,
+     130
+    ]
+   ],
+   "r": [
+    1.644,
+    1.4806,
+    1.3453,
+    1.1858,
+    1.0897,
+    1,
+    0.9058,
+    0.8514,
+    0.8316,
+    0.7465
+   ]
+  },
+  "logistica": {
+   "firma": "6/12/2024",
+   "steps": [
+    [
+     1,
+     160
+    ]
+   ],
+   "r": [
+    1.2803,
+    1.2045,
+    1.106,
+    1,
+    0.9698,
+    0.9243,
+    0.9015,
+    0.8788,
+    0.8258,
+    1.0665,
+    1.0625,
+    1.0586,
+    1.0296,
+    1.0285,
+    1.0285,
+    0.9966,
+    0.9914
+   ]
+  },
+  "gasacqua": {
+   "firma": "8/5/2025",
+   "steps": [
+    [
+     1,
+     1
+    ],
+    [
+     7,
+     1.666667
+    ]
+   ],
+   "r": [
+    125.86,
+    113.67,
+    105.02,
+    96.36,
+    87.75,
+    82.4,
+    77.09,
+    69.69,
+    62.7
+   ]
+  },
+  "coopsoc": {
+   "firma": "26/1/2024",
+   "steps": [
+    [
+     1,
+     1
+    ]
+   ],
+   "r": [
+    105.26,
+    106.32,
+    111.57,
+    120,
+    123.16,
+    126.32,
+    126.32,
+    133.68,
+    142.11,
+    142.11,
+    153.68,
+    169.48,
+    193.68
+   ]
+  },
+  "scuola": {
+   "no": "L'imposta al 5% sugli aumenti dei rinnovi vale solo per i dipendenti del settore privato."
+  },
+  "dirabi": {
+   "firma": "15/7/2025",
+   "steps": [
+    [
+     1,
+     1
+    ]
+   ],
+   "r": [
+    1538.46
+   ]
+  },
+  "dirterz": {
+   "firma": "5/11/2025",
+   "steps": [
+    [
+     1,
+     1
+    ]
+   ],
+   "r": [
+    320
+   ]
+  },
+  "abi": {
+   "no": "Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."
+  },
+  "abicompl": {
+   "no": "Il CCNL ABI in vigore è stato firmato il 23/11/2023, prima del 2024: i suoi aumenti non hanno l'imposta al 5%."
+  }
+ },
+ "PROSSIMO": {
+  "commercio": {
+   "d": "1/2/2027",
+   "inc": "i=>RINNOVI.commercio.r[i]*40"
+  },
+  "tessile": {
+   "d": "1/1/2027",
+   "inc": "(i,m)=>RINNOVI.tessile.r(m,i)*48"
+  },
+  "alimentare": {
+   "d": "1/1/2027",
+   "inc": "i=>RINNOVI.alimentare.r[i]*39"
+  },
+  "gomma": {
+   "d": "1/4/2027",
+   "inc": "i=>[2571.98,2421.67,2284.61,2254.60,2226.26,2136.43,2081.12,1939.36,1849.43,1662.66][i]-CCNL.gomma.livelli[i][1]"
+  },
+  "metalmeccanici": {
+   "d": "1/6/2027",
+   "inc": "i=>[78.32,76.49,68.51,63.86,59.58,55.64,54.47,53.33,48.08][i]"
+  },
+  "studi": {
+   "d": "1/12/2026",
+   "inc": "(i,m)=>m/1706.37*20"
+  },
+  "turismo": {
+   "d": "1/4/2027",
+   "inc": "i=>RINNOVI.turismo.r[i]*35"
+  },
+  "pubblici": {
+   "d": "1/6/2027",
+   "inc": "i=>RINNOVI.pubblici.r[i]*30"
+  },
+  "logistica": {
+   "d": "1/1/2027",
+   "inc": "i=>i<9?RINNOVI.logistica.r[i]*30:RINNOVI.logistica.r[i]/1.0625*40"
+  },
+  "dirterz": {
+   "d": "1/1/2027",
+   "inc": "()=>260"
+  },
+  "gasacqua": {
+   "d": "1/7/2027",
+   "inc": "i=>[83.91, 75.78, 70.01, 64.24, 58.5, 54.93, 51.39, 46.46, 41.8][i]"
+  },
+  "coopsoc": {
+   "no": "Il CCNL delle cooperative sociali è scaduto il 31/12/2025 ed è in trattativa: non ci sono aumenti già fissati."
+  },
+  "scuola": {
+   "d": "1/1/2027",
+   "inc": "i=>[38.57, 42.09, 46.47, 49.49, 54.18, 56.45, 41.31, 45.41, 50.29, 53.82, 59.04, 61.65, 41.31, 46.44, 51.62, 56.64, 61.65, 64.28, 25.9, 28.12, 29.75, 31.38, 32.59, 33.47, 28.87, 31.69, 33.83, 35.95, 37.48, 38.66, 37.82, 42.16, 46.04, 50.2, 54.53, 58.76][i]",
+   "acc": "i=>[5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.3, 5.3, 6.6, 6.6, 8.3, 8.3, 5.8, 5.8, 5.8, 5.8, 5.8, 5.8, 6.4, 6.4, 6.4, 6.4, 6.4, 6.4, 7.1, 7.1, 7.1, 7.1, 7.1, 7.1][i]"
+  },
+  "abi": {
+   "no": "Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."
+  },
+  "abicompl": {
+   "no": "Il rinnovo del CCNL ABI è in trattativa (effetti dal 1/4/2026): gli importi non sono ancora noti."
+  }
+ },
+ "DIV": {
+  "commercio": 168,
+  "tessile": 173,
+  "alimentare": 173,
+  "gomma": 173,
+  "metalmeccanici": 173,
+  "studi": 170,
+  "turismo": 172,
+  "pubblici": 172,
+  "logistica": 168,
+  "coopsoc": 165
+ },
+ "MAGG": {
+  "commercio": [
+   15,
+   50,
+   30
+  ],
+  "tessile": [
+   35,
+   56,
+   61
+  ],
+  "alimentare": [
+   45,
+   50,
+   60
+  ],
+  "gomma": [
+   18,
+   30,
+   50
+  ],
+  "studi": [
+   15,
+   30,
+   30
+  ],
+  "turismo": [
+   30,
+   60,
+   30
+  ],
+  "pubblici": [
+   30,
+   60,
+   30
+  ],
+  "logistica": [
+   30,
+   50,
+   50
+  ],
+  "gasacqua": [
+   30,
+   35,
+   38
+  ],
+  "coopsoc": [
+   15,
+   30,
+   30
+  ],
+  "abi": [
+   25,
+   50,
+   50
+  ],
+  "abicompl": [
+   25,
+   50,
+   50
+  ],
+  "altro": [
+   25,
+   50,
+   50
+  ]
+ },
+ "ORE": {
+  "commercio": 40,
+  "tessile": 40,
+  "alimentare": 40,
+  "gomma": 40,
+  "metalmeccanici": 40,
+  "studi": 40,
+  "turismo": 40,
+  "pubblici": 40,
+  "logistica": 39,
+  "gasacqua": 38,
+  "coopsoc": 38,
+  "scuola": 36,
+  "abi": 37.5,
+  "abicompl": 39.5,
+  "altro": 40
+ },
+ "SCATTI": {
+  "commercio": [
+   25.46,
+   24.84,
+   22.83,
+   21.95,
+   20.66,
+   20.3,
+   19.73,
+   19.47
+  ],
+  "tessile": [
+   12.91,
+   11.88,
+   10.33,
+   9.81,
+   8.26,
+   7.75,
+   7.75,
+   7.23,
+   7.23,
+   6.71
+  ],
+  "metalmeccanici": [
+   40.96,
+   40.96,
+   36.41,
+   32.43,
+   29.64,
+   26.75,
+   25.05,
+   25.05,
+   21.59
+  ],
+  "studi": [
+   30,
+   26,
+   23,
+   22,
+   22,
+   20,
+   20,
+   20
+  ],
+  "turismo": [
+   40.8,
+   39.25,
+   37.7,
+   36.15,
+   34.86,
+   33.05,
+   32.54,
+   31.25,
+   30.99,
+   30.47
+  ],
+  "pubblici": [
+   40.8,
+   39.25,
+   37.7,
+   36.15,
+   34.86,
+   33.05,
+   32.54,
+   31.25,
+   30.99,
+   30.47
+  ],
+  "logistica": [
+   30.99,
+   29.44,
+   26.86,
+   24.79,
+   24.27,
+   23.24,
+   22.34,
+   22.21,
+   20.66,
+   24.79,
+   24.79,
+   24.79,
+   24.27,
+   24.27,
+   24.27,
+   23.24,
+   23.24
+  ],
+  "coopsoc": [
+   11.62,
+   13.43,
+   16.27,
+   18.59,
+   19.63,
+   20.66,
+   20.66,
+   23.24,
+   26.86,
+   26.86,
+   31.5,
+   39.51,
+   46.48
+  ],
+  "abi": [
+   95.31,
+   95.31,
+   41.55,
+   41.55,
+   41.55,
+   41.55,
+   41.55,
+   41.55,
+   29.07
+  ],
+  "abicompl": [
+   76.25,
+   76.25,
+   33.24,
+   33.24,
+   33.24,
+   33.24,
+   33.24,
+   33.24,
+   23.26
+  ]
+ },
+ "SCATTI_MAX": {
+  "commercio": 10,
+  "tessile": 4,
+  "alimentare": 5,
+  "gomma": 5,
+  "metalmeccanici": 5,
+  "studi": 8,
+  "turismo": 6,
+  "pubblici": 6,
+  "logistica": 5,
+  "coopsoc": 5,
+  "abi": 8,
+  "abicompl": 8
+ },
+ "FIS_CCNL": [
+  "commercio",
+  "studi",
+  "turismo",
+  "pubblici",
+  "dirterz",
+  "logistica",
+  "coopsoc",
+  "altro"
+ ],
+ "CA_INPS": {
+  "metalmeccanici": 29,
+  "alimentare": 29,
+  "tessile": 29,
+  "gomma": 29,
+  "commercio": 29.5,
+  "logistica": 29.5,
+  "turismo": 29.5,
+  "pubblici": 29.5,
+  "studi": 29,
+  "abi": 29.5,
+  "abicompl": 29.5,
+  "dirabi": 29.5,
+  "dirterz": 29.5,
+  "coopsoc": 29.5,
+  "gasacqua": 29
+ }
+}

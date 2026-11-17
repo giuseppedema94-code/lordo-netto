@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcolo stipendio netto 2026 da lordo (RAL) con CCNL | Lordo-Netto</title>
+<meta name="description" content="Calcola gratis lo stipendio netto 2026 partendo dalla RAL o dal tuo CCNL e livello: IRPEF 23-33-43%, contributi INPS, addizionali, taglio del cuneo fiscale, detrazioni. Anche da netto a lordo.">
+<meta name="robots" content="index, follow">
+<!-- Sostituire con il dominio definitivo -->
+<link rel="canonical" href="https://www.tuodominio.it/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Calcolo stipendio netto 2026 con CCNL">
+<meta property="og:description" content="Da lordo a netto (e viceversa) con le regole fiscali 2026 e i minimi dei principali CCNL.">
+<meta property="og:url" content="https://www.tuodominio.it/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f5c4d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f5c4d'/%3E%3Ctext x='16' y='22' font-size='16' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3E%E2%82%AC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calcolatore stipendio netto 2026",
+      "url": "https://www.tuodominio.it/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "it-IT",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "description": "Calcolo da lordo a netto e da netto a lordo con IRPEF 2026, contributi INPS, addizionali, cuneo fiscale e minimi dei principali CCNL."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Come si calcola lo stipendio netto nel 2026?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Dalla RAL si tolgono i contributi INPS a carico del dipendente (di norma 9,19%). Sul resto si calcola l'IRPEF con le aliquote 23% fino a 28.000 euro, 33% fino a 50.000 euro e 43% oltre, si sottraggono le detrazioni e si aggiungono le addizionali regionale e comunale. Si sommano infine il bonus cuneo fiscale e l'eventuale trattamento integrativo." } },
+        { "@type": "Question", "name": "Quali sono le aliquote IRPEF 2026?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Con la Legge di Bilancio 2026 (L. 199/2025) le aliquote sono 23% fino a 28.000 euro, 33% tra 28.000 e 50.000 euro e 43% oltre 50.000 euro. Il secondo scaglione è sceso dal 35% al 33%." } },
+        { "@type": "Question", "name": "Come funziona il taglio del cuneo fiscale nel 2026?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Fino a 20.000 euro di reddito spetta una somma esentasse pari al 7,1%, 5,3% o 4,8% del reddito di lavoro dipendente. Tra 20.000 e 32.000 euro spetta una detrazione aggiuntiva di 1.000 euro, che scende fino ad azzerarsi a 40.000 euro." } },
+        { "@type": "Question", "name": "Perché il netto mensile cambia tra 13 e 14 mensilità?",
+          "acceptedAnswer": { "@type": "Answer", "text": "La RAL è divisa per il numero di mensilità previsto dal CCNL. Con 14 mensilità (ad esempio Commercio o Turismo) la busta paga ordinaria è più bassa, ma si riceve anche la quattordicesima a giugno o luglio." } },
+        { "@type": "Question", "name": "Il calcolo è valido come busta paga ufficiale?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. È una stima annua: la busta paga reale dipende da conguagli, addizionali trattenute in rate, scatti, superminimi, straordinari, fondi integrativi e altre voci aziendali." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#18221f; --muted:#5e6b66; --line:#e3e0d8;
+  --brand:#0f5c4d; --brand-2:#13806a; --brand-soft:#e5f1ec; --accent:#d9822b;
+  --tax:#c4553a; --inps:#d9a23b; --add:#8a6fb0; --net:#13806a; --bonus:#4c9be0;
+  --radius:14px; --shadow:0 1px 2px rgba(20,30,25,.06),0 6px 24px rgba(20,30,25,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Figtree,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}
+a{color:var(--brand-2)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{background:var(--brand);color:#fff}
+header.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;color:#fff;text-decoration:none}
+.logo span.mark{width:30px;height:30px;border-radius:8px;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:800}
+header.top nav{margin-left:auto;display:flex;gap:18px;font-size:14px}
+header.top nav a{color:#d6ece5;text-decoration:none}
+header.top nav a:hover{color:#fff}
+.hero{padding:34px 0 12px}
+.hero h1{font-size:clamp(26px,4vw,38px);line-height:1.15;margin:0 0 10px;letter-spacing:-.02em}
+.hero p{margin:0;color:var(--muted);max-width:720px}
+.badge{display:inline-block;background:var(--brand-soft);color:var(--brand);font-weight:600;font-size:12.5px;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;margin:22px 0 34px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.card h2{font-size:17px;margin:0 0 14px}
+
+.tabs{display:flex;background:#efece5;border-radius:10px;padding:4px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:transparent;font:inherit;font-weight:600;font-size:14.5px;padding:9px 6px;border-radius:7px;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--brand);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+fieldset{border:0;padding:0;margin:0 0 6px}
+legend{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:10px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.row.one{grid-template-columns:1fr}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:480px){.row,.row.three{grid-template-columns:1fr}}
+label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
+label small{font-weight:400;color:var(--muted)}
+input,select{width:100%;font:inherit;font-size:15.5px;padding:10px 12px;border:1px solid #d4d0c6;border-radius:9px;background:#fff;color:var(--ink);transition:border-color .15s, box-shadow .15s}
+input:focus,select:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(19,128,106,.15)}
+.inp-eur{position:relative}
+.inp-eur input{padding-left:28px}
+.inp-eur::before{content:"€";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:15px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+details.more{border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+details.more summary{cursor:pointer;font-weight:600;font-size:14.5px;color:var(--brand);list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+ ";font-weight:700}
+details.more[open] summary::before{content:"– "}
+details.more .inner{padding-top:12px}
+.ccnl-info{background:var(--brand-soft);border-radius:9px;padding:9px 12px;font-size:13.5px;color:var(--brand);margin:-2px 0 12px}
+
+.result{position:sticky;top:16px}
+.big{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.big .lbl{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.big .val{font-size:clamp(34px,5vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--brand);line-height:1.05}
+.big .val small{font-size:16px;color:var(--muted);font-weight:600;letter-spacing:0}
+.sub{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
+.sub div{background:#f7f6f2;border-radius:10px;padding:10px 12px}
+.sub span{display:block;font-size:12.5px;color:var(--muted)}
+.sub strong{font-size:18px}
+.bar{display:flex;height:14px;border-radius:99px;overflow:hidden;background:#eee;margin:4px 0 10px}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:0}
+table.det{width:100%;border-collapse:collapse;font-size:14.5px}
+table.det td{padding:7px 0;border-bottom:1px solid #f0ede6}
+table.det td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px}
+table.det tr.tot td{font-weight:800;border-bottom:0;border-top:2px solid var(--ink);padding-top:10px}
+table.det tr.minus td:last-child{color:var(--tax)}
+table.det tr.plus td:last-child{color:var(--brand-2)}
+table.det tr.sm td{font-size:13px;color:var(--muted);padding:4px 0 4px 12px}
+.note{font-size:12.5px;color:var(--muted);margin-top:12px}
+.actions{display:flex;gap:8px;margin-top:14px}
+.btn{font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:9px;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--brand-2);color:var(--brand)}
+
+.ad{margin:0 0 34px;border:1px dashed #cfcabe;border-radius:12px;min-height:110px;display:grid;place-items:center;color:#a49f93;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:#faf9f6}
+
+article.content{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px clamp(20px,4vw,40px);margin-bottom:34px}
+article.content h2{font-size:23px;margin:30px 0 10px;letter-spacing:-.01em}
+article.content h2:first-child{margin-top:0}
+article.content h3{font-size:17px;margin:22px 0 6px}
+article.content p, article.content li{color:#2f3a36}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+.tbl th{background:#f7f6f2;font-weight:700}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tbl-ccnl{table-layout:fixed}
+details.ccnl-tbl{border-bottom:1px solid var(--line);padding:4px 0}
+details.ccnl-tbl summary{cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;font-weight:700;font-size:16px;list-style:none}
+details.ccnl-tbl summary::-webkit-details-marker{display:none}
+details.ccnl-tbl summary span::before{content:"▸ ";color:var(--brand-2)}
+details.ccnl-tbl[open] summary span::before{content:"▾ "}
+details.ccnl-tbl summary small{font-weight:500;color:var(--muted);font-size:13px;white-space:nowrap}
+details.ccnl-tbl .hint{margin:0 0 6px}
+.tblwrap{overflow-x:auto}
+.faq details{border-bottom:1px solid var(--line);padding:12px 0}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{margin:8px 0 0}
+footer{color:var(--muted);font-size:13px;padding:10px 0 40px}
+footer .wrap{border-top:1px solid var(--line);padding-top:18px}
+[hidden]{display:none!important}
+.preset input{color:#8a948f;font-style:italic;background:#f7f6f2}
+.preset input:focus{color:var(--ink);font-style:normal;background:#fff}
+.fringe-meter{margin:-2px 0 12px}
+.fm-bar{height:8px;border-radius:99px;background:#ece9e2;overflow:hidden}
+.fm-bar i{display:block;height:100%;background:var(--brand-2);border-radius:99px;transition:width .2s}
+.fringe-meter.over .fm-bar i{background:var(--tax)}
+.fm-txt{font-size:12.5px;color:var(--muted);margin-top:5px}
+.fringe-meter.over .fm-txt{color:var(--tax);font-weight:600}
+.det-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.det-head>span{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.det-head .seg{margin:0}
+.row > div > label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inline-unit{display:flex;gap:8px}.inline-unit .inp-eur{flex:1}.inline-unit select{width:auto;flex:0 0 68px}
+.inp-eur.pct::before{content:none}.inp-eur.pct input{padding-left:12px}
+.seg{display:inline-flex;background:#efece5;border-radius:8px;padding:3px;margin-bottom:8px}
+.seg button{border:0;background:transparent;font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border-radius:6px;color:var(--muted);cursor:pointer}
+.seg button[aria-checked="true"]{background:#fff;color:var(--brand);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+fieldset.fp{border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.fpbox{background:#eef4fb;color:#24507a;border-radius:9px;padding:9px 12px;font-size:13.5px;text-align:left;font-family:Figtree,system-ui,sans-serif}
+.fpbox strong{font-size:15px}
+input:disabled{background:#f3f1ec;color:var(--ink);opacity:1;-webkit-text-fill-color:var(--ink)}
+.ac{position:relative}
+.ac-list{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 4px);margin:0;padding:4px;list-style:none;background:#fff;border:1px solid #d4d0c6;border-radius:10px;box-shadow:0 8px 24px rgba(20,30,25,.12)}
+.ac-list li{padding:8px 10px;border-radius:7px;cursor:pointer;font-size:15px;display:flex;justify-content:space-between;gap:10px}
+.ac-list li small{color:var(--muted)}
+.ac-list li[aria-selected="true"],.ac-list li:hover{background:var(--brand-soft);color:var(--brand)}
+.ac-list li.empty{color:var(--muted);cursor:default;background:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mark">€</span> Lordo-Netto</a>
+    <nav aria-label="Sezioni">
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#ccnl">CCNL</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <span class="badge">Aggiornato alle regole fiscali 2026</span>
+    <h1>Calcolo stipendio netto 2026 dal lordo, con il tuo CCNL</h1>
+    <p>Inserisci la RAL o scegli contratto e livello: ottieni il netto mensile e annuo con IRPEF 23-33-43%, contributi INPS, addizionali e taglio del cuneo fiscale. Funziona anche al contrario, da netto a lordo.</p>
+  </section>
+
+  <div class="grid">
+    <!-- INPUT -->
+    <section class="card" aria-labelledby="h-dati">
+      <h2 id="h-dati" class="sr">Dati per il calcolo</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-ln" aria-selected="true">Da lordo a netto</button>
+        <button role="tab" id="tab-nl" aria-selected="false">Da netto a lordo</button>
+      </div>
+
+      <form id="f" autocomplete="off">
+        <fieldset>
+          <legend>Retribuzione</legend>
+          <div class="row one">
+            <div>
+              <label for="ccnl">Contratto (CCNL)</label>
+              <select id="ccnl"></select>
+            </div>
+          </div>
+          <div class="row" id="row-liv">
+            <div>
+              <label for="livello">Livello</label>
+              <select id="livello"></select>
+            </div>
+            <div>
+              <label for="mens">Mensilità</label>
+              <select id="mens">
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+          </div>
+          <div class="ccnl-info" id="ccnl-info"></div>
+          <div class="row one" id="row-tram" hidden>
+            <div>
+              <label for="tram">Sede di lavoro <small>(concorso spese tranviarie)</small></label>
+              <select id="tram"></select>
+              <div class="hint" id="tram-h">CCNL ABI, allegato 4: spetta per 12 mensilità a chi lavora nei comuni sopra 200.000 abitanti (esclusi QD 3° e 4° livello). Nel contratto complementare è ridotto del 20%</div>
+            </div>
+          </div>
+
+          <div class="row one" id="row-ral">
+            <div id="box-ral">
+              <div class="seg" role="radiogroup" aria-label="Tipo di importo">
+                <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
+                <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
+              </div>
+              <label for="ral" id="lbl-ral">RAL – retribuzione annua lorda</label>
+              <div class="inp-eur"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
+              <div class="hint" id="ral-hint">Minimo del CCNL: sostituiscilo con la tua RAL (superminimo e scatti inclusi)</div>
+            </div>
+            <div id="box-netto" hidden>
+              <label for="nettoTarget">Netto mensile desiderato</label>
+              <div class="inp-eur"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
+              <div class="hint">Per singola mensilità</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="ind">Indennità <small>€ al mese</small></label>
+              <div class="inp-eur"><input id="ind" type="text" inputmode="decimal" value="0"></div>
+              <div class="hint">Pagate per 12 mesi, escluse dalla RAL: es. di funzione, di cassa</div>
+            </div>
+            <div>
+              <label for="indTfr">Utile al TFR?</label>
+              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
+              <div class="hint">Conta per TFR e fondo pensione</div>
+            </div>
+          </div>
+          <div class="row one">
+            <div>
+              <label for="comune">Comune di residenza <small>(per le addizionali)</small></label>
+              <div class="ac">
+                <input id="comune" placeholder="Scrivi il comune, es. Milano" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ac-list">
+                <ul id="ac-list" class="ac-list" role="listbox" hidden></ul>
+              </div>
+              <div class="hint" id="com-info">Aliquote ufficiali del Dipartimento delle Finanze (MEF). Senza comune uso valori medi.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="pt">Part-time <small>%</small></label>
+              <input inputmode="decimal" id="pt" type="text" value="100">
+            </div>
+            <div>
+              <label for="tipo">Contratto</label>
+              <select id="tipo">
+                <option value="ind">Tempo indeterminato</option>
+                <option value="det">Tempo determinato</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <details class="more">
+          <summary>Contributi, addizionali e familiari</summary>
+          <div class="inner">
+            <div class="row one">
+              <div>
+                <label for="inps">Contributi INPS a carico del dipendente</label>
+                <select id="inps">
+                  <option value="0.0919">9,19% – generale</option>
+                  <option value="0.0949">9,49% – industria oltre 15 dipendenti (CIGS)</option>
+                  <option value="0.0584">5,84% – apprendista</option>
+                </select>
+              </div>
+            </div>
+            <div class="row one" id="row-fis">
+              <div>
+                <label for="fis">Fondo integrazione salariale (FIS)</label>
+                <select id="fis">
+                  <option value="0">Non dovuto</option>
+                  <option value="0.00167">0,167% – fino a 5 dipendenti</option>
+                  <option value="0.00267">0,267% – oltre 5 dipendenti</option>
+                </select>
+                <div class="hint">Quota a tuo carico (1/3). Per aziende senza cassa integrazione</div>
+              </div>
+            </div>
+            <div class="row" id="row-man">
+              <div>
+                <label for="addreg">Addizionale regionale <small>%</small></label>
+                <input inputmode="decimal" id="addreg" type="text" value="1,73">
+                <div class="hint" id="addreg-hint">Valore medio</div>
+              </div>
+              <div>
+                <label for="addcom">Addizionale comunale <small>%</small></label>
+                <input inputmode="decimal" id="addcom" type="text" value="0,8">
+                <div class="hint" id="addcom-hint">Valore medio</div>
+              </div>
+            </div>
+            <div class="row one">
+              <div>
+                <label for="r25">Imponibile 2025 (dalla CU), se diverso <small>facoltativo</small></label>
+                <div class="inp-eur"><input inputmode="decimal" id="r25" type="text" value="" placeholder="Uguale al 2026"></div>
+                <div class="hint">Serve per le addizionali dell'anno precedente (AP) trattenute nel 2026</div>
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label for="coniuge">Coniuge a carico</label>
+                <select id="coniuge"><option value="0">No</option><option value="1">Sì</option></select>
+              </div>
+              <div>
+                <label for="figli">Figli a carico 21-30 anni</label>
+                <input inputmode="decimal" id="figli" type="text" value="0">
+                <div class="hint">Sotto i 21 anni c'è l'Assegno Unico</div>
+              </div>
+            </div>
+            <fieldset class="fp">
+              <legend>Fondo pensione / previdenza complementare</legend>
+              <div class="row">
+                <div>
+                  <label for="fpLav">Tuo contributo</label>
+                  <div class="inline-unit"><div class="inp-eur pct" id="fpLav-box"><input inputmode="decimal" id="fpLav" type="text" value="0"></div>
+                    <select id="fpLavU" aria-label="Unità tuo contributo"><option value="p">%</option><option value="e">€</option></select></div>
+                  <div class="hint" id="fpLav-h">% della retribuzione utile TFR</div>
+                </div>
+                <div>
+                  <label for="fpDat">Contributo del datore</label>
+                  <div class="inline-unit"><div class="inp-eur pct" id="fpDat-box"><input inputmode="decimal" id="fpDat" type="text" value="0"></div>
+                    <select id="fpDatU" aria-label="Unità contributo datore"><option value="p">%</option><option value="e">€</option></select></div>
+                  <div class="hint" id="fpDat-h">% della retribuzione utile TFR</div>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label for="fpVol">Versamenti volontari <small>€ all'anno</small></label>
+                  <div class="inp-eur"><input inputmode="decimal" id="fpVol" type="text" value="0"></div>
+                </div>
+                <div>
+                  <label for="fpTfr">TFR al fondo</label>
+                  <select id="fpTfr"><option value="1" selected>Sì</option><option value="0">No, resta in azienda</option></select>
+                </div>
+              </div>
+              <div class="hint" style="margin:-4px 0 12px">Deducibili fino a 5.164,57 € l'anno (tuo + datore). Il TFR non cambia il netto.</div>
+            </fieldset>
+            <fieldset class="fp">
+              <legend>Assistenza sanitaria integrativa</legend>
+              <div class="row">
+                <div>
+                  <label for="sanLav">Tua trattenuta</label>
+                  <div class="inline-unit"><div class="inp-eur" id="sanLav-box"><input inputmode="decimal" id="sanLav" type="text" value="0"></div>
+                    <select id="sanLavU" aria-label="Unità trattenuta"><option value="e">€</option><option value="p">%</option></select></div>
+                  <div class="hint" id="sanLav-h">€ all'anno</div>
+                </div>
+                <div>
+                  <label for="sanDat">Contributo del datore</label>
+                  <div class="inline-unit"><div class="inp-eur" id="sanDat-box"><input inputmode="decimal" id="sanDat" type="text" value="0"></div>
+                    <select id="sanDatU" aria-label="Unità contributo datore"><option value="e">€</option><option value="p">%</option></select></div>
+                  <div class="hint" id="sanDat-h">€ all'anno</div>
+                </div>
+              </div>
+              <div class="hint" style="margin:-4px 0 12px">In % si calcola sulla retribuzione lorda (RAL + indennità). Non tassati fino a 3.615,20 € l'anno (tuo + datore), se il fondo è iscritto all'Anagrafe dei fondi sanitari.</div>
+            </fieldset>
+            <fieldset class="fp">
+              <legend>Rimborsi, trattenute e fringe benefit</legend>
+              <div class="row">
+                <div>
+                  <label for="rimb">Rimborsi spese / trasferte <small>€ al mese</small></label>
+                  <div class="inp-eur"><input inputmode="decimal" id="rimb" type="text" value="0"></div>
+                  <div class="hint">Es. diarie, rimborsi chilometrici</div>
+                </div>
+                <div>
+                  <label for="rimbTax">Trattamento fiscale</label>
+                  <select id="rimbTax"><option value="0">Esenti</option><option value="1">Tassati</option></select>
+                  <div class="hint">Tassati: entrano in INPS e IRPEF</div>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label for="tratt">Altre trattenute <small>€ al mese</small></label>
+                  <div class="inp-eur"><input inputmode="decimal" id="tratt" type="text" value="0"></div>
+                  <div class="hint">Es. quota sindacale, rata prestito, cessione del quinto</div>
+                </div>
+                <div></div>
+              </div>
+              <div class="row">
+                <div>
+                  <label for="fringe">Fringe benefit <small>€ all'anno</small></label>
+                  <div class="inp-eur"><input inputmode="decimal" id="fringe" type="text" value="0"></div>
+                  <div class="hint">Es. buoni carburante, utenze, interessi agevolati, polizze</div>
+                </div>
+                <div>
+                  <label for="fringeFigli">Figli a carico</label>
+                  <select id="fringeFigli"><option value="0">No – soglia 1.000 €</option><option value="1">Sì – soglia 2.000 €</option></select>
+                  <div class="hint">Figli fiscalmente a carico, di qualsiasi età</div>
+                </div>
+              </div>
+              <div class="fringe-meter" id="fringe-meter" hidden><div class="fm-bar"><i id="fm-fill"></i></div><div class="fm-txt" id="fm-txt"></div></div>
+            </fieldset>
+          </div>
+        </details>
+      </form>
+    </section>
+
+    <!-- RISULTATO -->
+    <section class="card result" aria-labelledby="h-ris" aria-live="polite">
+      <h2 id="h-ris" class="sr">Risultato</h2>
+      <div class="big">
+        <div>
+          <div class="lbl" id="out-lbl">Netto mensile</div>
+          <div class="val" id="out-main">–</div>
+        </div>
+        <div style="text-align:right">
+          <div class="lbl">Su</div>
+          <div style="font-weight:700" id="out-mens">–</div>
+        </div>
+      </div>
+      <div class="sub">
+        <div><span>Netto annuo</span><strong id="out-na">–</strong></div>
+        <div><span id="sub2-lbl">Lordo annuo (RAL)</span><strong id="out-ral">–</strong></div>
+      </div>
+      <div class="bar" id="bar" aria-hidden="true"></div>
+      <div class="legend" aria-hidden="true">
+        <span><b style="background:var(--net)"></b>Netto</span>
+        <span><b style="background:var(--inps)"></b>INPS</span>
+        <span><b style="background:var(--tax)"></b>IRPEF</span>
+        <span><b style="background:var(--add)"></b>Addizionali</span>
+      </div>
+      <div class="det-head"><span>Dettaglio</span>
+        <div class="seg" role="radiogroup" aria-label="Periodo del dettaglio">
+          <button type="button" role="radio" id="d-a" aria-checked="true">Annuo</button>
+          <button type="button" role="radio" id="d-m" aria-checked="false">Mensile</button>
+        </div></div>
+      <table class="det" id="det"></table>
+      <p class="note" id="det-note" hidden>Busta di un mese ordinario (senza 13ª/14ª), calcolata come il cedolino: IRPEF sugli scaglioni mensili, addizionali in rate (11 da gennaio a novembre, 9 per l&#39;acconto da marzo a novembre). </p>
+      <div class="actions">
+        <button class="btn" id="copy" type="button">Copia riepilogo</button>
+      </div>
+      <p class="note">Stima annua per un anno intero di lavoro. La busta paga reale può differire per conguagli, addizionali dell'anno precedente, straordinari, fondi integrativi e voci aziendali.</p>
+    </section>
+  </div>
+
+  <!-- Unico spazio pubblicitario: sostituire con il codice AdSense -->
+  <aside class="ad" aria-label="Pubblicità">Spazio pubblicitario</aside>
+
+  <article class="content">
+    <h2 id="come-funziona">Come si passa dal lordo al netto nel 2026</h2>
+    <p>Il calcolo parte dalla <strong>RAL</strong> (retribuzione annua lorda), cioè il minimo del CCNL più eventuali superminimi e scatti, moltiplicato per le mensilità. Da qui si arriva al netto in cinque passaggi.</p>
+    <h3>1. Contributi INPS</h3>
+    <p>Il dipendente versa di norma il 9,19% della retribuzione (9,49% nelle industrie con più di 15 dipendenti, 5,84% per gli apprendisti). Sulla parte che supera 56.224 euro annui si aggiunge un ulteriore 1%.</p>
+    <h3>2. IRPEF a scaglioni</h3>
+    <p>Sul reddito imponibile (RAL meno contributi) si applicano le aliquote fissate dalla Legge di Bilancio 2026:</p>
+    <div class="tblwrap"><table class="tbl">
+      <thead><tr><th>Scaglione di reddito</th><th>Aliquota</th></tr></thead>
+      <tbody>
+        <tr><td>Fino a 28.000 €</td><td>23%</td></tr>
+        <tr><td>Da 28.000 a 50.000 €</td><td>33% <small>(era 35% nel 2025)</small></td></tr>
+        <tr><td>Oltre 50.000 €</td><td>43%</td></tr>
+      </tbody>
+    </table></div>
+    <h3>3. Detrazioni</h3>
+    <p>Dall'imposta si sottraggono la detrazione per lavoro dipendente (fino a 1.955 € e zero oltre 50.000 € di reddito), le detrazioni per familiari a carico e, tra 20.000 e 40.000 €, la detrazione aggiuntiva del cuneo fiscale.</p>
+    <h3>4. Addizionali regionale e comunale</h3>
+    <p>Si calcolano sullo stesso imponibile IRPEF. Le aliquote cambiano da regione a regione e da comune a comune. Il calcolatore usa le aliquote 2026 pubblicate dal Dipartimento delle Finanze del MEF per tutte le regioni e per gli oltre 7.800 comuni italiani, con scaglioni, soglie di esenzione e le principali agevolazioni regionali legate al reddito. Se un comune non ha ancora pubblicato la delibera 2026, vale l'ultima in vigore. Come in busta paga, nel 2026 si trattengono l'addizionale regionale e comunale dell'anno precedente (AP, saldo 2025, in 11 rate) e l'acconto del 30% dell'addizionale comunale dell'anno corrente (AC 2026, in 9 rate).</p>
+    <h3>5. Bonus in busta paga</h3>
+    <p>Chi ha un reddito fino a 20.000 € riceve una somma esentasse dal taglio del cuneo fiscale (7,1%, 5,3% o 4,8% del reddito). Fino a 15.000 € (e in alcuni casi fino a 28.000 €) può spettare anche il trattamento integrativo fino a 1.200 € l'anno.</p>
+
+    <h2 id="taglio-cuneo">Taglio del cuneo fiscale 2026</h2>
+    <div class="tblwrap"><table class="tbl">
+      <thead><tr><th>Reddito complessivo</th><th>Beneficio</th></tr></thead>
+      <tbody>
+        <tr><td>Fino a 8.500 €</td><td>Somma esentasse pari al 7,1% del reddito da lavoro</td></tr>
+        <tr><td>8.500 – 15.000 €</td><td>Somma esentasse pari al 5,3%</td></tr>
+        <tr><td>15.000 – 20.000 €</td><td>Somma esentasse pari al 4,8%</td></tr>
+        <tr><td>20.000 – 32.000 €</td><td>Detrazione aggiuntiva di 1.000 €</td></tr>
+        <tr><td>32.000 – 40.000 €</td><td>Detrazione decrescente: 1.000 × (40.000 − reddito) / 8.000</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="ccnl">Minimi dei CCNL inclusi</h2>
+    <p>Il calcolatore precompila la RAL con i minimi mensili lordi in vigore nel 2026 per i contratti più diffusi. Gli importi non includono scatti di anzianità, superminimi e indennità: scrivi la tua RAL completa e inserisci le indennità nel campo dedicato.</p>
+    <div id="ccnl-tables"></div>
+
+    <h2 id="faq">Domande frequenti</h2>
+    <div class="faq">
+      <details><summary>Come si calcola lo stipendio netto nel 2026?</summary><p>Dalla RAL si tolgono i contributi INPS a carico del dipendente (di norma 9,19%). Sul resto si calcola l'IRPEF con le aliquote 23%, 33% e 43%, si sottraggono le detrazioni e si aggiungono le addizionali. Infine si sommano il bonus cuneo fiscale e l'eventuale trattamento integrativo.</p></details>
+      <details><summary>Quali sono le aliquote IRPEF 2026?</summary><p>23% fino a 28.000 €, 33% tra 28.000 e 50.000 €, 43% oltre 50.000 €. Il secondo scaglione è sceso dal 35% al 33% con la Legge di Bilancio 2026 (L. 199/2025).</p></details>
+      <details><summary>Perché il netto mensile cambia tra 13 e 14 mensilità?</summary><p>La RAL è divisa per il numero di mensilità. Con 14 mensilità la busta paga ordinaria è più bassa, ma ricevi anche la quattordicesima a giugno o luglio. Il netto annuo resta lo stesso.</p></details>
+      <details><summary>Come si fa il calcolo da netto a lordo?</summary><p>Scegli la scheda "Da netto a lordo" e inserisci il netto mensile che vuoi ricevere: il calcolatore trova la RAL che lo produce con le stesse regole fiscali e contributive.</p></details>
+      <details><summary>Da dove vengono le aliquote delle addizionali?</summary><p>Dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), che raccolgono le delibere di regioni e comuni. Le detrazioni regionali per figli o disabilità non sono incluse: se ti spettano, l'addizionale reale è più bassa.</p></details>
+      <details><summary>Il risultato vale come busta paga ufficiale?</summary><p>No. È una stima annua. La busta paga reale dipende da conguagli, addizionali trattenute in rate, scatti, straordinari, fondi integrativi e altre voci aziendali. Per un calcolo certificato rivolgiti al tuo ufficio del personale o a un consulente del lavoro.</p></details>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Lordo-Netto è uno strumento gratuito a scopo informativo. Fonti: Legge 199/2025 (Bilancio 2026), Legge 207/2024, TUIR artt. 11-13, circolare INPS 6/2026, tabelle retributive dei CCNL, CCNL Credito ABI (art. 3, contratti complementari), aliquote addizionali regionali e comunali IRPEF dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), scaricati il 10/11/2026. Ultimo aggiornamento: novembre 2026.</p>
+    <p><a href="#top">Torna al calcolatore</a> · Privacy · Cookie</p>
+  </div>
+</footer>
+
+<script id="addiz-data" type="application/json">@@ADDIZ@@</script>
+<script>
+/* ==== DATI CCNL (minimi mensili lordi 2026) ==== */
+const CCNL = {
+  commercio:{nome:"Commercio – Terziario Confcommercio",mens:14,fonte:"Minimi dal 1° novembre 2026 (paga base + contingenza + terzo elemento)",
+    preset:{fpLav:0.55,fpDat:1.55,sanLav:24,sanDat:156,fondo:"Fon.Te",sanita:"Fondo Est"},
+    note:"Fon.Te 0,55% tuo + 1,55% azienda (se aderisci), Fondo Est 2 €/mese tuo + 13 €/mese azienda: precompilati in grigio.",
+    livelli:[["Quadro",3047.05],["I",2560.87],["II",2283.00],["III",2024.38],["IV",1818.75],["V",1691.70],["VI",1570.16],["VII",1422.27]], def:3},
+  tessile:{nome:"Tessile Abbigliamento Moda – Industria (SMI)",mens:13,fonte:"Minimi dal 1° gennaio 2026 (livello 8 con indennità di funzione 51,65 €)",
+    livelli:[["8 (quadro)",2509.37],["7",2318.50],["6",2175.37],["5",2037.96],["4",1938.95],["3S",1894.94],["3",1853.17],["2S",1799.17],["2",1760.02],["1",1469.68]], def:4,
+    preset:{fpLav:1.5,fpDat:2.3,sanDat:240,fondo:"Previmoda",sanita:"Sanimoda"},
+    note:"Previmoda 1,50% tuo + 2,30% azienda (dal 1/7/2026), Sanimoda 18 €/mese + LTC 2 €/mese a carico azienda: già impostati nei campi. Industria: niente FIS (c'è la cassa integrazione); con più di 15 dipendenti scegli INPS 9,49%."},
+  alimentare:{nome:"Industria Alimentare (Federalimentare)",mens:14,fonte:"Minimi dal 1° gennaio 2026 (paga base + contingenza + EDR)",
+    livelli:[["1S (quadro)",3326.90],["1",2958.43],["2",2528.64],["3A",2283.00],["3",2098.81],["4",1975.97],["5",1853.19],["6",1730.38]], def:3,
+    preset:{fpLav:1,fpDat:1.5,sanDat:192,fondo:"Alifond",sanita:"FASA"},
+    note:"Alifond 1% tuo + 1,5% azienda, FASA 16 €/mese a carico azienda: già impostati nei campi. Industria: niente FIS (c'è la cassa integrazione); con più di 15 dipendenti scegli INPS 9,49%."},
+  gomma:{nome:"Gomma Plastica – Industria",mens:13,fonte:"Minimi (TEM) dal 1° gennaio 2026",
+    livelli:[["Q",2497.83],["A",2351.85],["B",2218.74],["C",2189.60],["D",2162.08],["E",2074.83],["F",2021.12],["G",1883.45],["H",1796.11],["I",1614.73]], def:6,
+    preset:{fpLav:1.56,fpDat:1.56,sanDat:168,fondo:"Fondo Gomma Plastica",sanita:"FasG&P"},
+    note:"Fondo Gomma Plastica 1,56% tuo + 1,56% azienda (1,78% dal 2027), FasG&P 14 €/mese a carico azienda (+7 € facoltativi a tuo carico): già impostati nei campi. Industria: niente FIS; con più di 15 dipendenti scegli INPS 9,49%."},
+  metalmeccanici:{nome:"Metalmeccanici Industria – Federmeccanica",mens:13,fonte:"Minimi dal 1° giugno 2026",
+    livelli:[["A1",2907.01],["B3",2838.99],["B2",2542.98],["B1",2370.33],["C3",2211.43],["C2",2064.88],["C1",2022.12],["D2",1979.37],["D1",1784.94]], def:4},
+  studi:{nome:"Studi professionali – Confprofessioni",mens:14,fonte:"Minimi dal 1° ottobre 2025 (aumento a dicembre 2026)",
+    livelli:[["Quadro",2408.53],["1",2131.39],["2",1856.50],["3 Super",1722.01],["3",1706.37],["4 Super",1654.70],["4",1595.42],["5",1484.78]], def:4},
+  turismo:{nome:"Turismo – Alberghi (Federalberghi)",mens:14,fonte:"Minimi da maggio 2026",
+    livelli:[["Quadro A",2491.82],["Quadro B",2307.53],["1",2084.71],["2",1905.40],["3",1797.04],["4",1695.69],["5",1590.27],["6 Super",1529.13],["6",1507.45],["7",1412.60]], def:5},
+  pubblici:{nome:"Pubblici esercizi e ristorazione – FIPE",mens:14,fonte:"Minimi dal 1° giugno 2026",
+    livelli:[["Quadro A",2462.96],["Quadro B",2271.62],["1",2107.66],["2",1916.32],["3",1800.74],["4",1692.69],["5",1580.08],["6 Super",1514.82],["6",1491.58],["7",1390.20]], def:5},
+  logistica:{nome:"Logistica, trasporto merci e spedizione",mens:14,fonte:"Minimi dal 1° gennaio 2026 (tabellare + EPA)",
+    livelli:[["Quadro",2574.98],["1",2411.46],["2",2218.22],["3 Super",2000.37],["3",1946.84],["4",1850.23],["4 Junior",1802.92],["5",1761.64],["6",1648.74],["Viaggiante C3",2021.61],["Viaggiante B3",2010.37],["Viaggiante A3",2002.47],["Viaggiante F2",1948.09],["Viaggiante E2",1946.91],["Viaggiante D2",1945.68],["Viaggiante H1",1885.20],["Viaggiante G1",1876.08]], def:5},
+  abi:{nome:"Credito – Bancari ABI",mens:13,fonte:"Stipendi dal 1° marzo 2026 (CCNL 23/11/2023, in proroga)",
+    livelli:[["Quadro direttivo 4° liv.",5160.06],["Quadro direttivo 3° liv.",4396.88],["Quadro direttivo 2° liv.",3965.48],["Quadro direttivo 1° liv.",3743.21],["3ª area 4° liv.",3341.90],["3ª area 3° liv.",3059.49],["3ª area 2° liv.",2890.41],["3ª area 1° liv.",2742.34],["Area unificata (ex 1ª e 2ª)",2479.45]], def:7},
+  abicompl:{nome:"Credito – Contratto complementare ABI",mens:13,fonte:"Tabelle ABI dal 1° marzo 2026 ridotte del 20% (assunti dopo il 19/1/2012, 40 ore settimanali)",
+    livelli:[["Quadro direttivo 4° liv.",4128.05],["Quadro direttivo 3° liv.",3517.50],["Quadro direttivo 2° liv.",3172.38],["Quadro direttivo 1° liv.",2994.57],["3ª area 4° liv.",2673.52],["3ª area 3° liv.",2447.59],["3ª area 2° liv.",2312.33],["3ª area 1° liv.",2193.87],["Area unificata (ex 1ª e 2ª)",1983.56]], def:8},
+  dirabi:{nome:"Credito – Dirigenti ABI",mens:13,fonte:"Stipendio minimo dal 1° gennaio 2026 (rinnovo 15/7/2025)",
+    livelli:[["Dirigente",6538.46]], def:0},
+  dirterz:{nome:"Commercio/Terziario – Dirigenti (Manageritalia)",mens:14,fonte:"Minimo contrattuale dal 1° gennaio 2026 (rinnovo 5/11/2025)",
+    livelli:[["Dirigente",4660.00]], def:0},
+  altro:{nome:"Altro / inserisco la RAL",mens:13,fonte:"",livelli:[],def:0}
+};
+
+/* ==== MOTORE DI CALCOLO 2026 ==== */
+/* @engine-start */
+const P = {scaglioni:[[28000,.23],[50000,.33],[Infinity,.43]], sogliaInps1:56224, fpMax:5164.57, sanMax:3615.20};
+function irpefLorda(r){let t=0,prev=0;for(const [lim,a] of P.scaglioni){if(r>prev){t+=(Math.min(r,lim)-prev)*a;}prev=lim;}return t;}
+function detrLavoro(r,tipo){
+  let d;
+  if(r<=15000){d=1955;d=Math.max(d,tipo==="det"?690:1380);}
+  else if(r<=28000)d=1910+1190*(28000-r)/13000;
+  else if(r<=50000)d=1910*(50000-r)/22000;
+  else d=0;
+  if(r>25000&&r<=35000)d+=65;
+  return d;
+}
+function detrConiuge(r){
+  if(r<=15000)return 800-110*r/15000;
+  if(r<=40000){let d=690;if(r>29000&&r<=29200)d+=10;else if(r>29200&&r<=34700)d+=20;else if(r>34700&&r<=35000)d+=30;else if(r>35000&&r<=35100)d+=20;else if(r>35100&&r<=35200)d+=10;return d;}
+  if(r<=80000)return 690*(80000-r)/40000;
+  return 0;
+}
+function detrFigli(r,n){if(!n)return 0;const k=(95000+15000*(n-1));return Math.max(0,950*n*(k-r)/k);}
+function ulterioreCuneo(r){if(r<=20000||r>40000)return 0;if(r<=32000)return 1000;return 1000*(40000-r)/8000;}
+function bonusCuneo(r,redLav){if(r>20000)return 0;const p=r<=8500?.071:(r<=15000?.053:.048);return redLav*p;}
+
+/* Addizionali: dati ufficiali MEF – Dipartimento delle Finanze */
+let ADD={reg:{},p2r:{},com:[]};
+function progressivo(r,br){let t=0,prev=0;for(const [up,rate] of br){const lim=up==null?Infinity:up;if(r>prev)t+=(Math.min(r,lim)-prev)*rate/100;prev=lim;}return t;}
+function addRegionale(r,reg,anno=2026){
+  const R=(anno===2025?ADD.reg25:ADD.reg)[reg]; if(!R) return 0;
+  let t=progressivo(r,R.b);
+  switch(reg){
+    case "Valle d'Aosta": if(r<=15000) t=0; break;
+    case "Umbria": if(r<=28000) t=r*0.0123; else if(r<=50000) t=Math.max(0,t-150); break;
+    case "Friuli Venezia Giulia": t=r<=15000? r*0.007 : r*0.0123; break;
+    case "Lazio": if(r<=28000) t=r*0.0173; else if(r<=(anno===2025?35000:30000)) t=Math.max(0,t-60); break;
+    case "Trento": if(r<=30000) t=0; break;
+    case "Bolzano": { let d=r<=90000?430.5:0; if(r>50000) d+=Math.min(125,125*(r-50000)/25000); t=Math.max(0,t-d); break; }
+  }
+  return t;
+}
+function parseBr(t){return t.split(";").map(s=>{const [u,r]=s.split(":");return [u===""?null:+u,+r];});}
+function parseCom(c){ // [nome,pr,esente,"up:rate;...",anno,spec,(esente2025,scaglioni2025 se diversi)]
+  const br=parseBr(c[3]);
+  return {nome:c[0],pr:c[1],es:c[2],br,anno:c[4],spec:c[5],es25:c.length>6?c[6]:c[2],br25:c.length>6?parseBr(c[7]):br};
+}
+function addComunale(r,c){ if(r<=c.es) return 0; return progressivo(r,c.br); }
+
+function calcola(o){
+  const ralBase=Math.max(0,o.ral), ind=Math.max(0,o.ind||0), tram=Math.max(0,o.tram||0)*12;
+  // Rimborsi spese/trasferte: se tassati entrano nel lordo; fringe benefit: oltre la soglia (1.000 / 2.000 € con figli) tassati per intero
+  const rimb=Math.max(0,o.rimb||0), rimbTax=!!o.rimbTax;
+  const fringe=Math.max(0,o.fringe||0), fringeSoglia=o.fringeFigli?2000:1000, fringeTax=fringe>fringeSoglia;
+  const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0);
+  const ral=ralBase+ind+tram+extraTax;         // lordo annuo imponibile (concorso spese tranviarie: 12 mensilità)
+  const baseTfr=ralBase+(o.indTfr===false?0:ind); // retribuzione utile TFR
+  const inpsBase=ral*o.inps;
+  const inpsAgg=Math.max(0,ral-P.sogliaInps1)*0.01;
+  const fsc=ral*(o.fsc||0);                    // Fondo di solidarietà del credito (quota lavoratore 0,067%)
+  const fis=ral*(o.fis||0);                    // Fondo integrazione salariale (1/3 a carico del lavoratore)
+  const ebt=ral*(o.ebt||0);                    // Ente bilaterale (es. commercio 0,05%)
+  const inps=inpsBase+inpsAgg+fsc+fis+ebt;
+  // Previdenza complementare (art. 10 e 51 c.2 lett. h TUIR): deducibile fino a 5.164,57 € tra lavoratore e datore
+  const fpLav=baseTfr*(o.fpLavPct||0)/100+(o.fpLavFix||0)+(o.fpVol||0);   // in % o importo fisso annuo (es. Fondo Mario Negri)
+  const fpDat=baseTfr*(o.fpDatPct||0)/100+(o.fpDatFix||0);
+  const fpDed=Math.min(fpLav+fpDat,P.fpMax);
+  const fpTfr=o.fpTfr?Math.max(0,baseTfr/13.5-baseTfr*0.005):0;
+  // Assistenza sanitaria integrativa (art. 51 c.2 lett. a TUIR): esente fino a 3.615,20 € tra lavoratore e datore
+  const sanLav=Math.max(0,(o.sanLav||0)+ral*(o.sanLavPct||0)/100), sanDat=Math.max(0,(o.sanDat||0)+ral*(o.sanDatPct||0)/100);
+  const sanDed=Math.min(sanLav+sanDat,P.sanMax);
+  // L. 199/2025: aumenti da rinnovi CCNL 2024-2026 pagati nel 2026 → imposta sostitutiva 5% (fuori da IRPEF e addizionali)
+  // se il reddito di lavoro dipendente 2025 non supera 33.000 €
+  const rinn=Math.max(0,o.rinn||0);
+  const redPre=Math.max(0,ral-inps+fpDat-fpDed+sanDat-sanDed);
+  const rinnOk=rinn>0&&(o.r25>0?o.r25:redPre)<=33000;
+  const sost=rinnOk?rinn*0.05:0;
+  const redLav=Math.max(0,redPre-(rinnOk?rinn:0));
+  const r=redLav+(o.altri||0);
+  const lorda=irpefLorda(r);
+  const dLav=redLav>0?detrLavoro(r,o.tipo):0;
+  const dCon=o.coniuge?detrConiuge(r):0;
+  const dFig=detrFigli(r,o.figli||0);
+  const dCun=redLav>0?ulterioreCuneo(r):0;
+  let detr=dLav+dCon+dFig+dCun;
+  if(r>200000)detr=Math.max(0,detr-440);
+  const netta=Math.max(0,lorda-detr);
+  let addReg=0, addCom=0, comSaldo=0, comAcc=0;
+  if(netta>0){
+    if(o.addMode==="cassa"){
+      // Trattenute nel 2026: saldo regionale e comunale 2025 (al netto dell'acconto 30% già versato) + acconto comunale 2026 (30%)
+      const r25=o.r25>0?o.r25:r;
+      if(o.reg){
+        addReg=addRegionale(r25,o.reg,2025);
+        const c=o.com||{es:0,br:[[null,0]],es25:0,br25:[[null,0]]};
+        comSaldo=0.7*addComunale(r25,{es:c.es25,br:c.br25});
+        comAcc=0.3*addComunale(r25,c);
+      } else { addReg=r25*o.addreg/100; comSaldo=0.7*r25*o.addcom/100; comAcc=0.3*r25*o.addcom/100; }
+      addCom=comSaldo+comAcc;
+    } else {
+      if(o.reg){ addReg=addRegionale(r,o.reg); addCom=o.com?addComunale(r,o.com):r*o.addcom/100; }
+      else { addReg=r*o.addreg/100; addCom=r*o.addcom/100; }
+    }
+  }
+  const bonus=redLav>0?bonusCuneo(r,redLav):0;
+  let ti=0;
+  if(redLav>0){
+    if(r<=15000){ if(lorda>dLav-75) ti=1200; }
+    else if(r<=28000){ const s=dLav+dCon+dFig; if(s>lorda) ti=Math.min(1200,s-lorda); }
+  }
+  // quota IRPEF/addizionali attribuibili al solo reddito da lavoro (se ci sono altri redditi)
+  const quota=r>0?redLav/r:1;
+  const irpefLav=netta*quota, addRegL=addReg*quota, addComL=addCom*quota;
+  const tratt=Math.max(0,o.tratt||0);
+  const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost
+             +(rimbTax?0:rimb)-(fringeTax?fringe:0)-tratt;   // il fringe è in natura: tassato ma non pagato in denaro
+  return {fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
+}
+/* Busta di un mese ordinario (senza 13ª/14ª), come il cedolino:
+   contributi sul lordo del mese, IRPEF sugli scaglioni mensili (annui/12), detrazioni in dodicesimi,
+   addizionali in rate (AP 11 rate gen–nov, acconto AC 9 rate mar–nov) */
+function bustaOrdinaria(x,o,mens){
+  const sogliaM=Math.round(P.sogliaInps1/12);
+  const rimbM=x.rimb/12, fringeM=x.fringeTax?x.fringe/12:0, trattM=x.tratt/12;
+  const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, rml=rmlBase+indM+tramM+(x.rimbTax?rimbM:0)+fringeM;
+  const baseTfrM=rmlBase+(o.indTfr===false?0:indM);
+  const inpsM=rml*o.inps, ivsM=Math.max(0,rml-sogliaM)*0.01, fscM=rml*(o.fsc||0), fisM=rml*(o.fis||0), ebtM=rml*(o.ebt||0);
+  const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
+  const fpLavM=baseTfrM*(o.fpLavPct||0)/100+((o.fpLavFix||0)+(o.fpVol||0))/12;
+  const sanLavM=(o.sanLav||0)/12+rml*(o.sanLavPct||0)/100;
+  const impM=Math.max(0,rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-rinnM);
+  const lordaM=irpefLorda(impM*12)/12;
+  const detrM=(x.dLav+x.dCun+x.dCon+x.dFig)/12;
+  const nettaM=Math.max(0,lordaM-detrM);
+  const aR=x.addReg/11, aS=x.comSaldo/11, aA=x.comAcc/9;
+  const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-aR-aS-aA+x.bonus/12+x.ti/12
+            +(x.rimbTax?0:rimbM)-fringeM-trattM;
+  return {fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
+}
+function lordoDaNetto(targetMese,o,mens){
+  let lo=0,hi=1e6;
+  for(let i=0;i<80;i++){const m=(lo+hi)/2;const n=bustaOrdinaria(calcola({...o,ral:m}),o,mens).netM;if(n<targetMese)lo=m;else hi=m;}
+  return hi;
+}
+/* @engine-end */
+
+/* ==== UI ==== */
+const $=id=>document.getElementById(id);
+/* numeri all'italiana: virgola per i decimali, punto (facoltativo) per le migliaia */
+function parseIt(t){t=String(t).trim().replace(/[€%\s]/g,"");if(!t)return 0;
+  if(t.includes(",")) t=t.replace(/\./g,"").replace(",",".");
+  else if(/^\d{1,3}(\.\d{3})+$/.test(t)) t=t.replace(/\./g,"");
+  const n=parseFloat(t);return isNaN(n)?0:n;}
+const numv=id=>parseIt($(id).value);
+function fmtIt(n){const neg=n<0;n=Math.abs(Math.round(n*100)/100);let [i,d]=String(n).split(".");i=i.replace(/\B(?=(\d{3})+(?!\d))/g,".");return (neg?"-":"")+i+(d?","+d:"");}
+const setv=(id,v)=>{$(id).value=fmtIt(v);};
+/* formattazione mentre si scrive: punto delle migliaia automatico, virgola per i decimali */
+function liveFormat(el,e){
+  let v=el.value, pos=el.selectionStart??v.length;
+  if(e&&e.data==="."&&!v.slice(0,pos-1).includes(",")&&!v.slice(pos).includes(",")) v=v.slice(0,pos-1)+","+v.slice(pos); // punto digitato = virgola
+  const before=v.slice(0,pos).replace(/[^\d,]/g,"").length; // cifre/virgole prima del cursore
+  let clean=v.replace(/[^\d,]/g,""); const k=clean.indexOf(",");
+  if(k>=0) clean=clean.slice(0,k+1)+clean.slice(k+1).replace(/,/g,"").slice(0,2);
+  let [i,d]=clean.split(","); i=(i||"").replace(/^0+(?=\d)/,"");
+  const out=i.replace(/\B(?=(\d{3})+(?!\d))/g,".")+(d!==undefined?","+d:"");
+  if(out===el.value) return;
+  el.value=out;
+  let n=0,p2=0; while(p2<out.length&&n<before){ if(/[\d,]/.test(out[p2])) n++; p2++; }
+  try{el.setSelectionRange(p2,p2);}catch(_){}
+}
+/* formato italiano con punto delle migliaia sempre (anche sotto 10.000) */
+function numIt(v,d=0){const neg=v<0;let [i,f]=Math.abs(v).toFixed(d).split(".");i=i.replace(/\B(?=(\d{3})+(?!\d))/g,".");return (neg?"-":"")+i+(f?","+f:"");}
+const eur=(v,d=0)=>numIt(v,d)+"\u00a0€";
+const CREDITO=["abi","abicompl","dirabi"];
+/* CCNL ABI, allegato 4 – Concorso spese tranviarie, € al mese per 12 mensilità */
+const TRAM={"Verona":1.11,"Catania":1.21,"Bari":1.24,"Venezia":1.27,"Padova":1.34,"Palermo":1.34,"Trieste":1.47,"Bologna":1.50,"Messina":1.55,"Napoli":1.55,"Torino":1.55,"Genova":1.70,"Firenze":2.01,"Roma":2.32,"Milano":2.92};
+function tramEligible(){
+  const k=$("ccnl").value; if(k!=="abi"&&k!=="abicompl") return false;
+  const lv=CCNL[k].livelli[+$("livello").value]; return !!lv && !/direttivo [34]°/.test(lv[0]);
+}
+function tramFromComune(){ // finché l'utente non sceglie la sede, la deduco dal comune di residenza
+  const t=$("tram"); if(!t||t.dataset.touched||!t.options.length) return;
+  t.value=selCom&&TRAM[selCom.nome]?selCom.nome:"";
+}
+function syncTram(){
+  const on=tramEligible(); $("row-tram").hidden=!on;
+}
+let mode="ln", ralTouched=false, unit="a", detMode="a";
+
+function fillCcnl(){
+  const s=$("ccnl");
+  for(const [k,c] of Object.entries(CCNL)){const o=document.createElement("option");o.value=k;o.textContent=c.nome;s.appendChild(o);}
+  s.value="commercio";
+}
+function fillLivelli(){
+  const c=CCNL[$("ccnl").value], s=$("livello");
+  s.innerHTML="";
+  c.livelli.forEach(([n,v],i)=>{const o=document.createElement("option");o.value=i;o.textContent=`${n} – ${eur(v,2)}/mese`;s.appendChild(o);});
+  s.value=c.def; $("mens").value=c.mens;
+  $("livello").disabled=!c.livelli.length;
+  $("ccnl-info").textContent=c.livelli.length?`${c.fonte}. ${c.mens} mensilità.${c.note?" "+c.note:""}`:"Inserisci direttamente la RAL e il numero di mensilità.";
+  ralTouched=false;
+}
+function ralDaCcnl(){
+  const c=CCNL[$("ccnl").value];
+  if(!c.livelli.length)return null;
+  const min=c.livelli[+$("livello").value][1];
+  const pt=(numv("pt")||100)/100;
+  return Math.round(min*(+$("mens").value)*pt*100)/100;
+}
+/* ---- comuni ---- */
+const COMIDX=new Map();
+function loadAddiz(){
+  try{ ADD=JSON.parse(document.getElementById("addiz-data").textContent); }catch(e){ return; }
+  for(const c of ADD.com){ COMIDX.set(`${c[0]} (${c[1]})`.toLowerCase(),c); }
+}
+/* ---- autocompletamento: max 8 risultati ---- */
+const AC_MAX=8; let acItems=[], acSel=-1;
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/['’]/g," ");
+function acSearch(q){
+  q=norm(q.trim()); if(q.length<2) return [];
+  const exact=[], starts=[], inside=[];
+  for(const c of ADD.com){ const n=norm(c[0]); if(n===q) exact.push(c); else if(n.startsWith(q)) starts.push(c); else if(n.includes(" "+q)) inside.push(c); }
+  const byLen=(a,b)=>a[0].length-b[0].length||a[0].localeCompare(b[0]);
+  return exact.concat(starts.sort(byLen),inside.sort(byLen)).slice(0,AC_MAX);
+}
+function acRender(){
+  const ul=$("ac-list");
+  if(!acItems.length){
+    const q=$("comune").value.trim();
+    if(q.length>=2 && !selCom){ ul.innerHTML='<li class="empty">Nessun comune trovato</li>'; ul.hidden=false; } else ul.hidden=true;
+    $("comune").setAttribute("aria-expanded",!ul.hidden); return;
+  }
+  ul.innerHTML=acItems.map((c,i)=>`<li role="option" data-i="${i}" aria-selected="${i===acSel}">${c[0]} <small>${c[1]}</small></li>`).join("");
+  ul.hidden=false; $("comune").setAttribute("aria-expanded","true");
+}
+function acChoose(i){
+  const c=acItems[i]; if(!c) return;
+  $("comune").value=`${c[0]} (${c[1]})`; acItems=[]; acSel=-1; $("ac-list").hidden=true;
+  pickComune(); render();
+}
+function acInit(){
+  const inp=$("comune"), ul=$("ac-list");
+  inp.addEventListener("input",()=>{ pickComune(); acItems=selCom?[]:acSearch(inp.value); acSel=acItems.length?0:-1; acRender(); render(); });
+  inp.addEventListener("focus",()=>{ if(!selCom){ acItems=acSearch(inp.value); acSel=acItems.length?0:-1; acRender(); } else inp.select(); });
+  inp.addEventListener("keydown",e=>{
+    if(ul.hidden||!acItems.length) return;
+    if(e.key==="ArrowDown"){acSel=(acSel+1)%acItems.length;acRender();e.preventDefault();}
+    else if(e.key==="ArrowUp"){acSel=(acSel-1+acItems.length)%acItems.length;acRender();e.preventDefault();}
+    else if(e.key==="Enter"){acChoose(acSel);e.preventDefault();}
+    else if(e.key==="Escape"){ul.hidden=true;}
+  });
+  ul.addEventListener("mousedown",e=>{const li=e.target.closest("li[data-i]"); if(li){e.preventDefault(); acChoose(+li.dataset.i);}});
+  inp.addEventListener("blur",()=>setTimeout(()=>{ul.hidden=true;inp.setAttribute("aria-expanded","false");},120));
+}
+let selCom=null;
+const pct=v=>v.toLocaleString("it-IT",{maximumFractionDigits:3})+"%";
+function descBr(br){const rs=[...new Set(br.map(b=>b[1]))];return rs.length===1?pct(rs[0]):`${pct(Math.min(...rs))}–${pct(Math.max(...rs))} a scaglioni`;}
+function pickComune(){
+  const v=$("comune").value.trim().toLowerCase();
+  let c=COMIDX.get(v);
+  if(!c && v){ const m=[...COMIDX.entries()].filter(([k])=>k.startsWith(v+" (")); if(m.length===1) c=m[0][1]; }
+  selCom=c?parseCom(c):null;
+  tramFromComune();
+  if(selCom){
+    const reg=ADD.p2r[selCom.pr], R=ADD.reg[reg];
+    selCom.reg=reg;
+    let t=`Regione ${reg}: ${descBr(R.b)}. Comune: `;
+    if(!selCom.anno) t+="nessuna addizionale istituita.";
+    else{ t+=descBr(selCom.br); if(selCom.es) t+=`, esenti i redditi fino a ${eur(selCom.es)}`; t+=` (delibera ${selCom.anno}${selCom.anno<2026?", confermata per il 2026":""}).`; if(selCom.spec) t+=" Caso particolare: verifica la delibera."; }
+    $("com-info").textContent=t;
+    setManual(false);
+    try{localStorage.setItem("ln-comune",$("comune").value);}catch(e){}
+  } else {
+    $("com-info").textContent=v?"Scegli il comune dall'elenco. Intanto uso i valori medi.":"Aliquote ufficiali del Dipartimento delle Finanze (MEF). Senza comune uso valori medi.";
+    setManual(true);
+  }
+}
+function setManual(on){
+  for(const id of ["addreg","addcom"]){
+    const el=$(id);
+    if(on && el.disabled){ el.disabled=false; el.value=el.dataset.man||el.value; $(id+"-hint").textContent="Valore medio, modificabile"; }
+    if(!on && !el.disabled){ el.dataset.man=el.value; el.disabled=true; }
+  }
+}
+function opts(){
+  const sl=numv("sanLav")||0, sd=numv("sanDat")||0, slp=$("sanLavU").value==="p", sdp=$("sanDatU").value==="p";
+  const tramOn=tramEligible(), tramCity=$("tram").value;
+  const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
+
+  const o={fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*12,indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
+    coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+  if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
+  return o;
+}
+function row(label,val,cls=""){return `<tr class="${cls}"><td>${label}</td><td>${val}</td></tr>`;}
+let last=null;
+function render(){
+  const o=opts(), mens=+$("mens").value;
+  let ral;
+  if(mode==="ln"){
+    const mensN=+$("mens").value||12;
+    if(!ralTouched){const r=ralDaCcnl(); if(r!==null)setv("ral",unit==="m"?Math.round(r/mensN*100)/100:r);}
+    ral=(numv("ral")||0)*(unit==="m"?mensN:1);
+    if(unit==="m") $("ral-hint").textContent=`× ${mensN} mensilità = RAL ${eur(ral)} (superminimo e scatti inclusi)`;
+  } else {
+    ral=lordoDaNetto(numv("nettoTarget")||0,o,mens);
+  }
+  const x=calcola({...o,ral});
+  const b=bustaOrdinaria(x,o,mens); last={x,mens,b};
+  const nm=b.netM;
+  if(mode==="ln"){
+    $("out-lbl").textContent="Netto mensile"; $("out-main").innerHTML=eur(nm)+" <small>/mese</small>";
+    $("sub2-lbl").textContent=x.ind?"Lordo annuo (RAL + indennità)":"Lordo annuo (RAL)"; $("out-ral").textContent=eur(x.ral);
+  } else {
+    $("out-lbl").textContent="RAL necessaria"; $("out-main").innerHTML=eur(x.ralBase)+" <small>/anno</small>";
+    $("sub2-lbl").textContent="Lordo mensile"; $("out-ral").textContent=eur(x.ralBase/mens);
+  }
+  $("out-mens").textContent=mens+" mensilità";
+  $("out-na").textContent=eur(x.netto);
+  const tot=x.ral||1, add=x.addReg+x.addCom, netBar=Math.max(0,x.ral-x.inps-x.netta-add);
+  $("bar").innerHTML=`<i style="width:${netBar/tot*100}%;background:var(--net)"></i><i style="width:${x.inps/tot*100}%;background:var(--inps)"></i><i style="width:${x.netta/tot*100}%;background:var(--tax)"></i><i style="width:${add/tot*100}%;background:var(--add)"></i>`;
+  const M=detMode==="m";
+  const cassa=o.addMode==="cassa";
+  const rifR=cassa&&o.r25>0?o.r25:x.r;
+  if(selCom){
+    const eff=v=>rifR>0?Math.round(v/rifR*10000)/100:0;
+    setv("addreg",eff(x.addReg)); setv("addcom",eff(x.addCom));
+    $("addreg-hint").textContent=`Media effettiva – ${selCom.reg}`;
+    $("addcom-hint").textContent=`Media effettiva – ${selCom.nome}`;
+  }
+  const regLbl=selCom?selCom.reg:`${pct(o.addreg)}, media`, comLbl=selCom?selCom.nome:`${pct(o.addcom)}, media`;
+  let h="";
+  if(M){
+    // Busta di un mese ordinario (senza 13ª/14ª), calcolata come il cedolino:
+    // IRPEF sugli scaglioni mensilizzati (annui / 12) e detrazioni in dodicesimi; conguaglio a dicembre
+    const {sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM}=b;
+    h+=row("Retribuzione mensile lorda (RML)",eur(rmlBase,2));
+    if(indM) h+=row(`Indennità${o.indTfr===false?" (non utili al TFR)":""}`,"+ "+eur(indM,2),"plus");
+    if(x.tram) h+=row(`Concorso spese tranviarie (${o.tramCity})`,"+ "+eur(x.tram/12,2),"plus");
+    if(x.rimb&&x.rimbTax) h+=row("Rimborsi spese / trasferte (tassati)","+ "+eur(b.rimbM,2),"plus");
+    if(x.rimb&&!x.rimbTax) h+=row("Rimborsi spese / trasferte (esenti)","+ "+eur(b.rimbM,2),"plus");
+    if(b.fringeM){ h+=row("Fringe benefit oltre soglia (valore figurativo)",eur(b.fringeM,2),"sm");
+      h+=row("Fringe benefit – recupero valore figurativo","− "+eur(b.fringeM,2),"minus"); }
+    if(b.trattM) h+=row("Altre trattenute (sindacali, prestiti…)","− "+eur(b.trattM,2),"minus");
+    h+=row(`Contributi INPS (${pct(o.inps*100)})`,"− "+eur(inpsM,2),"minus");
+    if(ivsM) h+=row(`IVS aggiuntivo 1% (oltre ${eur(sogliaM)} al mese)`,"− "+eur(ivsM,2),"minus");
+    if(fscM) h+=row("Fondo di solidarietà credito (0,067%)","− "+eur(fscM,2),"minus");
+    if(b.fisM) h+=row(`Fondo integrazione salariale FIS (${pct(o.fis*100)})`,"− "+eur(b.fisM,2),"minus");
+    if(b.ebtM) h+=row(`Ente bilaterale (${pct(o.ebt*100)})`,"− "+eur(b.ebtM,2),"minus");
+    if(fpLavM) h+=row("Fondo pensione – tuo contributo","− "+eur(fpLavM,2),"minus");
+    if(sanLavM) h+=row("Assistenza sanitaria – tua trattenuta","− "+eur(sanLavM,2),"minus");
+    h+=row("Imponibile IRPEF del mese",eur(impM,2));
+    h+=row("IRPEF lorda (scaglioni mensili)",eur(lordaM,2),"sm");
+    if(detrM) h+=row("Detrazioni del mese",eur(detrM,2),"sm");
+    h+=row("IRPEF netta","− "+eur(nettaM,2),"minus");
+    if(b.sostM) h+=row(`Imposta sostitutiva 5% su aumenti da rinnovo (${eur(b.rinnM,2)})`,"− "+eur(b.sostM,2),"minus");
+    h+=row(`Addizionale regionale AP 2025 (${regLbl}) – 1 di 11 rate`,"− "+eur(aR,2),"minus");
+    h+=row(`Addizionale comunale AP 2025 (${comLbl}) – 1 di 11 rate`,"− "+eur(aS,2),"minus");
+    h+=row(`Addizionale comunale AC 2026 – 1 di 9 rate`,"− "+eur(aA,2),"minus");
+    if(x.bonus)h+=row("Bonus cuneo fiscale (esentasse)","+ "+eur(x.bonus/12,2),"plus");
+    if(x.ti)h+=row("Trattamento integrativo","+ "+eur(x.ti/12,2),"plus");
+    h+=row("Netto busta (mese ordinario)",eur(netM,2),"tot");
+  } else {
+  const E=(v,d)=>eur(v,d);
+  h+=row(M?"":"Retribuzione annua lorda (RAL)",E(x.ralBase,2));
+  if(x.ind) h+=row(`Indennità${o.indTfr===false?" (non utili al TFR)":""}`,"+ "+E(x.ind,2),"plus");
+  if(x.tram) h+=row(`Concorso spese tranviarie (${o.tramCity}, 12 mesi)`,"+ "+E(x.tram,2),"plus");
+  if(x.rimb&&x.rimbTax) h+=row("Rimborsi spese / trasferte (tassati)","+ "+E(x.rimb,2),"plus");
+  if(x.rimb&&!x.rimbTax) h+=row("Rimborsi spese / trasferte (esenti)","+ "+E(x.rimb,2),"plus");
+  if(x.fringeTax){ h+=row(`Fringe benefit oltre ${eur(x.fringeSoglia)} (valore figurativo)`,E(x.fringe,2),"sm");
+    h+=row("Fringe benefit – recupero valore figurativo","− "+E(x.fringe,2),"minus"); }
+  if(x.tratt) h+=row("Altre trattenute (sindacali, prestiti…)","− "+E(x.tratt,2),"minus");
+  h+=row(`Contributi INPS (${pct(o.inps*100)})`,"− "+E(x.inpsBase,2),"minus");
+  if(x.inpsAgg){
+    // mese ordinario: 1% sulla parte oltre la soglia mensilizzata (56.224/12 = 4.685 €); il resto si paga nel mese della 13ª/14ª
+    if(M){ const sogliaM=Math.round(P.sogliaInps1/12), ivsM=Math.max(0,x.ral/mens-sogliaM)*0.01;
+      h+=row(`IVS aggiuntivo 1% (oltre ${eur(sogliaM)} al mese)`,"− "+eur(ivsM,2),"minus"); }
+    else h+=row("IVS aggiuntivo 1% (oltre 56.224 € l'anno)","− "+eur(x.inpsAgg,2),"minus");
+  }
+  if(x.fsc) h+=row("Fondo di solidarietà credito (0,067%)","− "+E(x.fsc,2),"minus");
+  if(x.fis) h+=row(`Fondo integrazione salariale FIS (${pct(o.fis*100)})`,"− "+E(x.fis,2),"minus");
+  if(x.ebt) h+=row(`Ente bilaterale (${pct(o.ebt*100)})`,"− "+E(x.ebt,2),"minus");
+  if(x.fpLav) h+=row("Fondo pensione – tuo contributo","− "+E(x.fpLav,2),"minus");
+  if(x.fpLav||x.fpDat) h+=row(`Deduzione fiscale previdenza complementare${x.fpLav+x.fpDat>P.fpMax?" (oltre il limite)":""}`,E(x.fpDed,2),"sm");
+  if(x.sanLav) h+=row("Assistenza sanitaria – tua trattenuta","− "+E(x.sanLav,2),"minus");
+  if(x.sanLav||x.sanDat) h+=row(`Quota sanitaria non tassata${x.sanLav+x.sanDat>P.sanMax?" (oltre il limite)":""}`,E(x.sanDed,2),"sm");
+  h+=row("Imponibile IRPEF",E(x.redLav,2));
+  h+=row("IRPEF lorda",E(x.lorda*(x.r?x.redLav/x.r:1),2),"sm");
+  h+=row("Detrazioni lavoro dipendente",E(x.dLav,2),"sm");
+  if(x.dCun)h+=row("Detrazione aggiuntiva cuneo fiscale",E(x.dCun,2),"sm");
+  if(x.dCon)h+=row("Detrazione coniuge a carico",E(x.dCon,2),"sm");
+  if(x.dFig)h+=row("Detrazione figli a carico",E(x.dFig,2),"sm");
+  h+=row("IRPEF netta","− "+E(x.netta,2),"minus");
+  if(x.sost) h+=row(`Imposta sostitutiva 5% su aumenti da rinnovo (${E(x.rinn,2)})`,"− "+E(x.sost,2),"minus");
+  if(cassa){
+    // vista mensile: rata come in busta (AP in 11 rate gen-nov, acconto AC in 9 rate mar-nov)
+    const R=(v,n)=>M?eur(v/n,2):eur(v,2);
+    h+=row(`Addizionale regionale AP 2025 (${regLbl})${M?" – 1 di 11 rate":""}`,"− "+R(x.addReg,11),"minus");
+    h+=row(`Addizionale comunale AP 2025 – saldo (${comLbl})${M?" – 1 di 11 rate":""}`,"− "+R(x.comSaldo,11),"minus");
+    h+=row(`Addizionale comunale AC 2026 – acconto 30%${M?" – 1 di 9 rate":""}`,"− "+R(x.comAcc,9),"minus");
+  } else {
+    h+=row(`Addizionale regionale (${regLbl})`,"− "+E(x.addReg,2),"minus");
+    h+=row(`Addizionale comunale (${comLbl})`,"− "+E(x.addCom,2),"minus");
+  }
+  if(x.bonus)h+=row("Bonus cuneo fiscale (esentasse)","+ "+E(x.bonus,2),"plus");
+  if(x.ti)h+=row("Trattamento integrativo","+ "+E(x.ti,2),"plus");
+  h+=row(M?"Netto mensile":"Netto annuo",E(x.netto,2),"tot");
+  }
+  const fpTot=x.fpLav+x.fpDat+x.fpTfr;
+  if(fpTot>0){
+    const parts=[x.fpLav&&`tu ${eur(x.fpLav)}`,x.fpDat&&`datore ${eur(x.fpDat)}`,x.fpTfr&&`TFR ${eur(x.fpTfr)}`].filter(Boolean).join(", ");
+    h+=`<tr><td colspan="2" style="padding-top:12px;border:0"><div class="fpbox">Versato al fondo pensione nell'anno: <strong>${eur(fpTot)}</strong><br><small>${parts}</small></div></td></tr>`;
+  }
+  $("det").innerHTML=h;
+  // contatore fringe benefit
+  const fm=$("fringe-meter"), fv=x.fringe, fs=x.fringeSoglia;
+  fm.hidden=!fv; fm.classList.toggle("over",x.fringeTax);
+  $("fm-fill").style.width=Math.min(100,fv/fs*100)+"%";
+  $("fm-txt").textContent=x.fringeTax?`Soglia di ${eur(fs)} superata: tassati tutti i ${eur(fv)} (non solo l'eccedenza)`:`Usati ${eur(fv)} su ${eur(fs)} – esenti, restano ${eur(fs-fv)}`;
+}
+function setMode(m){
+  mode=m;
+  $("tab-ln").setAttribute("aria-selected",m==="ln");
+  $("tab-nl").setAttribute("aria-selected",m==="nl");
+  $("box-ral").hidden=(m==="nl");
+  $("box-netto").hidden=(m!=="nl");
+  render();
+}
+function buildTables(){
+  let h="", first=true;
+  for(const [k,c] of Object.entries(CCNL)){ if(!c.livelli.length)continue;
+    h+=`<details class="ccnl-tbl"${first?" open":""}><summary><span>${c.nome}</span><small>${c.mens} mensilità</small></summary>
+      <p class="hint">${c.fonte}</p>
+      <div class="tblwrap"><table class="tbl tbl-ccnl"><colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
+      <thead><tr><th>Livello</th><th class="n">Minimo mensile</th><th class="n">RAL minima</th><th class="n">Netto busta*</th></tr></thead><tbody>`;
+    for(const [n,v] of c.livelli){const ral=v*c.mens;const oT={ral,inps:.0919,tipo:"ind",addreg:1.73,addcom:.8,coniuge:false,figli:0,addMode:"cassa"};const x=calcola(oT);const bT=bustaOrdinaria(x,oT,c.mens);
+      h+=`<tr><td>${n}</td><td class="n">${eur(v,2)}</td><td class="n">${eur(ral)}</td><td class="n">${eur(bT.netM)}</td></tr>`;}
+    h+=`</tbody></table></div></details>`; first=false;
+  }
+  h+=`<p class="hint">* Netto di una busta ordinaria: INPS 9,19%, addizionale regionale 1,73% e comunale 0,8%, senza familiari a carico né fondi integrativi.</p>`;
+  $("ccnl-tables").innerHTML=h;
+}
+
+fillCcnl(); fillLivelli(); buildTables(); loadAddiz();
+try{const s=localStorage.getItem("ln-comune"); if(s) $("comune").value=s;}catch(e){}
+pickComune(); acInit();
+const FIS_CCNL=["commercio","studi","turismo","pubblici","dirterz","logistica","altro"]; // settori coperti dal FIS (non dalla cassa integrazione o da fondi propri)
+function fisDefault(){ const k=$("ccnl").value, on=FIS_CCNL.includes(k);
+  $("row-fis").hidden=!on; $("fis").value=on&&k!=="altro"&&k!=="logistica"?"0.00267":"0"; }
+/* Preset del CCNL (fondi di categoria): applicati alla scelta del contratto, tolti cambiando contratto se non modificati */
+let presetApplied=null;
+const unitHint=(id,unit)=>unit==="p"?(id.startsWith("fp")?"% della retribuzione utile TFR":"% della retribuzione lorda"):(id.startsWith("fp")?"€ all'anno (es. Fondo Mario Negri)":"€ all'anno");
+function markPreset(id,on,label){
+  $(id+"-box").classList.toggle("preset",on);
+  $(id+"-h").textContent=on?`Da CCNL (${label}) – modificabile`:unitHint(id,$(id+"U").value);
+}
+function applyPreset(){
+  const pr=CCNL[$("ccnl").value].preset;
+  const set=(id,unit,v)=>{ $(id+"U").value=unit; $(id+"-box").classList.toggle("pct",unit==="p"); setv(id,v); markPreset(id,false); };
+  if(presetApplied){ // rimuovo il preset precedente se l'utente non l'ha cambiato
+    for(const [id,[u,v]] of Object.entries(presetApplied)) if($(id+"U").value===u && numv(id)===v) set(id,id.startsWith("fp")?"p":"e",0);
+    presetApplied=null;
+  }
+  if(pr){ presetApplied={};
+    const put=(id,unit,v,label)=>{ if(v==null) return; set(id,unit,v); markPreset(id,true,label); presetApplied[id]=[unit,v]; };
+    put("fpLav","p",pr.fpLav,pr.fondo); put("fpDat","p",pr.fpDat,pr.fondo);
+    put("sanLav","e",pr.sanLav,pr.sanita); put("sanDat","e",pr.sanDat,pr.sanita);
+  }
+}
+$("ccnl").addEventListener("change",()=>{fillLivelli(); syncTram(); fisDefault(); applyPreset(); render();});
+["fpLav","fpDat","sanLav","sanDat"].forEach(id=>{ $(id).addEventListener("input",()=>markPreset(id,false)); $(id+"U").addEventListener("change",()=>markPreset(id,false)); });
+applyPreset();
+$("fis").addEventListener("change",render);
+
+["rimb","tratt","fringe"].forEach(id=>$(id).addEventListener("input",e=>{liveFormat($(id),e);render();}));
+["rimbTax","fringeFigli"].forEach(id=>$(id).addEventListener("change",render));
+$("tram").innerHTML='<option value="">Altro comune (non spetta)</option>'+Object.keys(TRAM).sort().map(c=>`<option>${c}</option>`).join("");
+$("tram").addEventListener("change",()=>{$("tram").dataset.touched="1";render();});
+$("livello").addEventListener("change",syncTram);
+tramFromComune(); syncTram(); fisDefault();
+$("r25").addEventListener("input",e=>{liveFormat($("r25"),e);render();});
+
+["livello","mens","pt"].forEach(id=>$(id).addEventListener("input",()=>{ralTouched=false;render();}));
+$("ral").addEventListener("input",()=>{ralTouched=true;render();});
+function setUnit(u){
+  if(u===unit) return;
+  const m=+$("mens").value||12, v=numv("ral")||0;
+  setv("ral",u==="m"?Math.round(v/m*100)/100:Math.round(v*m*100)/100);
+  unit=u;
+  $("u-a").setAttribute("aria-checked",u==="a"); $("u-m").setAttribute("aria-checked",u==="m");
+  $("lbl-ral").textContent=u==="m"?"RML – retribuzione mensile lorda":"RAL – retribuzione annua lorda";
+  $("ral").step=u==="m"?"10":"100";
+  $("ral-hint").textContent=u==="m"?`Importo di una mensilità, moltiplicato per ${m} mensilità (superminimo e scatti inclusi)`:"Minimo del CCNL: sostituiscilo con la tua RAL (superminimo e scatti inclusi)";
+  render();
+}
+["ral","nettoTarget","ind","addreg","addcom","fpVol","sanLav","sanDat","fpLav","fpDat","pt"].forEach(id=>$(id).addEventListener("input",e=>liveFormat($(id),e),true));
+document.querySelectorAll('input[inputmode="decimal"]').forEach(el=>{ if(el.value) el.value=fmtIt(parseIt(el.value)); });
+for(const id of ["fpLav","fpDat"]){
+  $(id+"U").addEventListener("change",()=>{const p=$(id+"U").value==="p";
+    $(id+"-box").classList.toggle("pct",p); $(id+"-h").textContent=p?"% della retribuzione utile TFR":"€ all'anno (es. Fondo Mario Negri)"; setv(id,0); render();});
+}
+for(const id of ["sanLav","sanDat"]){
+  $(id+"U").addEventListener("change",()=>{const p=$(id+"U").value==="p";
+    $(id+"-box").classList.toggle("pct",p); $(id+"-h").textContent=p?"% della retribuzione lorda":"€ all'anno"; setv(id,0); render();});
+}
+function setDet(m){detMode=m;$("d-a").setAttribute("aria-checked",m==="a");$("d-m").setAttribute("aria-checked",m==="m");$("det-note").hidden=m!=="m";render();}
+$("d-a").addEventListener("click",()=>setDet("a"));
+$("d-m").addEventListener("click",()=>setDet("m"));
+$("u-a").addEventListener("click",()=>setUnit("a"));
+$("u-m").addEventListener("click",()=>setUnit("m"));
+["inps","tipo","addreg","addcom","coniuge","figli","nettoTarget","sanLav","sanDat","ind","indTfr","fpLav","fpDat","fpVol","fpTfr"].forEach(id=>$(id).addEventListener("input",render));
+$("f").addEventListener("submit",e=>e.preventDefault());
+$("tab-ln").addEventListener("click",()=>setMode("ln"));
+$("tab-nl").addEventListener("click",()=>setMode("nl"));
+$("copy").addEventListener("click",async()=>{
+  if(!last)return; const {x,mens,b}=last;
+  const t=`RAL ${eur(x.ral)} → netto busta ordinaria ${eur(b.netM)} (${mens} mensilità), netto annuo ${eur(x.netto)}. INPS ${eur(x.inps)}, IRPEF ${eur(x.netta)}, addizionali ${eur(x.addReg+x.addCom)}.`;
+  try{await navigator.clipboard.writeText(t);$("copy").textContent="Copiato";}catch(e){$("copy").textContent="Copia non disponibile";}
+  setTimeout(()=>$("copy").textContent="Copia riepilogo",1800);
+});
+render();
+</script>
+</body>
+</html>

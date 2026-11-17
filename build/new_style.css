@@ -1,0 +1,211 @@
+:root{
+  /* Layout: a sinistra i dati in tre sezioni numerate + dettagli facoltativi; a destra il netto in evidenza e il cedolino
+     a gruppi (lordo, contributi, imposte, altre voci) nello stesso ordine dei dettagli di sinistra. */
+  --bg:#f4f3ee; --card:#ffffff; --ink:#17211e; --muted:#5d6a65; --line:#e2dfd6; --soft:#f6f5f0;
+  --brand:#0f5c4d; --brand-2:#13806a; --brand-soft:#e4f0eb;
+  --c-net:#13806a; --c-contr:#d9a23b; --c-tax:#c4553a; --c-altro:#8a938f; --warn:#b4472e;
+  --font:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --radius:14px; --shadow:0 1px 2px rgba(20,30,25,.06),0 6px 24px rgba(20,30,25,.06);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;font-size:16px}
+a{color:var(--brand-2)}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--brand-2);outline-offset:2px}
+
+/* Testata */
+header.top{background:var(--brand);color:#fff}
+header.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.01em;color:#fff;text-decoration:none}
+.logo span.mark{width:30px;height:30px;border-radius:8px;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:800}
+header.top nav{margin-left:auto;display:flex;gap:18px;font-size:14px}
+header.top nav a{color:#d6ece5;text-decoration:none}
+header.top nav a:hover{color:#fff}
+.hero{padding:30px 0 8px}
+.hero h1{font-size:clamp(25px,3.6vw,34px);line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;text-wrap:balance}
+.hero p{margin:0;color:var(--muted);max-width:68ch}
+.badge{display:inline-block;background:var(--brand-soft);color:var(--brand);font-weight:600;font-size:12.5px;padding:3px 10px;border-radius:99px;margin-bottom:10px}
+
+/* Griglia principale */
+.grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:22px;margin:20px 0 34px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.form{padding:20px 22px 8px}
+
+/* Selettori a segmenti (modalità, unità, periodo) */
+.tabs,.seg{display:inline-flex;background:#ecebe4;border-radius:10px;padding:3px}
+.tabs{display:flex;margin-bottom:6px}
+.tabs button,.seg button{border:0;background:transparent;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;border-radius:8px}
+.tabs button{flex:1;font-size:14.5px;padding:9px 6px}
+.seg button{font-size:13px;padding:5px 12px}
+.tabs button[aria-selected="true"],.seg button[aria-checked="true"]{background:#fff;color:var(--brand);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+/* Sezioni numerate dell'input */
+.sec{padding:18px 0 20px;border-top:1px solid var(--line)}
+.sec.first{border-top:0}
+.sec-h{display:flex;align-items:center;gap:10px;margin:0 0 14px;min-height:30px}
+.sec-h .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+.sec-h h3{font-size:16.5px;margin:0;font-weight:700;letter-spacing:-.005em}
+.sec-h .seg{margin-left:auto}
+
+/* Campi */
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+.fields .full{grid-column:1/-1}
+.f{min-width:0}
+.f label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+input,select{width:100%;font:inherit;font-size:15.5px;padding:10px 12px;border:1px solid #d3cfc5;border-radius:9px;background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+select{padding-right:28px;text-overflow:ellipsis}
+input:focus,select:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(19,128,106,.15)}
+input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fill-color:var(--ink)}
+.ctl{position:relative}
+.ctl[data-u]::after{content:attr(data-u);position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none}
+.ctl[data-u] input{padding-right:66px}
+.ctl[data-u="%"] input{padding-right:34px}
+.ctl.big input{font-size:22px;font-weight:700;letter-spacing:-.01em;padding-top:12px;padding-bottom:12px;border-color:#bdb8ac}
+.ctl.big[data-u]::after{font-size:14px}
+.ctl-u{display:flex;gap:8px}
+.ctl-u .ctl{flex:1;min-width:0}
+.ctl-u select{flex:0 0 96px;width:96px}
+.preset input{color:#8a948f;font-style:italic;background:var(--soft)}
+.preset input:focus{color:var(--ink);font-style:normal;background:#fff}
+.hint{font-size:12.5px;color:var(--muted);margin:5px 0 0;line-height:1.4}
+.fields > .hint{grid-column:1/-1;margin:-4px 0 0}
+.ccnl-info{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5}
+.ccnl-info b{font-weight:600;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:var(--brand-soft);color:var(--brand);font-weight:600;font-size:12px;padding:3px 9px;border-radius:99px;white-space:nowrap}
+
+/* Autocompletamento comune */
+.ac{position:relative}
+.ac-list{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 4px);margin:0;padding:4px;list-style:none;background:#fff;border:1px solid #d3cfc5;border-radius:10px;box-shadow:0 8px 24px rgba(20,30,25,.12)}
+.ac-list li{padding:8px 10px;border-radius:7px;cursor:pointer;font-size:15px;display:flex;justify-content:space-between;gap:10px}
+.ac-list li small{color:var(--muted)}
+.ac-list li[aria-selected="true"],.ac-list li:hover{background:var(--brand-soft);color:var(--brand)}
+.ac-list li.empty{color:var(--muted);cursor:default;background:none}
+
+/* Dettagli facoltativi: fisarmoniche raggruppate come il cedolino */
+.opt{border-top:1px solid var(--line);padding:18px 0 6px}
+.opt-h{margin:0 0 4px;font-size:16.5px;font-weight:700}
+.opt-sub{margin:0 0 10px;font-size:13px;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:3px;background:var(--c-altro)}
+.dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:#c9c5b9}
+.acc{border-bottom:1px solid var(--line)}
+.acc:last-child{border-bottom:0}
+.acc summary{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer;list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::before{content:"";flex:none;width:7px;height:7px;border-right:2px solid var(--brand-2);border-bottom:2px solid var(--brand-2);transform:rotate(-45deg);transition:transform .15s;margin:0 3px}
+.acc[open] summary::before{transform:rotate(45deg)}
+.acc .t{font-weight:600;font-size:15px;white-space:nowrap}
+.acc .v{margin-left:auto;min-width:0;font-size:13px;color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acc .v.on{color:var(--brand);font-weight:600}
+.acc[open] .v{visibility:hidden}
+.acc .fields{padding:4px 0 18px}
+.fringe-meter{grid-column:1/-1}
+.fm-bar{height:8px;border-radius:99px;background:#ece9e2;overflow:hidden}
+.fm-bar i{display:block;height:100%;background:var(--brand-2);border-radius:99px;transition:width .2s}
+.fringe-meter.over .fm-bar i{background:var(--warn)}
+.fm-txt{font-size:12.5px;color:var(--muted);margin-top:5px}
+.fringe-meter.over .fm-txt{color:var(--warn);font-weight:600}
+
+/* Risultato */
+.res{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;overscroll-behavior:contain}
+.res-hero{position:sticky;top:0;z-index:2;background:var(--brand);color:#fff;padding:20px 22px 18px}
+.res-hero .lbl{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#bfe0d6}
+.res-hero .val{font-size:clamp(40px,5.2vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:4px 0 6px;font-variant-numeric:tabular-nums}
+.res-hero .val small{font-size:17px;font-weight:600;letter-spacing:0;color:#bfe0d6}
+.res-hero .cap{font-size:13.5px;color:#d6ece5}
+.kpis{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.kpis > div{padding:13px 22px}
+.kpis > div + div{border-left:1px solid var(--line)}
+.kpis span{display:block;font-size:12.5px;color:var(--muted)}
+.kpis strong{font-size:19px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.res-body{padding:18px 22px 20px}
+.split-h{font-size:13px;color:var(--muted);margin:0 0 7px}
+.bar{display:flex;height:12px;border-radius:99px;overflow:hidden;background:#ece9e2}
+.bar i{display:block;height:100%}
+.bar i + i{box-shadow:-2px 0 0 #fff}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;list-style:none;margin:9px 0 0;padding:0;font-size:13px;color:var(--muted)}
+.legend li{display:flex;align-items:center;gap:6px}
+.legend b{color:var(--ink);font-variant-numeric:tabular-nums}
+.det-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 8px}
+.det-head h3{margin:0;font-size:16.5px}
+
+/* Cedolino a gruppi */
+table.ced{width:100%;border-collapse:collapse;font-size:14px}
+.ced td,.ced th{padding:6px 0;text-align:left;font-weight:400;vertical-align:baseline}
+.ced td:last-child{text-align:right;white-space:nowrap;padding-left:12px;font-variant-numeric:tabular-nums}
+.ced tbody tr:not(.gh) td:first-child{padding-left:19px;color:#3a4642}
+.ced tr.gh th,.ced tr.gh td{border-top:1px solid var(--line);padding-top:11px;padding-bottom:5px;font-weight:700;font-size:15px}
+.ced tbody:first-child tr.gh th,.ced tbody:first-child tr.gh td{border-top:0;padding-top:4px}
+.ced tr.gh button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;font-weight:700}
+.ced tr.gh button:focus-visible{outline:2px solid var(--brand-2);outline-offset:3px;border-radius:4px}
+.ced tr.gh button::after{content:"";width:6px;height:6px;border-right:2px solid #a9b1ad;border-bottom:2px solid #a9b1ad;transform:rotate(45deg);margin-left:2px;transition:transform .15s}
+.ced tbody.closed tr.gh button::after{transform:rotate(-45deg)}
+.ced tbody.closed tr:not(.gh){display:none}
+.ced tbody tr:last-child td{padding-bottom:10px}
+.ced tr.info td{font-size:13px;color:var(--muted)!important;padding-top:3px;padding-bottom:3px}
+.ced tr.info td:first-child{padding-left:32px!important}
+.ced tr.warn td{font-size:13px;color:var(--warn)!important}
+.ced tfoot th,.ced tfoot td{background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:17px;padding:12px 14px}
+.ced tfoot th{border-radius:10px 0 0 10px}
+.ced tfoot td{border-radius:0 10px 10px 0}
+.fuori{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:13.5px;color:#3a4642}
+.fuori b{font-variant-numeric:tabular-nums}
+.fuori small{display:block;color:var(--muted);margin-top:2px}
+.note{font-size:12.5px;color:var(--muted);margin:12px 0 0;line-height:1.45}
+.actions{display:flex;gap:8px;margin-top:14px}
+.btn{font:inherit;font-weight:600;font-size:14px;border:1px solid #d3cfc5;background:#fff;padding:8px 14px;border-radius:9px;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--brand-2);color:var(--brand)}
+
+/* Barra del netto su schermi stretti */
+.mbar{display:none}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .res{position:static;max-height:none;overflow:visible}
+  .res-hero{position:static;border-radius:var(--radius) var(--radius) 0 0}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px));background:var(--brand);color:#fff;text-decoration:none;box-shadow:0 -4px 16px rgba(0,0,0,.18)}
+  .mbar span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#bfe0d6}
+  .mbar strong{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
+  .mbar em{margin-left:auto;font-style:normal;font-size:13px;font-weight:600;color:#d6ece5}
+  .mbar.off{display:none}
+  body{padding-bottom:64px}
+}
+@media (max-width:480px){
+  .fields{grid-template-columns:1fr}
+  .form{padding:16px 16px 4px}
+  .res-hero,.res-body{padding-left:16px;padding-right:16px}
+  .kpis > div{padding:12px 16px}
+  .acc .v{max-width:46%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Spazio pubblicitario e contenuti */
+.ad{margin:0 0 34px;border:1px dashed #cfcabe;border-radius:12px;min-height:110px;display:grid;place-items:center;color:#a49f93;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:#faf9f6}
+article.content{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px clamp(20px,4vw,40px);margin-bottom:34px}
+article.content h2{font-size:23px;margin:30px 0 10px;letter-spacing:-.01em;text-wrap:balance}
+article.content h2:first-child{margin-top:0}
+article.content h3{font-size:17px;margin:22px 0 6px}
+article.content p,article.content li{color:#2f3a36;max-width:72ch}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:14.5px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+.tbl th{background:var(--soft);font-weight:700}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tbl-ccnl{table-layout:fixed}
+details.ccnl-tbl{border-bottom:1px solid var(--line);padding:4px 0}
+details.ccnl-tbl summary{cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;font-weight:700;font-size:16px;list-style:none}
+details.ccnl-tbl summary::-webkit-details-marker{display:none}
+details.ccnl-tbl summary span::before{content:"▸ ";color:var(--brand-2)}
+details.ccnl-tbl[open] summary span::before{content:"▾ "}
+details.ccnl-tbl summary small{font-weight:500;color:var(--muted);font-size:13px;white-space:nowrap}
+details.ccnl-tbl .hint{margin:0 0 6px}
+.tblwrap{overflow-x:auto}
+.faq details{border-bottom:1px solid var(--line);padding:12px 0}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{margin:8px 0 0}
+footer{color:var(--muted);font-size:13px;padding:10px 0 40px}
+footer .wrap{border-top:1px solid var(--line);padding-top:18px}

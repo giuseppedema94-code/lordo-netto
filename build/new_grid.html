@@ -1,0 +1,274 @@
+  <div class="grid">
+    <!-- INPUT -->
+    <section class="card form" aria-labelledby="h-dati">
+      <h2 id="h-dati" class="sr">Dati per il calcolo</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-ln" aria-selected="true">Da lordo a netto</button>
+        <button role="tab" id="tab-nl" aria-selected="false">Da netto a lordo</button>
+      </div>
+
+      <form id="f" autocomplete="off">
+        <!-- 1. Contratto -->
+        <section class="sec first" aria-labelledby="h-s1">
+          <div class="sec-h"><span class="n" aria-hidden="true">1</span><h3 id="h-s1">Contratto</h3></div>
+          <div class="fields">
+            <div class="f full">
+              <label for="ccnl">CCNL applicato</label>
+              <select id="ccnl"></select>
+            </div>
+            <div class="f">
+              <label for="livello">Livello</label>
+              <select id="livello"></select>
+            </div>
+            <div class="f">
+              <label for="mens">Mensilità</label>
+              <select id="mens">
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="tipo">Tipo di contratto</label>
+              <select id="tipo">
+                <option value="ind">Tempo indeterminato</option>
+                <option value="det">Tempo determinato</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="pt">Part-time</label>
+              <div class="ctl" data-u="%"><input inputmode="decimal" id="pt" type="text" value="100"></div>
+            </div>
+            <div class="f full" id="row-tram" hidden>
+              <label for="tram">Sede di lavoro</label>
+              <select id="tram"></select>
+              <p class="hint" id="tram-h">Per il concorso spese tranviarie del CCNL ABI: 12 mensilità, solo nei comuni sopra 200.000 abitanti. Ridotto del 20% nel contratto complementare.</p>
+            </div>
+          </div>
+          <div class="ccnl-info" id="ccnl-info"></div>
+        </section>
+
+        <!-- 2. Retribuzione -->
+        <section class="sec" aria-labelledby="h-s2">
+          <div class="sec-h"><span class="n" aria-hidden="true">2</span><h3 id="h-s2">Retribuzione</h3>
+            <div class="seg" id="seg-unit" role="radiogroup" aria-label="Tipo di importo">
+              <button type="button" role="radio" id="u-a" aria-checked="true">RAL – annua</button>
+              <button type="button" role="radio" id="u-m" aria-checked="false">RML – mensile</button>
+            </div>
+          </div>
+          <div class="fields">
+            <div class="f full" id="box-ral">
+              <label for="ral" id="lbl-ral">Retribuzione annua lorda (RAL)</label>
+              <div class="ctl big" id="ral-ctl" data-u="€/anno"><input id="ral" type="text" inputmode="decimal" value="30000"></div>
+              <p class="hint" id="ral-hint">Parte dal minimo del CCNL: sostituiscilo con il tuo importo, superminimo e scatti inclusi.</p>
+            </div>
+            <div class="f full" id="box-netto" hidden>
+              <label for="nettoTarget">Netto in busta desiderato</label>
+              <div class="ctl big" data-u="€/mese"><input id="nettoTarget" type="text" inputmode="decimal" value="1800"></div>
+              <p class="hint">Netto di una busta ordinaria, senza tredicesima.</p>
+            </div>
+            <div class="f">
+              <label for="ind">Indennità fisse</label>
+              <div class="ctl" data-u="€/mese"><input id="ind" type="text" inputmode="decimal" value="0"></div>
+              <p class="hint">Pagate 12 mesi, fuori dalla RAL</p>
+            </div>
+            <div class="f">
+              <label for="indTfr">Indennità utili al TFR</label>
+              <select id="indTfr"><option value="1">Sì</option><option value="0">No</option></select>
+              <p class="hint">Contano per TFR e fondo pensione</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Residenza -->
+        <section class="sec" aria-labelledby="h-s3">
+          <div class="sec-h"><span class="n" aria-hidden="true">3</span><h3 id="h-s3">Residenza</h3></div>
+          <div class="fields">
+            <div class="f full">
+              <label for="comune">Comune di residenza</label>
+              <div class="ac">
+                <input id="comune" placeholder="Scrivi il comune, es. Milano" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="ac-list">
+                <ul id="ac-list" class="ac-list" role="listbox" hidden></ul>
+              </div>
+              <p class="hint" id="com-info">Serve per le addizionali regionale e comunale. Senza comune uso valori medi.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dettagli facoltativi, nello stesso ordine del cedolino -->
+        <div class="opt">
+          <p class="opt-h">Dettagli facoltativi</p>
+          <p class="opt-sub">Nello stesso ordine del cedolino a destra. I valori previsti dal CCNL sono già compilati.</p>
+
+          <p class="eyebrow"><i class="dot contr"></i>Contributi e fondi</p>
+          <details class="acc">
+            <summary><span class="t">Contributi INPS</span><span class="v" id="s-contr"></span></summary>
+            <div class="fields">
+              <div class="f full">
+                <label for="inps">Aliquota a carico del dipendente</label>
+                <select id="inps">
+                  <option value="0.0919">9,19% – generale</option>
+                  <option value="0.0949">9,49% – industria oltre 15 dipendenti (CIGS)</option>
+                  <option value="0.0584">5,84% – apprendista</option>
+                </select>
+              </div>
+              <div class="f full" id="row-fis">
+                <label for="fis">Fondo integrazione salariale (FIS)</label>
+                <select id="fis">
+                  <option value="0">Non dovuto</option>
+                  <option value="0.00167">0,167% – fino a 5 dipendenti</option>
+                  <option value="0.00267">0,267% – oltre 5 dipendenti</option>
+                </select>
+                <p class="hint">Quota a tuo carico, per le aziende senza cassa integrazione.</p>
+              </div>
+              <p class="hint" id="contr-auto" hidden></p>
+            </div>
+          </details>
+          <details class="acc">
+            <summary><span class="t">Fondo pensione</span><span class="v" id="s-fp"></span></summary>
+            <div class="fields">
+              <div class="f">
+                <label for="fpLav">Tuo contributo</label>
+                <div class="ctl-u"><div class="ctl" id="fpLav-box"><input inputmode="decimal" id="fpLav" type="text" value="0"></div>
+                  <select id="fpLavU" aria-label="Unità del tuo contributo"><option value="p">%</option><option value="e">€/anno</option></select></div>
+                <p class="hint" id="fpLav-h">% della retribuzione utile TFR</p>
+              </div>
+              <div class="f">
+                <label for="fpDat">Contributo dell'azienda</label>
+                <div class="ctl-u"><div class="ctl" id="fpDat-box"><input inputmode="decimal" id="fpDat" type="text" value="0"></div>
+                  <select id="fpDatU" aria-label="Unità del contributo dell'azienda"><option value="p">%</option><option value="e">€/anno</option></select></div>
+                <p class="hint" id="fpDat-h">% della retribuzione utile TFR</p>
+              </div>
+              <div class="f">
+                <label for="fpVol">Versamenti volontari</label>
+                <div class="ctl" data-u="€/anno"><input inputmode="decimal" id="fpVol" type="text" value="0"></div>
+              </div>
+              <div class="f">
+                <label for="fpTfr">TFR al fondo</label>
+                <select id="fpTfr"><option value="1" selected>Sì</option><option value="0">No, resta in azienda</option></select>
+              </div>
+              <p class="hint">Deducibili fino a 5.164,57 € l'anno tra te e l'azienda. Il TFR non cambia il netto.</p>
+            </div>
+          </details>
+          <details class="acc">
+            <summary><span class="t">Assistenza sanitaria</span><span class="v" id="s-san"></span></summary>
+            <div class="fields">
+              <div class="f">
+                <label for="sanLav">Tua trattenuta</label>
+                <div class="ctl-u"><div class="ctl" id="sanLav-box"><input inputmode="decimal" id="sanLav" type="text" value="0"></div>
+                  <select id="sanLavU" aria-label="Unità della tua trattenuta"><option value="e">€/anno</option><option value="p">%</option></select></div>
+                <p class="hint" id="sanLav-h">Importo fisso annuo</p>
+              </div>
+              <div class="f">
+                <label for="sanDat">Contributo dell'azienda</label>
+                <div class="ctl-u"><div class="ctl" id="sanDat-box"><input inputmode="decimal" id="sanDat" type="text" value="0"></div>
+                  <select id="sanDatU" aria-label="Unità del contributo dell'azienda"><option value="e">€/anno</option><option value="p">%</option></select></div>
+                <p class="hint" id="sanDat-h">Importo fisso annuo</p>
+              </div>
+              <p class="hint">Non tassati fino a 3.615,20 € l'anno tra te e l'azienda, se il fondo è iscritto all'Anagrafe dei fondi sanitari.</p>
+            </div>
+          </details>
+
+          <p class="eyebrow"><i class="dot tax"></i>Imposte</p>
+          <details class="acc">
+            <summary><span class="t">Familiari a carico</span><span class="v" id="s-fam"></span></summary>
+            <div class="fields">
+              <div class="f">
+                <label for="coniuge">Coniuge a carico</label>
+                <select id="coniuge"><option value="0">No</option><option value="1">Sì</option></select>
+              </div>
+              <div class="f">
+                <label for="figli">Figli a carico tra 21 e 30 anni</label>
+                <input inputmode="numeric" id="figli" type="text" value="0">
+              </div>
+              <p class="hint">Sotto i 21 anni non c'è detrazione in busta: c'è l'Assegno Unico, pagato dall'INPS.</p>
+            </div>
+          </details>
+          <details class="acc">
+            <summary><span class="t">Addizionali IRPEF</span><span class="v" id="s-add"></span></summary>
+            <div class="fields" id="row-man">
+              <div class="f">
+                <label for="addreg">Addizionale regionale</label>
+                <div class="ctl" data-u="%"><input inputmode="decimal" id="addreg" type="text" value="1,73"></div>
+                <p class="hint" id="addreg-hint">Valore medio, modificabile</p>
+              </div>
+              <div class="f">
+                <label for="addcom">Addizionale comunale</label>
+                <div class="ctl" data-u="%"><input inputmode="decimal" id="addcom" type="text" value="0,8"></div>
+                <p class="hint" id="addcom-hint">Valore medio, modificabile</p>
+              </div>
+              <div class="f full">
+                <label for="r25">Imponibile IRPEF 2025, se diverso da quest'anno</label>
+                <div class="ctl" data-u="€/anno"><input inputmode="decimal" id="r25" type="text" value="" placeholder="Uguale al 2026"></div>
+                <p class="hint">Dalla CU 2026. Nel 2026 si trattengono le addizionali calcolate sul reddito 2025.</p>
+              </div>
+            </div>
+          </details>
+
+          <p class="eyebrow"><i class="dot"></i>Altre voci in busta</p>
+          <details class="acc">
+            <summary><span class="t">Rimborsi, trattenute e benefit</span><span class="v" id="s-altro"></span></summary>
+            <div class="fields">
+              <div class="f">
+                <label for="rimb">Rimborsi spese e trasferte</label>
+                <div class="ctl" data-u="€/mese"><input inputmode="decimal" id="rimb" type="text" value="0"></div>
+              </div>
+              <div class="f">
+                <label for="rimbTax">Tassazione dei rimborsi</label>
+                <select id="rimbTax"><option value="0">Esenti</option><option value="1">Tassati (INPS e IRPEF)</option></select>
+              </div>
+              <div class="f full">
+                <label for="tratt">Altre trattenute</label>
+                <div class="ctl" data-u="€/mese"><input inputmode="decimal" id="tratt" type="text" value="0"></div>
+                <p class="hint">Quota sindacale, rata di un prestito, cessione del quinto.</p>
+              </div>
+              <div class="f">
+                <label for="fringe">Fringe benefit</label>
+                <div class="ctl" data-u="€/anno"><input inputmode="decimal" id="fringe" type="text" value="0"></div>
+              </div>
+              <div class="f">
+                <label for="fringeFigli">Soglia di esenzione</label>
+                <select id="fringeFigli"><option value="0">1.000 € – senza figli a carico</option><option value="1">2.000 € – con figli a carico</option></select>
+              </div>
+              <div class="fringe-meter" id="fringe-meter" hidden><div class="fm-bar"><i id="fm-fill"></i></div><div class="fm-txt" id="fm-txt"></div></div>
+            </div>
+          </details>
+        </div>
+      </form>
+    </section>
+
+    <!-- RISULTATO -->
+    <section class="card res" id="risultato" aria-labelledby="h-ris">
+      <h2 id="h-ris" class="sr">Risultato</h2>
+      <div class="res-hero" id="res-hero" aria-live="polite">
+        <div class="lbl" id="out-lbl">Netto in busta</div>
+        <div class="val" id="out-main">–</div>
+        <div class="cap" id="out-mens"></div>
+      </div>
+      <div class="kpis">
+        <div><span id="sub1-lbl">Netto annuo</span><strong id="out-na">–</strong></div>
+        <div><span id="sub2-lbl">Lordo annuo</span><strong id="out-ral">–</strong></div>
+      </div>
+      <div class="res-body">
+        <p class="split-h">Dove va il lordo di un anno</p>
+        <div class="bar" id="bar" aria-hidden="true"></div>
+        <ul class="legend" id="legend"></ul>
+
+        <div class="det-head"><h3>Cedolino</h3>
+          <div class="seg" role="radiogroup" aria-label="Periodo del cedolino">
+            <button type="button" role="radio" id="d-m" aria-checked="true">Busta mensile</button>
+            <button type="button" role="radio" id="d-a" aria-checked="false">Totale annuo</button>
+          </div>
+        </div>
+        <table class="ced" id="det"></table>
+        <p class="note" id="det-note"></p>
+        <div class="fuori" id="fuori" hidden></div>
+        <div class="actions">
+          <button class="btn" id="copy" type="button">Copia riepilogo</button>
+        </div>
+        <p class="note">È una stima per un anno intero di lavoro. La busta reale cambia con conguagli, straordinari, premi e voci aziendali.</p>
+      </div>
+    </section>
+  </div>
+  <a class="mbar" id="mbar" href="#risultato"><span id="mbar-l">Netto in busta</span><strong id="mbar-v">–</strong><em>Cedolino ↓</em></a>
