@@ -128,7 +128,7 @@ function render(){
       ded(`Fondo integrazione salariale ${pct((o.fis||0)*100)}`,v.fis),
       ded("Ente bilaterale 0,05%",v.ebt),
       ded("Fondo pensione, tuo contributo",v.fp),
-      x.fpLav+x.fpDat>P.fpMax?["Fondo pensione oltre 5.164,57 € l'anno: la parte in più è tassata.","","warn"]:null,
+      x.fpLav+x.fpDat>P.fpMax?["Fondo pensione oltre 5.300 € l'anno: la parte in più è tassata.","","warn"]:null,
       ded("Assistenza sanitaria, tua trattenuta",v.san),
       x.sanLav+x.sanDat>P.sanMax?["Assistenza sanitaria oltre 3.615,20 € l'anno: la parte in più è tassata.","","warn"]:null]},
     {id:"tax",title:"Imposte",total:tTax>=0?mns(tTax):pls(tTax),always:true,rows:[
