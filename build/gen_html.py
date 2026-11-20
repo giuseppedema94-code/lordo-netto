@@ -20,7 +20,13 @@ def MENS(m): return '13 e mezza' if m==13.5 else str(int(m))
 def lvslug(n):
     s=slug(n); return s if any(w in s for w in ('quadro','area','dirigente','viaggiante','docente','collaboratore','assistente','funzionario')) else s+'-livello'
 def lvname(n):
-    return n if any(w in n.lower() for w in ('quadro','area','dirigente','viaggiante','liv')) else f'livello {n}'
+    return n if any(w in n.lower() for w in ('quadro','area','dirigente','viaggiante','liv','docente','collaboratore','assistente','funzionario','operatore')) else f'livello {n}'
+def corto(n):
+    # nomi lunghi dei profili scuola, solo per i titoli: come li cerca la gente
+    for a,b in (('Docente secondaria II grado','Docente superiori'),('Docente secondaria I grado','Docente scuola media'),('Docente infanzia e primaria','Insegnante infanzia e primaria'),
+                ('diplomato (ITP)','ITP'),('Assistente amministrativo o tecnico','Assistente amministrativo'),(', ',' ')):
+        n=n.replace(a,b)
+    return n
 def eur(v,d=0):
     s=f'{v:,.{d}f}'.replace(',','X').replace('.',',').replace('X','.'); return s+' €'
 E=html.escape
@@ -141,7 +147,7 @@ for c in D:
             ('Perché il mio netto può essere diverso?','La stima usa il minimo contrattuale e le addizionali medie. Superminimo, scatti, straordinari, familiari a carico, fondo pensione e il tuo comune cambiano il risultato.')]
         body+=faqhtml(qs)+f'<h2>Altri livelli {E(sh)}</h2><ul class="lv">{others}</ul>'
         tt=f'Stipendio netto {sh} {ln} 2026: {eur(l["netM"])}'
-        for alt in (f'Netto {sh} {ln} 2026: {eur(l["netM"])}',f'Netto {ln} 2026: {eur(l["netM"])}',f'Netto {ln}: {eur(l["netM"])}'):
+        for alt in (f'Netto {sh} {ln} 2026: {eur(l["netM"])}',f'Stipendio {corto(ln)[:1].lower()+corto(ln)[1:]} 2026: {eur(l["netM"])}',f'{corto(ln)} 2026: {eur(l["netM"])} netti',f'{corto(ln)}: {eur(l["netM"])} netti'):
             if len(tt)>60: tt=alt
         dd=f'CCNL {sh}, {ln}: minimo {eur(l["min"],2)} lordi al mese, circa {eur(l["netM"])} netti in busta nel 2026.'
         if len(dd)>160: dd=f'{sh}, {ln}: {eur(l["min"],2)} lordi, circa {eur(l["netM"])} netti al mese nel 2026.'

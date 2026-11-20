@@ -4,8 +4,22 @@ ROOT = '/home/claude/lordo-netto'
 oggi = datetime.date.today().isoformat()
 urls = ['/'] + ['/note-legali/', '/privacy/'] + json.load(open('/home/claude/build/urls.json'))
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-sm += ''.join(f'<url><loc>https://stipendioccnl.it{u}</loc><lastmod>{oggi}</lastmod></url>\n' for u in urls) + '</urlset>\n'
+# lastmod reale: resta la data precedente se la pagina non è cambiata rispetto all'ultimo commit
+import subprocess
+def git(*a): return subprocess.run(['git','-C',ROOT,*a],capture_output=True,text=True)
+prima = dict(re.findall(r'<loc>https://stipendioccnl.it(.*?)</loc><lastmod>(.*?)</lastmod>', git('show','HEAD:sitemap.xml').stdout))
+def lastmod(u):
+    f = f'{u.lstrip("/")}index.html'
+    if u in prima and git('ls-files','--error-unmatch',f).returncode == 0 and git('diff','--quiet','HEAD','--',f).returncode == 0:
+        return prima[u]
+    return oggi
+lm = {u: lastmod(u) for u in urls}
+sm += ''.join(f'<url><loc>https://stipendioccnl.it{u}</loc><lastmod>{lm[u]}</lastmod></url>\n' for u in urls) + '</urlset>\n'
 open(f'{ROOT}/sitemap.xml', 'w').write(sm)
+
+# IndexNow (Bing, Yandex, Seznam...): file della chiave nella radice
+INDEXNOW='96517653c573e54eff092f62ade4005e'
+open(f'{ROOT}/{INDEXNOW}.txt','w').write(INDEXNOW)
 
 # llms.txt: mappa del sito per assistenti AI
 D = json.load(open('/home/claude/build/pages.json'))
@@ -32,7 +46,7 @@ llms = f'''# stipendioccnl.it
 {chr(10).join(righe)}
 
 ## Note
-Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il {oggi}. Contatto: info@stipendioccnl.it
+Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il {max(lm.values())}. Contatto: info@stipendioccnl.it
 '''
 open(f'{ROOT}/llms.txt', 'w').write(llms)
 
