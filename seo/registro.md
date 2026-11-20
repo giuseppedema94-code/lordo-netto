@@ -29,4 +29,4 @@ Fatto:
 - Sitemap: lastmod reale (cambia solo se la pagina cambia), non più la data di build.
 - IndexNow: file chiave nella radice e invio degli URL a api.indexnow.org.
 
-Da decidere: Search Console non disponibile da qui (serve accesso del titolare: verifica dominio e invio sitemap).
+Search Console: proprietà https://stipendioccnl.it/ presente; il titolare ha fatto la configurazione il 20/11 (sitemap da inviare/inviata da lui). Le esecuzioni automatiche non hanno accesso a Search Console.
