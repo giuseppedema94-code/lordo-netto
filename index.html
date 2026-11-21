@@ -979,6 +979,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
       <div>
         <h3>Ultime modifiche</h3>
         <ol class="log">
+          <li><time datetime="2026-11-21">21/11/2026</time> Massimale contributivo: ora riduce anche la quota IVS a carico dell'azienda nel costo azienda (23,81%) e non è più applicato due volte all'1% aggiuntivo sulla 13ª/14ª.</li>
           <li><time datetime="2026-11-20">20/11/2026</time> Logistica: tranche di giugno 2027 corretta (10 € di tabellare riparametrato più la terza quota dell'EPA, verbale di rinnovo del 6/12/2024).</li>
           <li><time datetime="2026-11-18">18/11/2026</time> Fondo pensione deducibile fino a 5.300 € dal 2026 (L. 199/2025, art. 1 c. 201). Nella busta del mese le quote di fondo pensione e sanità oltre i limiti ora sono tassate.</li>
           <li><time datetime="2026-11-17">17/11/2026</time> Confronto tra due offerte. Correzioni dopo una verifica delle fonti: scuola sulle tabelle ARAN, logistica (straordinario festivo 65% e aumenti di gennaio 2027), ABI 37 ore, detassazione degli aumenti 2026 per metalmeccanici e dirigenti del credito, massimale contributivo opzionale.</li>
@@ -1215,8 +1216,8 @@ function bustaOrdinaria(x,o,mens){
    Contributi come una mensilità in più; IRPEF a tassazione separata nel mese: scaglioni mensili, senza detrazioni
    (le detrazioni sono già ripartite sui 12 mesi ordinari). Il conguaglio di fine anno riallinea il totale. */
 function mensAgg(x,o,mens,b,f){
-  const ext=x.ralBase/mens*(f??1), sogliaM=Math.round(P.sogliaInps1/12), rmlOrd=o.inps?b.inpsM/o.inps:0;
-  const k=x.massK??1, inps=ext*o.inps*k, ivs=Math.max(0,(rmlOrd+ext)*k-sogliaM)*0.01-Math.max(0,rmlOrd*k-sogliaM)*0.01;
+  const k=x.massK??1, ext=x.ralBase/mens*(f??1), sogliaM=Math.round(P.sogliaInps1/12), rmlOrd=o.inps?b.inpsM/o.inps/k:0;
+  const inps=ext*o.inps*k, ivs=Math.max(0,(rmlOrd+ext)*k-sogliaM)*0.01-Math.max(0,rmlOrd*k-sogliaM)*0.01;
   const fsc=ext*(o.fsc||0), fis=ext*(o.fis||0), ebt=ext*(o.ebt||0), fp=ext*(o.fpLavPct||0)/100, san=ext*(o.sanLavPct||0)/100;
   const contr=inps+ivs+fsc+fis+ebt+fp+san, imp=Math.max(0,ext-contr)*(o.impQ??1);
   const irpef=irpefLorda(imp*12)/12;
@@ -1225,7 +1226,7 @@ function mensAgg(x,o,mens,b,f){
 /* Costo annuo per l'azienda: retribuzione + contributi datore (aliquota complessiva indicativa) + INAIL + TFR
    + fondo pensione e cassa sanitaria a carico azienda con contributo di solidarietà 10% + buoni pasto */
 function costoAzienda(x,o){
-  const ral=x.ral, inps=ral*(o.caInps||0)/100, inail=ral*(o.caInail||0)/100, tfr=x.baseTfr/13.5;
+  const ral=x.ral, ivsDat=Math.min(o.caInps||0,23.81), inps=ral*(x.massK??1)*ivsDat/100+ral*((o.caInps||0)-ivsDat)/100, inail=ral*(o.caInail||0)/100, tfr=x.baseTfr/13.5;
   const fp=x.fpDat, san=x.sanDat, sol=(fp+san)*0.10, bp=(o.caBp||0)*(o.caBpG||0)*12;
   const tot=ral+(x.welf||0)+(x.rimb||0)+inps+inail+tfr+fp+san+sol+bp;
   return {ral,welf:x.welf||0,rimb:x.rimb||0,inps,inail,tfr,fp,san,sol,bp,tot};
