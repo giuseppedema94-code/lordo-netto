@@ -40,6 +40,7 @@ llms = f'''# stipendioccnl.it
 - [Costo azienda](https://stipendioccnl.it/#costo): costo del lavoro per il datore.
 - [Netto a lordo](https://stipendioccnl.it/#netto-lordo): RAL necessaria per un netto desiderato.
 - [Confronto offerte](https://stipendioccnl.it/#confronta): due offerte di lavoro a confronto sul netto.
+- [Tredicesima netta 2026](https://stipendioccnl.it/tredicesima-netta/): come si calcola e importi netti per ogni CCNL e livello.
 
 ## Stipendi per CCNL e livello
 - [Indice dei CCNL](https://stipendioccnl.it/stipendio-netto/)

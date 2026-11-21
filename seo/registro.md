@@ -30,3 +30,13 @@ Fatto:
 - IndexNow: file chiave nella radice e invio degli URL a api.indexnow.org.
 
 Search Console: proprietà https://stipendioccnl.it/ presente; il titolare ha fatto la configurazione il 20/11 (sitemap da inviare/inviata da lui). Le esecuzioni automatiche non hanno accesso a Search Console.
+
+## 2026-11-21
+Ricerche (WebSearch, stesse 15 query + site:): stipendioccnl.it ancora assente in tutte; site: 0 risultati. Concorrenti stabili: pmi.it, money.it, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, omnicalculator; su "tredicesima netta calcolo" ora pmi.it, sky tg24, namirial, money.it (ricerca stagionale in crescita).
+
+claude-seo (page_checks, parse_html) su home, indice, Metalmeccanici, Commercio IV, nuova pagina tredicesima: nessun problema. Build: 201 pagine, 0 errori, 0 avvisi.
+
+Fatto:
+- Nuova pagina /tredicesima-netta/: come si calcola, esempio Commercio IV, quando si paga, tabella lordo/netto della 13ª per tutti i 16 CCNL e 196 livelli (numeri dal motore esistente, funzione mensAgg; nessuna modifica al motore), FAQ con dati strutturati.
+- FAQ "tredicesima netta" su ogni pagina CCNL e livello, con link alla tabella (#ccnl).
+- Link "Tredicesima netta" nella barra rapida di tutte le pagine, nell'indice CCNL e in llms.txt; pagina in sitemap.

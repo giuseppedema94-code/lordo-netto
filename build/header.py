@@ -54,7 +54,7 @@ def header(active):
       <input id="nt-q" type="search" autocomplete="off" aria-label="Cerca contratto o livello" placeholder="Cerca contratto o livello, es. commercio IV o docente primaria">
       <ul id="nt-res" role="listbox" hidden></ul></div>
   </div></div>
-  <nav class="nt-chips" aria-label="Contratti più cercati"><div class="nt-in">{''.join(f'<a href="/stipendio-netto/{sl}/">{n}</a>' for n, sl in chips)}<a class="all" href="/stipendio-netto/">Tutti i CCNL</a></div></nav>
+  <nav class="nt-chips" aria-label="Link rapidi"><div class="nt-in">{''.join(f'<a href="/stipendio-netto/{sl}/">{n}</a>' for n, sl in chips)}<a class="all" href="/stipendio-netto/">Tutti i CCNL</a><a class="all" href="/tredicesima-netta/">Tredicesima netta</a></div></nav>
 </header>'''
 
 css_txt = '''<style>
@@ -137,7 +137,7 @@ n=0
 for dp,dn,fn in os.walk(ROOT):
     if '.git' in dp or dp==ROOT or '/demo' in dp: continue
     if 'index.html' in fn:
-        apply(f'{dp}/index.html','ccnl' if '/stipendio-netto' in dp else '',r'<header><div class="w">.*?</header>'); n+=1
+        apply(f'{dp}/index.html','ccnl' if '/stipendio-netto' in dp else ('tred' if '/tredicesima' in dp else ''),r'<header><div class="w">.*?</header>'); n+=1
 # la demo non serve più
 import shutil; shutil.rmtree(f'{ROOT}/demo',ignore_errors=True)
 print('testata applicata: home +',n,'pagine;',len(idx),'voci di ricerca')
