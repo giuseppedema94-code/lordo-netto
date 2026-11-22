@@ -8,6 +8,7 @@
 - [Netto a lordo](https://stipendioccnl.it/#netto-lordo): RAL necessaria per un netto desiderato.
 - [Confronto offerte](https://stipendioccnl.it/#confronta): due offerte di lavoro a confronto sul netto.
 - [Tredicesima netta 2026](https://stipendioccnl.it/tredicesima-netta/): come si calcola e importi netti per ogni CCNL e livello.
+- [RAL netto 2026](https://stipendioccnl.it/ral-netto/): tabella del netto annuo e mensile per RAL da 12.000 a 100.000 euro.
 
 ## Stipendi per CCNL e livello
 - [Indice dei CCNL](https://stipendioccnl.it/stipendio-netto/)
@@ -29,4 +30,4 @@
 - [Stipendio netto Dirigenti terziario 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/dirigenti-terziario/): Netto in busta 2026 con il CCNL Dirigenti terziario: da 2.923 € a 2.923 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
 
 ## Note
-Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il 2026-11-21. Contatto: info@stipendioccnl.it
+Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il 2026-11-22. Contatto: info@stipendioccnl.it
