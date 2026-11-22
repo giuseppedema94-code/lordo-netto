@@ -50,3 +50,13 @@ for(const [k,c] of Object.entries(CCNL)){ if(!c.livelli||!c.livelli.length) cont
 }
 fs.writeFileSync('/home/claude/build/pages.json',JSON.stringify(out));
 console.log(out.map(c=>c.k+':'+c.lv.length).join(' '), out[0].lv[4]);
+// Tabella RAL -> netto per /ral-netto/ (solo uso del motore, nessuna modifica)
+const ralTab=[];
+for(let r=12000;r<=100000;r+=(r<50000?1000:(r<70000?2500:5000))){
+  const row={ral:r};
+  for(const ms of [13,14]){const o={ral:r,ind:0,mens:ms,inps:.0919,tipo:"ind",addreg:1.73,addcom:.8,coniuge:false,figli:0,addMode:"cassa"};
+    const x=calcola(o),bb=bustaOrdinaria(x,o,ms);
+    row['m'+ms]=bb.netM; if(ms===13){row.netA=x.netto;row.inps=x.inps;row.irpef=x.netta;row.add=x.addReg+x.addCom;row.bonus=x.bonus+x.ti;}}
+  ralTab.push(row);}
+fs.writeFileSync('/home/claude/build/ral.json',JSON.stringify(ralTab));
+console.log('ral', ralTab.length, JSON.stringify(ralTab.find(x=>x.ral===30000)));

@@ -190,13 +190,14 @@ body=f'''<h1>Stipendio netto 2026 per contratto e livello</h1><p class="lead">Sc
 <p>Per ogni livello trovi il minimo contrattuale mensile, la RAL minima (il minimo moltiplicato per le mensilità del contratto) e il netto di una busta ordinaria del 2026. Il netto tiene conto dei contributi INPS a carico del dipendente, dell'IRPEF con le aliquote 23, 33 e 43%, delle detrazioni per lavoro dipendente, delle addizionali regionale e comunale medie e del taglio del cuneo fiscale.</p>
 <p>Quando un rinnovo prevede aumenti scaglionati, le tabelle mostrano anche le tranche future, così vedi quanto cambierà il netto dal mese di decorrenza.</p>
 <h2>Perché il tuo netto può essere diverso</h2>
-<p>Le cifre si riferiscono al minimo, senza familiari a carico. Per la mensilità di dicembre c'è la <a href="{BASE}/tredicesima-netta/">tabella della tredicesima netta</a> per ogni CCNL e livello. Superminimo, scatti di anzianità, indennità, straordinari, fondo pensione e le addizionali del tuo comune cambiano il risultato: nel calcolatore puoi inserirli tutti e ottenere il netto mese per mese, la tredicesima e la quattordicesima.</p>'''
+<p>Le cifre si riferiscono al minimo, senza familiari a carico. Per la mensilità di dicembre c'è la <a href="{BASE}/tredicesima-netta/">tabella della tredicesima netta</a> per ogni CCNL e livello. Per confrontare con altre retribuzioni c'è la <a href="{BASE}/ral-netto/">tabella RAL netto</a>. Superminimo, scatti di anzianità, indennità, straordinari, fondo pensione e le addizionali del tuo comune cambiano il risultato: nel calcolatore puoi inserirli tutti e ottenere il netto mese per mese, la tredicesima e la quattordicesima.</p>'''
 qs=[('Dove trovo il CCNL che mi viene applicato?',"Nella lettera di assunzione e nell'intestazione della busta paga, insieme al livello. In caso di dubbio chiedi all'ufficio del personale."),
     ('Il netto delle tabelle è quello che ricevo in busta?','È il netto di una busta ordinaria sul minimo contrattuale, senza familiari a carico. Superminimo, scatti, straordinari e addizionali del tuo comune lo cambiano.')]
 body+=faqhtml(qs)
 write('stipendio-netto/index.html',page('Stipendio netto 2026 per CCNL e livello | stipendioccnl','Netto in busta 2026 per i principali CCNL italiani, livello per livello: minimi, RAL e netto mensile, con le tranche dei rinnovi.','/stipendio-netto/','#0f5c4d',body,[('Stipendi per CCNL',None)],[faq(qs)]))
 urls.insert(0,'/stipendio-netto/')
 exec(open('/home/claude/build/tredicesima.py').read())
+exec(open('/home/claude/build/ral.py').read())
 json.dump(urls,open('/home/claude/build/urls.json','w'))
 tree=''.join(f'<details class="tree"><summary><a href="stipendio-netto/{cs}/">{E(sh)}</a><small>{len(c["lv"])} livelli</small></summary><ul class="lv">'+''.join(f'<li><a href="stipendio-netto/{cs}/{lvslug(l["n"])}/">{E(l["n"])}</a></li>' for l in c['lv'])+'</ul></details>' for sh,cs,c in hub_items)
 open('/home/claude/build/tree.html','w').write(tree)

@@ -40,3 +40,12 @@ Fatto:
 - Nuova pagina /tredicesima-netta/: come si calcola, esempio Commercio IV, quando si paga, tabella lordo/netto della 13ª per tutti i 16 CCNL e 196 livelli (numeri dal motore esistente, funzione mensAgg; nessuna modifica al motore), FAQ con dati strutturati.
 - FAQ "tredicesima netta" su ogni pagina CCNL e livello, con link alla tabella (#ccnl).
 - Link "Tredicesima netta" nella barra rapida di tutte le pagine, nell'indice CCNL e in llms.txt; pagina in sitemap.
+
+## 2026-11-22
+Ricerche (WebSearch, stesse 15 query + site:): stipendioccnl.it ancora assente in tutte; site: 0 risultati (l'operatore sembra ignorato dal motore). Concorrenti stabili: pmi.it, money.it, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, omnicalculator, quotidiano.net; su "netto a lordo" e "lordo netto calcolo" anche siti svizzeri e generici (ahv-iv.ch, shopify, bexio). SERP più deboli: turismo, cooperative sociali, costo azienda, quattordicesima.
+
+claude-seo: setup bloccato dai permessi dell'ambiente automatico (esecuzione di codice esterno non consentita); controlli non eseguiti. Build: 202 pagine, 0 errori, 0 avvisi.
+
+Fatto:
+- Nuova pagina /ral-netto/: netto annuo e mensile (13 e 14 mensilità) per RAL da 12.000 a 100.000 €, scomposizione INPS/IRPEF/addizionali su 30.000 €, FAQ con dati strutturati (25k, 30k, 40k). Numeri dal motore esistente (calcola, bustaOrdinaria), nessuna modifica al motore.
+- Link "RAL netto" nella barra rapida di tutte le pagine, link dalle pagine CCNL e livello, voce in llms.txt e sitemap.
