@@ -60,3 +60,14 @@ for(let r=12000;r<=100000;r+=(r<50000?1000:(r<70000?2500:5000))){
   ralTab.push(row);}
 fs.writeFileSync('/home/claude/build/ral.json',JSON.stringify(ralTab));
 console.log('ral', ralTab.length, JSON.stringify(ralTab.find(x=>x.ral===30000)));
+// Tabelle /costo-azienda/ e /netto-lordo/ (solo uso del motore, nessuna modifica)
+const base=r=>({ral:r,ind:0,mens:13,inps:.0919,tipo:"ind",addreg:1.73,addcom:.8,coniuge:false,figli:0,addMode:"cassa",caInps:29.5,caInail:0.4,caBp:0,caBpG:0});
+const caTab=[];
+for(let r=15000;r<=80000;r+=(r<50000?2500:5000)){const o=base(r),x=calcola(o),c=costoAzienda(x,o),bb=bustaOrdinaria(x,o,13);
+  caTab.push({ral:r,inps:c.inps,inail:c.inail,tfr:c.tfr,tot:c.tot,netA:x.netto,netM:bb.netM});}
+fs.writeFileSync('/home/claude/build/costo.json',JSON.stringify(caTab));
+const nlTab=[];
+for(let n=1000;n<=4000;n+=(n<2500?100:250)){const row={net:n};for(const ms of [13,14]){row['r'+ms]=lordoDaNetto(n,base(0),ms);}
+  const o=base(row.r13),x=calcola(o);row.lordoM=row.r13/13;row.netA=x.netto;nlTab.push(row);}
+fs.writeFileSync('/home/claude/build/nettolordo.json',JSON.stringify(nlTab));
+console.log('costo',JSON.stringify(caTab.find(x=>x.ral===30000)),'nl',JSON.stringify(nlTab.find(x=>x.net===1500)));

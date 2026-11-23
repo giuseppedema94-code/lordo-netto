@@ -38,7 +38,9 @@ llms = f'''# stipendioccnl.it
 ## Strumenti
 - [Calcolatore lordo-netto](https://stipendioccnl.it/): netto mensile e annuo da RAL o da CCNL e livello, con comune, familiari, straordinari, scatti, fondi.
 - [Costo azienda](https://stipendioccnl.it/#costo): costo del lavoro per il datore.
+- [Costo azienda 2026, tabella](https://stipendioccnl.it/costo-azienda/): costo annuo di un dipendente per RAL da 15.000 a 80.000 euro, con INPS azienda, INAIL e TFR.
 - [Netto a lordo](https://stipendioccnl.it/#netto-lordo): RAL necessaria per un netto desiderato.
+- [Netto a lordo 2026, tabella](https://stipendioccnl.it/netto-lordo/): RAL su 13 e 14 mensilità per ogni netto mensile da 1.000 a 4.000 euro.
 - [Confronto offerte](https://stipendioccnl.it/#confronta): due offerte di lavoro a confronto sul netto.
 - [Tredicesima netta 2026](https://stipendioccnl.it/tredicesima-netta/): come si calcola e importi netti per ogni CCNL e livello.
 - [RAL netto 2026](https://stipendioccnl.it/ral-netto/): tabella del netto annuo e mensile per RAL da 12.000 a 100.000 euro.

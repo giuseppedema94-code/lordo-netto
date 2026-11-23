@@ -49,3 +49,13 @@ claude-seo: setup bloccato dai permessi dell'ambiente automatico (esecuzione di 
 Fatto:
 - Nuova pagina /ral-netto/: netto annuo e mensile (13 e 14 mensilità) per RAL da 12.000 a 100.000 €, scomposizione INPS/IRPEF/addizionali su 30.000 €, FAQ con dati strutturati (25k, 30k, 40k). Numeri dal motore esistente (calcola, bustaOrdinaria), nessuna modifica al motore.
 - Link "RAL netto" nella barra rapida di tutte le pagine, link dalle pagine CCNL e livello, voce in llms.txt e sitemap.
+
+## 2026-11-23
+Ricerche (WebSearch, 16 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore ignorato). Concorrenti stabili: pmi.it, money.it, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, nettostipendio, omnicalculator, quotidiano.net. Nuova query "quattordicesima netta calcolo": italiaoggi, fiscoetasse, quifinanza, quotidianopiu. SERP deboli (nessun calcolatore dedicato): costo azienda dipendente (indeed, randstad, qonto, partitaiva), turismo, cooperative sociali, docente.
+
+claude-seo (page_checks, parse_html) su home, indice CCNL, Cooperative sociali, C1 Cooperative, RAL netto e nuove pagine: nessun problema. Build: 204 pagine, 0 errori, 0 avvisi.
+
+Fatto:
+- Nuova pagina /costo-azienda/: RAL + INPS azienda 29,5% + INAIL 0,4% + TFR, esempio su 30.000 €, tabella da 15.000 a 80.000 €, FAQ con dati strutturati. Numeri da costoAzienda del motore, nessuna modifica.
+- Nuova pagina /netto-lordo/: RAL su 13 e 14 mensilità per netto mensile da 1.000 a 4.000 €, FAQ (1.300, 1.500, 2.000 €). Numeri da lordoDaNetto del motore.
+- Link nella barra rapida, da RAL netto e da tutte le pagine CCNL e livello; voci in llms.txt e sitemap.
