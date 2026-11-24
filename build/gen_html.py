@@ -146,7 +146,7 @@ for c in D:
 {off}'''
         qs=[(f'Quanto si prende netto al {ln} del CCNL {sh}?',f'Circa {eur(l["netM"])} al mese in una busta ordinaria del 2026, su un minimo di {eur(l["min"],2)} lordi. In un anno il netto è di circa {eur(l["netA"])}.'),
             (f'Qual è la RAL minima del {ln} {sh}?',f'La RAL minima è di {eur(l["ral"])}, cioè il minimo mensile per {MENS(c["mens"])} mensilità{" più le voci pagate su 12 mesi" if l.get("acc") else ""}.'),
-            (f'Quanto è la tredicesima netta al {ln} {sh}?',f'Circa {eur(l["t13n"])} netti su {eur(l["t13l"])} lordi, per un anno intero di lavoro. Sulla tredicesima si pagano INPS e IRPEF ma non si applicano le detrazioni, che sono già nelle buste ordinarie: per questo il netto è più basso di quello di un mese normale.'+(' La quattordicesima di luglio ha un importo simile.' if c['mens']==14 else '')+f' <a href="{BASE}/tredicesima-netta/#{cs}">Come si calcola la tredicesima</a>.'),
+            (f'Quanto è la tredicesima netta al {ln} {sh}?',f'Circa {eur(l["t13n"])} netti su {eur(l["t13l"])} lordi, per un anno intero di lavoro. Sulla tredicesima si pagano INPS e IRPEF ma non si applicano le detrazioni, che sono già nelle buste ordinarie: per questo il netto è più basso di quello di un mese normale.'+(f' La <a href="{BASE}/quattordicesima-netta/#{cs}">quattordicesima di luglio</a> ha un importo simile.' if c['mens']==14 else '')+f' <a href="{BASE}/tredicesima-netta/#{cs}">Come si calcola la tredicesima</a>.'),
             ('Perché il mio netto può essere diverso?','La stima usa il minimo contrattuale e le addizionali medie. Superminimo, scatti, straordinari, familiari a carico, fondo pensione e il tuo comune cambiano il risultato.')]
         body+=faqhtml(qs)+f'<h2>Altri livelli {E(sh)}</h2><ul class="lv">{others}</ul>'
         tt=f'Stipendio netto {sh} {ln} 2026: {eur(l["netM"])}'
@@ -197,6 +197,7 @@ body+=faqhtml(qs)
 write('stipendio-netto/index.html',page('Stipendio netto 2026 per CCNL e livello | stipendioccnl','Netto in busta 2026 per i principali CCNL italiani, livello per livello: minimi, RAL e netto mensile, con le tranche dei rinnovi.','/stipendio-netto/','#0f5c4d',body,[('Stipendi per CCNL',None)],[faq(qs)]))
 urls.insert(0,'/stipendio-netto/')
 exec(open('/home/claude/build/tredicesima.py').read())
+exec(open('/home/claude/build/quattordicesima.py').read())
 exec(open('/home/claude/build/ral.py').read())
 exec(open('/home/claude/build/costo.py').read())
 json.dump(urls,open('/home/claude/build/urls.json','w'))

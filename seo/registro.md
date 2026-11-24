@@ -59,3 +59,12 @@ Fatto:
 - Nuova pagina /costo-azienda/: RAL + INPS azienda 29,5% + INAIL 0,4% + TFR, esempio su 30.000 €, tabella da 15.000 a 80.000 €, FAQ con dati strutturati. Numeri da costoAzienda del motore, nessuna modifica.
 - Nuova pagina /netto-lordo/: RAL su 13 e 14 mensilità per netto mensile da 1.000 a 4.000 €, FAQ (1.300, 1.500, 2.000 €). Numeri da lordoDaNetto del motore.
 - Link nella barra rapida, da RAL netto e da tutte le pagine CCNL e livello; voci in llms.txt e sitemap.
+
+## 2026-11-24
+Ricerche (WebSearch, 15 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore non filtra). Concorrenti stabili: pmi.it, money.it, quotidiano.net, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, nettostipendio, omnicalculator, quifinanza, ipsoa. Nuova query "stipendio netto colf badante 2026": money.it, investireoggi, partitaiva, informazionefiscale (CCNL lavoro domestico non presente sul sito). SERP deboli: lordo netto, netto a lordo, RAL netto 30000 (calcolatori generici o svizzeri), docente, costo azienda, turismo, cooperative sociali.
+
+claude-seo (page_checks, parse_html) su home, indice CCNL, Turismo, Pubblici esercizi 4, nuova pagina: nessun problema, dati strutturati validi. Build: 205 pagine, 0 errori, 0 avvisi.
+
+Fatto:
+- Nuova pagina /quattordicesima-netta/: chi la riceve (9 CCNL con 14 mensilità, mezza per Cooperative sociali), quando si paga, come si calcola, esempio Commercio IV, tabella lorda/netta per CCNL e livello, FAQ con dati strutturati. Numeri da mensAgg del motore (nuovi campi t14* in gen_pages.js, nessuna modifica al motore).
+- Link "Quattordicesima" nella barra rapida di tutte le pagine, dalla FAQ tredicesima delle pagine livello con 14 mensilità, voce in llms.txt e sitemap.

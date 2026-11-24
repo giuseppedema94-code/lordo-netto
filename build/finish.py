@@ -43,6 +43,7 @@ llms = f'''# stipendioccnl.it
 - [Netto a lordo 2026, tabella](https://stipendioccnl.it/netto-lordo/): RAL su 13 e 14 mensilità per ogni netto mensile da 1.000 a 4.000 euro.
 - [Confronto offerte](https://stipendioccnl.it/#confronta): due offerte di lavoro a confronto sul netto.
 - [Tredicesima netta 2026](https://stipendioccnl.it/tredicesima-netta/): come si calcola e importi netti per ogni CCNL e livello.
+- [Quattordicesima netta 2026](https://stipendioccnl.it/quattordicesima-netta/): chi la riceve, quando si paga e importi netti per i CCNL che la prevedono.
 - [RAL netto 2026](https://stipendioccnl.it/ral-netto/): tabella del netto annuo e mensile per RAL da 12.000 a 100.000 euro.
 
 ## Stipendi per CCNL e livello
