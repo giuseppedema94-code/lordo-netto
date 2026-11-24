@@ -1,0 +1,12 @@
+name: Avvisa i motori di ricerca
+on:
+  push:
+    branches: [main]
+    paths: ["**.html", "sitemap.xml"]
+  workflow_dispatch:
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/indexnow.py
