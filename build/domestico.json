@@ -1,0 +1,18 @@
+{"fonte":"CCNL lavoro domestico (Fidaldo, Domina, Filcams-Cgil, Fisascat-Cisl, Uiltucs, Federcolf), minimi dal 1° gennaio 2026 (tabella della Commissione nazionale dell'11 febbraio 2026); contributi INPS 2026: circolare INPS n. 9 del 3 febbraio 2026",
+ "verificato":"2026-11-24",
+ "fonti_url":["https://leggeinchiaro.it/ccnl-lavoro-domestico-tabelle-retributive-2026/","https://www.fiscoetasse.com/files/21293/tabella-lavoro-dom.pdf","https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2026.02.lavoratori-domestici-i-contributi-dovuti-per-il-2026.html","https://www.leggioggi.it/contributi-colf-e-badanti-importi-inps-2026/"],
+ "livelli":[
+  ["A",908.10,6.51,"Collaboratore familiare generico, con meno di 12 mesi di esperienza, non addetto all'assistenza alla persona"],
+  ["AS",958.55,6.76,"Addetto alla compagnia di persone autosufficienti, senza altre mansioni"],
+  ["B",983.16,7.01,"Collaboratore familiare con esperienza: pulizie, cucina, lavanderia, cura della casa"],
+  ["BS",1053.39,7.45,"Assistente a persone autosufficienti (badante) e baby sitter"],
+  ["C",1123.63,7.86,"Collaboratore con conoscenze specifiche, per esempio cuoco"],
+  ["CS",1193.84,8.30,"Assistente a persone non autosufficienti, senza formazione specifica"],
+  ["D",1404.51,9.57,"Mansioni di responsabilità e autonomia, per esempio governante o maggiordomo; comprende l'indennità di funzione di 207,69 €"],
+  ["DS",1474.73,9.97,"Assistente formato a persone non autosufficienti, direttore di casa; comprende l'indennità di funzione di 207,69 €"]],
+ "inps_fino24":[[9.61,0.43],[11.70,0.48],[null,0.59]],
+ "inps_oltre24":0.31,
+ "cassacolf":0.02,
+ "vitto_alloggio_giorno":6.66,
+ "ore_conviventi":54,
+ "ore_max_non_conviventi":40}

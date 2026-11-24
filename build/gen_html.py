@@ -198,6 +198,7 @@ write('stipendio-netto/index.html',page('Stipendio netto 2026 per CCNL e livello
 urls.insert(0,'/stipendio-netto/')
 exec(open('/home/claude/build/tredicesima.py').read())
 exec(open('/home/claude/build/quattordicesima.py').read())
+exec(open('/home/claude/build/domestico.py').read())
 exec(open('/home/claude/build/ral.py').read())
 exec(open('/home/claude/build/costo.py').read())
 json.dump(urls,open('/home/claude/build/urls.json','w'))
