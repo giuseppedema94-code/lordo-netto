@@ -116,6 +116,9 @@ def pagina_livello(c, i):
          f"Circa {eur(tr)} € netti su {eur(mn)} € lordi, per un anno intero di lavoro. Sulla tredicesima si pagano INPS e IRPEF ma non si applicano "
          f"le detrazioni, che sono già nelle buste ordinarie: per questo il netto è più basso di quello di un mese normale.{q14} "
          f'<a href="/tredicesima-netta/#{c["slug"]}">Come si calcola la tredicesima</a>.'),
+        *([(f"Quanto prende netto un part-time al {lv} {br}?",
+            f"Con {c['pt']['ore'][0]} ore settimanali su {c['pt']['full']} circa {eur(N.mensile(mn * c['pt']['ore'][0] / c['pt']['full'], mens))} € netti al mese, "
+            f"con {c['pt']['ore'][-1]} ore circa {eur(N.mensile(mn * c['pt']['ore'][-1] / c['pt']['full'], mens))} €.")] if c.get("pt") else []),
         ("Perché il mio netto può essere diverso?",
          "La stima usa il minimo contrattuale e le addizionali medie. Superminimo, scatti, straordinari, familiari a carico, fondo pensione e il tuo comune cambiano il risultato."),
     ]
@@ -136,7 +139,7 @@ def pagina_livello(c, i):
             f"circa <b>{eur(nm)} € netti</b> in una busta ordinaria.</p>\n{da_sapere(c)}"
             f'<div class="hero"><div class="big"><span>Netto in busta</span><b>{eur(nm)} €</b></div><div><span>Lordo mensile</span><b>{eur(mn)} €</b></div>'
             f'<div><span>Netto annuo</span><b>{eur(a["netto"])} €</b></div></div>\n'
-            + storico + "\n<h2>Dal lordo al netto in un anno</h2>" + tab + "\n"
+            + storico + pt_tab(c, [(e(lab), mn)]) + "\n<h2>Dal lordo al netto in un anno</h2>" + tab + "\n"
             f'<a class="cta" href="/?ccnl={c["key"]}&amp;livello={i}">Calcola con il tuo comune e i tuoi dati</a>\n'
             '<p class="note">Stima sul minimo contrattuale: superminimo, scatti di anzianità, straordinari, fondo pensione e addizionali del tuo comune '
             "cambiano il risultato. Nel calcolatore li trovi tutti.</p>\n" + CNEL.format(extra=fonte)
@@ -145,6 +148,18 @@ def pagina_livello(c, i):
     ld = {"@context": "https://schema.org", "@graph": [crumbs([("Home", SITE + "/"), ("Stipendi per CCNL", SITE + "/stipendio-netto/"),
                                                                 ("" + br, SITE + base), (lab, url)]), faq_ld(faq)]}
     return url, con_main(testa(TPL_LIV, title, desc, url, ld), main)
+
+
+def pt_tab(c, livelli):
+    """Netto part-time per ore settimanali (stesso motore del calcolatore, minimo riproporzionato)."""
+    if not c.get("pt"):
+        return ""
+    full, ore = c["pt"]["full"], c["pt"]["ore"]
+    head = "".join(f'<th class="n">{h} ore</th>' for h in ore)
+    rows = "".join(f'<tr><td>{lnk}</td>' + "".join(f'<td class="n">{eur(N.mensile(mn * h / full, c["mens"]))} €</td>' for h in ore) + "</tr>"
+                   for lnk, mn in livelli)
+    return (f'<h2>Stipendio netto part-time</h2><p>Netto in busta con il part-time, su un tempo pieno di {full} ore settimanali: il minimo si riduce in proporzione alle ore. Con poche ore il netto può superare il lordo, perché il taglio del cuneo fiscale e il trattamento integrativo (fino a 100 € al mese) si aggiungono alla busta.</p>'
+            f'<div class="tw"><table><thead><tr><th>Livello</th>{head}</tr></thead><tbody>{rows}</tbody></table></div>\n')
 
 
 def da_sapere(c):
@@ -178,7 +193,8 @@ def pagina_ccnl(c):
             f"<h1>Stipendio netto {e(br)} 2026: tutti i livelli</h1>\n"
             f'<p class="lead">{e(c["nome"])}: minimi in vigore, RAL e netto in busta per ogni livello, con {mens_txt(mens)} mensilità{c.get("mens_nota", "")}. {e(c["fonte"])}.</p>\n{da_sapere(c)}'
             + periodi_tab(c, righe) + "\n"
-            f'<a class="cta" href="/?ccnl={c["key"]}">Calcola il tuo netto {e(br)}</a>\n'
+            + pt_tab(c, [(f'<a href="{base}{slug_liv(l)}/">{e(l)}</a>', mn) for l, mn in c["livelli"]])
+            + f'<a class="cta" href="/?ccnl={c["key"]}">Calcola il tuo netto {e(br)}</a>\n'
             '<p class="note">Il netto è quello di una busta ordinaria. Con superminimo, scatti, indennità o fondi integrativi usa il calcolatore.</p>'
             + CNEL.format(extra=fonte) + TOG_JS + faq_html(faq) + "</main>")
     ld = {"@context": "https://schema.org", "@graph": [crumbs([("Home", SITE + "/"), ("Stipendi per CCNL", SITE + "/stipendio-netto/"),

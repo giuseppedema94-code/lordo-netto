@@ -84,7 +84,15 @@
    ]
   ],
   "def": 6,
-  "note": "Il minimo è per il tempo pieno. Nelle pulizie il part-time è molto diffuso: inserisci la percentuale nel calcolatore. Per il Quadro c'è anche l'indennità di funzione di 25,82 €."
+  "note": "Il minimo è per il tempo pieno. Nelle pulizie il part-time è molto diffuso: inserisci la percentuale nel calcolatore. Per il Quadro c'è anche l'indennità di funzione di 25,82 €.",
+  "pt": {
+   "full": 40,
+   "ore": [
+    20,
+    25,
+    30
+   ]
+  }
  },
  {
   "key": "vigilanza",
