@@ -435,7 +435,8 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
  .nt-in{padding:10px 16px}.nt-search{height:44px}.nt .nt-search input{font-size:15px}
  .nt-chips .nt-in{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding:6px 10px;scrollbar-width:none}.nt-chips a{white-space:nowrap}
 }
-</style></head>
+</style><link rel="manifest" href="/manifest.webmanifest">
+</head>
 <body>
 
 <header class="nt" id="top">
@@ -1002,7 +1003,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 <footer>
   <div class="wrap">
     <p>stipendioccnl è uno strumento gratuito a scopo informativo. Fonti: Legge 199/2025 (Bilancio 2026), Legge 207/2024, TUIR artt. 11-13, circolare INPS 6/2026, tabelle retributive dei CCNL, CCNL Credito ABI (art. 3, contratti complementari), aliquote addizionali regionali e comunali IRPEF dagli elenchi ufficiali del Dipartimento delle Finanze (MEF), scaricati il 10/11/2026. Ultimo aggiornamento: novembre 2026.</p>
-    <p class="flinks"><a href="#top">Torna al calcolatore</a><a href="#fonti">Fonti e aggiornamenti</a><a href="note-legali/">Note legali</a><a href="privacy/">Privacy e cookie</a><a href="mailto:info@stipendioccnl.it">info@stipendioccnl.it</a></p>
+    <p class="flinks"><a href="#top">Torna al calcolatore</a><a href="#fonti">Fonti e aggiornamenti</a><a href="note-legali/">Note legali</a><a href="privacy/">Privacy e cookie</a><a href="mailto:info@stipendioccnl.it">info@stipendioccnl.it</a><button id="pwa-btn" type="button" hidden style="font:inherit;cursor:pointer">Installa l'app</button></p>
   </div>
 </footer>
 
@@ -2286,5 +2287,5 @@ loadState();
  }));
  if(document.getElementById("f")&&(location.hash==="#costo"||location.hash==="#netto-lordo"||location.hash==="#confronta")) setTimeout(()=>document.querySelector(`[data-go="${({"#costo":"costo","#netto-lordo":"nl","#confronta":"cmp"})[location.hash]}"]`)?.click(),300);
 })();
-</script></body>
+</script><script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;b.onclick=()=>{e.prompt();b.hidden=true}})</script></body>
 </html>
