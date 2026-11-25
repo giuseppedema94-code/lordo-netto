@@ -1429,6 +1429,9 @@ const RINNOVI={
   logistica:{firma:"6/12/2024",steps:[[1,160]],r:[1.2803,1.2045,1.106,1,0.9698,0.9243,0.9015,0.8788,0.8258,1.0665,1.0625,1.0586,1.0296,1.0285,1.0285,0.9966,0.9914]},
   gasacqua:{firma:"8/5/2025",steps:[[1,1],[7,1.666667]],r:[125.86, 113.67, 105.02, 96.36, 87.75, 82.4, 77.09, 69.69, 62.7]},
   coopsoc:{firma:"26/1/2024",steps:[[1,1]],r:[105.26,106.32,111.57,120,123.16,126.32,126.32,133.68,142.11,142.11,153.68,169.48,193.68]},
+  edilizia:{firma:"21/2/2025",steps:[[1,80],[3,130]],r:[2,1.8,1.5,1.4,1.3,1.17,1]},
+  uneba:{firma:"24/1/2025",steps:[[1,120],[3,145]],r:[193.33,181.83,171.47,158.80,153.06,145,140.41,138.10,134.65,131.20,127.75].map(v=>v/145)},
+  ambientali:{firma:"9/12/2025",lv:[[[2,0],[10,0]],[[2,60.63],[10,60.63]],[[2,121.93],[10,121.93]],[[2,115.94],[10,115.94]],[[2,110.31],[10,110.31]],[[2,105.23],[10,105.23]],[[2,100.03],[10,100.03]],[[2,95.78],[10,95.78]],[[2,91.62],[10,91.62]],[[2,88.84],[10,88.84]],[[2,86],[10,86]],[[2,105.97],[10,129.96]],[[2,105.49],[10,134.28]],[[2,103.69],[10,135.67]],[[2,98.1],[10,130.09]],[[2,84.35],[10,84.35]]]},
   scuola:{no:"L'imposta al 5% sugli aumenti dei rinnovi vale solo per i dipendenti del settore privato."},
   dirabi:{firma:"15/7/2025",steps:[[1,1]],r:[1513.23]},
   dirterz:{firma:"5/11/2025",steps:[[1,1]],r:[320]},
@@ -1499,8 +1502,8 @@ function _extraRest(a,pt,mens){
 function rinnovoAuto(){ // {m: media mensile, a: totale annuo 2026, d: rinnovo} per CCNL e livello scelti, a tempo pieno
   const k=$("ccnl").value, R=RINNOVI[k], c=CCNL[k]; if(!R) return null; if(R.no) return {m:0,a:0,no:R.no};
   const i=+$("livello").value||0, lv=c.livelli[i]; if(!lv) return null;
-  const r=typeof R.r==="function"?R.r(lv[1],i):(R.r[i]??1);
-  const mese=t=>{let v=0; for(const [da,x] of R.steps) if(t>=da) v=x; return v*r;};
+  const r=R.lv?1:typeof R.r==="function"?R.r(lv[1],i):(R.r[i]??1), steps=R.lv?R.lv[i]:R.steps; // R.lv: aumenti cumulati per livello e mese
+  const mese=t=>{let v=0; for(const [da,x] of steps) if(t>=da) v=x; return v*r;};
   let a=0; for(let t=1;t<=12;t++) a+=mese(t);
   const mens=+$("mens").value||12; for(let e=0;e<mens-12;e++) a+=mese(e%2?7:12); // 13ª a dicembre, 14ª a luglio
   return {m:a/mens,a,d:R.firma};
