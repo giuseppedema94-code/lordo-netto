@@ -69,3 +69,12 @@ Fatto:
 - Nuova pagina /quattordicesima-netta/: chi la riceve (9 CCNL con 14 mensilità, mezza per Cooperative sociali), quando si paga, come si calcola, esempio Commercio IV, tabella lorda/netta per CCNL e livello, FAQ con dati strutturati. Numeri da mensAgg del motore (nuovi campi t14* in gen_pages.js, nessuna modifica al motore).
 - Link "Quattordicesima" nella barra rapida di tutte le pagine, dalla FAQ tredicesima delle pagine livello con 14 mensilità, voce in llms.txt e sitemap.
 - Su richiesta del titolare: nuova pagina /stipendio-netto/colf-badanti/ (CCNL lavoro domestico). Minimi 2026 conviventi e non conviventi per gli 8 livelli, netto dopo quota INPS lavoratore (circolare INPS n. 9/2026) e Cassa Colf, spiegazione IRPEF non trattenuta, FAQ con dati strutturati. Calcolo a parte in build/domestico.py con dati in build/domestico.json (con fonti); il motore e il calcolatore non sono toccati, quindi il CCNL non è selezionabile nel calcolatore. Aggiunta all'indice CCNL, ricerca, llms.txt e sitemap.
+
+## 2026-11-25
+Ricerche (WebSearch, 13 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore non filtra). Concorrenti: pmi.it, money.it, quotidiano.net, fiscoetasse, partitaiva, lexplain, quifinanza, omnicalculator; "stipendio docente netto": idealista, orizzontescuola, quifinanza; "stipendio infermiere netto 2026": randstad, money.it, nettocalc (CCNL Sanità non presente sul sito).
+
+claude-seo (page_checks, parse_html) su home, indice CCNL, Commercio, Scuola statale, un profilo scuola, colf-badanti: nessun problema (solo URL lungo, basso, sui profili scuola). Build: 206 pagine, 0 errori, 0 avvisi.
+
+Fatto:
+- Commercio: livelli con numero arabo nei titoli e negli H1 ("4° livello (IV)"), come lo cerca la gente ("commercio 4 livello").
+- Scuola statale: title, H1 e descrizione orientati a "stipendio netto docenti e ATA"; paragrafo con netto a inizio carriera per docente primaria, media/superiori e collaboratore scolastico (numeri dalle pagine esistenti).

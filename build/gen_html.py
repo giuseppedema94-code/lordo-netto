@@ -19,6 +19,7 @@ def slug(t):
 def MENS(m): return '13 e mezza' if m==13.5 else str(int(m))
 def lvslug(n):
     s=slug(n); return s if any(w in s for w in ('quadro','area','dirigente','viaggiante','docente','collaboratore','assistente','funzionario')) else s+'-livello'
+ROM={'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6,'VII':7}
 def lvname(n):
     return n if any(w in n.lower() for w in ('quadro','area','dirigente','viaggiante','liv','docente','collaboratore','assistente','funzionario','operatore')) else f'livello {n}'
 def corto(n):
@@ -117,8 +118,15 @@ for c in D:
     off=(f'<div class="box"><b>Contratto ufficiale.</b> Il testo del CCNL è depositato nell\'archivio del CNEL, codice <b>{code}</b>: <a href="{ARCH}" rel="noopener">cercalo nell\'archivio CNEL</a>.</div>' if code else
          f'<div class="box"><b>Contratto ufficiale.</b> I CCNL sono depositati nell\'<a href="{ARCH}" rel="noopener">archivio del CNEL</a>.</div>')
     rows=''.join(f'<tr><td><a href="{BASE}/stipendio-netto/{cs}/{lvslug(l["n"])}/">{E(l["n"])}</a></td>{trcells(l,c)}</tr>' for l in c['lv'])
-    body=f'''<h1>Stipendio netto {E(sh)} 2026: tutti i livelli</h1>
-<p class="lead">{E(c["nome"])}: minimi in vigore, RAL e netto in busta per ogni livello, con {MENS(c["mens"])} mensilità. {E(c["fonte"])}.</p>
+    H1=f'Stipendio netto {E(sh)} 2026: tutti i livelli'; extra_p=''
+    if k=='scuola':
+        H1='Stipendio netto docenti e ATA 2026: scuola statale'
+        g=lambda pre:next(x for x in c['lv'] if x['n'].startswith(pre))
+        extra_p=(f'<p>Netto in busta a inizio carriera (0-8 anni): docente di infanzia e primaria circa {eur(g("Docente infanzia")["netM"])} al mese, '+
+                 (f'docente di scuola media o delle superiori (laureato) circa {eur(g("Docente secondaria I")["netM"])}, ' if g("Docente secondaria I")["netM"]==g("Docente secondaria II grado, laureato")["netM"] else f'docente di scuola media circa {eur(g("Docente secondaria I")["netM"])}, docente delle superiori laureato circa {eur(g("Docente secondaria II grado, laureato")["netM"])}, ')+
+                 f'collaboratore scolastico circa {eur(g("Collaboratore")["netM"])}. Con l\'anzianità lo stipendio sale per fasce: la tabella le mostra tutte.</p>')
+    body=f'''<h1>{H1}</h1>
+<p class="lead">{E(c["nome"])}: minimi in vigore, RAL e netto in busta per ogni livello, con {MENS(c["mens"])} mensilità. {E(c["fonte"])}.</p>{extra_p}
 {TOG}<div class="tw"><table class="trt"><thead>{trhead(c)}</thead><tbody>{rows}</tbody></table></div>
 <a class="cta" href="{BASE}/?ccnl={k}">Calcola il tuo netto {E(sh)}</a>
 <p class="note">Il netto è quello di una busta ordinaria. Con superminimo, scatti, indennità o fondi integrativi usa il calcolatore.</p>{off}{TJS}'''
@@ -128,15 +136,20 @@ for c in D:
         (f'Quanto è la tredicesima netta con il CCNL {sh}?',f'Con i minimi 2026 va da circa {eur(min(x["t13n"] for x in c["lv"]))} a {eur(max(x["t13n"] for x in c["lv"]))} netti, per un anno intero di lavoro. Gli importi livello per livello sono nella <a href="{BASE}/tredicesima-netta/#{cs}">tabella della tredicesima netta</a>.'),
         ('Il netto indicato comprende scatti e superminimo?','No: è calcolato sul minimo contrattuale. Scatti di anzianità, superminimo, straordinari e addizionali del tuo comune lo cambiano; puoi inserirli nel calcolatore.')]
     body+=faqhtml(qs)
-    write(f'stipendio-netto/{cs}/index.html',page(fit(f'Stipendio netto {sh} 2026 per livello'),f'Netto in busta 2026 con il CCNL {sh}: da {eur(lo["netM"])} a {eur(hi["netM"])} al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.',f'/stipendio-netto/{cs}/',col,body,[('Stipendi per CCNL',f'{BASE}/stipendio-netto/'),(sh,None)],[faq(qs)]))
+    TT=fit(f'Stipendio netto {sh} 2026 per livello'); DD=f'Netto in busta 2026 con il CCNL {sh}: da {eur(lo["netM"])} a {eur(hi["netM"])} al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.'
+    if k=='scuola':
+        TT='Stipendio netto docenti e ATA 2026: scuola statale'
+        DD=f'Stipendio netto 2026 di docenti e personale ATA della scuola statale: da {eur(lo["netM"])} a {eur(hi["netM"])} al mese, per profilo e anzianità.'
+    write(f'stipendio-netto/{cs}/index.html',page(TT,DD,f'/stipendio-netto/{cs}/',col,body,[('Stipendi per CCNL',f'{BASE}/stipendio-netto/'),(sh,None)],[faq(qs)]))
     urls.append(f'/stipendio-netto/{cs}/'); hub_items.append((sh,cs,c))
     for l in c['lv']:
-        ln=lvname(l['n']); ls=lvslug(l['n'])
+        ln=lvname(l['n']); ls=lvslug(l['n']); h1ln=ln
+        if k=='commercio' and l['n'] in ROM: ln=f'{ROM[l["n"]]}° livello'; h1ln=f'{ln} ({l["n"]})'
         others=''.join(f'<li><a href="{BASE}/stipendio-netto/{cs}/{lvslug(o["n"])}/">{E(o["n"])}</a></li>' for o in c['lv'] if o['i']!=l['i'])
         tr=lambda a,b,cl='':f'<tr class="{cl}"><td>{a}</td><td class="n">{b}</td></tr>'
         det=(tr('Lordo annuo (RAL minima)',eur(l['ral']))+tr('Contributi INPS','− '+eur(l['inps']))+tr('IRPEF netta','− '+eur(l['irpef']))+
              tr('Addizionali regionale e comunale','− '+eur(l['add']))+(tr('Taglio del cuneo e trattamento integrativo','+ '+eur(l['bonus'])) if l['bonus']>0.5 else '')+tr('Netto annuo',eur(l['netA']),'me'))
-        body=f'''<h1>Stipendio netto {E(sh)} {E(ln)} 2026</h1>
+        body=f'''<h1>Stipendio netto {E(sh)} {E(h1ln)} 2026</h1>
 <p class="lead">Con il CCNL {E(c["nome"])}, al {E(ln)} la retribuzione minima è di {eur(l["min"],2)} lordi al mese per {MENS(c["mens"])} mensilità{(", più "+eur(l["acc"],2)+" di "+l["al"]+" per 12 mensilità") if l.get("acc") else ""}: circa <b>{eur(l["netM"])} netti</b> in una busta ordinaria.</p>
 <div class="hero"><div class="big"><span>Netto in busta</span><b>{eur(l["netM"])}</b></div><div><span>Lordo mensile</span><b>{eur(l["min"]+l.get("acc",0))}</b></div><div><span>Netto annuo</span><b>{eur(l["netA"])}</b></div></div>
 <h2>Lordo e netto per mese di decorrenza</h2>{TOG}<div class="tw"><table class="trt"><thead>{trhead(c,False)}</thead><tbody><tr>{trcells(l,c)}</tr></tbody></table></div>{TJS}
