@@ -70,5 +70,41 @@
   "Nota di sintesi sul rinnovo del CCNL del 21 febbraio 2025",
   "Ance",
   true
+ ],
+ "tessile-abbigliamento": [
+  "https://www.filctemcgil.it/images/download/CONTRATTI/tessile_abbigliamento/210729_TESSILE_RINNOVO%20CCNL%202021-2024.pdf",
+  "Accordo di rinnovo 2021-2024 (testo precedente: l'ultimo rinnovo è del 2025)",
+  "Filctem-Cgil",
+  true
+ ],
+ "credito-abi": [
+  "https://bancariaeditrice.it/download/GetDownloadSfogliatore/2Cllr0dIJuMZvOkqIu2HbFrseMMvTwcZrXOSKHbFrswgQmXEVr8q3dRs6zrOMAkIxeSkIxeS",
+  "Accordo 19 dicembre 2019 di rinnovo del CCNL (testo precedente: l'ultimo rinnovo è del 23 novembre 2023)",
+  "Bancaria Editrice (ABI)",
+  true
+ ],
+ "credito-abi-complementare": [
+  "https://bancariaeditrice.it/download/GetDownloadSfogliatore/2Cllr0dIJuMZvOkqIu2HbFrseMMvTwcZrXOSKHbFrswgQmXEVr8q3dRs6zrOMAkIxeSkIxeS",
+  "Accordo 19 dicembre 2019 di rinnovo del CCNL (testo precedente: l'ultimo rinnovo è del 23 novembre 2023)",
+  "Bancaria Editrice (ABI)",
+  true
+ ],
+ "multiservizi-pulizie": [
+  "https://www.lavoro.gov.it/sites/default/files/archivio-doc-pregressi/AreaLavoro_tutela/CCNLpuliziemultiservizi2007_12_19.pdf",
+  "CCNL del 19 dicembre 2007 (testo base, poi rinnovato nel 2011, 2021 e 2025)",
+  "Ministero del Lavoro",
+  true
+ ],
+ "scuola-statale": [
+  "https://www.unipg.it/files/pagine/243/2025_12_23_ccnl_cir_2022-2024.pdf",
+  "CCNL Istruzione e Ricerca 2022-2024 dell'ARAN (testo precedente: la parte economica 2025-2027 è del 1° luglio 2026)",
+  "Università di Perugia",
+  true
+ ],
+ "dirigenti-terziario": [
+  "https://pensplan.com/wp-content/uploads/2024/06/Commercio-e-servizi-dirigenti.pdf",
+  "Testi del CCNL fino all'accordo del 21 luglio 2016 (testo precedente: l'ultimo rinnovo è del 5 novembre 2025)",
+  "Pensplan Centrum",
+  true
  ]
 }
