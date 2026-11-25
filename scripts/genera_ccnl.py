@@ -103,9 +103,9 @@ def pagina_livello(c, i):
     a = N.annuo(mn * mens)
     nm, tr = N.mensile(mn, mens), N.tredicesima(mn)
     lv = f"livello {lab}" if not lab.lower().startswith(("quadro", "dirig")) else lab
-    title = f"Stipendio netto {br} {lv} 2026: {eur(nm)} €"
-    desc = (f"CCNL {br}, {lv}: minimo {eur(mn, True)} € lordi al mese, circa {eur(nm)} € netti in busta nel 2026. "
-            f"Calcolo con IRPEF, INPS e addizionali.")
+    title = f"Stipendio netto CCNL {br} {lv} 2026: {eur(nm)} €"
+    desc = (f"CCNL {br}, {lv}: minimo {eur(mn, True)} € lordi al mese a tempo pieno: retribuzione netta di circa {eur(nm)} € in busta nel 2026. "
+            f"Netto annuo, tredicesima e calcolo con IRPEF e INPS.")
     q14 = (f' La <a href="/quattordicesima-netta/#{c["slug"]}">quattordicesima di luglio</a> ha un importo simile.' if mens >= 14 else "")
     faq = [
         (f"Quanto si prende netto al {lv} del CCNL {br}?",
@@ -251,6 +251,7 @@ def main():
     nuovi = "".join(f"<url><loc>{u}</loc><lastmod>{OGGI}</lastmod></url>\n" for u in urls if f"<loc>{u}</loc>" not in sm)
     (ROOT / "sitemap.xml").write_text(sm.replace("</urlset>", nuovi + "</urlset>"), encoding="utf-8")
     print(f"{len(dati)} contratti, {len(urls)} pagine")
+    import runpy; runpy.run_path(str(Path(__file__).with_name("link_ccnl.py")))
 
 
 if __name__ == "__main__":
