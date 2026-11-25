@@ -1,0 +1,215 @@
+[
+ {
+  "key": "edilizia",
+  "slug": "edilizia-industria",
+  "breve": "Edilizia",
+  "nome": "Edilizia – Industria (ANCE)",
+  "mens": 14,
+  "fonte": "Minimi dal 1° marzo 2026 (CCNL 21/2/2025, seconda tranche): paga base, ex contingenza ed EDR di 10,33 €",
+  "fonte_url": "https://ance.it/2026/02/ccnl-21-febbraio-2025-minimi-di-paga-base-e-di-stipendio-seconda-tranche-1-marzo-2026/",
+  "fonte_nome": "ANCE, minimi dal 1° marzo 2026",
+  "livelli": [
+   [
+    "7",
+    2778.86
+   ],
+   [
+    "6",
+    2551.19
+   ],
+   [
+    "5",
+    2209.7
+   ],
+   [
+    "4",
+    2095.89
+   ],
+   [
+    "3",
+    1982.05
+   ],
+   [
+    "2",
+    1834.07
+   ],
+   [
+    "1",
+    1640.56
+   ]
+  ],
+  "def": 4,
+  "note": "Gli impiegati (livelli 4-7) hanno 14 mensilità: tredicesima a dicembre e premio annuo entro il 30 giugno. Gli operai (livelli 1-4) sono pagati a ore con divisore 173 e non hanno il premio annuo: gratifica natalizia (10%) e ferie (8,5%) arrivano tramite la Cassa Edile, quindi per loro il netto è indicativo. Ai minimi nazionali si aggiungono gli elementi territoriali della provincia. Prossimo aumento dal 1° marzo 2027.",
+  "mens_nota": " (impiegati; per gli operai gratifica e ferie passano dalla Cassa Edile)"
+ },
+ {
+  "key": "multiservizi",
+  "slug": "multiservizi-pulizie",
+  "breve": "Multiservizi",
+  "nome": "Multiservizi e pulizie (Legacoop, Confcooperative, AGCI, Unionservizi)",
+  "mens": 14,
+  "fonte": "Minimi dal 1° ottobre 2026 (CCNL 13/6/2025): minimo tabellare, contingenza ed EDR di 10,33 €",
+  "livelli": [
+   [
+    "Quadro",
+    2337.11
+   ],
+   [
+    "7",
+    2182.11
+   ],
+   [
+    "6",
+    1954.56
+   ],
+   [
+    "5",
+    1670.94
+   ],
+   [
+    "4",
+    1572.03
+   ],
+   [
+    "3",
+    1488.38
+   ],
+   [
+    "2",
+    1413.5
+   ],
+   [
+    "1",
+    1338.83
+   ]
+  ],
+  "def": 6,
+  "note": "Il minimo è per il tempo pieno. Nelle pulizie il part-time è molto diffuso: inserisci la percentuale nel calcolatore. Per il Quadro c'è anche l'indennità di funzione di 25,82 €."
+ },
+ {
+  "key": "vigilanza",
+  "slug": "vigilanza-privata",
+  "breve": "Vigilanza privata",
+  "nome": "Vigilanza privata – Guardie particolari giurate",
+  "mens": 14,
+  "fonte": "Minimi dal 1° aprile 2026 (CCNL 30/5/2023 e accordo 16/2/2024), paga base conglobata",
+  "fonte_url": "https://www.filcams.cgil.it/media/ccnl_vigilanza_sintesi_accordo",
+  "fonte_nome": "Filcams-Cgil, sintesi dell'accordo",
+  "livelli": [
+   [
+    "Quadro",
+    2319.03
+   ],
+   [
+    "1",
+    1992.6
+   ],
+   [
+    "2",
+    1860.38
+   ],
+   [
+    "3",
+    1651.31
+   ],
+   [
+    "4",
+    1468.88
+   ],
+   [
+    "5",
+    1393.87
+   ],
+   [
+    "6",
+    1293.87
+   ]
+  ],
+  "periodi": [
+   {
+    "label": "Apr 2026",
+    "minimi": [
+     2319.03,
+     1992.6,
+     1860.38,
+     1651.31,
+     1468.88,
+     1393.87,
+     1293.87
+    ]
+   },
+   {
+    "label": "Dic 2026",
+    "fut": true,
+    "minimi": [
+     2434.74,
+     2086.89,
+     1946.09,
+     1723.31,
+     1528.88,
+     1450.44,
+     1350.44
+    ]
+   }
+  ],
+  "def": 4,
+  "note": "Il netto è sul minimo senza anzianità: scatti, notturni, festivi e turni lo alzano, spesso di molto. Gli importi sono quelli del CCNL 30/5/2023 firmato da Filcams, Fisascat e Uiltucs, il cui rinnovo è in trattativa. Il CCNL Anpit-Cisal è un contratto diverso, con tabelle proprie. Dal 1° dicembre 2026 scatta l'ultima tranche di aumento."
+ },
+ {
+  "key": "fiduciari",
+  "slug": "servizi-fiduciari",
+  "breve": "Servizi fiduciari",
+  "nome": "Vigilanza privata – Servizi fiduciari (portierato, reception, controllo accessi)",
+  "mens": 14,
+  "fonte": "Minimi dal 1° aprile 2026 (CCNL 30/5/2023 e accordo 16/2/2024), paga base conglobata",
+  "fonte_url": "https://www.filcams.cgil.it/media/ccnl_vigilanza_sintesi_accordo",
+  "fonte_nome": "Filcams-Cgil, sintesi dell'accordo",
+  "livelli": [
+   [
+    "A",
+    2003.05
+   ],
+   [
+    "B",
+    1822.65
+   ],
+   [
+    "C",
+    1534.0
+   ],
+   [
+    "D",
+    1281.43
+   ],
+   [
+    "E",
+    1188.57
+   ]
+  ],
+  "periodi": [
+   {
+    "label": "Apr 2026",
+    "minimi": [
+     2003.05,
+     1822.65,
+     1534.0,
+     1281.43,
+     1188.57
+    ]
+   },
+   {
+    "label": "Dic 2026",
+    "fut": true,
+    "minimi": [
+     2032.24,
+     1849.18,
+     1556.29,
+     1300.0,
+     1207.14
+    ]
+   }
+  ],
+  "def": 3,
+  "note": "Il livello E è quello di ingresso: il contratto fissa un tempo massimo prima del passaggio al D. La quattordicesima c'è dal 2024. Turni, notturni e festivi alzano il netto. Gli importi sono quelli del CCNL 30/5/2023 (Filcams, Fisascat, Uiltucs), il cui rinnovo è in trattativa. Dal 1° dicembre 2026 scatta l'ultima tranche di aumento."
+ }
+]
