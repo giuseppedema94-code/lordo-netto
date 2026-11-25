@@ -1,0 +1,10 @@
+{
+ "commercio-terziario": ["https://www.confcommercio.it/documents/20126/64376/CCNL_dipendenti-terziario-distribuzione-servizi_2026.pdf", "Testo unico del CCNL, 3 febbraio 2026", "Confcommercio", true],
+ "industria-alimentare": ["https://www.flai.it/wp-content/uploads/2018/11/CCNL-Industria-Alimentare-2023-2027.pdf", "Testo del CCNL 2023-2027", "Flai-Cgil", true],
+ "studi-professionali": ["https://confprofessioni.eu/wp-content/uploads/2026/07/00274046_CCNL_Studi_Professionali_2026.04.10_completo.pdf", "Testo completo del CCNL, edizione aprile 2026", "Confprofessioni", true],
+ "pubblici-esercizi": ["https://www.fipe.it/2025/03/10/area-lavoro/ccnl-fipe-testo/ccnl-fipe-il-testo/", "Testo del CCNL 5 giugno 2024", "Fipe", false],
+ "metalmeccanici": ["https://www.fiom-cgil.it/attachments/article/12603/ipotesi%20di%20accordo%20ccnl%20federmeccanica%20assistal%2022-11-2025.pdf", "Accordo di rinnovo del 22 novembre 2025", "Fiom-Cgil", true],
+ "turismo-alberghi": ["https://www.filcams.cgil.it/GetMedia.aspx?id=32992c067f83462b872a679c87f4e8ad&s=0", "Accordo di rinnovo del 5 luglio 2024, con tabelle", "Filcams-Cgil", true],
+ "logistica-trasporto-merci": ["https://www.filtcgil.it/images/Contratti/Mobilit%C3%A0/Testo_accordo_del_6.12.2024.pdf", "Accordo di rinnovo del 6 dicembre 2024", "Filt-Cgil", true],
+ "cooperative-sociali": ["https://www.fpcgil.it/wp-content/uploads/2017/12/ACCORDO-RINNOVO-CCNL-COOP.-SOCIALI-26.01.2024.pdf", "Accordo di rinnovo del 26 gennaio 2024", "Fp-Cgil", true]
+}
