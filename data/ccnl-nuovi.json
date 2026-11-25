@@ -219,5 +219,236 @@
   ],
   "def": 3,
   "note": "Il livello E è quello di ingresso: il contratto fissa un tempo massimo prima del passaggio al D. La quattordicesima c'è dal 2024. Turni, notturni e festivi alzano il netto. Gli importi sono quelli del CCNL 30/5/2023 (Filcams, Fisascat, Uiltucs), il cui rinnovo è in trattativa. Dal 1° dicembre 2026 scatta l'ultima tranche di aumento."
+ },
+ {
+  "key": "uneba",
+  "slug": "uneba-assistenza",
+  "breve": "UNEBA",
+  "nome": "UNEBA – assistenza, socio-sanitario ed educativo (RSA, case di riposo, centri educativi)",
+  "mens": 14,
+  "fonte": "Minimi dal 1° marzo 2026 (CCNL 2023-2025, firmato il 24/1/2025): retribuzione conglobata",
+  "fonte_url": "https://www.fpcgil.it/wp-content/uploads/2025/01/CCNL_UNEBA_23_25.pdf",
+  "fonte_nome": "Fp-Cgil, testo del CCNL",
+  "livelli": [
+   [
+    "Quadro",
+    2057.15
+   ],
+   [
+    "1",
+    1934.7
+   ],
+   [
+    "2",
+    1824.49
+   ],
+   [
+    "3S",
+    1689.78
+   ],
+   [
+    "3",
+    1628.56
+   ],
+   [
+    "4S",
+    1542.86
+   ],
+   [
+    "4",
+    1493.89
+   ],
+   [
+    "5S",
+    1469.42
+   ],
+   [
+    "5",
+    1432.66
+   ],
+   [
+    "6S",
+    1395.94
+   ],
+   [
+    "6",
+    1359.2
+   ]
+  ],
+  "periodi": [
+   {
+    "label": "Lug 2025",
+    "minimi": [
+     2023.82,
+     1903.35,
+     1794.93,
+     1662.4,
+     1602.17,
+     1517.86,
+     1469.69,
+     1445.61,
+     1409.44,
+     1373.32,
+     1337.17
+    ]
+   },
+   {
+    "label": "Mar 2026",
+    "minimi": [
+     2057.15,
+     1934.7,
+     1824.49,
+     1689.78,
+     1628.56,
+     1542.86,
+     1493.89,
+     1469.42,
+     1432.66,
+     1395.94,
+     1359.2
+    ]
+   }
+  ],
+  "def": 5,
+  "pt": {
+   "full": 38,
+   "ore": [
+    19,
+    25,
+    30
+   ]
+  },
+  "note": "OSS e operatori di assistenza a non autosufficienti sono di solito al 4°S; educatori professionali, infermieri e assistenti sociali al 3°S; l'operatore generico di assistenza al 5° (5°S dopo 24 mesi): conta la mansione effettiva. Il tempo pieno è di 38 ore settimanali. Scatti triennali (fino a 10), notti, festivi e indennità alzano il netto. Il contratto 2023-2025 è scaduto il 31 dicembre 2025 e resta applicato fino al rinnovo, ancora in trattativa."
+ },
+ {
+  "key": "ambientali",
+  "slug": "servizi-ambientali",
+  "breve": "Servizi ambientali",
+  "nome": "Servizi ambientali – igiene ambientale (Utilitalia, Cisambiente, Legacoop, Confcooperative, AGCI)",
+  "mens": 14,
+  "fonte": "Minimi dal 1° ottobre 2026 (CCNL 9/12/2025, riserva sciolta il 3/2/2026): retribuzione base parametrale",
+  "fonte_url": "https://www.fpcgil.it/wp-content/uploads/2025/12/SINTESI-Accordo-ore-2345-del-29-dicembre.pdf",
+  "fonte_nome": "Fp-Cgil, sintesi dell'accordo",
+  "livelli": [
+   [
+    "Q",
+    3518.41
+   ],
+   [
+    "A1 (ex 8)",
+    3198.56
+   ],
+   [
+    "A2s (ex 7A)",
+    2949.21
+   ],
+   [
+    "A2 (ex 7B)",
+    2804.5
+   ],
+   [
+    "B1s (ex 6A)",
+    2668.22
+   ],
+   [
+    "B1 (ex 6B)",
+    2545.29
+   ],
+   [
+    "B2s (ex 5A)",
+    2419.56
+   ],
+   [
+    "B2 (ex 5B)",
+    2316.73
+   ],
+   [
+    "C1s (ex 4A)",
+    2216.13
+   ],
+   [
+    "C1 (ex 4B)",
+    2148.77
+   ],
+   [
+    "C2s (ex 3A)",
+    2080.19
+   ],
+   [
+    "C2 (ex 3B)",
+    2031.09
+   ],
+   [
+    "D1s (ex 2A)",
+    2027.89
+   ],
+   [
+    "D1 (ex 2B)",
+    1839.19
+   ],
+   [
+    "D2s (ex 1A)",
+    1663.25
+   ],
+   [
+    "D2 (ex 1B e J)",
+    1439.36
+   ]
+  ],
+  "def": 11,
+  "note": "Il tempo pieno è di 38 ore settimanali. In genere raccolta porta a porta e spazzamento manuale sono ai livelli D, gli autisti di mezzi pesanti al livello C: conta la mansione effettiva. Il netto è sul minimo: turni, notturno, domeniche, scatti e premio di risultato lo alzano. Dal 1° febbraio 2026 i livelli hanno nuovi nomi (per esempio l'ex 3B ora è C2) e il vecchio livello J è confluito in D2. Prossimi aumenti il 1° gennaio, il 1° agosto e il 1° dicembre 2027: +36, +40 e +40 € al livello C2s (ex 3A). Ai livelli Q e A1 spetta anche una quota ad personam (153,30 € e 71,59 €).",
+  "periodi": [
+   {
+    "label": "Ott 2026",
+    "minimi": [
+     3518.41,
+     3198.56,
+     2949.21,
+     2804.5,
+     2668.22,
+     2545.29,
+     2419.56,
+     2316.73,
+     2216.13,
+     2148.77,
+     2080.19,
+     2031.09,
+     2027.89,
+     1839.19,
+     1663.25,
+     1439.36
+    ]
+   },
+   {
+    "label": "Gen 2027",
+    "fut": true,
+    "minimi": [
+     3579.3,
+     3253.91,
+     3005.25,
+     2853.04,
+     2714.4,
+     2589.34,
+     2461.43,
+     2356.82,
+     2254.48,
+     2185.96,
+     2116.19,
+     2066.24,
+     2062.98,
+     1871.02,
+     1692.03,
+     1464.27
+    ]
+   }
+  ],
+  "pt": {
+   "full": 38,
+   "ore": [
+    19,
+    25,
+    30
+   ]
+  }
  }
 ]
