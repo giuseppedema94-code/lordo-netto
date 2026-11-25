@@ -25,7 +25,7 @@
 - [Stipendio netto Pubblici esercizi 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/pubblici-esercizi/): Netto in busta 2026 con il CCNL Pubblici esercizi: da 1.239 € a 1.873 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
 - [Stipendio netto Logistica 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/logistica-trasporto-merci/): Netto in busta 2026 con il CCNL Logistica: da 1.400 € a 1.929 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
 - [Stipendio netto Cooperative sociali 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/cooperative-sociali/): Netto in busta 2026 con il CCNL Cooperative sociali: da 1.224 € a 1.907 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
-- [Stipendio netto Scuola statale 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/scuola-statale/): Netto in busta 2026 con il CCNL Scuola statale: da 1.382 € a 2.480 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
+- [Stipendio netto docenti e ATA 2026: scuola statale](https://stipendioccnl.it/stipendio-netto/scuola-statale/): Stipendio netto 2026 di docenti e personale ATA della scuola statale: da 1.382 € a 2.480 € al mese, per profilo e anzianità.
 - [Stipendio netto Gas-Acqua 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/gas-acqua/): Netto in busta 2026 con il CCNL Gas-Acqua: da 1.482 € a 2.367 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
 - [Stipendio netto Credito ABI 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/credito-abi/): Netto in busta 2026 con il CCNL Credito ABI: da 1.904 € a 3.175 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
 - [Stipendio netto Credito ABI complementare 2026: tutti i livelli](https://stipendioccnl.it/stipendio-netto/credito-abi-complementare/): Netto in busta 2026 con il CCNL Credito ABI complementare: da 1.609 € a 2.640 € al mese. Minimi, RAL e netto per ogni livello, con IRPEF, INPS e addizionali.
@@ -34,4 +34,4 @@
 - [Stipendio netto colf e badanti 2026: CCNL lavoro domestico](https://stipendioccnl.it/stipendio-netto/colf-badanti/): Stipendio colf e badanti 2026 col CCNL lavoro domestico: minimi per livello, paga oraria, contributi INPS e netto. Badante convivente BS: circa 976 € netti.
 
 ## Note
-Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il 2026-11-24. Contatto: info@stipendioccnl.it
+Le cifre sono stime sul minimo contrattuale, senza familiari a carico; non sostituiscono la busta paga. Aggiornato il 2026-11-25. Contatto: info@stipendioccnl.it
