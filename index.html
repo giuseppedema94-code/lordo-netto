@@ -782,7 +782,11 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
               <div class="f">
                 <label for="caBp">Buono pasto</label>
                 <div class="ctl" data-u="€/giorno"><input id="caBp" inputmode="decimal" type="text" value="0"></div>
-                <p class="hint">Elettronico esente fino a 10 € al giorno, cartaceo fino a 4 €. La parte in più va inserita nei fringe benefit.</p>
+                <p class="hint">Esente fino a 10 € al giorno se elettronico, 4 € se cartaceo (art. 51 TUIR, Legge di Bilancio 2026). La parte in più è tassata e soggetta a contributi: la calcoliamo noi.</p>
+              </div>
+              <div class="f">
+                <label for="caBpT">Formato del buono</label>
+                <div class="ctl"><select id="caBpT"><option value="e" selected>Elettronico (esente fino a 10 €)</option><option value="c">Cartaceo (esente fino a 4 €)</option></select></div>
               </div>
               <div class="f">
                 <label for="caBpG">Giorni con buono</label>
@@ -1145,7 +1149,9 @@ function calcola(o){
   for(const r of o.strRows||[]){ const a=strHr*r.ore*12*((r.s?1:0)+(r.p||0)/100); straord+=a; if(r.nf)strNFamt+=a; if(r.tis)tisAmt+=a; }
   // Bonus/MBO (tassati normalmente) e premio di risultato in denaro (contributi sì, IRPEF sostituita dall'1% fino a 5.000 €)
   const mbo=Math.max(0,o.mbo||0), pdr=Math.max(0,o.pdr||0), welf=Math.max(0,o.welf||0);
-  const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0)+straord+mbo+pdr;
+  // Buoni pasto: la parte oltre la soglia giornaliera esente (10 € elettronico, 4 € cartaceo) è reddito in natura, tassato e soggetto a contributi
+  const bpEcc=Math.max(0,(o.caBp||0)-(o.caBpT==="c"?4:10))*Math.max(0,o.caBpG||0)*12;
+  const extraTax=(rimbTax?rimb:0)+(fringeTax?fringe:0)+bpEcc+straord+mbo+pdr;
   const ral=ralBase+ind+tram+extraTax;         // lordo annuo imponibile (concorso spese tranviarie: 12 mensilità)
   const baseTfr=ralBase+(o.indTfr===false?0:ind)+Math.min(mbo,o.mboTfrAmt||0)+Math.min(pdr,o.pdrTfrAmt||0); // retribuzione utile TFR
   const capB=o.mass?Math.min(ral,P.massimale):ral, massK=ral>0?capB/ral:1; // massimale contributivo per chi ha il primo contributo dal 1996
@@ -1219,16 +1225,16 @@ function calcola(o){
   const irpefLav=netta*quota, addRegL=addReg*quota, addComL=addCom*quota;
   const tratt=Math.max(0,o.tratt||0);
   const netto=ral-inps-fpLav-sanLav-irpefLav-addRegL-addComL+bonus+ti-sost-pdrSost-strSost+tis
-             +(rimbTax?0:rimb)-(fringeTax?fringe:0)-tratt;   // il fringe è in natura: tassato ma non pagato in denaro
-  return {massK,mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,strHr,strNFamt,strNF,str40,strDet,strSost,tis,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
+             +(rimbTax?0:rimb)-(fringeTax?fringe:0)-bpEcc-tratt;   // fringe e buoni pasto oltre soglia sono in natura: tassato ma non pagato in denaro
+  return {bpEcc,massK,mbo,pdr,pdrOk,pdrDet,pdrSost,welf,straord,strHr,strNFamt,strNF,str40,strDet,strSost,tis,fis,ebt,rinn,rinnOk,sost,rimb,rimbTax,fringe,fringeSoglia,fringeTax,tratt,tram,comSaldo,comAcc,fsc,sanLav,sanDat,sanDed,ralBase,ind,baseTfr,fpLav,fpDat,fpDed,fpTfr,ral,inps,inpsBase,inpsAgg,redLav,r,lorda,dLav,dCon,dFig,dCun,detr,netta:irpefLav,addReg:addRegL,addCom:addComL,bonus,ti,netto};
 }
 /* Busta di un mese ordinario (senza 13ª/14ª), come il cedolino:
    contributi sul lordo del mese, IRPEF sugli scaglioni mensili (annui/12), detrazioni in dodicesimi,
    addizionali in rate (AP 11 rate gen–nov, acconto AC 9 rate mar–nov) */
 function bustaOrdinaria(x,o,mens){
   const sogliaM=Math.round(P.sogliaInps1/12);
-  const rimbM=x.rimb/12, fringeM=x.fringeTax?x.fringe/12:0, trattM=x.tratt/12;
-  const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, strM=(x.straord||0)/12, rml=rmlBase+indM+tramM+strM+(x.rimbTax?rimbM:0)+fringeM;
+  const rimbM=x.rimb/12, fringeM=x.fringeTax?x.fringe/12:0, bpM=(x.bpEcc||0)/12, trattM=x.tratt/12;
+  const rmlBase=x.ralBase/mens, indM=x.ind/12, tramM=x.tram/12, strM=(x.straord||0)/12, rml=rmlBase+indM+tramM+strM+(x.rimbTax?rimbM:0)+fringeM+bpM;
   const baseTfrM=rmlBase+(o.indTfr===false?0:indM);
   const inpsM=rml*o.inps*(x.massK??1), ivsM=Math.max(0,rml*(x.massK??1)-sogliaM)*0.01, fscM=rml*(o.fsc||0), fisM=rml*(o.fis||0), ebtM=rml*(o.ebt||0);
   const rinnM=x.rinnOk?(o.rinnM||0):0, sostM=rinnM*0.05;
@@ -1241,8 +1247,8 @@ function bustaOrdinaria(x,o,mens){
   const nettaM=Math.max(0,lordaM-detrM);
   const aR=x.addReg/11, aS=x.comSaldo/11, aA=x.comAcc/9;
   const netM=rml-inpsM-ivsM-fscM-fisM-ebtM-fpLavM-sanLavM-nettaM-sostM-x.strSost/12+x.tis/12-aR-aS-aA+x.bonus/12+x.ti/12
-            +(x.rimbTax?0:rimbM)-fringeM-trattM;
-  return {strM,fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
+            +(x.rimbTax?0:rimbM)-fringeM-bpM-trattM;
+  return {bpM,strM,fisM,ebtM,rinnM,sostM,rimbM,fringeM,trattM,sogliaM,rmlBase,indM,inpsM,ivsM,fscM,fpLavM,sanLavM,impM,lordaM,detrM,nettaM,aR,aS,aA,netM};
 }
 /* Mensilità aggiuntiva (13ª a dicembre, 14ª a luglio) pagata insieme alla busta del mese.
    Contributi come una mensilità in più; IRPEF a tassazione separata nel mese: scaglioni mensili, senza detrazioni
@@ -1259,7 +1265,7 @@ function mensAgg(x,o,mens,b,f){
    + fondo pensione e cassa sanitaria a carico azienda con contributo di solidarietà 10% + buoni pasto */
 function costoAzienda(x,o){
   const ral=x.ral, ivsDat=Math.min(o.caInps||0,23.81), inps=ral*(x.massK??1)*ivsDat/100+ral*((o.caInps||0)-ivsDat)/100, inail=ral*(o.caInail||0)/100, tfr=x.baseTfr/13.5;
-  const fp=x.fpDat, san=x.sanDat, sol=(fp+san)*0.10, bp=(o.caBp||0)*(o.caBpG||0)*12;
+  const fp=x.fpDat, san=x.sanDat, sol=(fp+san)*0.10, bp=(o.caBp||0)*(o.caBpG||0)*12-(x.bpEcc||0); // la parte oltre soglia è già nella retribuzione imponibile
   const tot=ral+(x.welf||0)+(x.rimb||0)+inps+inail+tfr+fp+san+sol+bp;
   return {ral,welf:x.welf||0,rimb:x.rimb||0,inps,inail,tfr,fp,san,sol,bp,tot};
 }
@@ -1536,7 +1542,7 @@ function opts(){
   const tramRid=$("ccnl").value==="abicompl"?0.8:1; // contratto complementare: tabelle ridotte del 20%
 
   const o={mass:$("mass").checked,fis:FIS_CCNL.includes($("ccnl").value)?+$("fis").value:0,ebt:$("ccnl").value==="commercio"?0.0005:0,rimb:(numv("rimb")||0)*12,rimbTax:$("rimbTax").value==="1",tratt:(numv("tratt")||0)*12,fringe:numv("fringe")||0,fringeFigli:$("fringeFigli").value==="1",tram:tramOn&&TRAM[tramCity]?Math.round(TRAM[tramCity]*tramRid*100)/100:0,tramCity,addMode:"cassa",r25:numv("r25")||0,fsc:CREDITO.includes($("ccnl").value)?0.00067:0,sanLav:slp?0:sl,sanLavPct:slp?sl:0,sanDat:sdp?0:sd,sanDatPct:sdp?sd:0,ind:(numv("ind")||0)*(unit==="m"?12:1)+acc12(),indTfr:$("indTfr").value==="1",fpLavPct:$("fpLavU").value==="p"?numv("fpLav")||0:0,fpLavFix:$("fpLavU").value==="e"?numv("fpLav")||0:0,fpDatPct:$("fpDatU").value==="p"?numv("fpDat")||0:0,fpDatFix:$("fpDatU").value==="e"?numv("fpDat")||0:0,fpVol:numv("fpVol")||0,fpTfr:$("fpTfr").value==="1",inps:+$("inps").value,tipo:$("tipo").value,addreg:numv("addreg")||0,addcom:numv("addcom")||0,
-    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),caInps:numv("caInps")||0,caInail:numv("caInail")||0,caBp:numv("caBp")||0,caBpG:numv("caBpG")||0,strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
+    ...bnRead(),impQ:+$("imp").value||1,extraBase:extraBase(),strRows:strRead(),caInps:numv("caInps")||0,caInail:numv("caInail")||0,caBp:numv("caBp")||0,caBpG:numv("caBpG")||0,caBpT:$("caBpT").value,strDiv:strDivisore(),strTur:["turismo","pubblici"].includes($("ccnl").value),mensN:+$("mens").value||13,rinnM:$("rinnOn").checked?numv("rinn")||0:0,rinn:!$("rinnOn").checked?0:(()=>{const au=rinnovoAuto(),pt=(numv("pt")||100)/100; return !$("rinn").dataset.touched&&au?au.a*pt:(numv("rinn")||0)*(+$("mens").value||12);})(),coniuge:$("coniuge").value==="1",figli:Math.max(0,Math.floor(numv("figli"))||0)};
   if(selCom){ o.reg=selCom.reg; o.com=selCom.anno?selCom:{es:0,br:[[null,0]]}; }
   return o;
 }
@@ -1757,20 +1763,20 @@ function render(){
   }
   const regLbl=selCom?selCom.reg:`media ${pct(o.addreg)}`, comLbl=selCom?selCom.nome:`media ${pct(o.addcom)}`;
   const v=M?{
-    base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM,
+    base:b.rmlBase, ind:b.indM, str:b.strM, tram:x.tram/12, rimbT:x.rimbTax?b.rimbM:0, rimbE:x.rimbTax?0:b.rimbM, fringe:b.fringeM, bp:b.bpM,
     inps:b.inpsM, ivs:b.ivsM, fsc:b.fscM, fis:b.fisM, ebt:b.ebtM, fp:b.fpLavM, san:b.sanLavM,
     imp:b.impM, lorda:b.lordaM, irpef:b.nettaM, sost:b.sostM, aR:b.aR, aS:b.aS, aA:b.aA, bonus:x.bonus/12, ti:x.ti/12, tratt:b.trattM, strSost:x.strSost/12, tis:x.tis/12, bonM, net:netMv,
     agg:ag?ag.ext:0, irpAgg:ag?ag.irpef:0
   }:{
-    base:x.ralBase, ind:x.ind, str:x.straord||0, mbo:x.mbo, pdr:x.pdr, pdrSost:x.pdrSost, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0,
+    base:x.ralBase, ind:x.ind, str:x.straord||0, mbo:x.mbo, pdr:x.pdr, pdrSost:x.pdrSost, tram:x.tram, rimbT:x.rimbTax?x.rimb:0, rimbE:x.rimbTax?0:x.rimb, fringe:x.fringeTax?x.fringe:0, bp:x.bpEcc||0,
     inps:x.inpsBase, ivs:x.inpsAgg, fsc:x.fsc, fis:x.fis, ebt:x.ebt, fp:x.fpLav, san:x.sanLav,
     imp:x.redLav, lorda:x.lorda*(x.r?x.redLav/x.r:1), irpef:x.netta, sost:x.sost, aR:x.addReg, aS:x.comSaldo, aA:x.comAcc, bonus:x.bonus, ti:x.ti, tratt:x.tratt, strSost:x.strSost, tis:x.tis, net:x.netto
   };
   if(M&&ag){ v.inps+=ag.inps; v.ivs+=ag.ivs; v.fsc+=ag.fsc; v.fis+=ag.fis; v.ebt+=ag.ebt; v.fp+=ag.fp; v.san+=ag.san; }
-  const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe+(v.agg||0);
+  const tLordo=v.base+v.ind+v.str+(v.mbo||0)+(v.pdr||0)+v.tram+v.rimbT+v.fringe+(v.bp||0)+(v.agg||0);
   const tContr=v.inps+v.ivs+v.fsc+v.fis+v.ebt+v.fp+v.san;
   const tTax=v.irpef+(v.irpAgg||0)+v.sost+(v.pdrSost||0)+v.strSost+v.aR+v.aS+v.aA-v.bonus-v.ti-v.tis;
-  const tAltro=v.rimbE-v.fringe-v.tratt+(v.bonM||0);
+  const tAltro=v.rimbE-v.fringe-(v.bp||0)-v.tratt+(v.bonM||0);
   const pos=(l,val)=>val>0.004?[l,eur(val,2),""]:null;
   const detr=M?[b.detrM?infP("Detrazioni del mese",b.detrM):null]
               :[x.dLav?infP("Detrazione lavoro dipendente",x.dLav):null,x.dCun?infP("Detrazione aggiuntiva cuneo fiscale",x.dCun):null,
@@ -1787,7 +1793,7 @@ function render(){
       pos("Premio di risultato in denaro",v.pdr||0),
       pos(`Concorso spese tranviarie, ${esc(o.tramCity)}`,v.tram),
       pos("Rimborsi spese tassati",v.rimbT),
-      pos("Fringe benefit oltre soglia, in natura",v.fringe)]},
+      pos("Fringe benefit oltre soglia, in natura",v.fringe),pos("Buoni pasto oltre soglia esente, in natura",v.bp||0)]},
     {id:"contr",title:"Contributi e fondi",total:mns(tContr),always:true,rows:[
       ded(`INPS ${pct(o.inps*100)}`,v.inps),
       ded(M?`IVS aggiuntivo 1% oltre ${eur(b.sogliaM)} al mese`:"IVS aggiuntivo 1% oltre 56.224 € l'anno",v.ivs),
@@ -1821,6 +1827,7 @@ function render(){
       cre("Bonus e premi, netto",v.bonM||0),
       cre("Rimborsi spese esenti",v.rimbE),
       ded("Fringe benefit in natura, non pagati in denaro",v.fringe),
+      ded("Buoni pasto oltre soglia, già ricevuti come buoni",v.bp||0),
       ded("Altre trattenute",v.tratt)]}
   ];
   $("det").innerHTML=cedHtml(groups,M?"Netto in busta":"Netto annuo",eur(v.net,2));
@@ -2097,7 +2104,7 @@ $("str-list").addEventListener("input",e=>{ if(e.target.matches("input[type=text
 $("str-list").addEventListener("change",e=>{ if(e.target.matches(".st-t")){ const r=e.target.closest(".fr"); r.querySelector(".st-p").value=fmtIt(strPct(e.target.value)); delete r.dataset.touched; } render(); });
 $("bnMens").addEventListener("change",render);
 $("mensAgg").addEventListener("change",render);
-["caInps","caInail","caBp","caBpG"].forEach(id=>$(id).addEventListener("input",e=>{ if(id==="caInps") $(id).dataset.touched=1; liveFormat($(id),e); render(); }));
+$("caBpT").addEventListener("change",render); ["caInps","caInail","caBp","caBpG"].forEach(id=>$(id).addEventListener("input",e=>{ if(id==="caInps") $(id).dataset.touched=1; liveFormat($(id),e); render(); }));
 /* aliquota contributiva azienda indicativa per settore (fonti: tabelle di sintesi 2026; da verificare sul proprio caso) */
 const CA_INPS={metalmeccanici:29,alimentare:29,tessile:29,gomma:29,commercio:29.5,logistica:29.5,turismo:29.5,pubblici:29.5,studi:29,abi:29.5,abicompl:29.5,dirabi:29.5,dirterz:29.5,coopsoc:29.5,gasacqua:29};
 function syncCa(){ if($("caInps").dataset.touched) return; $("caInps").value=fmtIt(CA_INPS[$("ccnl").value]||29.5); }
