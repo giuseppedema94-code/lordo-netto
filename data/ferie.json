@@ -140,5 +140,31 @@
   "note": "I permessi valgono per visite mediche documentate, rinnovo del permesso di soggiorno e ricongiungimento familiare. Chi è pagato a ore riceve per ogni giorno di ferie 1/6 dell'orario settimanale.",
   "fonte": "CCNL Lavoro domestico 28/10/2025, artt. 17 e 19",
   "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"
+ },
+ "logistica-trasporto-merci": {
+  "nome": "Logistica, trasporto merci e spedizione",
+  "ferie": "22 giorni",
+  "permessi": "72 ore",
+  "righe": [
+   [
+    "Ferie, orario su 5 giorni",
+    "22 giorni lavorativi (il sabato non conta)"
+   ],
+   [
+    "Ferie, personale non viaggiante con orario su 6 giorni",
+    "26 giorni lavorativi"
+   ],
+   [
+    "Riduzione d'orario (ROL), personale non viaggiante",
+    "40 ore all'anno, in 5 gruppi da 8 ore"
+   ],
+   [
+    "Ex festività",
+    "32 ore all'anno, in gruppi di 4 o 8 ore"
+   ]
+  ],
+  "note": "Ferie e permessi non dipendono dall'anzianità. ROL ed ex festività non goduti entro il 31 dicembre si pagano entro aprile dell'anno dopo. Per il personale viaggiante l'orario segue regole proprie (art. 11).",
+  "fonte": "CCNL Logistica, trasporto merci e spedizione, testo unico 6/12/2024, artt. 9, 14 e 24",
+  "url": "https://www.legacoop.coop/wp-content/uploads/2025/10/Nuovo-Testo-Unico-del-CCNL-logistica-trasporto-e-spedizione.pdf"
  }
 }
