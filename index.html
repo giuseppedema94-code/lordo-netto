@@ -160,6 +160,14 @@ input:disabled{background:var(--soft);color:var(--ink);opacity:1;-webkit-text-fi
 .opt{border-top:1px solid var(--line);padding:18px 0 6px}
 .opt-h{margin:0 0 4px;font-size:16.5px;font-weight:700}
 .opt-sub{margin:0 0 10px;font-size:13px;color:var(--muted)}
+.opt-more>summary{list-style:none;cursor:pointer;display:block;padding:4px 0 10px;position:relative;padding-right:28px}
+.opt-more>summary::-webkit-details-marker{display:none}
+.opt-more>summary::after{content:"+";position:absolute;right:4px;top:2px;font-size:22px;font-weight:400;line-height:1}
+.opt-more[open]>summary::after{content:"−"}
+.opt-more>summary .opt-h{display:block}
+.opt-more>summary .opt-h small{font-weight:500;color:var(--muted);font-size:13px;margin-left:6px}
+.opt-more>summary .opt-sub{display:block;margin:0}
+
 .eyebrow{display:flex;align-items:center;gap:8px;margin:16px 0 2px;font-size:13px;font-weight:600;color:var(--muted)}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--c-altro)}
 .dot.contr{background:var(--c-contr)} .dot.tax{background:var(--c-tax)} .dot.net{background:var(--c-net)} .dot.comp{background:var(--bd)}
@@ -437,7 +445,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 </style><link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111316">
-<link rel="stylesheet" href="/css/swiss.css?v=7">
+<link rel="stylesheet" href="/css/swiss.css?v=8">
 </head>
 <body>
 
@@ -602,9 +610,9 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
         </section>
 
         <!-- Dettagli facoltativi, nello stesso ordine del cedolino -->
-        <div class="opt">
-          <p class="opt-h">Dettagli facoltativi</p>
-          <p class="opt-sub">Tre gruppi: fondi, tasse ed extra. I valori previsti dal CCNL sono già compilati.</p>
+        <details class="opt opt-more" id="opt-more">
+          <summary><span class="opt-h">Dettagli facoltativi <small>12 voci</small></span>
+          <span class="opt-sub">Fondi, tasse ed extra: contributi, fondo pensione, familiari a carico, addizionali, bonus, straordinari… I valori previsti dal CCNL sono già compilati e già inclusi nel netto.</span></summary>
 
           <p class="eyebrow"><i class="dot contr"></i>Fondi e contributi</p>
           <details class="acc">
@@ -849,7 +857,7 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
               <div class="fringe-meter" id="fringe-meter" hidden><div class="fm-bar"><i id="fm-fill"></i></div><div class="fm-txt" id="fm-txt"></div></div>
             </div>
           </details>
-        </div>
+        </details>
         <div class="save-row">
           <label class="sw"><input type="checkbox" id="saveOn"><span class="tr" aria-hidden="true"></span><span>Ricorda i miei dati su questo dispositivo</span></label>
           <p class="hint">Contratto, retribuzione, fondi, familiari e le altre scelte restano salvati in questo browser e li ritrovi alla prossima visita. Non vengono inviati a nessuno. <button type="button" class="lnk" id="saveClear" hidden>Cancella i dati salvati</button></p>
@@ -2301,5 +2309,5 @@ loadState();
  }));
  if(document.getElementById("f")&&(location.hash==="#costo"||location.hash==="#netto-lordo"||location.hash==="#confronta")) setTimeout(()=>document.querySelector(`[data-go="${({"#costo":"costo","#netto-lordo":"nl","#confronta":"cmp"})[location.hash]}"]`)?.click(),300);
 })();
-</script><script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;b.onclick=()=>{e.prompt();b.hidden=true}})</script></body>
+</script><script>document.querySelectorAll("#opt-more details").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)document.getElementById("opt-more").open=true}));if(location.hash&&document.querySelector("#opt-more #"+CSS.escape(location.hash.slice(1))))document.getElementById("opt-more").open=true</script><script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;b.onclick=()=>{e.prompt();b.hidden=true}})</script></body>
 </html>

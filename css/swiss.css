@@ -87,14 +87,24 @@ input,select,textarea{border-radius:0!important;border:1px solid var(--rule-ui)!
 .tblwrap{border:0;border-radius:0}
 details.ccnl-tbl{border:0;border-top:1px solid var(--rule);border-radius:0}
 
-/* Testata con ricerca: niente fascia colorata */
-.nt-band{background:var(--bg)!important;border-bottom:1px solid var(--rule)}
-.nt-search{border:1px solid var(--rule-ui);border-radius:0!important;background:var(--field)!important;color:var(--ink)!important}
-.nt .nt-search input{background:transparent!important;border:0!important;color:var(--ink)!important}
-.nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:transparent!important;color:var(--ink)!important;border:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:1px solid transparent!important}
-.nt .nt-tab.on{border-bottom-color:var(--accent)!important;font-weight:800}
+/* Testata colorata: fascia verde del sito con ricerca bianca; il resto della pagina resta sobrio come una busta paga */
+:root{--hero:#1f6b48;--hero-2:#2f8a5f;--hero-ink:#fff;--hero-soft:#e8f3ed}
+@media screen and (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hero:#16442f;--hero-2:#1f5c40;--hero-ink:#f1f7f3;--hero-soft:#16211b}}
+:root[data-theme="dark"]{--hero:#16442f;--hero-2:#1f5c40;--hero-ink:#f1f7f3;--hero-soft:#16211b}
+header.nt{background:var(--hero)!important;border-bottom:0!important}
+.nt-brand,.nt-brand b,.nt-brand b i,.nt-brand small{color:var(--hero-ink)!important}
+.nt-brand b i,.nt-brand small{opacity:.8}
+.nt .theme-btn{color:var(--hero-ink)!important;border-color:rgba(255,255,255,.55)!important;background:transparent!important}
+.nt .nt-tab:hover{background:rgba(255,255,255,.08)!important}
+.nt-band{background:linear-gradient(180deg,var(--hero) 0,var(--hero-2) 100%)!important;border-bottom:0}
+.nt-search{border:1px solid transparent;border-radius:0!important;background:#fff!important;color:#111!important}
+.nt .nt-search input{background:transparent!important;border:0!important;color:#111!important}
+.nt .nt-search input::placeholder{color:#5b6472}
+.nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:transparent!important;color:var(--hero-ink)!important;border:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:1px solid transparent!important;opacity:.85}
+.nt .nt-tab.on{border-bottom:1px solid var(--hero-ink)!important;font-weight:800;opacity:1}
+.nt-chips{background:var(--hero-soft);border-bottom:1px solid var(--rule)}
 .nt-chips a,.nt-chips a.all{color:var(--ink)!important;font-weight:500}
-.nt-chips a.all{font-weight:700}
+.nt-chips a.all{font-weight:700;color:var(--accent)!important}
 
 /* Confronto offerte */
 .oc.on{border-color:var(--rule);box-shadow:none}
