@@ -1,6 +1,7 @@
-"""Collega manifest e service worker (app installabile) a tutte le pagine HTML. Idempotente."""
+"""Collega lo stile Swiss (css/swiss.css), manifest e service worker (app installabile) a tutte le pagine HTML. Idempotente."""
 import glob, re
 MAN = '<link rel="manifest" href="/manifest.webmanifest">'
+SWISS = '<link rel="stylesheet" href="/css/swiss.css?v=2">'
 JS = ('<script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));'
       'addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;'
       'b.onclick=()=>{e.prompt();b.hidden=true}})</script>')
@@ -12,6 +13,8 @@ for p in glob.glob('**/*.html', recursive=True):
     if '</head>' not in s: continue
     if MAN not in s:
         s = s.replace('</head>', MAN + '\n</head>', 1)
+    s = re.sub(r'<link rel="stylesheet" href="/css/swiss.css[^"]*">\n?', '', s)
+    s = s.replace('</head>', SWISS + '\n</head>', 1)
     s = re.sub(r'<script id="pwa">.*?</script>', '', s, flags=re.S)
     s = s.replace('</body>', JS + '</body>', 1)
     if 'id="pwa-btn"' not in s:

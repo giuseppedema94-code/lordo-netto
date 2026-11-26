@@ -1,0 +1,83 @@
+/* Swiss minimal: griglia, nero su bianco, un solo accento verde, filetti sottili, numeri grandi.
+   Sovrascrive solo l'aspetto: struttura e testi restano invariati. */
+:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{
+  --bg:#fff; --card:#fff; --ink:#111; --ink2:#111; --muted:#555; --line:#111; --bd:#111; --soft:#fff;
+  --field:#fff; --chip:#fff; --track:#e6e6e6;
+  --brand:#111; --brand-2:#2f8a5f; --brand-t:#111; --brand-soft:#fff; --bsoft:#fff;
+  --accent:#2f8a5f;
+  --c-net:#2e7d5b; --c-contr:#d9a23b; --c-tax:#c4553a; --c-altro:#98a1ad; --warn:#b4472e;
+  --font:"Helvetica Neue",Helvetica,Arial,"Inter",system-ui,sans-serif;
+  --radius:0; --ri:0; --rc:0; --shadow:none;
+}
+body{background:#fff;letter-spacing:-.005em}
+a{text-decoration-thickness:1px}
+a:hover{color:var(--accent)}
+
+/* Testata: riga nera sotto, voci come un indice */
+header.top{border-bottom:2px solid #111}
+header.top nav a{font-weight:500}
+
+/* Titoli grandi, compatti, allineati a sinistra */
+h1,.hero h1{font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem)}
+h2,article.content h2{font-weight:800;letter-spacing:-.02em;border-top:2px solid #111;padding-top:.6em}
+.eyebrow{color:#111;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.72rem}
+.eyebrow::after{content:"";display:inline-block;width:.45em;height:.45em;border-radius:50%;background:var(--accent);margin-left:.4em;vertical-align:.1em}
+
+/* Card: niente bordi arrotondati, separate da filetti */
+.card{border:0;border-top:2px solid #111;border-radius:0;box-shadow:none;background:#fff}
+
+/* Sezioni numerate 01 02 03 */
+.sec-h{border-top:1px solid #111;padding-top:.7rem}
+.sec-h .n{background:none!important;color:#111!important;border:0!important;font-weight:800;font-size:.95rem;width:auto;min-width:2ch;font-variant-numeric:tabular-nums}
+.sec-h h3{font-weight:700}
+
+/* Campi e pulsanti a segmenti: linee nette, selezione in nero */
+input,select,textarea{border-radius:0!important;border-color:#111!important}
+.seg,.tabs{border:1px solid #111;border-radius:0}
+.seg button,.tabs button{border-radius:0}
+.tabs button[aria-selected="true"],.seg button[aria-pressed="true"],.seg button.on{background:#111!important;color:#fff!important}
+.chip{border:1px solid #111;border-radius:0;background:#fff}
+.btn{border-radius:0;background:var(--accent);color:#fff;border:0;font-weight:700}
+.btn:hover{background:#111;color:#fff}
+
+/* Risultato: il netto è la cifra più grande della pagina, con il punto rosso */
+.res{border:0;border-top:3px solid #111;border-radius:0;box-shadow:none}
+.res-hero{background:#fff!important;color:#111!important;border-radius:0}
+.res-hero .lbl{color:#111;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
+.res-hero .val{font-weight:800;letter-spacing:-.05em;line-height:.95;color:#111}
+.res-hero .val small::before{content:"";display:inline-block;width:.42em;height:.42em;border-radius:50%;background:var(--accent);margin:0 .5em 0 -.1em;vertical-align:.05em}
+.kpis > div{border-top:1px solid #111;border-radius:0;background:#fff}
+.kpis > div + div{border-left:1px solid #111}
+.kpis strong{font-weight:800}
+.bar,.fm-bar{border-radius:0}
+.bar i,.fm-bar i{border-radius:0}
+
+/* Tabelle: solo filetti orizzontali, intestazione nera */
+.tbl,table{border-collapse:collapse}
+.tbl th,table th{background:#fff!important;color:#111;font-weight:700;border-bottom:2px solid #111!important;text-align:left}
+.tbl td,table td{border-bottom:1px solid #111!important;border-left:0!important;border-right:0!important}
+.tblwrap{border:0;border-radius:0}
+details.ccnl-tbl{border:0;border-top:1px solid #111;border-radius:0}
+
+/* Barra del netto su mobile */
+.mbar{background:#111;color:#fff;border-radius:0}
+.mbar strong{color:#fff}
+
+/* Testata e ricerca: niente fascia colorata, schede come un indice testuale */
+.nt-band{background:#fff!important;border-top:2px solid #111;border-bottom:1px solid #111}
+.nt-search{border:1px solid #111;border-radius:0!important;background:#fff}
+.nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:#fff!important;color:#111!important;border-radius:0!important;box-shadow:none!important}
+.nt .nt-tab.on{border-bottom:3px solid var(--accent)!important;font-weight:800}
+.nt .nt-tab{border-bottom:3px solid transparent}
+.nt-chips a,.nt-chips a.all{color:#111!important;font-weight:500}
+.nt-chips a.all{font-weight:700}
+.cmp-btn:hover{border-color:var(--accent);color:var(--accent)}
+.oc.on{border-color:#111;box-shadow:none}
+.oc.on .oc-tag{background:var(--accent)}
+.cmp-win.up b,.cmp-t .up{color:var(--accent)}
+
+/* Lo stile è solo chiaro: campi chiari anche su telefoni in modalità scura, pulsante tema nascosto */
+:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{color-scheme:light}
+input,select,textarea{background:#fff!important;color:#111!important}
+.theme-btn{display:none!important}
