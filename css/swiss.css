@@ -12,7 +12,7 @@
   --brand:#111; --brand-2:#24704d; --brand-t:#111; --brand-soft:#fff; --bsoft:#fff;
   --accent:#24704d; --on-ink:#fff; --rule-ui:#767d87;
   --font:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
-  --radius:0; --ri:0; --rc:0; --shadow:none;
+  --radius:10px; --ri:6px; --rc:10px; --shadow:none;
 }
 /* Tema scuro: segue il dispositivo o il pulsante, come prima */
 @media screen and (prefers-color-scheme:dark){
@@ -57,12 +57,12 @@ article.content h2:first-child{border-top:0;padding-top:0}
 .sec-h h3{font-weight:700}
 
 /* Campi, segmenti, chip: un solo bordo da 1px */
-input,select,textarea{border-radius:0!important;border:1px solid var(--rule-ui)!important;background-color:var(--field)!important;color:var(--ink)!important}
-.seg,.tabs{border:1px solid var(--rule-ui);border-radius:0;box-shadow:none;padding:0}
+input,select,textarea{border-radius:6px!important;border:1px solid var(--rule-ui)!important;background-color:var(--field)!important;color:var(--ink)!important}
+.seg,.tabs{border:1px solid var(--rule-ui);border-radius:6px;overflow:hidden;box-shadow:none;padding:0}
 .seg button,.tabs button{border-radius:0;border:0;box-shadow:none}
 .tabs button[aria-selected="true"],.seg button[aria-checked="true"],.seg button[aria-pressed="true"],.seg button.on{background:var(--ink)!important;color:var(--on-ink)!important;box-shadow:none!important}
-.chip{border:1px solid var(--rule-ui);border-radius:0;background:var(--card)}
-.btn,.cmp-btn{border-radius:0;box-shadow:none}
+.chip{border:1px solid var(--rule-ui);border-radius:999px;background:var(--card)}
+.btn,.cmp-btn{border-radius:6px;box-shadow:none}
 .btn{background:var(--accent);color:var(--on-ink);border:1px solid var(--accent);font-weight:700}
 .btn:hover{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
 .cmp-btn{border:1px solid var(--rule-ui)}
@@ -78,7 +78,7 @@ input,select,textarea{border-radius:0!important;border:1px solid var(--rule-ui)!
 .kpis > div{border:0;border-radius:0;background:var(--card)}
 .kpis > div + div{border-left:1px solid var(--rule)}
 .kpis strong{font-weight:800}
-.bar,.fm-bar,.bar i,.fm-bar i{border-radius:0}
+.bar,.fm-bar,.bar i,.fm-bar i{border-radius:3px}
 
 /* Tabelle: solo filetti orizzontali da 1px, intestazione in grassetto */
 .tbl,table{border-collapse:collapse}
@@ -97,7 +97,7 @@ header.nt{background:var(--hero)!important;border-bottom:0!important}
 .nt .theme-btn{color:var(--hero-ink)!important;border-color:rgba(255,255,255,.55)!important;background:transparent!important}
 .nt .nt-tab:hover{background:rgba(255,255,255,.08)!important}
 .nt-band{background:linear-gradient(180deg,var(--hero) 0,var(--hero-2) 100%)!important;border-bottom:0}
-.nt-search{border:1px solid transparent;border-radius:0!important;background:#fff!important;color:#111!important}
+.nt-search{border:1px solid transparent;border-radius:8px!important;background:#fff!important;color:#111!important}
 .nt .nt-search input{background:transparent!important;border:0!important;color:#111!important}
 .nt .nt-search input::placeholder{color:#5b6472}
 .nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:transparent!important;color:var(--hero-ink)!important;border:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:1px solid transparent!important;opacity:.85}
@@ -112,7 +112,7 @@ header.nt{background:var(--hero)!important;border-bottom:0!important}
 .cmp-win.up b,.cmp-t .up{color:var(--accent)}
 
 /* Barra del netto su mobile */
-.mbar{background:var(--ink);color:var(--on-ink);border-radius:0}
+.mbar{background:var(--ink);color:var(--on-ink);border-radius:8px}
 .mbar strong{color:var(--on-ink)}
 
 /* Allineamento delle due colonne: i filetti partono alla stessa altezza e coprono tutta la larghezza */
@@ -128,7 +128,7 @@ tbody th,.tbl tbody th{border-bottom:1px solid var(--rule-soft)!important}
 
 /* Correzioni dall'audit (agente + ChatGPT + Gemini) */
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent)!important;outline-offset:2px;box-shadow:none!important}
-.nt .theme-btn,.theme-btn{border-radius:0!important;border-color:var(--rule-ui)!important}
+.nt .theme-btn,.theme-btn{border-radius:6px!important;border-color:var(--rule-ui)!important}
 .ccnl-dot{background:var(--ink)!important}
 @media (min-width:861px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 /* Tabelle: colonna del livello fissa nello scorrimento, numeri allineati a destra */
@@ -145,3 +145,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent)!importan
   .f label{white-space:normal;overflow:visible;text-overflow:clip}
   html{scroll-padding-bottom:72px}
 }
+
+/* angoli arrotondati */
+details.opt,.opt-more,.fm,.box,.note,.tip{border-radius:8px}
