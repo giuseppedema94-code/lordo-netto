@@ -161,3 +161,6 @@ details.opt,.opt-more,.fm,.box,.note,.tip{border-radius:8px}
   .nt .nt-tab{padding:3px 8px!important;font-size:14px!important}
   .nt .nt-tab svg{display:none}
 }
+/* menu sezioni: mai scorrimento orizzontale, va a capo */
+.nt .nt-tabs{overflow:visible!important;flex-wrap:wrap!important;min-width:0}
+.nt .nt-tabs::-webkit-scrollbar{display:none}
