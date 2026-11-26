@@ -9,25 +9,25 @@
   --field:#fff; --chip:#fff; --track:#e6e8eb;
   --rule:#111; --rule-soft:#d5d9de;
   --line:var(--rule-soft); --bd:var(--rule);
-  --brand:#111; --brand-2:#2f8a5f; --brand-t:#111; --brand-soft:#fff; --bsoft:#fff;
-  --accent:#2f8a5f; --on-ink:#fff;
+  --brand:#111; --brand-2:#24704d; --brand-t:#111; --brand-soft:#fff; --bsoft:#fff;
+  --accent:#24704d; --on-ink:#fff; --rule-ui:#767d87;
   --font:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
   --radius:0; --ri:0; --rc:0; --shadow:none;
 }
 /* Tema scuro: segue il dispositivo o il pulsante, come prima */
 @media screen and (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0f1114; --card:#0f1114; --ink:#eceef1; --ink2:#eceef1; --muted:#a3abb6; --soft:#0f1114;
+    --bg:#111316; --card:#111316; --ink:#e6e8eb; --ink2:#e6e8eb; --muted:#a3abb6; --soft:#0f1114;
     --field:#15181c; --chip:#0f1114; --track:#2a2f36;
-    --rule:#eceef1; --rule-soft:#343a42; --line:var(--rule-soft); --bd:var(--rule);
+    --rule:#8b939d; --rule-soft:#30363e; --rule-ui:#6b737d; --line:var(--rule-soft); --bd:var(--rule);
     --brand:#eceef1; --brand-2:#4fb586; --brand-t:#eceef1; --brand-soft:#0f1114; --bsoft:#0f1114;
     --accent:#4fb586; --on-ink:#0f1114; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0f1114; --card:#0f1114; --ink:#eceef1; --ink2:#eceef1; --muted:#a3abb6; --soft:#0f1114;
+  --bg:#111316; --card:#111316; --ink:#e6e8eb; --ink2:#e6e8eb; --muted:#a3abb6; --soft:#0f1114;
   --field:#15181c; --chip:#0f1114; --track:#2a2f36;
-  --rule:#eceef1; --rule-soft:#343a42; --line:var(--rule-soft); --bd:var(--rule);
+  --rule:#8b939d; --rule-soft:#30363e; --rule-ui:#6b737d; --line:var(--rule-soft); --bd:var(--rule);
   --brand:#eceef1; --brand-2:#4fb586; --brand-t:#eceef1; --brand-soft:#0f1114; --bsoft:#0f1114;
   --accent:#4fb586; --on-ink:#0f1114; color-scheme:dark;
 }
@@ -57,15 +57,15 @@ article.content h2:first-child{border-top:0;padding-top:0}
 .sec-h h3{font-weight:700}
 
 /* Campi, segmenti, chip: un solo bordo da 1px */
-input,select,textarea{border-radius:0!important;border:1px solid var(--rule)!important;background-color:var(--field)!important;color:var(--ink)!important}
-.seg,.tabs{border:1px solid var(--rule);border-radius:0;box-shadow:none;padding:0}
+input,select,textarea{border-radius:0!important;border:1px solid var(--rule-ui)!important;background-color:var(--field)!important;color:var(--ink)!important}
+.seg,.tabs{border:1px solid var(--rule-ui);border-radius:0;box-shadow:none;padding:0}
 .seg button,.tabs button{border-radius:0;border:0;box-shadow:none}
 .tabs button[aria-selected="true"],.seg button[aria-checked="true"],.seg button[aria-pressed="true"],.seg button.on{background:var(--ink)!important;color:var(--on-ink)!important;box-shadow:none!important}
-.chip{border:1px solid var(--rule);border-radius:0;background:var(--card)}
+.chip{border:1px solid var(--rule-ui);border-radius:0;background:var(--card)}
 .btn,.cmp-btn{border-radius:0;box-shadow:none}
-.btn{background:var(--accent);color:#fff;border:1px solid var(--accent);font-weight:700}
+.btn{background:var(--accent);color:var(--on-ink);border:1px solid var(--accent);font-weight:700}
 .btn:hover{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
-.cmp-btn{border:1px solid var(--rule)}
+.cmp-btn{border:1px solid var(--rule-ui)}
 .cmp-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* Risultato: il netto è la cifra più grande, con il punto verde */
@@ -89,9 +89,9 @@ details.ccnl-tbl{border:0;border-top:1px solid var(--rule);border-radius:0}
 
 /* Testata con ricerca: niente fascia colorata */
 .nt-band{background:var(--bg)!important;border-bottom:1px solid var(--rule)}
-.nt-search{border:1px solid var(--rule);border-radius:0!important;background:var(--field)!important;color:var(--ink)!important}
+.nt-search{border:1px solid var(--rule-ui);border-radius:0!important;background:var(--field)!important;color:var(--ink)!important}
 .nt .nt-search input{background:transparent!important;border:0!important;color:var(--ink)!important}
-.nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:transparent!important;color:var(--ink)!important;border:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:2px solid transparent!important}
+.nt .nt-tab,.nt .nt-tab.on,:root .nt .nt-tab.on{background:transparent!important;color:var(--ink)!important;border:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:1px solid transparent!important}
 .nt .nt-tab.on{border-bottom-color:var(--accent)!important;font-weight:800}
 .nt-chips a,.nt-chips a.all{color:var(--ink)!important;font-weight:500}
 .nt-chips a.all{font-weight:700}
@@ -115,3 +115,23 @@ h2.sr{border:0!important;padding:0!important}
 .card.form .sec{border:0!important}
 /* Le intestazioni di riga (es. voci del cedolino) hanno lo stesso filetto delle celle */
 tbody th,.tbl tbody th{border-bottom:1px solid var(--rule-soft)!important}
+
+/* Correzioni dall'audit (agente + ChatGPT + Gemini) */
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent)!important;outline-offset:2px;box-shadow:none!important}
+.nt .theme-btn,.theme-btn{border-radius:0!important;border-color:var(--rule-ui)!important}
+.ccnl-dot{background:var(--ink)!important}
+@media (min-width:861px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+/* Tabelle: colonna del livello fissa nello scorrimento, numeri allineati a destra */
+.tblwrap{scrollbar-width:thin}
+.tbl th:first-child,.tbl td:first-child{position:sticky;left:0;background:var(--card);z-index:1}
+.tbl td.n,.tbl th.n,.tbl td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.nt-tabs,.nt-chips .nt-in{scrollbar-width:thin}
+@media (max-width:700px){
+  input,select,textarea,.nt .nt-search input{font-size:16px!important}
+  .nt .theme-btn{width:44px;height:44px}
+  .nt-tab,.nt-chips a{min-height:44px;display:inline-flex;align-items:center}
+  .seg button,.tabs button{min-height:44px}
+  .acc .v{max-width:none!important;white-space:normal;overflow:visible;text-overflow:clip}
+  .f label{white-space:normal;overflow:visible;text-overflow:clip}
+  html{scroll-padding-bottom:72px}
+}
