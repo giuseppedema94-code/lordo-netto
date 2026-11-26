@@ -1,0 +1,102 @@
+{
+ "metalmeccanici": {
+  "nome": "Metalmeccanici (Federmeccanica-Assistal)",
+  "righe": [
+   [
+    "D1, D2 e C1",
+    "1 mese e mezzo (ridotto: 1 mese)"
+   ],
+   [
+    "C2, C3 e B1",
+    "3 mesi (ridotto: 2 mesi)"
+   ],
+   [
+    "B2, B3 e A1",
+    "6 mesi (ridotto: 3 mesi)"
+   ]
+  ],
+  "note": "La durata ridotta vale per chi ha svolto le stesse mansioni per almeno due anni in altre aziende o ha completato altrove l'apprendistato per lo stesso profilo, documentandolo all'assunzione. Se hai già lavorato nella stessa azienda con le stesse mansioni a termine o in somministrazione per più tempo della prova, la prova non si può fare.",
+  "fonte": "CCNL Metalmeccanici, Sezione IV, Titolo I, art. 2 (testo 11/6/2024)",
+  "url": "https://www.crs4.it/repository/documents/trasparenza/site/personale/ccnl/ccnl_metalmeccanici_11-06-2024.pdf"
+ },
+ "industria-alimentare": {
+  "nome": "Industria alimentare",
+  "righe": [
+   [
+    "1° livello Super e 1° livello",
+    "6 mesi"
+   ],
+   [
+    "2°, 3° A e 3° livello",
+    "3 mesi"
+   ],
+   [
+    "4° e 5° livello",
+    "1 mese e mezzo"
+   ],
+   [
+    "6° livello",
+    "18 giorni lavorativi"
+   ]
+  ],
+  "note": "Gli operai che hanno già superato la prova nella stessa azienda e per le stesse mansioni nei cinque anni precedenti ne sono esenti. Nei contratti a termine la prova è riproporzionata.",
+  "fonte": "CCNL Industria alimentare 2023-2027, art. 17",
+  "url": "https://www.flai.it/wp-content/uploads/2018/11/CCNL-Industria-Alimentare-2023-2027.pdf"
+ },
+ "studi-professionali": {
+  "nome": "Studi professionali (Confprofessioni)",
+  "righe": [
+   [
+    "Quadri e I livello",
+    "180 giorni di calendario"
+   ],
+   [
+    "II, III Super e III livello",
+    "120 giorni di calendario"
+   ],
+   [
+    "IV Super e IV livello",
+    "90 giorni di calendario"
+   ],
+   [
+    "V livello",
+    "60 giorni di calendario"
+   ]
+  ],
+  "note": "Nei contratti a termine inferiori a 10 mesi la prova si riduce a 60, 40, 30 e 20 giorni; sotto i 6 mesi si dimezza ancora. Nel rinnovo di un contratto a termine per le stesse mansioni non si può fare la prova.",
+  "fonte": "CCNL Studi professionali, art. 26",
+  "url": "https://confprofessioni.eu/wp-content/uploads/2026/07/00274046_CCNL_Studi_Professionali_2026.04.10_completo.pdf"
+ },
+ "vigilanza-privata": {
+  "nome": "Vigilanza privata",
+  "righe": [
+   [
+    "Quadro e I livello",
+    "150 giorni di lavoro effettivo"
+   ],
+   [
+    "Altri livelli",
+    "60 giorni di lavoro effettivo"
+   ]
+  ],
+  "note": "Durante la prova il rapporto si può chiudere in qualsiasi momento senza preavviso, con diritto al TFR e ai ratei di tredicesima, quattordicesima e ferie.",
+  "fonte": "CCNL Vigilanza privata e servizi di sicurezza 30/5/2023",
+  "url": "https://filcams.cgil.it/media/ccnl_vigilanza_privata_servizi_sicurezza_30_05_2023"
+ },
+ "colf-badanti": {
+  "nome": "Colf e badanti (lavoro domestico)",
+  "righe": [
+   [
+    "Livelli D e D super, e tutti i conviventi",
+    "30 giorni di lavoro effettivo"
+   ],
+   [
+    "Tutti gli altri rapporti",
+    "8 giorni di lavoro effettivo"
+   ]
+  ],
+  "note": "Il periodo di prova è retribuito. Se lo superi senza disdetta, l'assunzione diventa definitiva e il periodo conta per l'anzianità.",
+  "fonte": "CCNL Lavoro domestico 28/10/2025, art. 12",
+  "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"
+ }
+}
