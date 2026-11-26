@@ -78,3 +78,10 @@ claude-seo (page_checks, parse_html) su home, indice CCNL, Commercio, Scuola sta
 Fatto:
 - Commercio: livelli con numero arabo nei titoli e negli H1 ("4° livello (IV)"), come lo cerca la gente ("commercio 4 livello").
 - Scuola statale: title, H1 e descrizione orientati a "stipendio netto docenti e ATA"; paragrafo con netto a inizio carriera per docente primaria, media/superiori e collaboratore scolastico (numeri dalle pagine esistenti).
+
+## 2026-11-26
+Ricerche (WebSearch, 15 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore non filtra). Concorrenti stabili: pmi.it, money.it, quotidiano.net, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, nettostipendio, omnicalculator, quifinanza; infermiere: randstad, money.it, nettocalc; turismo: lanazione, restworld, businessonline.
+
+claude-seo (page_checks) su home, indice CCNL, UNEBA, Commercio 4°, calcolo TFR, calcolo NASpI: nessun problema; solo /calcolo-naspi/ con title 61 caratteri e description 184.
+
+Nessuna modifica al sito: il branch sorgenti è rimasto indietro rispetto a main (UNEBA, Servizi ambientali, NASpI, TFR, PWA, AdSense e favicon fatti direttamente su main il 25-26/11, script in main/scripts/). La build da sorgenti avrebbe cancellato quel lavoro (271 file cambiati). Serve decidere quale flusso usare d'ora in poi.
