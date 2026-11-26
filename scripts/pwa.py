@@ -1,7 +1,7 @@
 """Collega lo stile Swiss (css/swiss.css), manifest e service worker (app installabile) a tutte le pagine HTML. Idempotente."""
 import glob, re
 MAN = '<link rel="manifest" href="/manifest.webmanifest">'
-SWISS = '<link rel="stylesheet" href="/css/swiss.css?v=2">'
+SWISS = '<link rel="stylesheet" href="/css/swiss.css?v=6">'
 JS = ('<script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));'
       'addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;'
       'b.onclick=()=>{e.prompt();b.hidden=true}})</script>')
