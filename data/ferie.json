@@ -39,12 +39,12 @@
     "4 settimane all'anno (20 giorni con orario su 5 giorni, 24 su 6)"
    ],
    [
-    "Ferie oltre 10 e fino a 18 anni di anzianità",
-    "1 giorno in più"
+    "Oltre 10 e fino a 18 anni di anzianità",
+    "fino al 31/12/2026: 1 giorno di ferie in più; dal 2027: 8 ore di PAR in più"
    ],
    [
-    "Ferie oltre 18 anni di anzianità",
-    "1 settimana in più"
+    "Oltre 18 anni di anzianità",
+    "fino al 31/12/2026: 1 settimana di ferie in più; dal 2027: 40 ore di PAR in più"
    ],
    [
     "Permessi annui retribuiti (PAR)",
@@ -55,9 +55,9 @@
     "124 ore"
    ]
   ],
-  "note": "I lavoratori a turni avvicendati hanno permessi aggiuntivi. Testo del CCNL 2024; il rinnovo firmato a novembre 2025 non è ancora disponibile in versione integrale.",
-  "fonte": "CCNL Metalmeccanici, Sezione IV, Titolo III, art. 5 (PAR) e art. 10 (ferie), testo 11/6/2024",
-  "url": "https://www.crs4.it/repository/documents/trasparenza/site/personale/ccnl/ccnl_metalmeccanici_11-06-2024.pdf"
+  "note": "Dal 1° gennaio 2027 le ferie aggiuntive per anzianità diventano permessi (PAR) a fruizione individuale. I turnisti non siderurgici hanno permessi aggiuntivi, con 4 ore in più dal 2027 (18 o più turni) e altre 4 dal 2028 (21 turni).",
+  "fonte": "CCNL Metalmeccanici 22/11/2025, Sezione IV, Titolo III, art. 5 (PAR) e art. 10 (ferie)",
+  "url": "https://www.fim-cisl.it/wp-content/uploads/2026/09/CCNL-FedermeccanicaAssistal-2025_28.pdf"
  },
  "industria-alimentare": {
   "nome": "Industria alimentare",
