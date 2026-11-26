@@ -157,10 +157,29 @@ details.opt,.opt-more,.fm,.box,.note,.tip{border-radius:8px}
 .res-hero{border-top:0!important}
 /* mobile: sezioni in alto senza scorrimento orizzontale */
 @media (max-width:860px){
-  .nt .nt-tabs{overflow:visible!important;flex-wrap:wrap!important;justify-content:center;gap:2px 6px!important;margin:0!important;padding:0 8px!important}
-  .nt .nt-tab{padding:3px 8px!important;font-size:14px!important}
+  .nt .nt-tabs{overflow:visible!important;flex-wrap:nowrap!important;justify-content:space-between;gap:0!important;margin:0!important;padding:0 6px!important}
+  .nt .nt-tab{padding:8px 4px!important;font-size:12.5px!important;letter-spacing:-.01em}
   .nt .nt-tab svg{display:none}
 }
 /* menu sezioni: mai scorrimento orizzontale, va a capo */
-.nt .nt-tabs{overflow:visible!important;flex-wrap:wrap!important;min-width:0}
+.nt .nt-tabs{overflow:visible!important;flex-wrap:nowrap!important;min-width:0}
 .nt .nt-tabs::-webkit-scrollbar{display:none}
+
+/* tablet: menu su riga intera, una sola riga */
+@media (min-width:861px) and (max-width:1180px){
+  .nt .nt-row{flex-wrap:wrap}
+  .nt .nt-tabs{order:3;flex:1 0 100%!important;margin:4px 0 0!important;justify-content:flex-start}
+}
+/* fino a 860px: menu su riga intera; da telefono etichette corte */
+@media (max-width:860px){
+  .nt .nt-row{flex-wrap:wrap}
+  .nt .nt-tabs{order:3;flex:1 0 100%!important}
+}
+@media (max-width:600px){
+  .nt .nt-tab[href="/stipendio-netto/"] span,.nt .nt-tab[href="/#confronta"] span,.nt .nt-tab[href="/#costo"] span{display:none}
+  .nt .nt-tab[href="/stipendio-netto/"]::after{content:"CCNL"}
+  .nt .nt-tab[href="/#costo"]::after{content:"Costo"}
+  .nt .nt-tab[href="/#netto-lordo"] span{display:none}
+  .nt .nt-tab[href="/#netto-lordo"]::after{content:"Netto→lordo"}
+  .nt .nt-tab[href="/#confronta"]::after{content:"Confronta"}
+}
