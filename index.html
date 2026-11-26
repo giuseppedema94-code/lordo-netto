@@ -1744,7 +1744,7 @@ function render(){
   }
   $("out-na").textContent=eur(x.netto);
   { const show=true; $("out-na-m").hidden=!show; $("out-ral-m").hidden=!(show&&mode==="ln");
-    $("out-na-m").textContent=`${eur(x.netto/12)} al mese, diviso 12`; $("out-ral-m").textContent=`${eur(x.ral/12)} al mese, diviso 12`; }
+    $("out-na-m").textContent=`${eur(x.netto/12)}/12`; $("out-ral-m").textContent=`${eur(x.ral/12)}/12`; }
 
   /* 2. Ripartizione del lordo annuo: netto, contributi, imposte */
   const L=x.ral||1, sContr=x.inps+x.fpLav+x.sanLav, sTax=Math.max(0,x.netta+x.addReg+x.addCom+x.sost-x.bonus-x.ti), sNet=Math.max(0,L-sContr-sTax);
