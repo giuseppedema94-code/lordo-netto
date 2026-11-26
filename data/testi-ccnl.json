@@ -78,15 +78,15 @@
   true
  ],
  "credito-abi": [
-  "https://bancariaeditrice.it/download/GetDownloadSfogliatore/2Cllr0dIJuMZvOkqIu2HbFrseMMvTwcZrXOSKHbFrswgQmXEVr8q3dRs6zrOMAkIxeSkIxeS",
-  "Accordo 19 dicembre 2019 di rinnovo del CCNL (testo precedente: l'ultimo rinnovo è del 23 novembre 2023)",
-  "Bancaria Editrice (ABI)",
+  "https://www.abi.it/en/download/ccnl-23-novembre-2023-per-i-quadri-direttivi-e-per-il-personale-delle-aree-professionali-dipendenti-dalle-imprese-creditizie-finanziarie-e-strumentali-testo-coordinato/?wpdmdl=49186",
+  "CCNL 23 novembre 2023, testo coordinato firmato il 14 luglio 2025 (scaduto il 31/3/2026, resta applicato in attesa del rinnovo)",
+  "ABI",
   true
  ],
  "credito-abi-complementare": [
-  "https://bancariaeditrice.it/download/GetDownloadSfogliatore/2Cllr0dIJuMZvOkqIu2HbFrseMMvTwcZrXOSKHbFrswgQmXEVr8q3dRs6zrOMAkIxeSkIxeS",
-  "Accordo 19 dicembre 2019 di rinnovo del CCNL (testo precedente: l'ultimo rinnovo è del 23 novembre 2023)",
-  "Bancaria Editrice (ABI)",
+  "https://www.abi.it/en/download/ccnl-23-novembre-2023-per-i-quadri-direttivi-e-per-il-personale-delle-aree-professionali-dipendenti-dalle-imprese-creditizie-finanziarie-e-strumentali-testo-coordinato/?wpdmdl=49186",
+  "CCNL 23 novembre 2023, testo coordinato firmato il 14 luglio 2025 (scaduto il 31/3/2026, resta applicato in attesa del rinnovo)",
+  "ABI",
   true
  ],
  "multiservizi-pulizie": [
@@ -117,6 +117,12 @@
   "https://www.fpcgil.it/wp-content/uploads/2025/12/SINTESI-Accordo-ore-2345-del-29-dicembre.pdf",
   "Sintesi dell'accordo di rinnovo del 9 dicembre 2025, con le tabelle",
   "Fp-Cgil",
+  true
+ ],
+ "dirigenti-abi": [
+  "https://www.abi.it/en/download/accordo-di-rinnovo-del-contratto-collettivo-nazionale-di-lavoro-per-i-dirigenti-dipendenti-dalle-imprese-creditizie/?wpdmdl=49184",
+  "Accordo di rinnovo del CCNL dirigenti del 15 luglio 2025 (scadenza 31/7/2028)",
+  "ABI",
   true
  ]
 }
