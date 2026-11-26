@@ -1,4 +1,24 @@
 {
+ "commercio-terziario": {
+  "nome": "Commercio (Confcommercio)",
+  "righe": [
+   [
+    "Quadri e 1° livello",
+    "6 mesi di calendario"
+   ],
+   [
+    "2°, 3°, 4° e 5° livello",
+    "60 giorni di lavoro effettivo"
+   ],
+   [
+    "6° e 7° livello",
+    "45 giorni di lavoro effettivo"
+   ]
+  ],
+  "note": "Se la prova non viene disdetta entro la scadenza, l'assunzione è confermata e il periodo conta per l'anzianità. Testo del CCNL Terziario Confcommercio aggiornato al rinnovo del 22/3/2024.",
+  "fonte": "CCNL Terziario Confcommercio, art. 121",
+  "url": "https://portoantico.it/pubdocs/amministrazione-trasparente/files/terziario-confcommercio-h011.pdf"
+ },
  "metalmeccanici": {
   "nome": "Metalmeccanici (Federmeccanica-Assistal)",
   "righe": [

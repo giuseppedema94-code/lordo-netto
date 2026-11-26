@@ -1,4 +1,34 @@
 {
+ "commercio-terziario": {
+  "nome": "Commercio (Confcommercio)",
+  "ferie": "26 giorni",
+  "permessi": "88-104 ore",
+  "righe": [
+   [
+    "Ferie",
+    "26 giorni lavorativi all'anno, contando la settimana su 6 giorni (lunedì-sabato) qualunque sia l'orario"
+   ],
+   [
+    "Ex festività",
+    "32 ore all'anno, in gruppi di 4 o 8 ore"
+   ],
+   [
+    "ROL, aziende fino a 15 dipendenti",
+    "56 ore all'anno"
+   ],
+   [
+    "ROL, aziende con più di 15 dipendenti",
+    "72 ore all'anno"
+   ],
+   [
+    "Assunti dopo il 1° marzo 2011",
+    "ROL al 50% dopo 2 anni dall'assunzione, al 100% dopo 4 anni (le 32 ore di ex festività spettano subito)"
+   ]
+  ],
+  "note": "I permessi non goduti entro l'anno vanno pagati, oppure si possono usare entro il 30 giugno dell'anno dopo. Con 6 giorni di ferie ogni settimana di ferie godute vale 6 giorni, sabato compreso. Testo aggiornato al rinnovo del 22/3/2024.",
+  "fonte": "CCNL Terziario Confcommercio, artt. 158 e 159",
+  "url": "https://portoantico.it/pubdocs/amministrazione-trasparente/files/terziario-confcommercio-h011.pdf"
+ },
  "metalmeccanici": {
   "nome": "Metalmeccanici (Federmeccanica-Assistal)",
   "ferie": "4 settimane",
