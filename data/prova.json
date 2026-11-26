@@ -118,5 +118,33 @@
   "note": "Il periodo di prova è retribuito. Se lo superi senza disdetta, l'assunzione diventa definitiva e il periodo conta per l'anzianità.",
   "fonte": "CCNL Lavoro domestico 28/10/2025, art. 12",
   "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"
+ },
+ "logistica-trasporto-merci": {
+  "nome": "Logistica, trasporto merci e spedizione",
+  "righe": [
+   [
+    "Quadri",
+    "6 mesi"
+   ],
+   [
+    "1° livello",
+    "5 mesi"
+   ],
+   [
+    "2° livello e conducenti qualifica 3 (A, B, C) e qualifica 2 (D, E, F)",
+    "4 mesi"
+   ],
+   [
+    "3° Super, 3°, 4°, 4° Junior e conducenti qualifica 1 (G, H)",
+    "3 mesi"
+   ],
+   [
+    "Tutti gli altri",
+    "1 mese"
+   ]
+  ],
+  "note": "Malattia e infortunio interrompono la prova. Il periodo di prova deve risultare dalla lettera di assunzione.",
+  "fonte": "CCNL Logistica, trasporto merci e spedizione, testo unico 6/12/2024, art. 5",
+  "url": "https://www.legacoop.coop/wp-content/uploads/2025/10/Nuovo-Testo-Unico-del-CCNL-logistica-trasporto-e-spedizione.pdf"
  }
 }

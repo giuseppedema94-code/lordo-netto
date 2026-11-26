@@ -1,40 +1,392 @@
 {
- "commercio-terziario": {"nome": "Commercio (Confcommercio)", "sintesi": "da 15 a 120 giorni",
+ "commercio-terziario": {
+  "nome": "Commercio (Confcommercio)",
+  "sintesi": "da 15 a 120 giorni",
   "tabelle": [
-   {"titolo": "Licenziamento (giorni di calendario)", "cols": ["Livello", "Fino a 5 anni", "Da 5 a 10 anni", "Oltre 10 anni"],
-    "righe": [["Quadri e I", "60", "90", "120"], ["II e III", "30", "45", "60"], ["IV e V", "20", "30", "45"], ["VI e VII", "15", "20", "20"]]},
-   {"titolo": "Dimissioni (giorni di calendario)", "cols": ["Livello", "Fino a 5 anni", "Da 5 a 10 anni", "Oltre 10 anni"],
-    "righe": [["Quadri e I", "45", "60", "90"], ["II e III", "20", "30", "45"], ["IV e V", "15", "20", "30"], ["VI e VII", "10", "15", "15"]]}],
+   {
+    "titolo": "Licenziamento (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "Quadri e I",
+      "60",
+      "90",
+      "120"
+     ],
+     [
+      "II e III",
+      "30",
+      "45",
+      "60"
+     ],
+     [
+      "IV e V",
+      "20",
+      "30",
+      "45"
+     ],
+     [
+      "VI e VII",
+      "15",
+      "20",
+      "20"
+     ]
+    ]
+   },
+   {
+    "titolo": "Dimissioni (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "Quadri e I",
+      "45",
+      "60",
+      "90"
+     ],
+     [
+      "II e III",
+      "20",
+      "30",
+      "45"
+     ],
+     [
+      "IV e V",
+      "15",
+      "20",
+      "30"
+     ],
+     [
+      "VI e VII",
+      "10",
+      "15",
+      "15"
+     ]
+    ]
+   }
+  ],
   "note": "Il preavviso parte dal 1° o dal 16° giorno del mese. Se ti dimetti senza preavviso, l'azienda può trattenere dalle competenze l'importo dei giorni mancanti, ratei di 13ª e 14ª compresi.",
-  "fonte": "CCNL Terziario Confcommercio, artt. 247 e 254", "url": "https://portoantico.it/pubdocs/amministrazione-trasparente/files/terziario-confcommercio-h011.pdf"},
- "metalmeccanici": {"nome": "Metalmeccanici (Federmeccanica-Assistal)", "sintesi": "da 10 giorni a 4 mesi",
+  "fonte": "CCNL Terziario Confcommercio, artt. 247 e 254",
+  "url": "https://portoantico.it/pubdocs/amministrazione-trasparente/files/terziario-confcommercio-h011.pdf"
+ },
+ "metalmeccanici": {
+  "nome": "Metalmeccanici (Federmeccanica-Assistal)",
+  "sintesi": "da 10 giorni a 4 mesi",
   "tabelle": [
-   {"titolo": "Licenziamento e dimissioni (stessi termini)", "cols": ["Livello", "Fino a 5 anni", "Da 5 a 10 anni", "Oltre 10 anni"],
-    "righe": [["B2, B3 e A1", "2 mesi", "3 mesi", "4 mesi"], ["C2, C3 e B1", "1 mese e 15 giorni", "2 mesi", "2 mesi e 15 giorni"], ["D1, D2 e C1", "10 giorni", "20 giorni", "1 mese"]]}],
+   {
+    "titolo": "Licenziamento e dimissioni (stessi termini)",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "B2, B3 e A1",
+      "2 mesi",
+      "3 mesi",
+      "4 mesi"
+     ],
+     [
+      "C2, C3 e B1",
+      "1 mese e 15 giorni",
+      "2 mesi",
+      "2 mesi e 15 giorni"
+     ],
+     [
+      "D1, D2 e C1",
+      "10 giorni",
+      "20 giorni",
+      "1 mese"
+     ]
+    ]
+   }
+  ],
   "note": "Il preavviso si conta dal giorno dopo il ricevimento della lettera. Durante il preavviso di licenziamento l'azienda concede permessi per cercare un nuovo lavoro. Testo del CCNL 2024.",
-  "fonte": "CCNL Metalmeccanici, Sezione IV, Titolo VIII, art. 1", "url": "https://www.crs4.it/repository/documents/trasparenza/site/personale/ccnl/ccnl_metalmeccanici_11-06-2024.pdf"},
- "industria-alimentare": {"nome": "Industria alimentare", "sintesi": "da 12 a 150 giorni",
+  "fonte": "CCNL Metalmeccanici, Sezione IV, Titolo VIII, art. 1",
+  "url": "https://www.crs4.it/repository/documents/trasparenza/site/personale/ccnl/ccnl_metalmeccanici_11-06-2024.pdf"
+ },
+ "industria-alimentare": {
+  "nome": "Industria alimentare",
+  "sintesi": "da 12 a 150 giorni",
   "tabelle": [
-   {"titolo": "Impiegati, licenziamento (giorni di calendario)", "cols": ["Livello", "Meno di 3 anni", "Da 3 a 7 anni", "Oltre 7 anni"],
-    "righe": [["1° Super e 1°", "90", "120", "150"], ["2°", "40", "60", "90"], ["3° e 3° A", "30", "45", "60"], ["Altri livelli", "20", "40", "50"]]},
-   {"titolo": "Intermedi (giorni di calendario)", "cols": ["Livello", "Meno di 4 anni", "Da 4 a 7 anni", "Oltre 7 anni"],
-    "righe": [["2°", "30", "55", "70"], ["3° A", "15", "30", "45"]]},
-   {"titolo": "Operai, licenziamento e dimissioni", "cols": ["Anzianità", "Preavviso"],
-    "righe": [["Fino a 4 anni", "12 giorni di calendario"], ["Oltre 4 anni", "20 giorni di calendario"]]}],
+   {
+    "titolo": "Impiegati, licenziamento (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Meno di 3 anni",
+     "Da 3 a 7 anni",
+     "Oltre 7 anni"
+    ],
+    "righe": [
+     [
+      "1° Super e 1°",
+      "90",
+      "120",
+      "150"
+     ],
+     [
+      "2°",
+      "40",
+      "60",
+      "90"
+     ],
+     [
+      "3° e 3° A",
+      "30",
+      "45",
+      "60"
+     ],
+     [
+      "Altri livelli",
+      "20",
+      "40",
+      "50"
+     ]
+    ]
+   },
+   {
+    "titolo": "Intermedi (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Meno di 4 anni",
+     "Da 4 a 7 anni",
+     "Oltre 7 anni"
+    ],
+    "righe": [
+     [
+      "2°",
+      "30",
+      "55",
+      "70"
+     ],
+     [
+      "3° A",
+      "15",
+      "30",
+      "45"
+     ]
+    ]
+   },
+   {
+    "titolo": "Operai, licenziamento e dimissioni",
+    "cols": [
+     "Anzianità",
+     "Preavviso"
+    ],
+    "righe": [
+     [
+      "Fino a 4 anni",
+      "12 giorni di calendario"
+     ],
+     [
+      "Oltre 4 anni",
+      "20 giorni di calendario"
+     ]
+    ]
+   }
+  ],
   "note": "Per le dimissioni degli impiegati i termini sono dimezzati. Per gli impiegati il preavviso decorre dalla metà o dalla fine del mese. Durante il preavviso l'azienda concede permessi per cercare un nuovo lavoro. Birra e macellazione avicola hanno tabelle proprie.",
-  "fonte": "CCNL Industria alimentare 2023-2027, art. 72", "url": "https://www.flai.it/wp-content/uploads/2018/11/CCNL-Industria-Alimentare-2023-2027.pdf"},
- "studi-professionali": {"nome": "Studi professionali (Confprofessioni)", "sintesi": "da 10 a 150 giorni",
+  "fonte": "CCNL Industria alimentare 2023-2027, art. 72",
+  "url": "https://www.flai.it/wp-content/uploads/2018/11/CCNL-Industria-Alimentare-2023-2027.pdf"
+ },
+ "studi-professionali": {
+  "nome": "Studi professionali (Confprofessioni)",
+  "sintesi": "da 10 a 150 giorni",
   "tabelle": [
-   {"titolo": "Licenziamento (giorni di calendario)", "cols": ["Livello", "Fino a 5 anni", "Da 5 a 10 anni", "Oltre 10 anni"],
-    "righe": [["Quadri e I", "90", "120", "150"], ["II", "60", "90", "120"], ["III Super e III", "30", "40", "50"], ["IV Super e IV", "20", "30", "40"], ["V", "15", "20", "25"]]},
-   {"titolo": "Dimissioni (giorni di calendario)", "cols": ["Livello", "Fino a 5 anni", "Da 5 a 10 anni", "Oltre 10 anni"],
-    "righe": [["Quadri e I", "75", "105", "135"], ["II", "60", "90", "120"], ["III Super e III", "28", "35", "42"], ["IV Super e IV", "15", "25", "30"], ["V", "10", "15", "25"]]}],
+   {
+    "titolo": "Licenziamento (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "Quadri e I",
+      "90",
+      "120",
+      "150"
+     ],
+     [
+      "II",
+      "60",
+      "90",
+      "120"
+     ],
+     [
+      "III Super e III",
+      "30",
+      "40",
+      "50"
+     ],
+     [
+      "IV Super e IV",
+      "20",
+      "30",
+      "40"
+     ],
+     [
+      "V",
+      "15",
+      "20",
+      "25"
+     ]
+    ]
+   },
+   {
+    "titolo": "Dimissioni (giorni di calendario)",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "Quadri e I",
+      "75",
+      "105",
+      "135"
+     ],
+     [
+      "II",
+      "60",
+      "90",
+      "120"
+     ],
+     [
+      "III Super e III",
+      "28",
+      "35",
+      "42"
+     ],
+     [
+      "IV Super e IV",
+      "15",
+      "25",
+      "30"
+     ],
+     [
+      "V",
+      "10",
+      "15",
+      "25"
+     ]
+    ]
+   }
+  ],
   "note": "Il preavviso parte dal 1° o dal 16° giorno del mese. Vale anche per il part-time, con gli stessi giorni del tempo pieno.",
-  "fonte": "CCNL Studi professionali, artt. 50 e 146", "url": "https://confprofessioni.eu/wp-content/uploads/2026/07/00274046_CCNL_Studi_Professionali_2026.04.10_completo.pdf"},
- "colf-badanti": {"nome": "Colf e badanti (lavoro domestico)", "sintesi": "da 8 a 30 giorni",
+  "fonte": "CCNL Studi professionali, artt. 50 e 146",
+  "url": "https://confprofessioni.eu/wp-content/uploads/2026/07/00274046_CCNL_Studi_Professionali_2026.04.10_completo.pdf"
+ },
+ "colf-badanti": {
+  "nome": "Colf e badanti (lavoro domestico)",
+  "sintesi": "da 8 a 30 giorni",
   "tabelle": [
-   {"titolo": "Licenziamento (giorni di calendario)", "cols": ["Orario settimanale", "Anzianità", "Preavviso"],
-    "righe": [["25 ore o più", "Fino a 5 anni", "15 giorni"], ["25 ore o più", "Oltre 5 anni", "30 giorni"], ["Meno di 25 ore", "Fino a 2 anni", "8 giorni"], ["Meno di 25 ore", "Oltre 2 anni", "15 giorni"]]}],
+   {
+    "titolo": "Licenziamento (giorni di calendario)",
+    "cols": [
+     "Orario settimanale",
+     "Anzianità",
+     "Preavviso"
+    ],
+    "righe": [
+     [
+      "25 ore o più",
+      "Fino a 5 anni",
+      "15 giorni"
+     ],
+     [
+      "25 ore o più",
+      "Oltre 5 anni",
+      "30 giorni"
+     ],
+     [
+      "Meno di 25 ore",
+      "Fino a 2 anni",
+      "8 giorni"
+     ],
+     [
+      "Meno di 25 ore",
+      "Oltre 2 anni",
+      "15 giorni"
+     ]
+    ]
+   }
+  ],
   "note": "Con 25 ore settimanali o più, chi si dimette dà metà del preavviso. Se il datore licenzia entro 30 giorni dalla fine del congedo di maternità, il preavviso raddoppia. Portieri e custodi con alloggio: 30 giorni fino a un anno, 60 oltre. Senza preavviso si paga l'indennità sostitutiva.",
-  "fonte": "CCNL Lavoro domestico 28/10/2025, art. 40", "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"}
+  "fonte": "CCNL Lavoro domestico 28/10/2025, art. 40",
+  "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"
+ },
+ "logistica-trasporto-merci": {
+  "nome": "Logistica, trasporto merci e spedizione",
+  "sintesi": "da 6 giorni a 4 mesi e mezzo",
+  "tabelle": [
+   {
+    "titolo": "Impiegati, licenziamento",
+    "cols": [
+     "Livello",
+     "Fino a 5 anni",
+     "Da 5 a 10 anni",
+     "Oltre 10 anni"
+    ],
+    "righe": [
+     [
+      "Quadri e 1° livello",
+      "2 mesi e 15 giorni",
+      "3 mesi e 15 giorni",
+      "4 mesi e 15 giorni"
+     ],
+     [
+      "2° livello",
+      "1 mese e 15 giorni",
+      "2 mesi",
+      "2 mesi e 15 giorni"
+     ],
+     [
+      "Altri livelli",
+      "1 mese",
+      "1 mese e 15 giorni",
+      "2 mesi"
+     ]
+    ]
+   },
+   {
+    "titolo": "Operai e personale viaggiante",
+    "cols": [
+     "Qualifica",
+     "Preavviso"
+    ],
+    "righe": [
+     [
+      "Operai",
+      "6 giorni lavorativi"
+     ],
+     [
+      "Viaggianti qualifica 3 (A, B, C)",
+      "20 giorni di calendario"
+     ],
+     [
+      "Viaggianti qualifica 2 (D, E, F)",
+      "15 giorni di calendario"
+     ]
+    ]
+   }
+  ],
+  "note": "Per le dimissioni degli impiegati i termini si dimezzano. Per gli impiegati il preavviso parte dal 1° o dal 16° del mese. Durante il preavviso spettano 2 ore al giorno o 12 a settimana di permesso per cercare lavoro, retribuite in caso di licenziamento.",
+  "fonte": "CCNL Logistica, trasporto merci e spedizione, testo unico 6/12/2024, art. 36",
+  "url": "https://www.legacoop.coop/wp-content/uploads/2025/10/Nuovo-Testo-Unico-del-CCNL-logistica-trasporto-e-spedizione.pdf"
+ }
 }
