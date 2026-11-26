@@ -112,7 +112,7 @@ header.nt{background:var(--hero)!important;border-bottom:0!important}
 .cmp-win.up b,.cmp-t .up{color:var(--accent)}
 
 /* Barra del netto su mobile */
-.mbar{background:var(--ink);color:var(--on-ink);border-radius:8px}
+.mbar{background:var(--ink);color:var(--on-ink);border-radius:10px 10px 0 0}
 .mbar strong{color:var(--on-ink)}
 
 /* Allineamento delle due colonne: i filetti partono alla stessa altezza e coprono tutta la larghezza */

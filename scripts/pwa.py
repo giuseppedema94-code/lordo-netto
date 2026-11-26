@@ -2,7 +2,7 @@
 import glob, re
 MAN = '<link rel="manifest" href="/manifest.webmanifest">'
 TC = '<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">\n<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111316">'
-SWISS = '<link rel="stylesheet" href="/css/swiss.css?v=9">'
+SWISS = '<link rel="stylesheet" href="/css/swiss.css?v=10">'
 JS = ('<script id="pwa">if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));'
       'addEventListener("beforeinstallprompt",e=>{e.preventDefault();const b=document.getElementById("pwa-btn");if(!b)return;b.hidden=false;'
       'b.onclick=()=>{e.prompt();b.hidden=true}})</script>')
