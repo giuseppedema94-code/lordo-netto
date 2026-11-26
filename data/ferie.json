@@ -1,0 +1,114 @@
+{
+ "metalmeccanici": {
+  "nome": "Metalmeccanici (Federmeccanica-Assistal)",
+  "ferie": "4 settimane",
+  "permessi": "104 ore",
+  "righe": [
+   [
+    "Ferie",
+    "4 settimane all'anno (20 giorni con orario su 5 giorni, 24 su 6)"
+   ],
+   [
+    "Ferie oltre 10 e fino a 18 anni di anzianità",
+    "1 giorno in più"
+   ],
+   [
+    "Ferie oltre 18 anni di anzianità",
+    "1 settimana in più"
+   ],
+   [
+    "Permessi annui retribuiti (PAR)",
+    "104 ore: 13 permessi da 8 ore, di cui 72 ore di riduzione d'orario e 32 ore al posto delle festività abolite"
+   ],
+   [
+    "PAR nel settore siderurgico",
+    "124 ore"
+   ]
+  ],
+  "note": "I lavoratori a turni avvicendati hanno permessi aggiuntivi. Testo del CCNL 2024; il rinnovo firmato a novembre 2025 non è ancora disponibile in versione integrale.",
+  "fonte": "CCNL Metalmeccanici, Sezione IV, Titolo III, art. 5 (PAR) e art. 10 (ferie), testo 11/6/2024",
+  "url": "https://www.crs4.it/repository/documents/trasparenza/site/personale/ccnl/ccnl_metalmeccanici_11-06-2024.pdf"
+ },
+ "industria-alimentare": {
+  "nome": "Industria alimentare",
+  "ferie": "22 giorni",
+  "permessi": "108 ore",
+  "righe": [
+   [
+    "Ferie con orario su 5 giorni",
+    "22 giorni lavorativi (173 ore)"
+   ],
+   [
+    "Ferie con orario su 6 giorni",
+    "26 giorni lavorativi (173 ore)"
+   ],
+   [
+    "Riduzione d'orario (ROL)",
+    "76 ore all'anno, 80 dal 1° gennaio 2027"
+   ],
+   [
+    "Festività abolite",
+    "32 ore all'anno, in gruppi di 8 ore"
+   ]
+  ],
+  "note": "Le festività che cadono durante le ferie le allungano di un giorno. I turnisti hanno riduzioni d'orario aggiuntive.",
+  "fonte": "CCNL Industria alimentare 2023-2027, artt. 34 e 35",
+  "url": "https://www.flai.it/wp-content/uploads/2018/11/CCNL-Industria-Alimentare-2023-2027.pdf"
+ },
+ "studi-professionali": {
+  "nome": "Studi professionali (Confprofessioni)",
+  "ferie": "22 giorni",
+  "permessi": "72 ore",
+  "righe": [
+   [
+    "Ferie con settimana corta (lunedì-venerdì)",
+    "22 giorni lavorativi"
+   ],
+   [
+    "Ferie con orario su 6 giorni",
+    "26 giorni lavorativi"
+   ],
+   [
+    "Riduzione d'orario con orario su 5 giorni",
+    "40 ore all'anno"
+   ],
+   [
+    "Riduzione d'orario con orario su 6 giorni",
+    "66 ore all'anno"
+   ],
+   [
+    "Festività abolite",
+    "32 ore all'anno, oppure pagate se non godute"
+   ]
+  ],
+  "note": "Per chi è assunto durante la vigenza del contratto la riduzione d'orario matura al 50% dal 12° mese e al 75% dal 24° mese. La malattia durante le ferie le interrompe.",
+  "fonte": "CCNL Studi professionali, artt. 91, 98 e 99",
+  "url": "https://confprofessioni.eu/wp-content/uploads/2026/07/00274046_CCNL_Studi_Professionali_2026.04.10_completo.pdf"
+ },
+ "colf-badanti": {
+  "nome": "Colf e badanti (lavoro domestico)",
+  "ferie": "26 giorni",
+  "permessi": "12-16 ore",
+  "righe": [
+   [
+    "Ferie",
+    "26 giorni lavorativi all'anno, qualunque sia l'orario"
+   ],
+   [
+    "Permessi retribuiti per visite mediche e pratiche, conviventi",
+    "16 ore all'anno (12 per i conviventi con orario ridotto fino a 30 ore)"
+   ],
+   [
+    "Permessi retribuiti, non conviventi da 30 ore settimanali in su",
+    "12 ore all'anno"
+   ],
+   [
+    "Permessi retribuiti, non conviventi sotto 30 ore",
+    "12 ore riproporzionate all'orario"
+   ]
+  ],
+  "note": "I permessi valgono per visite mediche documentate, rinnovo del permesso di soggiorno e ricongiungimento familiare. Chi è pagato a ore riceve per ogni giorno di ferie 1/6 dell'orario settimanale.",
+  "fonte": "CCNL Lavoro domestico 28/10/2025, artt. 17 e 19",
+  "url": "https://lavorodomestico.assindatcolf.it/wp-content/uploads/2026/04/CCNL.pdf"
+ }
+}
