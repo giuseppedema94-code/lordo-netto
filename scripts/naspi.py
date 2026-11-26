@@ -14,7 +14,7 @@ FAQ = [
  ("Quanto dura la NASpI?",
   "Metà delle settimane con contributi negli ultimi quattro anni: con quattro anni pieni di lavoro, 104 settimane, cioè circa 24 mesi."),
  ("La NASpI è lorda o netta?",
-  "Gli importi sono lordi. INPS trattiene l'IRPEF applicando le detrazioni per lavoro dipendente, quindi il netto dipende dagli altri redditi dell'anno."),
+  "Gli importi sono lordi. INPS trattiene l'IRPEF; le detrazioni per lavoro dipendente si applicano se le chiedi nella domanda, e il netto dipende anche dagli altri redditi dell'anno."),
  ("Quando inizia la riduzione del 3%?",
   "Dal primo giorno del sesto mese di NASpI, oppure dell'ottavo se alla data della domanda hai almeno 55 anni. Ogni mese il 3% si toglie dall'importo del mese prima."),
 ]
@@ -44,10 +44,10 @@ MAIN = f'''<main class="w"><div class="crumb">Calcolo NASpI</div><h1>Calcolo NAS
 <ul>
 <li>Chi perde il lavoro senza volerlo: licenziamento, fine di un contratto a termine, dimissioni per giusta causa, risoluzione consensuale nella procedura di conciliazione.</li>
 <li>Servono almeno 13 settimane di contributi negli ultimi quattro anni.</li>
-<li>Se nei 12 mesi prima ti sei dimesso volontariamente da un altro lavoro, le 13 settimane devono essere maturate nel nuovo rapporto.</li>
+<li>Se nei 12 mesi prima ti sei dimesso volontariamente da un altro lavoro, le 13 settimane devono essere maturate nel nuovo rapporto, salvo alcune eccezioni come le dimissioni per giusta causa.</li>
 <li>La domanda si presenta all'INPS entro 68 giorni dalla fine del rapporto, anche tramite patronato.</li>
 </ul>
-<p class="note">Stima con le regole 2026 del D.Lgs. 22/2015 e della <a href="https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2026.01.integrazione-salariale-assegni-disoccupazione-e-fondi-importi-2026.html" rel="noopener">circolare INPS n. 4 del 28 gennaio 2026</a>. Importi lordi: INPS trattiene l'IRPEF con le detrazioni per lavoro dipendente. Importo e durata ufficiali li stabilisce INPS quando accoglie la domanda. <a href="https://www.inps.it/it/it/dettaglio-scheda.it.schede-servizio-strumento.schede-servizi.50593.naspi-indennit-mensile-di-disoccupazione.html" rel="noopener">Scheda INPS sulla NASpI</a>.</p>
+<p class="note">Stima con le regole 2026 del D.Lgs. 22/2015 e della <a href="https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2026.01.integrazione-salariale-assegni-disoccupazione-e-fondi-importi-2026.html" rel="noopener">circolare INPS n. 4 del 28 gennaio 2026</a>. Importi lordi: INPS trattiene l'IRPEF; le detrazioni per lavoro dipendente si applicano se le chiedi nella domanda. Importo e durata ufficiali li stabilisce INPS quando accoglie la domanda. <a href="https://www.inps.it/it/it/dettaglio-scheda.it.schede-servizio-strumento.schede-servizi.50593.naspi-indennit-mensile-di-disoccupazione.html" rel="noopener">Scheda INPS sulla NASpI</a>.</p>
 <p>Vuoi sapere quanto prendi oggi di stipendio netto? <a href="/">Calcola il netto in busta</a> o cerca il tuo <a href="/stipendio-netto/">contratto e livello</a>.</p>
 <h2>Domande frequenti</h2>
 ''' + "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in FAQ) + '''
