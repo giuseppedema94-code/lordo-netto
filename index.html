@@ -405,6 +405,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:18px}
 .theme-btn{flex:none;background:transparent;border:1px solid var(--bd);color:var(--ink2);border-radius:var(--ri);padding:5px 10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}.theme-btn:hover{border-color:var(--ink);color:var(--ink)}
 footer .flinks{display:flex;flex-wrap:wrap;gap:4px 18px}
 .ccnl-tag{margin-right:12px;color:var(--ink2);font-weight:600}
+#ca-tab tr.ca-di td{font-size:.88em;color:var(--muted,#6b7280)}#ca-tab tr.ca-di td:first-child{padding-left:18px}
 </style>
 <style>
 .nt{background:var(--card);border-bottom:1px solid var(--line)}
@@ -1724,9 +1725,10 @@ function render(){
   const bonM=$("bnMens").checked&&x0!==x?x.netto-x0.netto:0; // netto intero dei bonus, nella busta del mese in cui sono pagati
   const aggSel=+$("mensAgg").value, ag=aggSel&&mens>aggSel-1?mensAgg(x0,o,mens,b,aggSel===14?Math.min(1,mens-13):1):null; // 13ª o 14ª nella busta del mese
   const netMv=b.netM+bonM+(ag?ag.net:0); last={x,mens,b}; curSum=offSum(x,b,o,mens);
-  { const c=costoAzienda(x,o), r=(l,v)=>v>0.004?`<tr><td>${l}</td><td>${eur(v,2)}</td></tr>`:"";
+  { const c=costoAzienda(x,o), r=(l,v)=>v>0.004?`<tr><td>${l}</td><td>${eur(v,2)}</td></tr>`:"", d=(l,v)=>v>0.004?`<tr class="ca-di"><td>di cui ${l}</td><td>${eur(v,2)}</td></tr>`:"";
+    const bon=(x.mbo||0)+(x.pdr||0), c0=x0===x?c:costoAzienda(x0,o), bInps=c.inps-c0.inps, bInail=c.inail-c0.inail, bTfr=c.tfr-c0.tfr, bFp=c.fp+c.sol-c0.fp-c0.sol, bTot=c.tot-c0.tot;
     $("ca-tot").textContent=`${eur(c.tot)} l'anno`;
-    $("ca-tab").innerHTML=`<tbody>${r("Retribuzione lorda (imponibile INPS)",c.ral)}${r("Contributi INPS azienda, "+pct(o.caInps),c.inps)}${r("INAIL, "+pct(o.caInail),c.inail)}${r("TFR maturato (1/13,5 della retribuzione utile)",c.tfr)}${r("Fondo pensione, quota azienda",c.fp)}${r("Cassa sanitaria, quota azienda",c.san)}${r("Contributo di solidarietà 10% su fondo pensione e cassa sanitaria",c.sol)}${r(`Buoni pasto, ${eur(o.caBp,2)} × ${fmtIt(o.caBpG)} giorni × 12`,c.bp)}${r("Welfare aziendale",c.welf)}${r("Rimborsi spese",c.rimb)}</tbody><tfoot><tr><th>Costo totale</th><td>${eur(c.tot,2)}</td></tr></tfoot>`;
+    $("ca-tab").innerHTML=`<tbody>${r("Retribuzione lorda (imponibile INPS)",c.ral)}${d("bonus (MBO e premio di risultato)",bon)}${r("Contributi INPS azienda, "+pct(o.caInps),c.inps)}${d("sul bonus",bInps)}${r("INAIL, "+pct(o.caInail),c.inail)}${d("sul bonus",bInail)}${r("TFR maturato (1/13,5 della retribuzione utile)",c.tfr)}${d("sul bonus",bTfr)}${r("Fondo pensione, quota azienda",c.fp)}${r("Cassa sanitaria, quota azienda",c.san)}${r("Contributo di solidarietà 10% su fondo pensione e cassa sanitaria",c.sol)}${d("fondo pensione e solidarietà sul bonus",bFp)}${r(`Buoni pasto, ${eur(o.caBp,2)} × ${fmtIt(o.caBpG)} giorni × 12`,c.bp)}${r("Welfare aziendale",c.welf)}${r("Rimborsi spese",c.rimb)}</tbody><tfoot><tr><th>Costo totale</th><td>${eur(c.tot,2)}</td></tr>${bon>0.004?`<tr class="ca-di"><td>di cui costo del bonus</td><td>${eur(bTot,2)}</td></tr>`:""}</tfoot>`;
     $("ca-note").textContent=`${eur(c.tot/12)} al mese su 12 mesi. Per ogni euro netto che ricevi, l'azienda spende ${fmtIt(Math.round(c.tot/Math.max(1,x.netto)*100)/100)} €. Stima: l'aliquota INPS e l'INAIL sono valori indicativi, modificabili nei dettagli facoltativi.`; }
 
   /* 1. Il numero che conta */
