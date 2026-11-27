@@ -85,3 +85,13 @@ Ricerche (WebSearch, 15 query + site:): stipendioccnl.it ancora assente in tutte
 claude-seo (page_checks) su home, indice CCNL, UNEBA, Commercio 4°, calcolo TFR, calcolo NASpI: nessun problema; solo /calcolo-naspi/ con title 61 caratteri e description 184.
 
 Nessuna modifica al sito: il branch sorgenti è rimasto indietro rispetto a main (UNEBA, Servizi ambientali, NASpI, TFR, PWA, AdSense e favicon fatti direttamente su main il 25-26/11, script in main/scripts/). La build da sorgenti avrebbe cancellato quel lavoro (271 file cambiati). Serve decidere quale flusso usare d'ora in poi.
+
+## 2026-11-27
+Ricerche (WebSearch, 15 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore non filtra). Concorrenti stabili: pmi.it, money.it, quotidiano.net, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, nettostipendio, omnicalculator, quifinanza; nuove query "calcolo TFR 2026" (money.it, pmi.it, rivaluta.it, coverflex, fiscoetasse) e "calcolo NASpI 2026" (pmi.it, money.it, finanza.com, centrofiscale, leggeinchiaro). SERP deboli: lordo netto, netto a lordo, docente, costo azienda, colf/badanti, turismo, quattordicesima.
+
+claude-seo (page_checks) su home, indice CCNL, Commercio, Metalmeccanici, calcolo NASpI, calcolo TFR: nessun problema tranne title (61) e description (184) di /calcolo-naspi/.
+
+Il branch sorgenti resta indietro rispetto a main (12 commit di stile del 26/11 fatti su main); build da sorgenti non eseguita per non cancellarli.
+
+Fatto (direttamente su main, con lo script main/scripts/naspi.py):
+- /calcolo-naspi/: title "Calcolo NASpI 2026: importo e durata mese per mese" (50) e description di 136 caratteri. Inviato a IndexNow.
