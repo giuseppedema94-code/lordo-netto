@@ -29,5 +29,6 @@ for p in glob.glob('**/*.html', recursive=True):
         s = re.sub(r'(<footer>.*?)(</div></footer>)', lambda m: m.group(1) + BTN + m.group(2), s, count=1, flags=re.S)
     s = re.sub(r'<nav class="ft-g".*?</nav>', '', s, flags=re.S)
     s = s.replace('<footer><div class="w">', '<footer><div class="w">' + NAV, 1)
+    s = s.replace('<footer>\n  <div class="wrap">\n', '<footer>\n  <div class="wrap">\n' + NAV + '\n', 1)
     if s != o: open(p, 'w').write(s); n += 1
 print(n, 'pagine')
