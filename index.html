@@ -2153,7 +2153,8 @@ function buildSnap(){
   const cl=$("risultato").cloneNode(true);
   cl.removeAttribute("id"); cl.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
   cl.querySelectorAll("details").forEach(d=>d.open=true);
-  cl.querySelectorAll(".res-disc").forEach(n=>n.remove());
+  cl.querySelectorAll(".res-disc,.tips").forEach(n=>n.remove());
+  cl.querySelectorAll("h3").forEach(h=>{ if(h.textContent.trim()==="Consigli") h.closest(".det-head")?.parentElement?.remove(); });
   // confronto in versione "vetrina": niente pulsanti, etichette di modifica, suggerimenti né campi
   cl.querySelectorAll(".cmp-bar,.cmp-x,.oc-tag,.cmp-sub,.split-h,.res-body>.bar,.res-body>.legend,.det-note").forEach(n=>n.remove());
   cl.querySelectorAll(".oc-n input").forEach(i=>{ const b=document.createElement("b"); b.textContent=i.value; i.replaceWith(b); });
