@@ -5,9 +5,9 @@ from pathlib import Path
 R = Path(__file__).resolve().parent.parent
 SOGLIA, MAX = 1456.72, 1584.70
 URL = "https://stipendioccnl.it/calcolo-naspi/"
-TITLE = "Calcolo NASpI 2026: importo, durata e riduzione mese per mese"
-DESC = ("Calcolo NASpI 2026 dalla RAL: 75% della retribuzione media fino a 1.456,72 €, massimo 1.584,70 € al mese, "
-        "durata pari a metà delle settimane lavorate e riduzione del 3% dal sesto mese.")
+TITLE = "Calcolo NASpI 2026: importo e durata mese per mese"
+DESC = ("Calcolo NASpI 2026 dalla RAL: 75% della retribuzione fino a 1.456,72 €, massimo 1.584,70 € al mese, "
+        "durata e calo del 3% dal sesto mese.")
 FAQ = [
  ("Quanto prende di NASpI chi guadagna 25.000 € lordi l'anno?",
   "Circa 1.249 € lordi al mese nei primi cinque mesi: la retribuzione media mensile è di 2.082 €, quindi 75% di 1.456,72 € più 25% della parte oltre la soglia. Dal sesto mese l'importo cala del 3% al mese."),
