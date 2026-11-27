@@ -183,3 +183,5 @@ details.opt,.opt-more,.fm,.box,.note,.tip{border-radius:8px}
   .nt .nt-tab[href="/#netto-lordo"]::after{content:"Netto→lordo"}
   .nt .nt-tab[href="/#confronta"]::after{content:"Confronta"}
 }
+/* link guide nel footer */
+.ft-g{display:block;margin:0 0 12px;line-height:1.9}.ft-g b{margin-right:4px}
