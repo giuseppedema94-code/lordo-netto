@@ -100,7 +100,7 @@ document.querySelectorAll('input[name="c-tipo"]').forEach(e=>e.addEventListener(
 ["c-liv","c-ore","c-det"].forEach(id=>{$(id).addEventListener("input",calc);$(id).addEventListener("change",calc);}); calc();
 })();
 </script></main>'''
-TITLE = "Costo colf e badante 2026: calcolo per la famiglia e contributi INPS"
+TITLE = "Costo colf e badante 2026: calcolo e contributi INPS"
 DESC = f"Quanto costa una colf o una badante nel 2026: paga, tredicesima, TFR, contributi INPS trimestrali e Cassa Colf. Badante convivente BS circa {eur(E['tot']/12)} € al mese."
 ld = {"@context": "https://schema.org", "@graph": [
   {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://stipendioccnl.it/"},

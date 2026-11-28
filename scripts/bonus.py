@@ -23,7 +23,7 @@ BONUS = [
  ("Bonus sociali luce e gas", "Sconto automatico in bolletta", "ISEE fino a 9.796 € (soglia più alta per le famiglie numerose)", "ARERA", "https://www.arera.it/consumatori/bonus-sociale"),
 ]
 url = "https://stipendioccnl.it/bonus-isee/"
-title = "Bonus ISEE 2026: assegno unico, nido, nuovi nati, carta Dedicata a te"
+title = "Bonus ISEE 2026: assegno unico, nido e nuovi nati"
 desc = "Bonus e assegni 2026 per ISEE: importi e soglie dalle circolari INPS, con il calcolo dell'assegno unico per figlio in base al tuo ISEE."
 faq = [("Quanto è l'assegno unico 2026?", "Da 203,80 € al mese per figlio minorenne con ISEE fino a 17.468,51 € a 58,30 € con ISEE oltre 46.582,71 € o senza ISEE (circolare INPS 7/2026), più eventuali maggiorazioni."),
        ("Qual è la soglia ISEE del bonus nuovi nati 2026?", "40.000 €, calcolati senza contare l'assegno unico. Il bonus vale 1.000 € per ogni figlio nato o adottato nel 2026."),
