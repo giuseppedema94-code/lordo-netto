@@ -95,3 +95,13 @@ Il branch sorgenti resta indietro rispetto a main (12 commit di stile del 26/11 
 
 Fatto (direttamente su main, con lo script main/scripts/naspi.py):
 - /calcolo-naspi/: title "Calcolo NASpI 2026: importo e durata mese per mese" (50) e description di 136 caratteri. Inviato a IndexNow.
+
+## 2026-11-28
+Ricerche (WebSearch, 15 query + site:): stipendioccnl.it ancora assente in tutte, anche sul marchio; site: 0 risultati (operatore non filtra). Concorrenti stabili: pmi.it, money.it, quotidiano.net, fiscoetasse, partitaiva, lexplain, stipendionettocalcolatore, quifinanza; nuove query "calcolo tredicesima netta" (pmi.it, namirial, sky tg24, money.it) e "quattordicesima netta 2026" (quifinanza, sky tg24, pmi.it, centrofiscale). SERP deboli: lordo netto, netto a lordo (omnicalculator, siti svizzeri), costo azienda (indeed, randstad, qonto).
+
+claude-seo (page_checks) su home, indice CCNL, Metalmeccanici, tredicesima, bonus ISEE, costo colf: nessun problema tranne title oltre 60 caratteri su /bonus-isee/ (69) e /costo-colf-badante/ (68).
+
+Fatto (direttamente su main, script main/scripts/bonus.py e colf.py aggiornati):
+- /bonus-isee/: title "Bonus ISEE 2026: assegno unico, nido e nuovi nati" (49).
+- /costo-colf-badante/: title "Costo colf e badante 2026: calcolo e contributi INPS" (52).
+- lastmod in sitemap per le due pagine; inviate a IndexNow (200).
